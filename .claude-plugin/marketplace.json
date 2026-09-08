@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "vibe-skills",
+  "version": "1.0.0",
+  "description": "Скиллы курса «Вайб-сайты» Академии Интернет Маркетинга: подбор заказов на Kwork, сборка сайтов и поиск клиентов через Claude Code",
+  "owner": {
+    "name": "Евгений Андрианов, Академия Интернет Маркетинга",
+    "email": "andrianov28@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "kwork-podborka",
+      "description": "Подборка заказов на Kwork: Клод сам читает биржу, отбирает свежие простые сайты с нуля и пишет черновики откликов",
+      "version": "2.1.0",
+      "source": "./plugins/kwork-podborka",
+      "category": "productivity",
+      "keywords": ["kwork", "фриланс", "заказы", "вайб-сайты"]
+    }
+  ]
+}
