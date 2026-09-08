@@ -10,3 +10,7 @@
 /plugin marketplace add andrianov28/vibe-skills
 /plugin install kwork-podborka@vibe-skills
 ```
+
+## Автор
+
+Евгений Андрианов, [Академия Интернет Маркетинга](https://academymarketing.ru)
