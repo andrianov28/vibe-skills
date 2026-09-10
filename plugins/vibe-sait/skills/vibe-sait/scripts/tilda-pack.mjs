@@ -35,6 +35,8 @@ let body = bodyMatch ? bodyMatch[1] : html;
 const headStyles = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1]).join("\n");
 body = body.replace(/<link[^>]+vibe\.css[^>]*>/gi, "").replace(/<script[^>]+vibe\.js[^>]*><\/script>/gi, "");
 body = body.replace(/<!--[\s\S]*?-->/g, "");
+// плашка «Демо для заказчика» живёт только в демо, в Тильду не едет
+body = body.replace(/<(div|p|a)\b[^>]*class="[^"]*\bdemo-for\b[^"]*"[^>]*>[\s\S]*?<\/\1>/g, "");
 body = body.replace(/(["'(])\.?\/?assets\//g, "$1" + assets);
 body = body.replace(/\n\s*\n/g, "\n").replace(/^\s+/gm, "");
 
