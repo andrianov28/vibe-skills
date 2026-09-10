@@ -24,6 +24,7 @@ if (!pw) { console.error("не найден playwright-core: запусти node
 const chrome = findChrome();
 if (!chrome) { console.error("Chrome не найден, установи Google Chrome или задай VIBE_CHROME"); process.exit(1); }
 
+fs.rmSync(out, { recursive: true, force: true }); // старые кадры прошлого прогона не смешивать с новыми
 fs.mkdirSync(out, { recursive: true });
 const browser = await pw.chromium.launch({ executablePath: chrome, headless: true });
 const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, reducedMotion: reduced ? "reduce" : "no-preference", isMobile: width < 768, hasTouch: width < 768 });

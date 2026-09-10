@@ -118,6 +118,8 @@ body:has(> .v-page) { margin: 0; }
   transition: transform .16s var(--v-ease-out), box-shadow .16s var(--v-ease-out), background-color .16s;
   will-change: transform;
 }
+.v-page a.v-btn { color: var(--v-accent-ink); } /* иначе .v-page a { color: inherit } перебивает цвет текста кнопки */
+.v-page a.v-btn--ghost { color: var(--v-ink); }
 .v-btn:hover { box-shadow: var(--v-e2); }
 .v-btn:active { transform: scale(.97); }
 .v-btn--ghost {
