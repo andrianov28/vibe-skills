@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Свой дом · каркасные дома и бани по этапам</title>
+<meta name="description" content="Строительство каркасных домов и бань в {{город}}: пять этапов, смета в договоре, оплата после приёмки каждого этапа по акту.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%274%27 width=%2724%27 height=%2724%27 fill=%27none%27 stroke=%27%23b4763a%27 stroke-width=%275%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vibe.css">
+<style>
+  /* ---- тема: бумага, чернила, дерево ------------------------------------ */
+  .v-page {
+    --v-canvas: #eef0f2; --v-surface: #ffffff;
+    --v-ink: #171a1d; --v-ink-soft: #6b7078;
+    --v-accent: #b4763a; --v-accent-ink: #fbf6ef;
+    --v-font-display: "Geologica", "Arial", system-ui, sans-serif;
+    --v-font-text: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 23 26 29;
+    --v-e1: 0 1px 2px rgb(var(--v-shadow-color) / .08), 0 6px 18px rgb(var(--v-shadow-color) / .08);
+    --v-e2: 0 2px 6px rgb(var(--v-shadow-color) / .08), 0 18px 48px rgb(var(--v-shadow-color) / .12);
+    --v-radius: 4px;
+    --v-measure: 58ch;
+    transition: none;
+  }
+  .v-page .v-display { font-weight: 700; letter-spacing: -0.02em; }
+  .v-page .v-display--xl { letter-spacing: -0.03em; }
+  .v-page .v-btn { border-radius: 3px; box-shadow: none; }
+  .v-page a.v-btn { color: var(--v-accent-ink); }           /* перебивает .v-page a { color: inherit } */
+  .v-page .v-btn:hover { box-shadow: var(--v-e1); }
+  .v-page .v-label { font-weight: 500; }
+  .v-page img { content-visibility: auto; }
+
+  /* ---- фолио на полях: линия стройки ------------------------------------ */
+  .folio { position: fixed; z-index: 30; left: clamp(1.1rem, 2.6vw, 2.4rem); top: 50%; transform: translateY(-50%);
+    height: min(36vh, 22rem); width: 1px; pointer-events: none; }
+  .folio__line { position: absolute; inset: 0; background: var(--v-hair-strong); }
+  .folio__fill { position: absolute; left: 0; top: 0; width: 1px; height: 0; background: var(--v-accent); transform-origin: top; }
+  .folio__dot { position: absolute; left: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%;
+    background: var(--v-canvas); box-shadow: inset 0 0 0 1px var(--v-hair-strong); transition: background-color .3s var(--v-ease-out), box-shadow .3s var(--v-ease-out), transform .3s var(--v-ease-out); }
+  .folio__dot.is-done { background: var(--v-accent); box-shadow: inset 0 0 0 1px var(--v-accent); }
+  .folio__dot.is-active { background: var(--v-accent); box-shadow: 0 0 0 4px var(--v-canvas), 0 0 0 5px var(--v-accent); transform: scale(1.15); }
+  .folio__dot span { position: absolute; left: 1rem; top: -.1rem; writing-mode: vertical-rl; white-space: nowrap;
+    font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; font-weight: 500; color: var(--v-ink-soft);
+    opacity: 0; transition: opacity .15s var(--v-ease-out), color .3s; transition-delay: 0s; }
+  .folio__dot span b { color: var(--v-ink); font-weight: 600; margin-bottom: .5em; }
+  .folio__dot.is-active span { opacity: 1; transition-duration: .3s; transition-delay: .15s; }
+  .folio__cta { position: absolute; left: 50%; bottom: calc(100% + 1.4rem); transform: translateX(-50%); writing-mode: vertical-rl; white-space: nowrap; pointer-events: auto;
+    font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; font-weight: 600; color: var(--v-accent); text-decoration: none;
+    padding: .5rem .5rem; margin-bottom: -.5rem; }
+  .folio.is-dark { --v-ink: #f2f1ee; --v-ink-soft: #a7abb1; --v-canvas: #171a1d;
+    --v-hair-strong: color-mix(in oklab, #f2f1ee 32%, transparent); }
+  .folio.is-dark .folio__dot span b { color: #f2f1ee; }
+  .folio.is-dark .folio__dot span { color: #a7abb1; }
+  .folio.is-warm { --v-ink: #fbf6ef; --v-ink-soft: #f0dfc9; --v-canvas: #b4763a; --v-accent: #fbf6ef;
+    --v-hair-strong: color-mix(in oklab, #fbf6ef 55%, transparent); }
+  .folio.is-warm .folio__dot span b { color: #fbf6ef; }
+  .folio.is-warm .folio__dot span { color: #f0dfc9; }
+  .folio.is-warm .folio__cta { color: #fbf6ef; }
+  .folio-m { display: none; }
+  @media (max-width: 860px) {
+    .folio { display: none; }
+    .folio-m { display: flex; align-items: center; justify-content: space-between; gap: var(--v-3); position: fixed; z-index: 30; inset: 0 0 auto 0;
+      padding: .6rem var(--v-gutter) .55rem; font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; font-weight: 500;
+      color: var(--v-ink-soft); background: color-mix(in oklab, var(--v-canvas) 90%, transparent); backdrop-filter: blur(8px); pointer-events: none;
+      transform: translateY(-100%); transition: transform .3s var(--v-ease-out); }
+    .folio-m.is-on { transform: none; }
+    .folio-m b { color: var(--v-ink); font-weight: 600; }
+    .folio-m a { pointer-events: auto; color: var(--v-accent); font-weight: 600; text-decoration: none; padding: .8rem 0 .8rem .75rem; margin: -.8rem 0; white-space: nowrap; }
+    .folio-m__bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--v-accent); transform-origin: left; transform: scaleX(0); }
+    .folio-m.is-dark { --v-ink: #f2f1ee; --v-ink-soft: #a7abb1; --v-canvas: #171a1d; }
+    .folio-m.is-warm { --v-ink: #fbf6ef; --v-ink-soft: #f0dfc9; --v-canvas: #b4763a; }
+    .folio-m.is-warm a { color: #fbf6ef; }
+  }
+
+  /* ---- титульный лист: «стройка наоборот», закреплённая сцена --------------------- */
+  /* Четыре кадра одного ракурса лежат стопкой: дом сверху, под ним каркас, фундамент, участок.
+     Свой JS ведёт прозрачность трёх верхних от --v-p акта (скрипт внизу страницы). */
+  .cover { background: #dfe4e8; }
+  .cover__stack { position: absolute; inset: 0; z-index: 1; }
+  .v-page .cover__img { position: absolute; inset: 0; width: 100%; max-width: none; height: 100%; object-fit: cover; object-position: 62% 50%; content-visibility: visible; will-change: opacity; }
+  .cover__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background:
+      linear-gradient(to right, rgb(238 240 242 / .8) 0%, rgb(238 240 242 / .5) 30%, rgb(238 240 242 / 0) 52%),
+      linear-gradient(to top, rgb(238 240 242 / .45) 0%, rgb(238 240 242 / 0) 22%); }
+  .cover .title { position: relative; z-index: 6; height: 100svh; display: flex; flex-direction: column; justify-content: space-between; padding-block: var(--v-6) var(--v-5); }
+  .title__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--v-4); padding-bottom: var(--v-4); border-bottom: 1px solid var(--v-hair-strong); }
+  .title__mark { font-family: var(--v-font-display); font-weight: 700; font-size: var(--v-t-base); letter-spacing: -.01em; text-decoration: none; display: inline-flex; align-items: center; gap: .5em; }
+  .title__mark i { width: .7em; height: .7em; border: .18em solid var(--v-accent); display: inline-block; }
+  .title__body { position: relative; z-index: 6; padding-block: clamp(1rem, 3vh, 2.5rem); max-width: 60rem; }
+  .title__body .v-label { display: block; margin-bottom: var(--v-5); }
+  .title__body h1 { font-size: clamp(2.4rem, 1rem + 4.6vw, 5.4rem); line-height: .96; max-width: 13ch; }
+  .title__body .v-lede { margin-top: var(--v-5); max-width: 40ch; color: var(--v-ink); }
+  .title__body .v-lede b { font-weight: 600; }
+  .title__cta { margin-top: var(--v-5); display: flex; flex-direction: column; align-items: flex-start; gap: var(--v-4); }
+  /* цена одной колонкой под кнопкой, на плашке бумаги: никогда не лежит на фото */
+  .title__price { font-size: var(--v-t-base); line-height: 1.45; max-width: 40ch; color: var(--v-ink); text-wrap: pretty;
+    background: rgb(238 240 242 / .92); border: 1px solid var(--v-hair-strong); border-radius: var(--v-radius); padding: .7rem .95rem .75rem; }
+  .title__price b { font-family: var(--v-font-display); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .title__price span { display: block; color: var(--v-ink-soft); }
+  .title__foot { position: relative; z-index: 6; display: flex; justify-content: space-between; align-items: end; gap: var(--v-4); padding-top: var(--v-4); border-top: 1px solid var(--v-hair-strong); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .title__foot b { font-family: var(--v-font-display); font-weight: 600; color: var(--v-accent); font-variant-numeric: tabular-nums; margin-right: .6em; }
+  /* подпись состояния: справа внизу, четыре варианта стопкой, активный виден. Меняется вместе с кадром */
+  .cover__state { display: grid; text-align: right; color: var(--v-ink); font-weight: 500; }
+  .cover__state span { grid-area: 1 / 1; opacity: 0; transform: translateY(5px); white-space: nowrap;
+    transition: opacity .28s var(--v-ease-out), transform .28s var(--v-ease-out); }
+  .cover__state span.is-on { opacity: 1; transform: none; }
+  .cover__state i { font-style: normal; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); margin-right: .7em; }
+  /* шкала сцены: четыре точки у правого края, активная подсвечена, пройденные закрашены */
+  .cover__scale { position: absolute; z-index: 6; right: clamp(1.1rem, 2.6vw, 2.4rem); top: 50%; transform: translateY(-50%); margin: 0; padding: 0; list-style: none; display: grid; gap: 1.3rem; pointer-events: none; }
+  .cover__scale::before { content: ""; position: absolute; left: 50%; top: 4px; bottom: 4px; width: 1px; margin-left: -.5px; background: var(--v-hair-strong); }
+  .cover__scale li { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--v-canvas); box-shadow: inset 0 0 0 1px var(--v-hair-strong);
+    transition: background-color .3s var(--v-ease-out), box-shadow .3s var(--v-ease-out), transform .3s var(--v-ease-out); }
+  .cover__scale li.is-done { background: var(--v-accent); box-shadow: inset 0 0 0 1px var(--v-accent); }
+  .cover__scale li.is-on { background: var(--v-accent); box-shadow: 0 0 0 4px var(--v-canvas), 0 0 0 5px var(--v-accent); transform: scale(1.15); }
+  @media (max-width: 860px) {
+    /* телефон: кадры лентой в верхней половине экрана с привязкой к дому, текст внизу на полосе-скриме */
+    .cover, .cover [data-v-stage] { background: var(--v-canvas); }
+    .cover__stack { top: -7svh; bottom: auto; height: 64svh; }   /* планшет: дом в верхней половине */
+    .v-page .cover__img { object-position: 62% 50%; }
+    .cover__scrim { background:
+      linear-gradient(to top, rgb(238 240 242 / .97) 0%, rgb(238 240 242 / .97) 48%, rgb(238 240 242 / .8) 56%, rgb(238 240 242 / 0) 66%),
+      linear-gradient(to bottom, rgb(238 240 242 / .75) 0%, rgb(238 240 242 / 0) 14%); }
+    .cover .title { padding-top: var(--v-5); padding-bottom: var(--v-4); justify-content: flex-start; }
+    .title__head { flex-direction: column; gap: var(--v-1); }
+    .title__body { margin-top: auto; padding-block: 0 var(--v-4); }
+    .title__body .v-label { margin-bottom: var(--v-3); }
+    .title__body h1 { font-size: clamp(2rem, 1.1rem + 5.4vw, 3rem); max-width: none; }
+    .title__body .v-lede { margin-top: var(--v-3); font-size: var(--v-t-base); }
+    .title__cta { margin-top: var(--v-4); gap: var(--v-3); }
+    .title__price { max-width: none; padding: .6rem .8rem .65rem; }
+    /* подвал распадается на элементы колонки: подпись состояния уходит над текст, номер кадра остаётся внизу */
+    .title__foot { display: contents; }
+    .title__foot > span { order: 4; padding-top: var(--v-3); border-top: 1px solid var(--v-hair-strong); font-size: var(--v-t-xs); color: var(--v-ink); }
+    .cover__state { order: 2; text-align: left; font-size: var(--v-t-sm); margin-bottom: var(--v-2); }
+    .cover__scale { top: 9svh; right: .85rem; gap: .75rem; transform: none; }
+    .cover__scale li { width: 7px; height: 7px; }
+  }
+  @media (max-width: 600px) {
+    .cover .title { padding-top: var(--v-4); }
+    .title__head { flex-direction: row; align-items: baseline; padding-bottom: var(--v-3); }
+    .title__head .v-label { font-size: .68rem; }
+    .cover__stack { top: -17svh; }   /* телефон: дом целиком над текстовой полосой */
+    .title__price span { display: none; }   /* на телефоне вторая фраза уходит: дом должен остаться в кадре */
+  }
+  /* ноутбук: экран низкий, титул ужимаем, чтобы кнопка и цена остались над сгибом */
+  @media (min-width: 861px) and (max-height: 840px) {
+    .title__body { padding-block: var(--v-4) var(--v-4); }
+    .title__body .v-label { margin-bottom: var(--v-3); }
+    .title__body h1 { font-size: clamp(2.4rem, 1rem + 4.2vw, 4.6rem); }
+    .title__body .v-lede { margin-top: var(--v-4); font-size: var(--v-t-base); }
+    .title__cta { margin-top: var(--v-4); gap: var(--v-3); }
+    .title__price { max-width: 46ch; padding: .55rem .85rem .6rem; }
+    .cover .title { padding-block: var(--v-4) var(--v-3); }
+    .title__head { padding-bottom: var(--v-3); }
+    .title__foot { padding-top: var(--v-3); }
+  }
+
+  /* ---- оглавление: кинолента этапов -------------------------------------------- */
+  .toc { padding-block: var(--v-6) var(--v-7); border-bottom: 1px solid var(--v-hair); }
+  .toc__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--v-4); margin-bottom: var(--v-5); }
+  .toc__head p { font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 46ch; text-align: right; }
+  .toc ol { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--v-4); margin: 0; padding: 0; list-style: none; }
+  .toc a { display: grid; gap: var(--v-3); text-decoration: none; font-size: var(--v-t-sm); font-weight: 500; }
+  .toc a img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--v-radius); background: var(--v-surface); }
+  .toc a span { display: block; padding-bottom: var(--v-2); border-bottom: 1px solid var(--v-hair); }
+  .toc a b { font-family: var(--v-font-display); font-weight: 600; color: var(--v-accent); margin-right: .5em; font-variant-numeric: tabular-nums; }
+  @media (max-width: 860px) {
+    .toc__head { flex-direction: column; align-items: start; gap: var(--v-2); }
+    .toc__head p { text-align: left; }
+    .toc ol { grid-auto-flow: column; grid-auto-columns: 44%; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: var(--v-2);
+      margin-inline: calc(-1 * var(--v-gutter)); padding-inline: var(--v-gutter); scrollbar-width: none; }
+    .toc ol::-webkit-scrollbar { display: none; }
+    .toc li { scroll-snap-align: start; }
+  }
+
+  /* ---- интертитры ---------------------------------------------------------- */
+  .inter { background: var(--v-surface); border-top: 1px solid var(--v-hair); border-bottom: 1px solid var(--v-hair);
+    min-height: 54svh; display: flex; align-items: center; padding-block: var(--v-8); }
+  .inter__grid { display: grid; grid-template-columns: auto 1fr; gap: var(--v-4) clamp(1.5rem, 5vw, 5rem); align-items: end; }
+  .inter__num { font-family: var(--v-font-display); font-weight: 700; font-size: clamp(6rem, 18vw, 17rem); line-height: .8; letter-spacing: -.05em;
+    color: transparent; -webkit-text-stroke: 2px color-mix(in oklab, var(--v-ink) 38%, transparent); font-variant-numeric: tabular-nums; }
+  .inter__num em { font-style: normal; color: var(--v-accent); -webkit-text-stroke: 0; }
+  .inter__text { padding-bottom: .6em; }
+  .inter__text .v-label { display: block; margin-bottom: var(--v-3); }
+  .inter__text h2 { font-size: var(--v-t-3xl); }
+  .inter__text p { margin-top: var(--v-4); max-width: 44ch; color: var(--v-ink-soft); }
+  .inter--wood { background: var(--v-accent); --v-ink: #fbf6ef; --v-ink-soft: #f0dfc9; color: var(--v-ink); border-color: transparent;
+    --v-hair-strong: color-mix(in oklab, #fbf6ef 55%, transparent); }
+  .inter--wood .inter__num em { color: #fbf6ef; }
+  .inter--dark { background: #171a1d; --v-ink: #f2f1ee; --v-ink-soft: #a7abb1; color: var(--v-ink); border-color: transparent;
+    --v-hair-strong: color-mix(in oklab, #f2f1ee 32%, transparent); }
+  @media (max-width: 860px) {
+    .inter { min-height: 46svh; padding-block: var(--v-7); }
+    .inter__grid { grid-template-columns: 1fr; align-items: start; }
+    .inter__num { font-size: clamp(5rem, 26vw, 8rem); }
+    .inter__text h2 { font-size: var(--v-t-2xl); }
+  }
+
+  /* ---- разворот главы ------------------------------------------------------- */
+  .spread { display: grid; grid-template-columns: 7fr 5fr; gap: var(--v-8) clamp(2rem, 6vw, 6rem); align-items: start; }
+  .spread--flip { grid-template-columns: 5fr 7fr; }
+  .spread--flip .spread__fig { order: 2; }
+  .spread__fig { position: relative; margin: 0; }
+  .spread__fig .fig { position: relative; overflow: hidden; aspect-ratio: 16 / 11; background: var(--v-surface); border-radius: var(--v-radius); }
+  .spread__fig .fig > div { position: absolute; left: 0; right: 0; top: -36px; bottom: -36px; will-change: transform; }
+  .spread__fig .fig img { width: 100%; height: 100%; object-fit: cover; }
+  .spread__fig figcaption { display: grid; grid-template-columns: auto 1fr; gap: var(--v-3); padding-top: var(--v-3); font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 52ch; }
+  .spread__fig figcaption b { font-family: var(--v-font-display); font-weight: 600; color: var(--v-accent); font-variant-numeric: tabular-nums; }
+  .spread__copy { padding-top: var(--v-2); }
+  .spread__copy .v-label { display: block; margin-bottom: var(--v-3); }
+  .spread__copy h2 { font-size: var(--v-t-2xl); }
+  .spread__copy > p { margin-top: var(--v-5); color: var(--v-ink-soft); }
+  .spread__copy > p b { color: var(--v-ink); font-weight: 600; }
+  .facts { margin-top: var(--v-6); }
+  .facts > div { padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); display: grid; grid-template-columns: minmax(8rem, 11rem) 1fr; gap: var(--v-4); font-size: var(--v-t-sm); }
+  .facts > div:last-child { border-bottom: 1px solid var(--v-hair); }
+  .facts dt { font-weight: 600; margin: 0; }
+  .facts dd { margin: 0; color: var(--v-ink-soft); }
+  .chapter--dark { background: #171a1d; --v-ink: #f2f1ee; --v-ink-soft: #a7abb1; --v-surface: #22262b; color: var(--v-ink);
+    --v-hair: color-mix(in oklab, #f2f1ee 16%, transparent); --v-hair-strong: color-mix(in oklab, #f2f1ee 32%, transparent); }
+  .chapter--dark .facts dt { letter-spacing: .005em; }
+  @media (max-width: 860px) {
+    .spread, .spread--flip { grid-template-columns: 1fr; gap: var(--v-6); }
+    .spread--flip .spread__fig { order: 0; }
+    .spread__fig .fig { aspect-ratio: 4 / 3; }
+    .facts > div { grid-template-columns: 1fr; gap: var(--v-1); }
+  }
+
+  /* ---- глава 5: построенные объекты, слоты под настоящие фото ------------------ */
+  .built { margin-top: var(--v-8); padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .built__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--v-4); margin-bottom: var(--v-5); }
+  .built__head p { font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 44ch; text-align: right; }
+  .built ul { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: var(--v-5); }
+  .built figure { margin: 0; }
+  .built .fig { position: relative; aspect-ratio: 4 / 3; border-radius: var(--v-radius); overflow: hidden; background: var(--v-surface); }
+  .built .fig img { width: 100%; height: 100%; object-fit: cover; }
+  .built .fig--slot { display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--v-hair-strong);
+    background: repeating-linear-gradient(-45deg, transparent 0 14px, color-mix(in oklab, var(--v-ink) 4%, transparent) 14px 15px), var(--v-surface); }
+  .built .fig--slot span { font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); font-weight: 500; }
+  .built figcaption { display: grid; grid-template-columns: auto 1fr; gap: var(--v-3); padding-top: var(--v-3); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .built figcaption b { font-family: var(--v-font-display); font-weight: 600; color: var(--v-accent); font-variant-numeric: tabular-nums; }
+  @media (max-width: 860px) {
+    .built__head { flex-direction: column; align-items: start; gap: var(--v-2); }
+    .built__head p { text-align: left; }
+    .built ul { grid-template-columns: 1fr; }
+  }
+
+  /* ---- глава 2: сцена держится ---------------------------------------------- */
+  .frame { height: 100%; display: grid; grid-template-columns: 5fr 7fr; }
+  .frame__copy { position: relative; padding: 0 clamp(1.5rem, 5vw, 5rem) 0 calc(var(--v-gutter) + clamp(1.5rem, 3vw, 3rem)); }
+  .frame__head { position: absolute; left: calc(var(--v-gutter) + clamp(1.5rem, 3vw, 3rem)); top: clamp(2rem, 6vh, 4rem); }
+  .frame__cue { position: absolute; left: calc(var(--v-gutter) + clamp(1.5rem, 3vw, 3rem)); right: clamp(1.5rem, 5vw, 5rem); top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(5rem, 12vh, 7rem) clamp(4rem, 10vh, 6rem); }
+  .frame__cue > * { max-width: 34rem; }
+  .frame__cue .v-label { display: block; margin-bottom: var(--v-3); color: var(--v-accent); }
+  .frame__cue h3 { font-family: var(--v-font-display); font-weight: 700; font-size: clamp(1.7rem, 1.1rem + 1.7vw, 2.7rem); line-height: 1.04; letter-spacing: -.02em; text-wrap: balance; }
+  .frame__cue p { margin-top: var(--v-4); color: var(--v-ink-soft); max-width: 40ch; }
+  .frame__cue p b { color: var(--v-ink); font-weight: 600; }
+  .frame__steps { position: absolute; left: calc(var(--v-gutter) + clamp(1.5rem, 3vw, 3rem)); bottom: clamp(2rem, 6vh, 4rem); display: flex; gap: var(--v-3); align-items: center; }
+  .frame__steps i { display: block; width: 2.4rem; height: 2px; background: var(--v-hair-strong); transform-origin: left; }
+  .frame__steps i::after { content: ""; display: block; height: 100%; width: 100%; background: var(--v-accent); transform-origin: left; transform: scaleX(0); }
+  .frame__steps i:nth-child(1)::after { transform: scaleX(clamp(0, calc(var(--v-p, 0) / .33), 1)); }
+  .frame__steps i:nth-child(2)::after { transform: scaleX(clamp(0, calc((var(--v-p, 0) - .33) / .33), 1)); }
+  .frame__steps i:nth-child(3)::after { transform: scaleX(clamp(0, calc((var(--v-p, 0) - .66) / .34), 1)); }
+  .frame__fig { position: relative; overflow: hidden; }
+  .frame__fig > div { position: absolute; left: 0; right: 0; top: -6vh; bottom: -6vh; will-change: transform; }
+  .frame__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .frame__fig figcaption { position: absolute; right: var(--v-gutter); bottom: clamp(1.5rem, 5vh, 3rem); font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; font-weight: 500;
+    color: var(--v-ink); background: color-mix(in oklab, var(--v-canvas) 92%, transparent); padding: .5em .8em; border-radius: var(--v-radius); }
+  @media (max-width: 860px) {
+    .frame { grid-template-columns: 1fr; grid-template-rows: 44svh 1fr; }
+    .frame__fig { order: 0; }
+    .frame__copy { order: 1; padding: 0 var(--v-gutter); }
+    .frame__head { left: var(--v-gutter); top: var(--v-5); }
+    .frame__cue { left: var(--v-gutter); right: var(--v-gutter); padding-block: 3.5rem 3rem; }
+    .frame__cue h3 { font-size: var(--v-t-xl); }
+    .frame__cue p { font-size: var(--v-t-sm); }
+    .frame__steps { left: var(--v-gutter); bottom: var(--v-5); }
+    .frame__fig figcaption { bottom: var(--v-4); right: var(--v-gutter); }
+  }
+
+  /* ---- повтор кнопки после пятой главы ------------------------------------------ */
+  .midcta { border-top: 1px solid var(--v-hair); border-bottom: 1px solid var(--v-hair); background: var(--v-surface); }
+  .midcta .v-wrap { display: flex; justify-content: space-between; align-items: center; gap: var(--v-5); flex-wrap: wrap; padding-block: var(--v-6); }
+  .midcta p { font-size: var(--v-t-lg); line-height: 1.35; max-width: 34ch; text-wrap: balance; }
+  .midcta p b { font-family: var(--v-font-display); font-weight: 600; white-space: nowrap; }
+  .midcta__side { display: flex; align-items: center; gap: var(--v-5); flex-wrap: wrap; }
+  .midcta__side span { font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 26ch; }
+  @media (max-width: 860px) { .midcta .v-wrap { padding-block: var(--v-6); } .midcta p { font-size: var(--v-t-base); } }
+
+  /* ---- глава 6: отзывы с Яндекс.Карт ------------------------------------------- */
+  .reviews__head { display: flex; flex-wrap: wrap; gap: var(--v-6); align-items: end; justify-content: space-between; margin-bottom: var(--v-7); }
+  .reviews__head h2 { font-size: var(--v-t-2xl); max-width: 16ch; }
+  .reviews__head .v-label { display: block; margin-bottom: var(--v-3); }
+  .reviews__rating { display: grid; grid-template-columns: auto 1fr; gap: var(--v-1) var(--v-4); align-items: center; font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__num { grid-row: 1 / span 2; font-family: var(--v-font-display); font-weight: 700; font-size: var(--v-t-2xl); line-height: 1; color: var(--v-ink); }
+  .reviews__rating a { color: var(--v-ink); font-weight: 500; text-decoration-color: var(--v-accent); display: inline-block; padding: .7em 0; margin: -.7em 0; }
+  .reviews__stars { --size: 1.1rem; display: inline-block; width: calc(var(--size) * 5); height: var(--size);
+    background: linear-gradient(90deg, var(--v-accent) calc(var(--r, 0) / 5 * 100%), var(--v-hair-strong) 0);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x; }
+  .reviews__stars--sm { --size: .8rem; vertical-align: middle; }
+  .reviews__list { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--v-6); align-items: start; }
+  .reviews__item { padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .reviews__item--big .reviews__text { font-size: var(--v-t-lg); line-height: 1.4; }
+  .reviews__text { text-wrap: pretty; }
+  .reviews .reviews__meta { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__meta b { color: var(--v-ink); font-weight: 600; }
+  .reviews .reviews__note { margin-top: var(--v-7); padding-top: var(--v-4); border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); max-width: 60ch; }
+  @media (max-width: 860px) { .reviews__list { grid-template-columns: 1fr; } .reviews__head { margin-bottom: var(--v-6); } }
+
+  /* ---- что входит в смету ----------------------------------------------------- */
+  .estimate { display: grid; grid-template-columns: 7fr 4fr; gap: var(--v-8) clamp(2rem, 6vw, 6rem); align-items: start; }
+  .estimate__intro { max-width: 52ch; }
+  .estimate__intro h2 { font-size: var(--v-t-2xl); }
+  .estimate__intro p { margin-top: var(--v-5); color: var(--v-ink-soft); }
+  .lines { margin-top: var(--v-7); }
+  .lines li { display: grid; grid-template-columns: 2.2rem 1fr; gap: var(--v-2) var(--v-4); padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); }
+  .lines li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .lines li > span { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-sm); color: var(--v-accent); font-variant-numeric: tabular-nums; padding-top: .15em; }
+  .lines h3 { font-weight: 600; font-size: var(--v-t-base); }
+  .lines p { grid-column: 2; color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 56ch; }
+  .lines p b { color: var(--v-ink); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .estimate__fig { position: sticky; top: var(--v-8); margin: 0; }
+  .estimate__fig .fig { overflow: hidden; aspect-ratio: 3 / 4; border-radius: var(--v-radius); background: var(--v-surface); }
+  .estimate__fig .fig img { width: 100%; height: 100%; object-fit: cover; }
+  .estimate__fig figcaption { padding-top: var(--v-3); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  @media (max-width: 860px) {
+    .estimate { grid-template-columns: 1fr; gap: var(--v-6); }
+    .estimate__fig { position: static; }
+    .estimate__fig .fig { aspect-ratio: 4 / 3; }
+  }
+
+  /* ---- колофон: как начинаем и расчёт -------------------------------------------- */
+  .colophon { background: var(--v-surface); border-top: 1px solid var(--v-hair); padding-block: var(--v-9) var(--v-6); }
+  .colophon__grid { display: grid; grid-template-columns: 7fr 5fr; gap: var(--v-7) clamp(2rem, 6vw, 6rem); align-items: start; }
+  .colophon h2 { font-size: var(--v-t-3xl); max-width: 12ch; }
+  .colophon .v-label { display: block; margin-bottom: var(--v-3); }
+  .colophon .colophon__price { margin-top: var(--v-6); font-size: var(--v-t-lg); line-height: 1.35; max-width: 34ch; text-wrap: pretty; }
+  .colophon__price b { font-family: var(--v-font-display); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .colophon__price span { display: block; font-size: var(--v-t-sm); color: var(--v-ink-soft); margin-top: var(--v-2); }
+  .colophon .lines { margin-top: var(--v-7); }
+  .colophon .lines h3 { font-size: var(--v-t-sm); }
+  .colophon .colophon__season { margin-top: var(--v-5); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .colophon__season b { color: var(--v-ink); font-weight: 600; }
+  .colophon__meta { display: grid; gap: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); padding-top: var(--v-2); }
+  .crew { display: flex; align-items: center; gap: var(--v-4); padding-bottom: var(--v-5); border-bottom: 1px solid var(--v-hair); }
+  .crew__photo { flex: none; width: 4.5rem; height: 4.5rem; border-radius: 50%; overflow: hidden; background: var(--v-canvas); box-shadow: inset 0 0 0 1px var(--v-hair-strong);
+    display: grid; place-items: center; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; font-weight: 500; }
+  .crew__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .crew__text b { display: block; color: var(--v-ink); font-weight: 600; font-size: var(--v-t-base); }
+  .colophon__tel { text-decoration: none; color: var(--v-ink); font-weight: 600; font-size: var(--v-t-lg); font-family: var(--v-font-display); justify-self: start; padding: .2em 0; }
+  .colophon__msg { display: flex; flex-wrap: wrap; gap: var(--v-2) var(--v-3); align-items: baseline; }
+  .colophon__msg a { color: var(--v-ink); font-weight: 500; text-decoration-color: var(--v-accent); text-underline-offset: .22em; padding: .7em 0; display: inline-block; }
+  .colophon__meta .v-btn { justify-self: start; margin-top: var(--v-2); }
+  .colophon .colophon__after { margin-top: var(--v-2); font-size: var(--v-t-sm); max-width: 36ch; }
+  .colophon .colophon__after a { color: var(--v-ink); text-decoration-color: var(--v-accent); }
+  .colophon__foot { margin-top: var(--v-9); padding-top: var(--v-4); border-top: 1px solid var(--v-hair); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--v-2) var(--v-5);
+    font-size: var(--v-t-xs); color: var(--v-ink-soft); letter-spacing: .01em; }
+  .colophon__foot a { color: inherit; display: inline-block; padding: .9em 0; margin: -.9em 0; }
+  @media (max-width: 860px) {
+    .colophon { padding-block: var(--v-8) var(--v-5); }
+    .colophon__grid { grid-template-columns: 1fr; gap: var(--v-7); }
+    .colophon h2 { font-size: var(--v-t-2xl); }
+    .colophon__foot { margin-top: var(--v-7); }
+  }
+
+  /* ---- общее ---------------------------------------------------------------------- */
+  .v-page .v-wrap { width: min(100% - 2 * var(--v-gutter) - 2 * clamp(0rem, 4vw, 3.5rem), 76rem); margin-inline: auto; }
+  @media (max-width: 860px) { .v-page .v-wrap { width: min(100% - 2 * var(--v-gutter), 76rem); } }
+  @media (hover: hover) and (pointer: fine) {
+    .toc a:hover, .title__mark:hover, .colophon__msg a:hover, .reviews__rating a:hover { color: var(--v-accent); }
+    .toc a:hover img { opacity: .92; }
+    .folio__cta:hover { text-decoration: underline; text-underline-offset: .2em; }
+  }
+</style>
+</head>
+<body>
+<div class="v-page">
+
+  <!-- фолио: линия стройки на полях -->
+  <nav class="folio" id="folio" aria-label="Оглавление по этапам">
+    <span class="folio__line"></span>
+    <span class="folio__fill" id="folioFill"></span>
+    <span class="folio__dot" style="top:0%"><span><b>01</b>Фундамент</span></span>
+    <span class="folio__dot" style="top:25%"><span><b>02</b>Коробка</span></span>
+    <span class="folio__dot" style="top:50%"><span><b>03</b>Кровля</span></span>
+    <span class="folio__dot" style="top:75%"><span><b>04</b>Отделка</span></span>
+    <span class="folio__dot" style="top:100%"><span><b>05</b>Сдача по акту</span></span>
+    <a class="folio__cta" href="{{ссылка-расчёта}}">Рассчитать смету</a>
+  </nav>
+  <div class="folio-m" id="folioM">
+    <span id="folioMText" aria-hidden="true"><b>01</b> · Фундамент</span>
+    <a href="{{ссылка-расчёта}}">Рассчитать смету</a>
+    <span class="folio-m__bar" id="folioMBar" aria-hidden="true"></span>
+  </div>
+
+  <main id="top">
+
+    <!-- ТИТУЛЬНЫЙ ЛИСТ: закреплённая сцена «стройка наоборот». Четыре кадра одного ракурса стопкой, сверху вниз: дом, каркас, фундамент, участок.
+         При прокрутке верхние кадры гаснут по очереди: дом → каркас → фундамент → голый участок. Прозрачность ведёт свой JS от --v-p акта (внизу страницы) -->
+    <section class="cover" id="cover" data-v-act="pin" data-v-span="3.6" aria-label="Титульный лист">
+      <div data-v-stage>
+        <div class="cover__stack">
+          <img class="cover__img" src="assets/stage-plot.webp" alt="" width="1920" height="1067" decoding="async">
+          <img class="cover__img" src="assets/stage-foundation.webp" alt="" width="1920" height="1067" decoding="async">
+          <img class="cover__img" src="assets/stage-frame.webp" alt="" width="1920" height="1067" decoding="async">
+          <img class="cover__img" src="assets/cover.webp" alt="Готовый каркасный дом с террасой на участке в утренней дымке. При прокрутке тот же участок показан каркасом, фундаментом и пустым полем" width="1920" height="1067" fetchpriority="high" decoding="async">
+        </div>
+        <div class="cover__scrim" aria-hidden="true"></div>
+        <div class="v-wrap title">
+          <div class="title__head">
+            <a class="title__mark" href="#top"><i aria-hidden="true"></i>Свой дом</a>
+            <span class="v-label">Строительство по этапам</span>
+          </div>
+          <div class="title__body" data-v-cue="0 1 0 0">
+            <span class="v-label">Каркасные дома и бани · {{город}}</span>
+            <h1 class="v-display">Дом и баня по этапам. Смета в договоре.</h1>
+            <p class="v-lede">Пять этапов, по каждому акт и фотоотчёт. <b>Смета фиксируется в договоре</b>, оплата этапа после приёмки. Показываем стройку, а не рендеры.</p>
+            <div class="title__cta">
+              <!-- {{ссылка-расчёта}}: ссылка на форму расчёта (в Тильде #popup:smeta) или мессенджер. Одна и та же во всех кнопках -->
+              <a class="v-btn" href="{{ссылка-расчёта}}">Рассчитать смету</a>
+              <p class="title__price">Дом от <b>{{цена}} ₽</b> за м², баня от <b>{{цена бани}} ₽</b> за м² по типовому проекту. <span>Точная сумма в смете, ответ в течение рабочего дня.</span></p>
+            </div>
+          </div>
+          <div class="title__foot">
+            <span><b>0.1</b>Один участок, четыре состояния · {{город}}</span>
+            <p class="cover__state" id="coverState" aria-live="polite">
+              <span class="is-on"><i>Этап</i><b>05</b>Сдача по акту</span>
+              <span><i>Этап</i><b>02</b>Коробка</span>
+              <span><i>Этап</i><b>01</b>Фундамент</span>
+              <span><i>Этап</i><b>00</b>Ваш участок</span>
+            </p>
+          </div>
+        </div>
+        <ol class="cover__scale" id="coverScale" aria-hidden="true"><li class="is-on"></li><li></li><li></li><li></li></ol>
+      </div>
+    </section>
+
+    <!-- ОГЛАВЛЕНИЕ: кинолента этапов -->
+    <section class="toc" data-v-act="flow" aria-label="Оглавление">
+      <div class="v-wrap" data-v-in data-v-stagger="60">
+        <div class="toc__head">
+          <span class="v-label">Оглавление</span>
+          <p>Пять глав, пять актов приёмки. Каждая глава – один этап стройки: что делаем, сколько длится и как принимаете.</p>
+        </div>
+        <ol>
+          <li><a href="#ch1"><img src="assets/foundation-t.webp" alt="" width="480" height="320" loading="lazy" decoding="async"><span><b>01</b>Фундамент</span></a></li>
+          <li><a href="#ch2"><img src="assets/frame-t.webp" alt="" width="480" height="320" loading="lazy" decoding="async"><span><b>02</b>Коробка</span></a></li>
+          <li><a href="#ch3"><img src="assets/roof-t.webp" alt="" width="480" height="320" loading="lazy" decoding="async"><span><b>03</b>Кровля</span></a></li>
+          <li><a href="#ch4"><img src="assets/interior-t.webp" alt="" width="480" height="320" loading="lazy" decoding="async"><span><b>04</b>Отделка</span></a></li>
+          <li><a href="#ch5"><img src="assets/house-t.webp" alt="" width="480" height="320" loading="lazy" decoding="async"><span><b>05</b>Сдача по акту</span></a></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ИНТЕРТИТР 1 -->
+    <section class="inter" data-v-act="flow" data-chapter="1" id="ch1" aria-label="Глава 1. Фундамент">
+      <div class="v-wrap inter__grid" data-v-in data-v-stagger="90">
+        <div class="inter__num" aria-hidden="true">0<em>1</em></div>
+        <div class="inter__text">
+          <span class="v-label">Глава первая</span>
+          <h2 class="v-display">Фундамент</h2>
+          <p>Первый этап и первый акт. Здесь видно, как мы работаем: разметка, опалубка, бетон и приёмка до того, как пойдём дальше.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ГЛАВА 1 · ФУНДАМЕНТ -->
+    <section class="v-section" data-v-act="flow" aria-label="Фундамент: что делаем">
+      <div class="v-wrap spread">
+        <figure class="spread__fig" data-v-reveal="left" data-v-reveal-at="0.1 0.42">
+          <div class="fig"><div data-v-parallax="0.4"><img src="assets/foundation.webp" alt="Ленточный фундамент в опалубке, свежий бетон" width="1600" height="889" loading="lazy" decoding="async"></div></div>
+          <figcaption><b>1.1</b><span>Ленточный фундамент в опалубке. Бетон принят, опалубку снимаем через семь дней.</span></figcaption>
+        </figure>
+        <div class="spread__copy" data-v-in data-v-stagger="70">
+          <span class="v-label">Этап 1 из 5</span>
+          <h2 class="v-display">Лента или сваи: по грунту, а не по привычке</h2>
+          <p>Перед сметой выезжаем на участок и смотрим грунт и уклон. Для каркасного дома и бани чаще всего это <b>лента или винтовые сваи</b>, и выбор мы объясняем письменно: почему так и сколько стоит.</p>
+          <dl class="facts">
+            <div><dt>Что в этапе</dt><dd>Разметка, выемка грунта, песчаная подушка, опалубка, армирование, бетон, гидроизоляция.</dd></div>
+            <div><dt>Срок</dt><dd>Записан в договоре в календарных днях. Набор прочности бетона в срок уже заложен.</dd></div>
+            <div><dt>Приёмка</dt><dd>Акт по фундаменту: геометрия, отметки, фото. Следующий этап только после подписи.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ИНТЕРТИТР 2 -->
+    <section class="inter inter--wood" data-v-act="flow" data-chapter="2" id="ch2" aria-label="Глава 2. Коробка">
+      <div class="v-wrap inter__grid" data-v-in data-v-stagger="90">
+        <div class="inter__num" aria-hidden="true">0<em>2</em></div>
+        <div class="inter__text">
+          <span class="v-label">Глава вторая</span>
+          <h2 class="v-display">Коробка</h2>
+          <p>Каркас, обвязка, стены и перекрытия. Самый заметный этап: за неделю участок с лентой становится домом с окнами.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ГЛАВА 2 · КОРОБКА: сцена держится, три факта -->
+    <section data-v-act="pin" data-v-span="2.8" aria-label="Коробка: три условия">
+      <div data-v-stage>
+        <div class="frame">
+          <div class="frame__copy">
+            <span class="v-label frame__head" data-v-cue="0 1 0 0" data-v-rise="0">Этап 2 из 5 · Коробка</span>
+            <div class="frame__cue" data-v-cue="0 0.34 0 0.05">
+              <span class="v-label">Материал</span>
+              <h3>Каркас из строганого бруса камерной сушки</h3>
+              <p>Стойки, обвязка и перекрытия из сухого строганого бруса. <b>Сечение и шаг стоек записаны в смете</b>, а не решаются «по месту».</p>
+            </div>
+            <div class="frame__cue" data-v-cue="0.32 0.66 0.05 0.05">
+              <span class="v-label">Гарантия</span>
+              <h3>На несущий каркас 5 лет по договору</h3>
+              <p>Гарантия на каркас <b>5 лет</b> прописана в договоре отдельным пунктом. Это условие сделки, а не обещание в мессенджере.</p>
+            </div>
+            <div class="frame__cue" data-v-cue="0.64 1 0.05 0">
+              <span class="v-label">Приёмка</span>
+              <h3>Акт по коробке до кровли</h3>
+              <p>Осматриваем вместе: геометрия, крепёж, влажность древесины. <b>Оплата этапа после подписи акта</b>, не вперёд.</p>
+            </div>
+            <div class="frame__steps" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <figure class="frame__fig">
+            <div data-v-parallax="0.5"><img src="assets/frame.webp" alt="Каркас дома: стойки и стропила, дневной свет сквозь конструкцию" width="1600" height="889" loading="lazy" decoding="async"></div>
+            <figcaption>2.1 · Каркас до обшивки</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ИНТЕРТИТР 3 -->
+    <section class="inter" data-v-act="flow" data-chapter="3" id="ch3" aria-label="Глава 3. Кровля">
+      <div class="v-wrap inter__grid" data-v-in data-v-stagger="90">
+        <div class="inter__num" aria-hidden="true">0<em>3</em></div>
+        <div class="inter__text">
+          <span class="v-label">Глава третья</span>
+          <h2 class="v-display">Кровля</h2>
+          <p>Стропила, обрешётка, металлочерепица, водосток. После этого этапа дом закрыт от дождя, и внутри можно работать в любую погоду.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ГЛАВА 3 · КРОВЛЯ -->
+    <section class="v-section" data-v-act="flow" aria-label="Кровля: что делаем">
+      <div class="v-wrap spread spread--flip">
+        <figure class="spread__fig" data-v-reveal="right" data-v-reveal-at="0.1 0.42">
+          <div class="fig"><div data-v-parallax="0.4"><img src="assets/roof.webp" alt="Стропила и уложенная металлочерепица" width="1600" height="889" loading="lazy" decoding="async"></div></div>
+          <figcaption><b>3.1</b><span>Стропильная система и металлочерепица. Половина ската уложена, вторая ждёт обрешётку.</span></figcaption>
+        </figure>
+        <div class="spread__copy" data-v-in data-v-stagger="70">
+          <span class="v-label">Этап 3 из 5</span>
+          <h2 class="v-display">Тёплый контур закрыт</h2>
+          <p>Стропила из того же сухого бруса, что и каркас. Кровельный пирог собираем полностью: <b>пароизоляция, утеплитель, мембрана, вентзазор</b>, и только потом покрытие. Марка металлочерепицы и толщина утеплителя записаны в смете.</p>
+          <dl class="facts">
+            <div><dt>Что в этапе</dt><dd>Стропила, обрешётка, кровельный пирог, покрытие, водосток, окна и входная дверь.</dd></div>
+            <div><dt>Срок</dt><dd>По договору. Окна заказываем ещё на этапе коробки, чтобы не ждать их после кровли.</dd></div>
+            <div><dt>Приёмка</dt><dd>Акт по кровле: проливка, примыкания, уклоны водостока, фото каждого ската.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ИНТЕРТИТР 4 -->
+    <section class="inter inter--dark" data-v-act="flow" data-chapter="4" id="ch4" aria-label="Глава 4. Отделка">
+      <div class="v-wrap inter__grid" data-v-in data-v-stagger="90">
+        <div class="inter__num" aria-hidden="true">0<em>4</em></div>
+        <div class="inter__text">
+          <span class="v-label">Глава четвёртая</span>
+          <h2 class="v-display">Отделка</h2>
+          <p>Утепление стен, инженерия, внутренняя и внешняя обшивка. Этап, где больше всего вопросов «а можно вот так?», и где мы отвечаем сметой, а не «посмотрим».</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ГЛАВА 4 · ОТДЕЛКА (инвертирована) -->
+    <section class="v-section chapter--dark" data-v-act="flow" aria-label="Отделка: что делаем">
+      <div class="v-wrap spread">
+        <figure class="spread__fig" data-v-reveal="left" data-v-reveal-at="0.1 0.42">
+          <div class="fig"><div data-v-parallax="0.4"><img src="assets/interior.webp" alt="Интерьер в отделке: вагонка и гипсокартон, свет из окна" width="1600" height="889" loading="lazy" decoding="async"></div></div>
+          <figcaption><b>4.1</b><span>Вагонка на одной стене, гипсокартон на другой. Электрика и вентиляция уже разведены за обшивкой.</span></figcaption>
+        </figure>
+        <div class="spread__copy" data-v-in data-v-stagger="70">
+          <span class="v-label">Этап 4 из 5</span>
+          <h2 class="v-display">Отделка по смете, изменения по допсоглашению</h2>
+          <p>В смете каждая позиция названа: <b>вагонка или имитация бруса, гипсокартон, полы, электрика, вода, отопление</b>. Захотели заменить материал в процессе? Считаем разницу, подписываем допсоглашение, и только потом делаем.</p>
+          <dl class="facts">
+            <div><dt>Что в этапе</dt><dd>Утепление, пароизоляция, обшивка снаружи и внутри, полы, электрика, водоснабжение, отопление, санузел.</dd></div>
+            <div><dt>Срок</dt><dd>По договору. Материалы отделки согласуем и закупаем до начала этапа, чтобы не стоять.</dd></div>
+            <div><dt>Приёмка</dt><dd>Акт по отделке: проверка инженерии под нагрузкой, ровность стен, все узлы на фото.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ИНТЕРТИТР 5 -->
+    <section class="inter" data-v-act="flow" data-chapter="5" id="ch5" aria-label="Глава 5. Сдача по акту">
+      <div class="v-wrap inter__grid" data-v-in data-v-stagger="90">
+        <div class="inter__num" aria-hidden="true">0<em>5</em></div>
+        <div class="inter__text">
+          <span class="v-label">Глава пятая</span>
+          <h2 class="v-display">Сдача по акту</h2>
+          <p>Последний акт, ключи и папка с документами: договор, смета, акты по этапам, паспорта на материалы и оборудование, гарантия.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ГЛАВА 5 · СДАЧА ПО АКТУ + построенные объекты -->
+    <section class="v-section" data-v-act="flow" aria-label="Сдача по акту: что получаете">
+      <div class="v-wrap">
+        <div class="spread spread--flip">
+          <figure class="spread__fig" data-v-reveal="right" data-v-reveal-at="0.1 0.42">
+            <!-- заменить на фото реального объекта в день сдачи -->
+            <div class="fig"><div data-v-parallax="0.4"><img src="assets/house.webp" alt="Готовый каркасный дом с террасой в утренней дымке" width="1600" height="889" loading="lazy" decoding="async"></div></div>
+            <figcaption><b>5.1</b><span>Дом с террасой в день сдачи. Финальный обход, папка документов, ключи.</span></figcaption>
+          </figure>
+          <div class="spread__copy" data-v-in data-v-stagger="70">
+            <span class="v-label">Этап 5 из 5</span>
+            <h2 class="v-display">Принимаете дом, а не «почти готово»</h2>
+            <p>Финальный обход вместе: включаем воду, свет и отопление, проверяем окна и двери, смотрим каждый узел. Замечания записываем в акт, устраняем, и только потом <b>подписываем сдачу и передаём ключи</b>.</p>
+            <dl class="facts">
+              <div><dt>Документы</dt><dd>Договор, смета, пять актов по этапам, паспорта на материалы и оборудование, гарантийный лист.</dd></div>
+              <div><dt>Гарантия</dt><dd>На несущий каркас 5 лет, на остальные работы по договору. Приезжаем по заявке, а не «после сезона».</dd></div>
+              <div><dt>Оплата</dt><dd>Последний платёж после подписания акта сдачи. Ни один этап не оплачивается вперёд.</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <!-- Построено: слоты под фото реальных объектов. Вместо .fig--slot вставить
+             <div class="fig"><img src="{{объект 1 фото}}" alt="{{объект 1}}" width="1200" height="900" loading="lazy"></div>
+             Подпись {{объект 1}}: тип и размер, район, месяц и год сдачи, срок по договору. Например: «Дом 8×9 с террасой · сдан в июле · 74 дня по договору» -->
+        <div class="built" data-v-in data-v-stagger="80">
+          <div class="built__head">
+            <span class="v-label">Построено</span>
+            <p>Настоящие объекты, без рендеров: тип и размер, когда сдали и сколько дней это заняло по договору.</p>
+          </div>
+          <ul>
+            <li><figure><div class="fig fig--slot" role="img" aria-label="{{объект 1 фото}}"><span>{{объект 1 фото}}</span></div><figcaption><b>5.2</b><span>{{объект 1}}</span></figcaption></figure></li>
+            <li><figure><div class="fig fig--slot" role="img" aria-label="{{объект 2 фото}}"><span>{{объект 2 фото}}</span></div><figcaption><b>5.3</b><span>{{объект 2}}</span></figcaption></figure></li>
+            <li><figure><div class="fig fig--slot" role="img" aria-label="{{объект 3 фото}}"><span>{{объект 3 фото}}</span></div><figcaption><b>5.4</b><span>{{объект 3}}</span></figcaption></figure></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПОВТОР КНОПКИ -->
+    <section class="midcta" data-v-act="flow" aria-label="Рассчитать смету">
+      <div class="v-wrap" data-v-in data-v-stagger="70">
+        <p>Пять этапов прочитали. Дальше отзывы и состав сметы, но считать можно уже сейчас: <b>от {{цена}} ₽ за м²</b> по типовому проекту.</p>
+        <div class="midcta__side">
+          <span>Ответ в течение рабочего дня, с разбивкой по пяти этапам</span>
+          <a class="v-btn" href="{{ссылка-расчёта}}">Рассчитать смету</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ИНТЕРТИТР 6 · ОТЗЫВЫ -->
+    <section class="inter" data-v-act="flow" id="ch6" aria-label="Глава 6. Отзывы">
+      <div class="v-wrap inter__grid" data-v-in data-v-stagger="90">
+        <div class="inter__num" aria-hidden="true">0<em>6</em></div>
+        <div class="inter__text">
+          <span class="v-label">Глава шестая</span>
+          <h2 class="v-display">Отзывы</h2>
+          <p>Как есть, с карточки компании на Яндекс.Картах: имя, дата, оценка. Ссылка на карточку рядом, проверить можно за минуту.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ГЛАВА 6 · ОТЗЫВЫ С ЯНДЕКС.КАРТ. Слоты заполняются из карточки клиента; выдуманных отзывов здесь не бывает.
+         Если у клиента отзывов нет, удалить интертитр 6 и эту секцию целиком -->
+    <section class="v-section" data-v-act="flow" id="otzyvy" aria-label="Отзывы с Яндекс.Карт">
+      <div class="v-wrap reviews">
+        <div class="reviews__head" data-v-in data-v-stagger="60">
+          <div>
+            <span class="v-label">Яндекс.Карты</span>
+            <h2 class="v-display">Что пишут на Яндекс.Картах</h2>
+          </div>
+          <div class="reviews__rating">
+            <span class="reviews__num v-nums">{{рейтинг}}</span>
+            <span class="reviews__stars" data-r="{{рейтинг}}" role="img" aria-label="рейтинг {{рейтинг}} из 5"></span>
+            <span>{{отзывов}} отзывов · <a href="{{ссылка-карты}}" rel="noopener">Читать все отзывы</a></span>
+          </div>
+        </div>
+        <ul class="reviews__list" data-v-in data-v-stagger="90">
+          <li class="reviews__item reviews__item--big">
+            <p class="reviews__text">«{{отзыв 1}}»</p>
+            <p class="reviews__meta"><b>{{имя 1}}</b> · {{дата 1}} · <span class="reviews__stars reviews__stars--sm" data-r="{{оценка 1}}" role="img" aria-label="оценка {{оценка 1}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 2}}»</p>
+            <p class="reviews__meta"><b>{{имя 2}}</b> · {{дата 2}} · <span class="reviews__stars reviews__stars--sm" data-r="{{оценка 2}}" role="img" aria-label="оценка {{оценка 2}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 3}}»</p>
+            <p class="reviews__meta"><b>{{имя 3}}</b> · {{дата 3}} · <span class="reviews__stars reviews__stars--sm" data-r="{{оценка 3}}" role="img" aria-label="оценка {{оценка 3}} из 5"></span></p>
+          </li>
+        </ul>
+        <p class="reviews__note">Тексты отзывов приводим без правок, как они опубликованы на Яндекс.Картах. Оценка и число отзывов обновляются вместе с карточкой.</p>
+      </div>
+    </section>
+
+    <!-- ЧТО ВХОДИТ В СМЕТУ -->
+    <section class="v-section" data-v-act="flow" id="smeta" aria-label="Что входит в смету">
+      <div class="v-wrap estimate">
+        <div>
+          <div class="estimate__intro" data-v-in data-v-stagger="70">
+            <span class="v-label">Смета</span>
+            <h2 class="v-display">Что входит в смету</h2>
+            <p>Смета – это приложение к договору. В ней позиции с марками материалов, объёмами и ценой, а не «строительство дома, одна штука». Итог фиксируется, меняется только допсоглашением по вашей инициативе.</p>
+          </div>
+          <ul class="lines" data-v-in data-v-stagger="50">
+            <li><span>01</span><h3>Выезд на участок и обмер</h3><p>Грунт, уклон, подъезд для техники. {{условия выезда}}.</p></li>
+            <li><span>02</span><h3>Проект и спецификация</h3><p>Планировки, разрезы, узлы, ведомость материалов. По вашему проекту или по типовому с изменениями.</p></li>
+            <li><span>03</span><h3>Материалы с марками и сечениями</h3><p>Брус камерной сушки, OSB-3, утеплитель, мембраны, металлочерепица, окна: марка, толщина, объём.</p></li>
+            <li><span>04</span><h3>Работы по пяти этапам</h3><p>Каждый этап отдельной суммой. Видно, за что платите после каждого акта.</p></li>
+            <li><span>05</span><h3>Доставка и разгрузка</h3><p>Материалы на участок, вывоз строительного мусора после сдачи.</p></li>
+            <li><span>06</span><h3>Инженерия</h3><p>Электрика, вода, отопление, вентиляция: по проекту, с паспортами на оборудование.</p></li>
+            <li><span>07</span><h3>Что не входит и что не строим</h3><p>Отдельным списком: подключение к сетям, ландшафт, мебель. Не берём: {{что не строим}}. Чтобы сюрпризов не было ни у вас, ни у нас.</p></li>
+            <li><span>08</span><h3>Ориентир по типовым проектам</h3><p>Дом 6×6 – от <b>{{цена 6×6}} ₽</b>, дом 8×8 – от <b>{{цена 8×8}} ₽</b>, баня 4×6 – от <b>{{цена бани 4×6}} ₽</b>. Точная сумма – в смете по вашему участку и проекту.</p></li>
+          </ul>
+        </div>
+        <figure class="estimate__fig" data-v-reveal="up" data-v-reveal-at="0.12 0.4">
+          <div class="fig"><img src="assets/material.webp" alt="Брус камерной сушки и лист OSB крупным планом" width="1200" height="1600" loading="lazy" decoding="async"></div>
+          <figcaption>Брус камерной сушки и OSB-3. Марка, сечение и влажность записаны в спецификации к смете.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- КОЛОФОН: как начинаем и расчёт -->
+    <section class="colophon" data-v-act="flow" id="raschet" aria-label="Рассчитать смету">
+      <div class="v-wrap">
+        <div class="colophon__grid">
+          <div data-v-in data-v-stagger="70">
+            <span class="v-label">Расчёт</span>
+            <h2 class="v-display">Смета по вашему проекту</h2>
+            <p class="colophon__price">Дом от <b>{{цена}} ₽</b> за м², баня от <b>{{цена бани}} ₽</b> за м² по типовому проекту. <span>Точная сумма в смете: по вашему участку, проекту и материалам, с разбивкой по пяти этапам.</span></p>
+            <ul class="lines" aria-label="Как начинаем">
+              <li><span>01</span><h3>Заявка или звонок</h3><p>Перезвоним в рабочий день, уточним участок, размеры и что уже есть: проект, эскиз или только идея.</p></li>
+              <li><span>02</span><h3>Выезд на участок</h3><p>Смотрим грунт, уклон, подъезд. {{условия выезда}}.</p></li>
+              <li><span>03</span><h3>Смета по пяти этапам</h3><p>За рабочий день после выезда. Каждый этап отдельной суммой, материалы с марками.</p></li>
+              <li><span>04</span><h3>Договор</h3><p>Смета в приложении, сроки в календарных днях, оплата каждого этапа после акта.</p></li>
+            </ul>
+            <p class="colophon__season"><b>Сезон {{год}}:</b> фундаменты заливаем до {{дата}}, дальше очередь на следующий сезон.</p>
+          </div>
+          <div class="colophon__meta" data-v-in data-v-stagger="80">
+            <!-- {{прораб}}: имя и фамилия, {{прораб год}}: с какого года на объектах. Вместо span с текстом вставить
+                 <img src="{{прораб фото}}" alt="{{прораб}}" width="144" height="144" loading="lazy"> -->
+            <div class="crew">
+              <div class="crew__photo" role="img" aria-label="{{прораб фото}}"><span>фото</span></div>
+              <div class="crew__text"><b>{{прораб}}</b><span>прораб, на объектах с {{прораб год}}. Он же принимает этапы вместе с вами.</span></div>
+            </div>
+            <!-- заполнить: в href телефон без пробелов, tel:+7XXXXXXXXXX; в тексте как удобно читать -->
+            <a class="colophon__tel" href="tel:{{телефон}}">{{телефон}}</a>
+            <span>{{адрес}}, {{город}}</span>
+            <p class="colophon__msg"><span>Или напишите:</span> <a href="{{ссылка-telegram}}" rel="noopener">Telegram</a> · <a href="{{ссылка-whatsapp}}" rel="noopener">WhatsApp</a> · <a href="{{ссылка-max}}" rel="noopener">MAX</a></p>
+            <a class="v-btn" href="{{ссылка-расчёта}}">Рассчитать смету</a>
+            <p class="colophon__after">Пришлите проект или размеры участка и дома. Перезвоним, уточним детали и за рабочий день пришлём смету по пяти этапам. Образцы договора, сметы и акта этапа: <a href="{{ссылка-образцы}}" rel="noopener">в PDF</a>.</p>
+          </div>
+        </div>
+        <footer class="colophon__foot">
+          <span>Свой дом · строительство каркасных домов и бань · {{город}}</span>
+          <span>{{юрлицо}} · ИНН {{ИНН}} · <a href="{{ссылка-политика}}" rel="noopener">Политика обработки персональных данных</a></span>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vibe.js"></script>
+<script>
+  Vibe.mount(document.querySelector('.v-page'));
+
+  // Титул: «стройка наоборот». Четыре кадра одного ракурса лежат стопкой (в DOM снизу вверх:
+  // участок, фундамент, каркас, дом). Прозрачность трёх верхних ведётся от --v-p акта:
+  // каждое состояние владеет четвертью пролёта, плато около 65% четверти, кроссфейд около 35%
+  // вокруг границы четвертей. Гаснет всегда верхний кадр, нижний под ним непрозрачный,
+  // поэтому переход чистый, без просвета сквозь два слоя. Подпись и шкала переключаются
+  // на середине кроссфейда.
+  (function () {
+    var act = document.getElementById('cover');
+    var imgs = act.querySelectorAll('.cover__img');
+    var states = document.getElementById('coverState').children;
+    var dots = document.getElementById('coverScale').children;
+    var n = imgs.length, live = false, lastF = -1, lastK = -1;
+    function ss(t) { t = t < 0 ? 0 : t > 1 ? 1 : t; return t * t * (3 - 2 * t); }
+    function paint(f) {
+      // f: 0 = дом, n-1 = участок. Слой i (считая снизу) держится, пока f < n-1-i, и гаснет за один шаг
+      for (var i = 1; i < n; i++) { var o = 1 - (f - (n - 1 - i)); imgs[i].style.opacity = (o < 0 ? 0 : o > 1 ? 1 : o).toFixed(3); }
+      var k = Math.round(f);
+      if (k !== lastK) {
+        lastK = k;
+        for (var j = 0; j < n; j++) {
+          states[j].classList.toggle('is-on', j === k);
+          dots[j].classList.toggle('is-on', j === k);
+          dots[j].classList.toggle('is-done', j < k);
+        }
+      }
+    }
+    function tick() {
+      var p = parseFloat(getComputedStyle(act).getPropertyValue('--v-p')) || 0;
+      var x = p * n, f = 0;
+      for (var b = 1; b < n; b++) f += ss((x - (b - 0.175)) / 0.35);
+      if (f !== lastF) { lastF = f; paint(f); }
+      if (live) requestAnimationFrame(tick);
+    }
+    new IntersectionObserver(function (es) { live = es[0].isIntersecting; if (live) tick(); }).observe(act);
+    tick();
+  })();
+  // Звёзды отзывов: заливка по числу из data-r («4,8» или «4.8»). Пока слот не заполнен, звёзды пустые.
+  Array.prototype.forEach.call(document.querySelectorAll('.reviews__stars[data-r]'), function (el) {
+    var n = parseFloat(String(el.getAttribute('data-r')).replace(',', '.'));
+    el.style.setProperty('--r', isNaN(n) ? 0 : Math.min(Math.max(n, 0), 5));
+  });
+
+  // Фирменный ход: линия стройки на полях. Пять точек-этапов заполняются
+  // по мере глав, активная подписана. Ведётся от положения интертитров.
+  // На тёплой плашке (глава 2) и тёмной главе (4) фолио меняет схему.
+  (function () {
+    var chapters = Array.prototype.slice.call(document.querySelectorAll('[data-chapter]'));
+    var end = document.getElementById('ch6');
+    var folio = document.getElementById('folio'), fill = document.getElementById('folioFill');
+    var dots = Array.prototype.slice.call(folio.querySelectorAll('.folio__dot'));
+    var fm = document.getElementById('folioM'), fmText = document.getElementById('folioMText'), fmBar = document.getElementById('folioMBar');
+    var names = ['Фундамент', 'Коробка', 'Кровля', 'Отделка', 'Сдача по акту'];
+    var darkFrom = 0, darkTo = 0, warmFrom = 0, warmTo = 0, tops = [], endTop = 0, lastIdx = -2, lastDark = null, lastWarm = null, ticking = false;
+
+    function measure() {
+      var y = window.scrollY;
+      tops = chapters.map(function (c) { return c.getBoundingClientRect().top + y; });
+      endTop = end.getBoundingClientRect().top + y;
+      var d1 = document.querySelector('.inter--dark'), d2 = document.querySelector('.chapter--dark'), w = document.querySelector('.inter--wood');
+      darkFrom = d1.getBoundingClientRect().top + y;
+      darkTo = d2.getBoundingClientRect().bottom + y;
+      warmFrom = w.getBoundingClientRect().top + y;
+      warmTo = w.getBoundingClientRect().bottom + y;
+      lastIdx = -2; lastDark = null; lastWarm = null; frame();
+    }
+    function frame() {
+      ticking = false;
+      var y = window.scrollY, vh = window.innerHeight, probe = y + vh * 0.45;
+      var idx = -1, i;
+      for (i = 0; i < tops.length; i++) if (probe >= tops[i]) idx = i;
+      var frac;
+      if (idx < 0) frac = 0;
+      else {
+        var a = tops[idx], b = idx + 1 < tops.length ? tops[idx + 1] : endTop;
+        frac = (idx + Math.min(Math.max((probe - a) / Math.max(b - a, 1), 0), 1)) / (tops.length - 1);
+      }
+      if (probe >= endTop) frac = 1;
+      frac = Math.min(frac, 1);
+      fill.style.height = (frac * 100).toFixed(2) + '%';
+      fmBar.style.transform = 'scaleX(' + frac.toFixed(3) + ')';
+      var dark = probe >= darkFrom && probe < darkTo;
+      if (dark !== lastDark) { lastDark = dark; folio.classList.toggle('is-dark', dark); fm.classList.toggle('is-dark', dark); }
+      var warm = probe >= warmFrom && probe < warmTo;
+      if (warm !== lastWarm) { lastWarm = warm; folio.classList.toggle('is-warm', warm); fm.classList.toggle('is-warm', warm); }
+      if (idx !== lastIdx) {
+        lastIdx = idx;
+        dots.forEach(function (d, k) {
+          d.classList.toggle('is-done', k < idx);
+          d.classList.toggle('is-active', k === idx);
+        });
+        fm.classList.toggle('is-on', idx >= 0);
+        if (idx >= 0) fmText.innerHTML = '<b>0' + (idx + 1) + '</b> · ' + names[idx];
+      }
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { clearTimeout(measure._t); measure._t = setTimeout(measure, 150); });
+    window.addEventListener('load', measure);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    measure();
+  })();
+</script>
+</body>
+</html>

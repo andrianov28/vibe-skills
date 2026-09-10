@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "vibe-skills",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Скиллы курса «Вайб-сайты» Академии Интернет Маркетинга: подбор заказов на Kwork, сборка сайтов и поиск клиентов через Claude Code",
   "owner": {
     "name": "Евгений Андрианов, Академия Интернет Маркетинга",
@@ -31,6 +31,20 @@
         "kwork",
         "тз",
         "бриф",
+        "вайб-сайты"
+      ]
+    },
+    {
+      "name": "vibe-sait",
+      "description": "Сборка сайта по каркасу ниши: бриф → каркас → картинки kie.ai (или заглушки) → проверка скриншотами → tilda.html",
+      "version": "3.0.0",
+      "source": "./plugins/vibe-sait",
+      "category": "productivity",
+      "keywords": [
+        "сайт",
+        "лендинг",
+        "тильда",
+        "kie.ai",
         "вайб-сайты"
       ]
     }

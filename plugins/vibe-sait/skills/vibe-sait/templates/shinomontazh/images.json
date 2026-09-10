@@ -1,0 +1,107 @@
+{
+  "world": "Ноктюрн",
+  "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
+  "preamble": "Night photography, practical light sources only: warm amber sodium work lights inside, cool blue ambient outside. Wet reflective asphalt doubling every light. Deep blue-black shadows, warm point highlights, light haze in the air. Shot on 35mm lens, shallow depth of field, visible fine film grain. Photographic realism, cinematic, NOT 3D render, NOT illustration, no CGI, no text, no signs, no logos, no people, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero-back.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Wide establishing shot of a small tyre service garage at night, one open roller door glowing warm amber from inside, a tyre changing machine and stacked tyres visible deep in the bay, rain-wet asphalt forecourt in the foreground reflecting the light. The bay sits low and to the right; large empty dark space across the upper left of the frame for text.",
+      "outputs": [
+        { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "bottom", "format": "jpeg", "quality": 80 }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-back-m.png",
+      "ar": "9:16",
+      "ref": null,
+      "scene": "Portrait framing of the same tyre service garage at night, open roller door glowing amber, wet asphalt in front. The garage sits in the lower half of the frame, upper half is dark night sky and empty space for text.",
+      "outputs": [
+        { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
+      ]
+    },
+    {
+      "id": "balance",
+      "raw": "raw/balance.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Close-up of a wheel balancing machine in the garage, a wheel spinning slightly blurred on the shaft, small counterweights and a technician's gloved hand at the edge of frame, amber light raking across the rim. Subject in the right two thirds; empty dark space on the left for text.",
+      "outputs": [
+        { "file": "assets/balance.webp", "width": 1920, "quality": 78 }
+      ]
+    },
+    {
+      "id": "stack",
+      "raw": "raw/stack.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Stack of four winter tyres on a steel rack inside the garage, tread patterns with sipes clearly visible, warm amber light from above, cool blue spill from the door. Tight vertical composition, empty darker space at the top.",
+      "outputs": [
+        { "file": "assets/stack.webp", "width": 1200, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hands",
+      "raw": "raw/hands.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Hands in work gloves fitting a tyre onto a rim on a tyre changing machine, tyre lever in motion, rubber lubricant shine, amber light, cool blue background. Documentary feel, subject low in frame, empty space above.",
+      "outputs": [
+        { "file": "assets/hands.webp", "width": 1600, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hero-b",
+      "variant": "Б",
+      "raw": "raw/hero-b.png",
+      "ar": "16:9",
+      "ref": "raw/hero-back.png",
+      "scene": "Same tyre service garage and the same camera position as the reference image, but the roller door is closed: a dark corrugated steel shutter with a thin line of warm amber light leaking from under it, rain-wet asphalt forecourt in the foreground reflecting one cool blue street light. The bay sits low and to the right; large empty dark space across the upper left of the frame for text.",
+      "outputs": [
+        { "file": "assets/hero-b.webp", "width": 1920, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hero-b-m",
+      "variant": "Б",
+      "raw": "raw/hero-b-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero-back-m.png",
+      "scene": "Same portrait framing and camera position as the reference image, but the roller door is closed: a dark corrugated steel shutter with a thin line of warm amber light leaking from under it, wet asphalt in front. The garage sits in the lower half of the frame, upper half is dark night sky and empty space for text.",
+      "outputs": [
+        { "file": "assets/hero-b-m.webp", "width": 1080, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hero-v",
+      "variant": "В",
+      "raw": "raw/hero-v.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Inside the tyre service bay at night, a dark crossover raised on a two-post lift with all four wheels off, seen from a low wide angle at the open door, amber work lights above the lift, cool blue night spilling in from the wet forecourt behind the camera. The car fills the lower two thirds of the frame; large empty dark space across the top for text.",
+      "outputs": [
+        { "file": "assets/hero-v.webp", "width": 1920, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hero-v-m",
+      "variant": "В",
+      "raw": "raw/hero-v-m.png",
+      "ar": "9:16",
+      "ref": null,
+      "scene": "Portrait framing inside the tyre service bay at night: a dark crossover raised on a two-post lift with the wheels off, seen from the open door at a low angle, amber work lights above, cool blue spill from the wet forecourt. The car sits in the lower half of the frame, upper half is dark empty space for text.",
+      "outputs": [
+        { "file": "assets/hero-v-m.webp", "width": 1080, "quality": 78 }
+      ]
+    }
+  ],
+  "keep": ["assets/wheel-900.webp", "assets/wheel-480.webp"],
+  "keep_source": {
+    "note": "Колесо едет с каркасом, генерировать не нужно. Если понадобится другое: одна генерация 1:1 без преамбула, вырезка scripts/layers.mjs, потом sharp webp 900 (q80) и 480 (q75), alphaQuality 85.",
+    "scene": "Studio product photography of a single car wheel: a new all-season tyre mounted on a dark graphite alloy rim, seen from a three-quarter angle, standing upright. Lit with one warm amber key light from the upper left and a cool blue rim light from the right, tread pattern crisp and detailed. Isolated on a plain flat uniform dark charcoal background, no floor, no shadow on the background, no reflections, centered with even empty space around. Photographic realism, no text, no logos on the tyre sidewall, no watermark."
+  }
+}

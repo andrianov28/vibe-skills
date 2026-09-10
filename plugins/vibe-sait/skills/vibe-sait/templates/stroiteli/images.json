@@ -1,0 +1,124 @@
+{
+  "world": "Архитектурный",
+  "preamble": "Architectural photography, tilt-shift corrected verticals, wide 24mm lens. Vast negative space, strong linear geometry, raking daylight through structure. Cool neutral grade with one warm accent of natural wood. Long exposure stillness, no people. Photographic, no render, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "cover",
+      "raw": "raw/cover.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Finished single-storey timber frame house with a covered wooden terrace, dark grey standing-seam metal roof, light grey vertical wood siding, natural larch terrace posts and boards, on a cleared plot with young grass and a light gravel path, early morning with thin low mist. Wide frontal three-quarter view from standing height, soft diffused sunrise light raking from the right. The house sits low and to the right, occupying only the lower half of the frame; the upper half and the whole left third are a pale luminous misty sky, plain and empty for a large headline. No people, no cars, no text, no signs.",
+      "outputs": [
+        { "file": "assets/cover.webp", "width": 1920, "quality": 80 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
+      ]
+    },
+    {
+      "id": "stage-frame",
+      "raw": "raw/stage-frame.png",
+      "ar": "16:9",
+      "ref": "raw/cover.png",
+      "scene": "Exactly the same plot, same camera position, same morning mist and light, but the house is replaced by its bare timber frame standing on a concrete strip foundation, no walls, no roof covering, rafters visible. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/stage-frame.webp", "width": 1920, "quality": 76 }
+      ]
+    },
+    {
+      "id": "stage-plot",
+      "raw": "raw/stage-plot.png",
+      "ar": "16:9",
+      "ref": "raw/cover.png",
+      "scene": "Exactly the same plot, same camera position, same morning mist and light, but an empty plot of meadow grass in the mist, nothing built, no foundation, no house. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/stage-plot.webp", "width": 1920, "quality": 76 }
+      ]
+    },
+    {
+      "id": "stage-foundation",
+      "raw": "raw/stage-foundation.png",
+      "ar": "16:9",
+      "ref": "raw/stage-frame.png",
+      "scene": "Exactly the same image: same plot, same camera position, same horizon, same morning mist and light, same meadow grass. Remove all the timber framing completely, keep only the low concrete strip foundation that the frame stands on, with wooden formwork boards along its outer side, in exactly the same place and the same size as in the reference, fully inside the frame on the right side. No walls, no posts, no rafters, no house. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/stage-foundation.webp", "width": 1920, "quality": 76 }
+      ]
+    },
+    {
+      "id": "foundation",
+      "raw": "raw/foundation.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Freshly poured strip foundation for a small timber house on a flat cleared plot: neat wooden formwork boards, smooth wet grey concrete surface, steel rebar stubs, a few timber stakes. Shot from a low standing height across the corner of the foundation, daylight from the side, soft overcast sky. Foundation occupies the lower two thirds of the frame; the upper third is calm pale empty sky with space for a caption. No people, no machinery, no text, no signs.",
+      "outputs": [
+        { "file": "assets/foundation.webp", "width": 1600, "quality": 82 },
+        { "file": "assets/foundation-t.webp", "width": 480, "height": 320, "fit": "cover", "position": "centre", "quality": 74 }
+      ]
+    },
+    {
+      "id": "frame",
+      "raw": "raw/frame.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Timber frame of a single-storey house under construction: vertical studs, top plates and roof trusses of pale planed lumber, daylight streaming through the open structure in long diagonal shafts, OSB sheathing partly fitted on one wall. Shot straight on from inside the future living room, low afternoon sun raking across the wood. Strong repeating verticals; the left third of the frame is quieter and emptier for text. No people, no tools, no text, no signs.",
+      "outputs": [
+        { "file": "assets/frame.webp", "width": 1600, "quality": 82 },
+        { "file": "assets/frame-t.webp", "width": 480, "height": 320, "fit": "cover", "position": "centre", "quality": 74 }
+      ]
+    },
+    {
+      "id": "roof",
+      "raw": "raw/roof.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Roof of a timber house under construction seen from slightly above: wooden rafters and battens on one half, dark graphite metal roof tiles already laid on the other half, the ridge line running diagonally. Clear cool daylight, crisp shadows of the battens. Roof fills the lower and right part of the frame; the upper left is plain pale sky with empty space for a caption. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/roof.webp", "width": 1600, "quality": 82 },
+        { "file": "assets/roof-t.webp", "width": 480, "height": 320, "fit": "cover", "position": "centre", "quality": 74 }
+      ]
+    },
+    {
+      "id": "interior",
+      "raw": "raw/interior.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Interior of a timber house in the finishing stage: one wall clad in pale natural wood lining boards, another wall in unpainted plasterboard with taped joints, a large window on the left letting in soft daylight across a plywood floor. Wide shot from the corner of the room, calm and empty. The right half of the frame is a plain unfinished wall with empty space for text. No furniture, no people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/interior.webp", "width": 1600, "quality": 82 },
+        { "file": "assets/interior-t.webp", "width": 480, "height": 320, "fit": "cover", "position": "centre", "quality": 74 }
+      ]
+    },
+    {
+      "id": "house",
+      "raw": "raw/house.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Finished single-storey timber frame house with a covered wooden terrace, dark grey metal roof, light grey wood siding, natural larch terrace boards and posts, standing on a cleared plot with young grass at early morning in light mist. Wide frontal three-quarter view from standing height, soft diffused sunrise light. House sits low in the frame; the upper part is a pale misty sky with empty space for a caption. No people, no cars, no text, no signs.",
+      "outputs": [
+        { "file": "assets/house.webp", "width": 1600, "quality": 82 },
+        { "file": "assets/house-t.webp", "width": 480, "height": 320, "fit": "cover", "position": "centre", "quality": 74 }
+      ]
+    },
+    {
+      "id": "material",
+      "raw": "raw/material.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Close-up of construction materials for a timber frame house: stacked planed kiln-dried timber beams with visible end grain and a sheet of OSB board leaning behind, on a clean site. Vertical composition, daylight from one side, fine wood texture and warm natural wood colour against a cool grey background. The material fills the lower two thirds; the upper third is plain and empty for a caption. No people, no text, no stamps, no logos.",
+      "outputs": [
+        { "file": "assets/material.webp", "width": 1200, "quality": 82 }
+      ]
+    },
+    {
+      "id": "hero-v-back",
+      "variant": "В",
+      "raw": "raw/hero-v-back.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "View from inside the open timber frame of a single-storey house under construction, looking out through bare pale planed spruce studs and rafters towards a misty morning plot with a distant tree line. The nearest studs and a top plate stand along the right third of the frame; the left two thirds are open pale luminous misty sky, plain and empty for a large headline. Shot from standing height, soft diffused sunrise light raking from the right. No people, no tools, no text, no signs.",
+      "outputs": [
+        { "file": "assets/hero-v-back.webp", "width": 1920, "quality": 78 }
+      ]
+    }
+  ],
+  "keep": []
+}

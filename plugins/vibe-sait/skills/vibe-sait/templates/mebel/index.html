@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Мебель Платов · кухни и шкафы по вашим размерам</title>
+<meta name="description" content="Кухни и шкафы на заказ, {{город}}: предварительный расчёт по вашим размерам за день, точная смета после замера, фасады показываем вживую, срок изготовления в договоре.">
+<link rel="canonical" href="https://{{домен}}/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Мебель Платов · кухни и шкафы по вашим размерам">
+<meta property="og:description" content="Предварительный расчёт за день по вашим размерам, точная смета после замера, фасады вживую, срок изготовления в договоре.">
+<meta property="og:image" content="https://{{домен}}/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="preload" href="assets/fonts/piazzolla-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%275%27 y=%275%27 width=%2722%27 height=%2722%27 rx=%274%27 fill=%27%23d99a3e%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vibe.css">
+<style>
+  /* ---- шрифты: свои файлы, без Google Fonts ---------------------------- */
+  @font-face { font-family: "Piazzolla"; font-style: normal; font-weight: 500 600; font-display: swap;
+    src: url(assets/fonts/piazzolla-cyr.woff2) format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: "Piazzolla"; font-style: normal; font-weight: 500 600; font-display: swap;
+    src: url(assets/fonts/piazzolla-lat.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
+  @font-face { font-family: "Piazzolla"; font-style: italic; font-weight: 500; font-display: swap;
+    src: url(assets/fonts/piazzolla-italic-cyr.woff2) format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: "Piazzolla"; font-style: italic; font-weight: 500; font-display: swap;
+    src: url(assets/fonts/piazzolla-italic-lat.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
+  @font-face { font-family: "Manrope"; font-style: normal; font-weight: 400 600; font-display: swap;
+    src: url(assets/fonts/manrope-cyr.woff2) format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: "Manrope"; font-style: normal; font-weight: 400 600; font-display: swap;
+    src: url(assets/fonts/manrope-lat.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
+
+  /* ---- тема: шесть цветов, два шрифта --------------------------------- */
+  .v-page {
+    --v-canvas: #101713; --v-surface: #18211c;
+    --v-ink: #efe9dc; --v-ink-soft: #adb3a6;
+    --v-accent: #d99a3e; --v-accent-ink: #171208;
+    --v-font-display: "Piazzolla", "Georgia", "Times New Roman", serif;
+    --v-font-text: "Manrope", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 4 8 5;
+    --v-radius: 10px;
+  }
+  .v-page .v-display { font-weight: 600; letter-spacing: -0.015em; }
+  .v-page .v-display--xl { line-height: .98; }
+  .v-page .v-display em { font-style: italic; font-weight: 500; color: var(--v-accent); }
+  .v-page .v-lede { font-weight: 500; }
+  .v-page [id] { scroll-margin-top: 5rem; }
+  /* текстовые ссылки как цели для пальца: не меньше 44 px по высоте */
+  .tap { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+  /* телефон: базовый текст 16 px, подписи 13 px, образцы 12 px */
+  @media (max-width: 760px) {
+    .v-page { --v-t-sm: 1rem; --v-t-xs: 0.8125rem; }
+  }
+
+  /* ---- шапка: прозрачная на первом экране, плотная после ---------------- */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; align-items: center; justify-content: space-between;
+    padding: var(--v-3) var(--v-gutter); gap: var(--v-4);
+    background: linear-gradient(to bottom, rgb(16 23 19 / .88), rgb(16 23 19 / 0));
+    transition: background-color .24s var(--v-ease-out), box-shadow .24s var(--v-ease-out); }
+  .bar.is-scrolled { background: rgb(16 23 19); box-shadow: 0 1px 0 rgb(239 233 220 / .10), 0 8px 24px rgb(4 8 5 / .35); }
+  .bar__mark { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-base); letter-spacing: 0; text-decoration: none; display: inline-flex; align-items: center; gap: .5em; min-height: 44px; }
+  .bar__mark i { width: .7em; height: .7em; border-radius: 2px; background: var(--v-accent); display: inline-block; transform: rotate(45deg); }
+  .bar__right { display: flex; align-items: center; gap: var(--v-5); }
+  .bar__tel { font-weight: 600; font-size: var(--v-t-sm); color: var(--v-ink); padding: 0 .25em; }
+  @media (max-width: 760px) { .bar__tel { display: none; } .bar .v-btn { padding: .75em 1.1em; font-size: .9375rem; } }
+
+  /* ---- hero: три плана, текст по центру сверху --------------------------- */
+  .hero__back img { width: 116%; height: 140%; left: -8%; top: -2%; object-fit: cover; object-position: 50% 50%; }
+  .hero__door img { width: clamp(200px, 21vw, 360px); right: clamp(2rem, 8vw, 10rem); bottom: -3vh;
+    filter: drop-shadow(0 34px 44px rgb(0 0 0 / .65)); }
+  .hero__floor { position: absolute; inset: auto 0 0 0; height: 30%; z-index: 2; pointer-events: none;
+    background: linear-gradient(to top, var(--v-canvas) 0%, rgb(16 23 19 / .55) 50%, transparent 100%); }
+  .hero__veil { position: absolute; inset: 0 0 auto 0; height: 58%; z-index: 2; pointer-events: none;
+    background: linear-gradient(to bottom, rgb(16 23 19 / .55) 0%, rgb(16 23 19 / .35) 55%, transparent 100%); }
+  .hero__copy { position: absolute; z-index: 3; left: var(--v-gutter); right: var(--v-gutter); top: clamp(6rem, 15vh, 10rem);
+    text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .hero__copy .v-display { font-size: var(--v-t-3xl); max-width: 16ch; }
+  .hero__copy .v-display .v-k:nth-of-type(5) .v-ki { font-style: italic; font-weight: 500; color: var(--v-accent); }
+  .hero__rest { display: flex; flex-direction: column; align-items: inherit; }
+  .hero__copy .v-lede { margin-top: var(--v-5); max-width: 44ch; color: var(--v-ink); opacity: .92; }
+  .hero__cta { margin-top: var(--v-6); }
+  .hero__note { position: absolute; z-index: 3; left: var(--v-gutter); right: var(--v-gutter); bottom: clamp(2rem, 6vh, 4rem);
+    display: flex; gap: var(--v-3) var(--v-8); flex-wrap: wrap; }
+  .hero__note > div { display: grid; gap: .15em; }
+  .hero__note .v-label { color: var(--v-ink-soft); }
+  .hero__note .v-nums { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); line-height: 1.1; }
+  .hero__note .v-nums b { color: var(--v-accent); font-weight: 500; }
+  @media (max-height: 820px) and (min-width: 761px) {
+    .hero__copy { top: 5.25rem; }
+    .hero__copy .v-display { font-size: var(--v-t-2xl); }
+  }
+  @media (max-width: 1000px) and (min-width: 761px) {
+    .hero__note { right: 36%; gap: var(--v-3) var(--v-6); }
+  }
+  @media (max-width: 760px) {
+    /* кухня видна: фронты и подсветка в нижней трети экрана, дверца стоит на столешнице */
+    .hero__back img { width: 180%; height: auto; left: -40%; top: auto; bottom: 5vh; object-fit: unset;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 42%); mask-image: linear-gradient(to bottom, transparent 0%, #000 42%); }
+    .hero__door img { width: 32vw; right: 0; bottom: 7vh; filter: drop-shadow(0 18px 24px rgb(0 0 0 / .6)); }
+    .hero__veil { display: none; }
+    .hero__floor { height: 16%; }
+    .hero__copy { top: clamp(5.25rem, 12vh, 7rem); align-items: flex-start; text-align: left; }
+    .hero__copy .v-display { font-size: var(--v-t-2xl); }
+    .hero__copy .v-lede { max-width: 30ch; }
+    .hero__note { display: none; }
+  }
+
+  /* ---- фирменный ход: конфигуратор фасадов -------------------------------- */
+  .conf { position: absolute; inset: 0; }
+  .v-page .conf__img { position: absolute; inset: 0 -6% -16% -6%; width: 112%; max-width: none; height: 116%; object-fit: cover; object-position: 50% 50%; will-change: opacity; }
+  .v-page .conf__img + .conf__img { opacity: 0; }
+  .conf__top { position: absolute; z-index: 3; left: var(--v-gutter); right: var(--v-gutter); top: clamp(5.5rem, 13vh, 8rem); }
+  .conf__top > div:first-child, .conf__rep { max-width: 40rem; }
+  .conf__top .v-label { display: block; margin-bottom: var(--v-3); color: var(--v-accent); }
+  .conf__top .v-display { margin-bottom: var(--v-5); }
+  .conf__rep { position: relative; min-height: 9rem; }
+  .conf__rep > div { position: absolute; left: 0; top: 0; max-width: 34rem; }
+  .conf__rep h3 { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: var(--v-2); }
+  .conf__rep p { color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 42ch; }
+  .conf__rep p b { color: var(--v-ink); font-weight: 500; }
+  .conf__rep .price { display: block; margin-top: var(--v-3); font-size: var(--v-t-sm); color: var(--v-ink); }
+  .conf__rep .price b { color: var(--v-accent); font-weight: 600; }
+  .sw { position: absolute; z-index: 3; right: 0; top: 0; display: grid; gap: var(--v-3); }
+  .sw__btn { display: flex; align-items: center; justify-content: flex-end; gap: var(--v-3); padding: 0; min-height: 44px; text-align: right; }
+  .sw__btn span { font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); transition: color .18s var(--v-ease-out), opacity .18s var(--v-ease-out); opacity: .6; }
+  .sw__btn i { width: 2.75rem; height: 2.75rem; border-radius: 50%; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .18), 0 0 0 2px transparent, var(--v-e1);
+    transition: box-shadow .18s var(--v-ease-out), transform .18s var(--v-ease-out); }
+  .sw__btn.is-on span { color: var(--v-ink); opacity: 1; }
+  .sw__btn.is-on i { box-shadow: inset 0 0 0 1px rgb(255 255 255 / .18), 0 0 0 2px var(--v-accent), var(--v-e1); transform: scale(1.1); }
+  @media (hover: hover) and (pointer: fine) { .sw__btn:hover span { color: var(--v-ink); opacity: 1; } .sw__btn:hover i { transform: scale(1.06); } }
+  .sw__btn--graphite i { background: linear-gradient(135deg, #43464a, #23262a); }
+  .sw__btn--white i { background: linear-gradient(135deg, #f1ebdd, #cfc8b7); }
+  .sw__btn--oak i { background: linear-gradient(135deg, #c9a46c, #9a7548); }
+  .sw__btn--green i { background: linear-gradient(135deg, #3f7f5a, #1f4a33); }
+  .conf__cta { position: absolute; z-index: 3; left: var(--v-gutter); bottom: clamp(2.5rem, 8vh, 5rem); }
+  @media (max-width: 760px) {
+    .v-page .conf__img { inset: auto -42% 0 -42%; width: 184%; height: auto; object-fit: unset;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%); mask-image: linear-gradient(to bottom, transparent 0%, #000 34%); }
+    .conf__top { right: var(--v-gutter); max-width: none; top: clamp(4.5rem, 10vh, 6rem); }
+    .conf__top .v-display { margin-bottom: var(--v-4); }
+    .conf__rep { min-height: 11.5rem; }
+    .conf__rep h3 { font-size: var(--v-t-lg); }
+    /* образцы стоят сразу под текстом реплики, а не парят у кадра */
+    .sw { position: relative; top: auto; right: auto; margin-top: var(--v-3); grid-auto-flow: column; justify-content: start; gap: var(--v-3); }
+    .sw__btn { flex-direction: column; gap: var(--v-2); min-width: 48px; min-height: 48px; padding: 4px 6px; text-align: center; justify-content: flex-start; }
+    .sw__btn i { width: 2.75rem; height: 2.75rem; }
+    .sw__btn span { font-size: .75rem; letter-spacing: .04em; }
+    .conf__cta { display: none; }
+  }
+
+  /* ---- сколько стоит: три строки с ценой справа --------------------------- */
+  .price { display: grid; grid-template-columns: .8fr 1.4fr; gap: var(--v-9); align-items: start; }
+  .price__head .v-body { color: var(--v-ink-soft); margin-top: var(--v-4); }
+  .price__rows li { display: grid; grid-template-columns: 1fr auto; gap: var(--v-2) var(--v-6); padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); align-items: start; }
+  .price__rows li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .price__rows h3 { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.15; letter-spacing: -0.01em; }
+  .price__rows p { color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 40ch; }
+  .price__rows .sum { grid-column: 2; grid-row: 1 / span 2; font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); line-height: 1.1; color: var(--v-accent); text-align: right; white-space: nowrap; }
+  .price__rows .sum small { display: block; font-family: var(--v-font-text); font-weight: 500; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); margin-top: .35em; }
+  .price__note { margin-top: var(--v-5); color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 60ch; }
+  .price__note b { color: var(--v-ink); font-weight: 500; }
+  .price > * { min-width: 0; }
+  @media (max-width: 1000px) {
+    .price { grid-template-columns: 1fr; gap: var(--v-6); }
+    .price__rows li { grid-template-columns: 1fr; }
+    .price__rows .sum { grid-column: 1; grid-row: auto; text-align: left; white-space: normal; margin-top: var(--v-2); }
+  }
+
+  /* ---- наши работы: мозаика 4 колонки под фото клиента ------------------ */
+  .works__head { display: flex; flex-wrap: wrap; gap: var(--v-4) var(--v-8); align-items: end; justify-content: space-between; margin-bottom: var(--v-7); }
+  .works__head .v-body { color: var(--v-ink-soft); max-width: 46ch; }
+  .works__grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: clamp(11rem, 17vw, 15rem); gap: var(--v-4); }
+  .work { position: relative; border-radius: var(--v-radius); overflow: hidden; background: var(--v-surface); box-shadow: var(--v-edge), var(--v-e1); }
+  .work--wide { grid-column: span 2; }
+  .v-page .work__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .v-page .work__img:not([src]) { display: none; }
+  .work__empty { position: absolute; inset: 0; display: grid; align-content: start; justify-items: center; gap: .3em; text-align: center; padding: 22% var(--v-4) var(--v-4);
+    background: radial-gradient(70% 60% at 50% 40%, rgb(217 154 62 / .10), transparent 70%); }
+  .work__empty .v-label { color: var(--v-ink-soft); }
+  .work__empty b { font-family: var(--v-font-display); font-weight: 500; font-style: italic; font-size: var(--v-t-lg); color: var(--v-ink); line-height: 1.1; }
+  .work.is-photo .work__empty { display: none; }
+  .work.is-photo::after { content: ""; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(to top, rgb(16 23 19 / .8), transparent); }
+  .work figcaption { position: absolute; z-index: 2; left: var(--v-4); right: var(--v-4); bottom: var(--v-4); font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); line-height: 1.4; }
+  .work figcaption b { color: var(--v-ink); font-weight: 600; }
+  @media (max-width: 1000px) {
+    .works__grid { grid-auto-rows: clamp(12rem, 25vw, 14rem); }
+    .work__empty { padding-top: 12%; }
+    .work__empty b { font-size: var(--v-t-base); }
+  }
+  @media (max-width: 760px) {
+    .works__head { margin-bottom: var(--v-6); }
+    .works__grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(11rem, 52vw, 14rem); gap: var(--v-3); }
+    .work__empty { padding-top: 16%; }
+    .work__empty b { font-size: var(--v-t-base); }
+    .work figcaption { left: var(--v-3); right: var(--v-3); bottom: var(--v-3); }
+  }
+
+  /* ---- материалы: факты строками + три макро с шторками ---------------- */
+  .mat { display: grid; grid-template-columns: 1fr 1.05fr; gap: var(--v-9); align-items: start; }
+  .mat__facts li { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-2); }
+  .mat__facts li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .mat__facts h3 { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.15; letter-spacing: -0.01em; }
+  .mat__facts p { color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 46ch; }
+  .mat__figs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--v-5); align-items: start; }
+  .mat__figs figure { position: relative; border-radius: var(--v-radius); overflow: hidden; aspect-ratio: 3 / 4; box-shadow: var(--v-e2), var(--v-edge); }
+  .mat__figs figure img { width: 100%; height: 100%; object-fit: cover; }
+  .mat__figs figure:nth-child(2) { margin-top: var(--v-9); }
+  .mat__figs figure:nth-child(3) { margin-top: calc(-1 * var(--v-8)); }
+  .mat__figs figcaption { position: absolute; left: var(--v-4); right: var(--v-4); top: var(--v-4); font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); }
+  @media (max-width: 760px) {
+    .mat { grid-template-columns: 1fr; gap: var(--v-7); }
+    .mat__figs { gap: var(--v-4); }
+    .mat__figs figure:nth-child(2) { margin-top: var(--v-7); }
+    .mat__figs figure:nth-child(3) { margin-top: calc(-1 * var(--v-6)); }
+  }
+
+  /* ---- опыт: что мы знаем после N кухонь, шесть промахов раскрывающимися строками */
+  .exp { display: grid; grid-template-columns: 1fr 1.3fr; gap: var(--v-7) var(--v-9); align-items: start; }
+  .exp__head .v-display { max-width: 14ch; }
+  .exp__sign { display: flex; align-items: center; gap: var(--v-4); margin-top: var(--v-5); color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .exp__sign b { color: var(--v-ink); font-weight: 600; }
+  .exp__mark, .v-page .exp__face { width: 56px; height: 56px; border-radius: 50%; flex: none; }
+  .v-page .exp__face { object-fit: cover; }
+  .v-page .exp__face:not([src]) { display: none; }
+  .exp__mark { display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--v-hair-strong); background: var(--v-surface); }
+  .exp__mark i { width: 12px; height: 12px; border-radius: 2px; background: var(--v-accent); transform: rotate(45deg); }
+  .exp__sign.is-photo .exp__mark { display: none; }
+  .exp__list { grid-column: 1 / -1; }
+  .exp__row { border-top: 1px solid var(--v-hair); }
+  .exp__row:last-child { border-bottom: 1px solid var(--v-hair); }
+  .exp__row summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: var(--v-6); align-items: center; padding: var(--v-5) 0; min-height: 44px; }
+  .exp__row summary::-webkit-details-marker { display: none; }
+  .exp__row summary:focus-visible { outline-offset: -3px; }
+  .exp__q { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.15; letter-spacing: -0.01em; max-width: 34ch; text-wrap: balance; }
+  .exp__plus { position: relative; width: 2.25rem; height: 2.25rem; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px var(--v-hair-strong); transition: transform .24s var(--v-ease-out), box-shadow .18s var(--v-ease-out); }
+  .exp__plus::before, .exp__plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; background: var(--v-ink); transform: translate(-50%, -50%); }
+  .exp__plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .exp__row[open] .exp__plus { transform: rotate(45deg); box-shadow: inset 0 0 0 1px var(--v-accent); }
+  .exp__row[open] .exp__plus::before, .exp__row[open] .exp__plus::after { background: var(--v-accent); }
+  @media (hover: hover) and (pointer: fine) { .exp__row summary:hover .exp__plus { transform: scale(1.06); } .exp__row[open] summary:hover .exp__plus { transform: rotate(45deg) scale(1.06); } }
+  .exp__a { display: grid; grid-template-columns: 11rem 1fr; gap: var(--v-4) var(--v-6); padding: 0 0 var(--v-6); max-width: 64rem; animation: exp-in .32s var(--v-ease-out) both; }
+  .exp__how { color: var(--v-accent); padding-top: .3em; }
+  .exp__a p { color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 58ch; text-wrap: pretty; }
+  @keyframes exp-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .exp__end { grid-column: 2; margin-top: var(--v-2); font-family: var(--v-font-display); font-weight: 500; font-style: italic; font-size: var(--v-t-xl); line-height: 1.25; letter-spacing: -0.01em; max-width: 26ch; text-wrap: pretty; }
+  .exp__end b { color: var(--v-accent); font-weight: 500; }
+  @media (max-width: 1000px) { .exp__a { grid-template-columns: 1fr; gap: var(--v-2); } .exp__how { padding-top: 0; } }
+  @media (max-width: 760px) {
+    .exp { grid-template-columns: 1fr; gap: var(--v-6); }
+    .exp__head .v-display { max-width: none; }
+    .exp__sign { margin-top: var(--v-4); }
+    .exp__row summary { gap: var(--v-4); padding: var(--v-4) 0; }
+    .exp__q { font-size: var(--v-t-base); }
+    .exp__a { padding-bottom: var(--v-5); }
+    .exp__end { grid-column: 1; font-size: var(--v-t-lg); }
+  }
+  @media (prefers-reduced-motion: reduce) { .exp__a { animation-duration: .01s; } .exp__plus { transition: none; } }
+
+  /* ---- отзывы с Яндекс.Карт: слоты под настоящие ------------------------- */
+  .reviews__head { display: flex; flex-wrap: wrap; gap: var(--v-6); align-items: end; justify-content: space-between; margin-bottom: var(--v-7); }
+  .reviews__rating { display: flex; align-items: center; flex-wrap: wrap; gap: var(--v-2) var(--v-3); font-size: var(--v-t-sm); }
+  .reviews__num { font-family: var(--v-font-display); font-size: var(--v-t-2xl); line-height: 1; color: var(--v-accent); }
+  .reviews__stars { --size: 1.1rem; display: inline-block; width: calc(var(--size) * 5); height: var(--size);
+    background: linear-gradient(90deg, var(--v-accent) calc(var(--r, 0) / 5 * 100%), var(--v-hair-strong) 0);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x; }
+  .reviews__stars--sm { --size: .8rem; vertical-align: middle; }
+  .reviews__rating .tap { color: var(--v-ink); font-weight: 600; text-decoration: underline; text-decoration-color: var(--v-hair-strong); text-underline-offset: .2em; }
+  .reviews__list { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--v-6); align-items: start; }
+  .reviews__item { padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .reviews__item--big .reviews__text { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); line-height: 1.3; letter-spacing: -0.01em; }
+  .reviews__text { text-wrap: pretty; }
+  .reviews__meta { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__meta b { color: var(--v-ink); font-weight: 600; }
+  @media (max-width: 760px) { .reviews__list { grid-template-columns: 1fr; gap: var(--v-5); } .reviews__head { margin-bottom: var(--v-6); } }
+
+  /* ---- как заказать: пять шагов, настоящая последовательность ----------- */
+  .steps { display: grid; grid-template-columns: .9fr 1.3fr; gap: var(--v-9); align-items: start; }
+  .steps__head { position: sticky; top: clamp(5rem, 14vh, 8rem); }
+  .steps__head .v-body { color: var(--v-ink-soft); margin-top: var(--v-4); }
+  .steps__head .v-body b { color: var(--v-ink); font-weight: 500; }
+  .steps__list li { display: grid; grid-template-columns: 4.5rem 1fr; gap: var(--v-4); padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); align-items: start; }
+  .steps__list li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .steps__list .num { font-family: var(--v-font-display); font-weight: 500; font-style: italic; font-size: var(--v-t-2xl); line-height: 1; color: var(--v-accent); }
+  .steps__list h3 { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.15; letter-spacing: -0.01em; margin-bottom: var(--v-2); }
+  .steps__list p { color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 48ch; }
+  .steps__list p b { color: var(--v-ink); font-weight: 500; }
+  @media (max-width: 760px) {
+    .steps { grid-template-columns: 1fr; gap: var(--v-7); }
+    .steps__head { position: static; }
+    .steps__list li { grid-template-columns: 3rem 1fr; }
+    .steps__list .num { font-size: var(--v-t-xl); }
+  }
+
+  /* ---- финал: по центру, свет за курсором --------------------------------- */
+  .close { height: 100%; display: grid; grid-template-rows: 1fr auto; padding: 0 var(--v-gutter);
+    background: radial-gradient(56rem 38rem at calc(var(--v-mx, .5) * 100%) calc(var(--v-my, .45) * 100%), rgb(217 154 62 / .16), transparent 62%); }
+  .close__inner { align-self: center; text-align: center; display: flex; flex-direction: column; align-items: center; padding-top: var(--v-9); }
+  .close__inner .v-display { max-width: 20ch; }
+  .close__inner .v-lede { margin: var(--v-5) auto 0; max-width: 40ch; color: var(--v-ink-soft); }
+  .close__cta { margin-top: var(--v-7); }
+  .close__hint { margin-top: var(--v-3); color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .close__meta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0 var(--v-7); margin-top: var(--v-6); color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .close__meta a { color: var(--v-ink); font-weight: 600; }
+  .close__meta b { color: var(--v-ink); font-weight: 500; }
+  .who { display: flex; align-items: center; justify-content: center; gap: var(--v-4); margin-top: var(--v-6); color: var(--v-ink-soft); font-size: var(--v-t-sm); text-align: left; max-width: 44rem; }
+  .who__mark, .v-page .who__face { width: 56px; height: 56px; border-radius: 50%; flex: none; }
+  .v-page .who__face { object-fit: cover; }
+  .v-page .who__face:not([src]) { display: none; }
+  .who__mark { display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--v-hair-strong); background: var(--v-surface); }
+  .who__mark i { width: 12px; height: 12px; border-radius: 2px; background: var(--v-accent); transform: rotate(45deg); }
+  .who.is-photo .who__mark { display: none; }
+  .who b { color: var(--v-ink); font-weight: 600; }
+  .foot { display: flex; justify-content: space-between; gap: var(--v-2) var(--v-4); padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); flex-wrap: wrap; }
+  @media (max-width: 760px) {
+    .close__inner { padding-top: var(--v-7); }
+    .close__inner .v-lede { max-width: 32ch; margin-top: var(--v-4); }
+    .close__cta { margin-top: var(--v-5); }
+    .close__hint { margin-top: var(--v-2); }
+    .close__meta { flex-direction: column; gap: 0; margin-top: var(--v-3); }
+    .who { margin-top: var(--v-4); }
+    .foot { padding: var(--v-4) 0; }
+  }
+</style>
+</head>
+<body>
+<div class="v-page">
+  <span data-v-progress></span>
+  <div class="v-grain" aria-hidden="true"></div>
+
+  <header class="bar" id="bar">
+    <a class="bar__mark" href="#top"><i aria-hidden="true"></i>Мебель Платов</a>
+    <div class="bar__right">
+      <a class="bar__tel tap" href="tel:{{телефон}}">{{телефон}}</a>
+      <a class="v-btn" href="#raschet">Рассчитать кухню</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- 1 · УЗНАВАНИЕ: hero из трёх планов, текст по центру над кухней -->
+    <section data-v-act="pin" data-v-span="1.6" data-v-drift="#101713" aria-label="Кухни на заказ по вашим размерам">
+      <div data-v-stage>
+        <div class="v-layer hero__back" data-v-parallax="-0.7">
+          <img src="assets/kitchen-base.webp" alt="" width="1920" height="1067">
+        </div>
+        <div class="hero__veil" aria-hidden="true"></div>
+        <div class="v-layer hero__door" data-v-parallax="-0.3">
+          <img src="assets/door.webp" alt="" width="1000" height="1409">
+        </div>
+        <div class="hero__floor" aria-hidden="true"></div>
+
+        <div class="hero__copy">
+          <h1 class="v-display v-display--xl" data-v-cue="0 0.85 0" data-v-kinetic="lines" data-hero-cue>Кухня по вашим размерам. Расчёт за день.</h1>
+          <div class="hero__rest" data-v-cue="0 0.85 0" data-v-rise="0" data-hero-cue>
+            <p class="v-lede">Присылаете размеры или план, за день даём предварительный расчёт. Точная смета после замера, срок изготовления в договоре.</p>
+            <div class="hero__cta"><a class="v-btn" href="#raschet">Рассчитать кухню</a></div>
+          </div>
+        </div>
+
+        <div class="hero__note" data-v-cue="0 0.7 0" data-v-rise="0" data-hero-cue>
+          <div><span class="v-label">Кухня 3 м, как на фото</span><span class="v-nums">от <b>{{цена-от}} ₽</b></span></div>
+          <div><span class="v-label">Изготовление</span><span class="v-nums">{{срок-изготовления}} дней</span></div>
+          <div><span class="v-label">Гарантия на фурнитуру</span><span class="v-nums">24 месяца</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · ПОВОРОТ: конфигуратор фасадов (фирменный ход) -->
+    <section data-v-act="pin" data-v-span="2.6" data-v-drift="#131c16" id="fasady" aria-label="Конфигуратор фасадов">
+      <div data-v-stage>
+        <div class="conf" aria-hidden="true">
+          <img class="conf__img" src="assets/kitchen-base.webp" alt="" width="1920" height="1067">
+          <img class="conf__img" src="assets/kitchen-white.webp" alt="" width="1920" height="1067" loading="lazy">
+          <img class="conf__img" src="assets/kitchen-oak.webp" alt="" width="1920" height="1067" loading="lazy">
+          <img class="conf__img" src="assets/kitchen-green.webp" alt="" width="1920" height="1067" loading="lazy">
+        </div>
+
+        <div class="conf__top">
+          <div data-v-cue="0 1 0 0" data-v-rise="0">
+            <span class="v-label">Конфигуратор фасадов</span>
+            <h2 class="v-display v-display--md">Одна кухня. Четыре фасада.</h2>
+          </div>
+          <div class="conf__rep">
+            <div data-v-cue="0 0.19 0 0.07">
+              <h3>Матовый графит</h3>
+              <p><b>Фасад:</b> МДФ в эмали, матовый. <b>Столешница:</b> кварц. Без ручек, открывание от нажатия.</p>
+              <span class="price v-nums">Как на фото: от <b>{{цена-графит}} ₽</b> за погонный метр</span>
+            </div>
+            <div data-v-cue="0.17 0.5 0.07 0.07">
+              <h3>Тёплый белый</h3>
+              <p><b>Фасад:</b> МДФ в суперматовой эмали, не бликует и не собирает отпечатки. <b>Столешница:</b> кварц.</p>
+              <span class="price v-nums">Как на фото: от <b>{{цена-белый}} ₽</b> за погонный метр</span>
+            </div>
+            <div data-v-cue="0.48 0.83 0.07 0.07">
+              <h3>Дуб натуральный</h3>
+              <p><b>Фасад:</b> шпон дуба на МДФ, масло-воск, рисунок дерева настоящий. <b>Столешница:</b> кварц.</p>
+              <span class="price v-nums">Как на фото: от <b>{{цена-дуб}} ₽</b> за погонный метр</span>
+            </div>
+            <div data-v-cue="0.81 2 0.07 0">
+              <h3>Глубокий зелёный</h3>
+              <p><b>Фасад:</b> МДФ в эмали, цвет по каталогу RAL, матовый. <b>Столешница:</b> кварц.</p>
+              <span class="price v-nums">Как на фото: от <b>{{цена-зелёный}} ₽</b> за погонный метр</span>
+            </div>
+          </div>
+
+          <div class="sw" role="group" aria-label="Выбор фасада">
+            <button class="sw__btn sw__btn--graphite is-on" type="button" data-sw="0"><span>Графит</span><i aria-hidden="true"></i></button>
+            <button class="sw__btn sw__btn--white" type="button" data-sw="1"><span>Белый</span><i aria-hidden="true"></i></button>
+            <button class="sw__btn sw__btn--oak" type="button" data-sw="2"><span>Дуб</span><i aria-hidden="true"></i></button>
+            <button class="sw__btn sw__btn--green" type="button" data-sw="3"><span>Зелёный</span><i aria-hidden="true"></i></button>
+          </div>
+        </div>
+
+        <div class="conf__cta">
+          <a class="v-btn" href="#raschet" data-v-cue="0.6 0.99 0.06 0.03">Рассчитать кухню</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · ЦЕНА: сколько стоит, что входит, шкафы и гардеробные отдельными строками -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#101713" id="ceny" aria-label="Сколько стоит">
+      <div class="v-wrap price">
+        <div class="price__head" data-v-in data-v-in-self>
+          <h2 class="v-display v-display--lg">Сколько стоит</h2>
+          <p class="v-body">Точную смету считаем после замера, а прицениться можно сейчас. В цену входят корпус, фасады, столешница, фурнитура с доводчиками и монтаж. Техника и мойка отдельно.</p>
+        </div>
+        <div data-v-in data-v-stagger="80">
+          <ul class="price__rows">
+            <li>
+              <h3>Кухня прямая 3 м, как на фото</h3>
+              <p>Фасады МДФ в эмали, столешница кварц, доводчики на всех дверцах и ящиках. Дуб в шпоне и угловые кухни считаем по размерам.</p>
+              <span class="sum v-nums">от {{цена-от}} до {{цена-до}} ₽<small>за кухню целиком</small></span>
+            </li>
+            <li>
+              <h3>Шкаф распашной или купе</h3>
+              <p>До потолка, с подсветкой и наполнением под ваши вещи. Фасады те же, что у кухонь: эмаль, шпон, зеркало.</p>
+              <span class="sum v-nums">от {{цена-шкаф}} ₽<small>за погонный метр</small></span>
+            </li>
+            <li>
+              <h3>Гардеробная</h3>
+              <p>Открытая система или комната со своей дверью. Считаем по плану помещения за день.</p>
+              <span class="sum v-nums">от {{цена-гардероб}} ₽<small>за проект</small></span>
+            </li>
+          </ul>
+          <p class="price__note">Предоплата <b>{{предоплата}} %</b> при подписании договора, цена в договоре не меняется. Расчёт до замера предварительный: точную смету даём после замера вместе с 3D-проектом.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · РАБОТЫ: слоты под фото клиента, 6 мест, мозаика -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#0f1512" id="raboty" aria-label="Наши работы" data-if="работа 1">
+      <div class="v-wrap">
+        <div class="works__head" data-v-in data-v-stagger="60">
+          <h2 class="v-display v-display--lg">Наши работы</h2>
+          <p class="v-body">Кухни и шкафы, которые мы собрали. Фото из квартир клиентов после монтажа, без ретуши.</p>
+        </div>
+        <ul class="works__grid" data-v-in data-v-stagger="80">
+          <li class="work work--wide"><figure>
+            <img class="work__img" alt="Работа 1: {{работа 1 фасад}}" data-src="{{работа 1}}" width="1200" height="800" loading="lazy">
+            <div class="work__empty" aria-hidden="true"><span class="v-label">Фото работы</span><b>{{работа 1}}</b></div>
+            <figcaption><b>{{работа 1 фасад}}</b><br>{{работа 1 детали}}</figcaption>
+          </figure></li>
+          <li class="work"><figure>
+            <img class="work__img" alt="Работа 2: {{работа 2 фасад}}" data-src="{{работа 2}}" width="900" height="900" loading="lazy">
+            <div class="work__empty" aria-hidden="true"><span class="v-label">Фото работы</span><b>{{работа 2}}</b></div>
+            <figcaption><b>{{работа 2 фасад}}</b><br>{{работа 2 детали}}</figcaption>
+          </figure></li>
+          <li class="work"><figure>
+            <img class="work__img" alt="Работа 3: {{работа 3 фасад}}" data-src="{{работа 3}}" width="900" height="900" loading="lazy">
+            <div class="work__empty" aria-hidden="true"><span class="v-label">Фото работы</span><b>{{работа 3}}</b></div>
+            <figcaption><b>{{работа 3 фасад}}</b><br>{{работа 3 детали}}</figcaption>
+          </figure></li>
+          <li class="work"><figure>
+            <img class="work__img" alt="Работа 4: {{работа 4 фасад}}" data-src="{{работа 4}}" width="900" height="900" loading="lazy">
+            <div class="work__empty" aria-hidden="true"><span class="v-label">Фото работы</span><b>{{работа 4}}</b></div>
+            <figcaption><b>{{работа 4 фасад}}</b><br>{{работа 4 детали}}</figcaption>
+          </figure></li>
+          <li class="work"><figure>
+            <img class="work__img" alt="Работа 5: {{работа 5 фасад}}" data-src="{{работа 5}}" width="900" height="900" loading="lazy">
+            <div class="work__empty" aria-hidden="true"><span class="v-label">Фото работы</span><b>{{работа 5}}</b></div>
+            <figcaption><b>{{работа 5 фасад}}</b><br>{{работа 5 детали}}</figcaption>
+          </figure></li>
+          <li class="work work--wide"><figure>
+            <img class="work__img" alt="Работа 6: {{работа 6 фасад}}" data-src="{{работа 6}}" width="1200" height="800" loading="lazy">
+            <div class="work__empty" aria-hidden="true"><span class="v-label">Фото работы</span><b>{{работа 6}}</b></div>
+            <figcaption><b>{{работа 6 фасад}}</b><br>{{работа 6 детали}}</figcaption>
+          </figure></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5 · ДОКАЗАТЕЛЬСТВО: из чего сделано -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#101713" id="materialy" aria-label="Материалы">
+      <div class="v-wrap mat">
+        <div class="v-stack" data-v-in data-v-stagger="60">
+          <h2 class="v-display v-display--lg">Из чего сделано</h2>
+          <p class="v-body v-soft">Три вещи, которые определяют, как кухня выглядит через пять лет: фасады, столешница и фурнитура. Образцы всего этого привозим на замер.</p>
+          <ul class="mat__facts">
+            <li><h3>Фасады: МДФ в эмали или шпон</h3><p>Эмаль красим в любой цвет по каталогам RAL и NCS, матовую или глянцевую. Шпон дуба и ясеня под маслом или лаком: рисунок дерева настоящий, а не плёнка.</p></li>
+            <li><h3>Столешницы: кварц или HPL</h3><p>Кварцевый агломерат не боится ножа и горячей кастрюли, стык шлифуем на месте до невидимого. HPL-пластик дешевле, декоров больше.</p></li>
+            <li><h3>Фурнитура с доводчиками, гарантия 24 месяца</h3><p>Петли и направляющие с доводчиками: дверцы и ящики закрываются мягко и без стука. Если что-то заскрипело или отвалилось в первые два года, меняем бесплатно.</p></li>
+          </ul>
+        </div>
+        <div class="mat__figs">
+          <figure data-v-reveal="up" data-v-reveal-at="0.12 0.42">
+            <img src="assets/facade.webp" alt="Кромка фасада из МДФ в эмали крупно" width="1200" height="1600" loading="lazy">
+            <figcaption>Фасад, кромка</figcaption>
+          </figure>
+          <figure data-v-reveal="left" data-v-reveal-at="0.2 0.5">
+            <img src="assets/quartz.webp" alt="Поверхность столешницы из кварцевого агломерата" width="1200" height="1600" loading="lazy">
+            <figcaption>Кварц</figcaption>
+          </figure>
+          <figure data-v-reveal="up" data-v-reveal-at="0.3 0.6">
+            <img src="assets/hinge.webp" alt="Петля с доводчиком внутри шкафа" width="1200" height="1600" loading="lazy">
+            <figcaption>Петля с доводчиком</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · ОПЫТ: что мы знаем после N кухонь, шесть промахов раскрывающимися строками -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#131c16" id="opyt" aria-label="Что мы знаем после сотен кухонь">
+      <div class="v-wrap exp">
+        <div class="exp__head" data-v-in data-v-in-self>
+          <h2 class="v-display v-display--lg">Что мы знаем после <em>{{кухонь}}</em> кухонь</h2>
+        </div>
+        <div class="exp__intro" data-v-in data-v-stagger="80">
+          <p class="v-body">Многому нас научили чужие промахи. Приезжаешь на замер, а в старой кухне столешница состыкована посреди фартука, а цоколь под духовкой глухой, как сейф. Мы на этом собаку съели: шесть промахов ниже знаем в лицо и у себя не допускаем.</p>
+          <div class="exp__sign" data-if="имя-мастера">
+            <span class="exp__mark" aria-hidden="true"><i></i></span>
+            <img class="exp__face" alt="{{имя-мастера}}" data-src="{{фото-мастера}}" width="56" height="56" loading="lazy">
+            <p><b>{{имя-мастера}}</b>, {{роль}}</p>
+          </div>
+        </div>
+        <div class="exp__list" data-v-in data-v-stagger="70">
+          <details class="exp__row" open>
+            <summary><span class="exp__q">Столешница стыкуется на виду</span><i class="exp__plus" aria-hidden="true"></i></summary>
+            <div class="exp__a"><span class="v-label exp__how">Как делаем мы</span><p>Неопытный сборщик режет там, где удобно пилить, и шов оказывается посреди фартука. Мы уводим стык под мойку или в угол, а кварц шлифуем на месте, пока шов не перестанет читаться.</p></div>
+          </details>
+          <details class="exp__row">
+            <summary><span class="exp__q">Фасады не отрегулированы, зазоры гуляют</span><i class="exp__plus" aria-hidden="true"></i></summary>
+            <div class="exp__a"><span class="v-label exp__how">Как делаем мы</span><p>Навесил дверцы и уехал: через месяц одна щель три миллиметра, другая семь. Мы выставляем каждый фасад по трём осям уже после того, как кухня встала на место, и проверяем зазоры по всей линии.</p></div>
+          </details>
+          <details class="exp__row">
+            <summary><span class="exp__q">Замер на глаз, а потом «подпилим на месте»</span><i class="exp__plus" aria-hidden="true"></i></summary>
+            <div class="exp__a"><span class="v-label exp__how">Как делаем мы</span><p>Стены в новостройках кривые, трубы торчат не по плану. Если замер этого не учёл, кухню подгоняют ножовкой у вас на глазах. Мы снимаем дальномером стены, углы, выводы воды и вентиляции и закладываем всё это в проект.</p></div>
+          </details>
+          <details class="exp__row">
+            <summary><span class="exp__q">Цоколь глухой, духовке и посудомойке нечем дышать</span><i class="exp__plus" aria-hidden="true"></i></summary>
+            <div class="exp__a"><span class="v-label exp__how">Как делаем мы</span><p>Технике нужен воздух: без вентиляции духовка греет соседние фасады, а посудомойка копит влагу в корпусе. Ставим вентиляционные решётки и оставляем зазоры там, где стоит техника, а не там, где красивее.</p></div>
+          </details>
+          <details class="exp__row">
+            <summary><span class="exp__q">Вытяжка не по оси плиты, розетки не там</span><i class="exp__plus" aria-hidden="true"></i></summary>
+            <div class="exp__a"><span class="v-label exp__how">Как делаем мы</span><p>Вытяжка сдвинута на полшкафа, а посудомойка живёт на удлинителе. Мы на замере расписываем, где встанет каждая техника, и отдаём схему розеток: если стены ещё открыты, электрик успеет, если нет, прячем провод в цоколь и шкаф, а не поверх фартука.</p></div>
+          </details>
+          <details class="exp__row">
+            <summary><span class="exp__q">Подсветка проводом наружу</span><i class="exp__plus" aria-hidden="true"></i></summary>
+            <div class="exp__a"><span class="v-label exp__how">Как делаем мы</span><p>Лента приклеена к дну шкафа, блок питания болтается на фартуке. Мы фрезеруем профиль в дно верхних шкафов, блок прячем внутрь модуля, выключатель ставим туда, куда тянется рука, когда заходишь на кухню.</p></div>
+          </details>
+        </div>
+        <p class="exp__end" data-v-in data-v-in-self>Хорошая кухня служит 10–15 лет. Нам этого мало: она должна <b>каждый день радовать глаз</b>, а ваш вкус – новыми блюдами. Иначе зачем всё это.</p>
+      </div>
+    </section>
+
+    <!-- 7 · ДОВЕРИЕ: отзывы с Яндекс.Карт, слоты под настоящие (references/отзывы.md) -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#121a15" id="otzyvy" aria-label="Отзывы с Яндекс.Карт" data-if="рейтинг">
+      <div class="v-wrap reviews">
+        <div class="reviews__head" data-v-in data-v-stagger="60">
+          <h2 class="v-display v-display--md">Что пишут на Яндекс.Картах</h2>
+          <div class="reviews__rating">
+            <span class="reviews__num v-nums">{{рейтинг}}</span>
+            <span class="reviews__stars" data-r="{{рейтинг}}" role="img" aria-label="рейтинг {{рейтинг}} из 5"></span>
+            <span class="v-soft">{{отзывов}} отзывов</span>
+            <a class="tap" href="{{ссылка-карты}}" target="_blank" rel="noopener">Читать все отзывы</a>
+          </div>
+        </div>
+        <ul class="reviews__list" data-v-in data-v-stagger="90">
+          <li class="reviews__item reviews__item--big">
+            <p class="reviews__text">«{{отзыв 1}}»</p>
+            <p class="reviews__meta"><b>{{имя 1}}</b> · {{дата 1}} · <span class="reviews__stars reviews__stars--sm" data-r="{{оценка 1}}" role="img" aria-label="оценка {{оценка 1}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 2}}»</p>
+            <p class="reviews__meta"><b>{{имя 2}}</b> · {{дата 2}} · <span class="reviews__stars reviews__stars--sm" data-r="{{оценка 2}}" role="img" aria-label="оценка {{оценка 2}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 3}}»</p>
+            <p class="reviews__meta"><b>{{имя 3}}</b> · {{дата 3}} · <span class="reviews__stars reviews__stars--sm" data-r="{{оценка 3}}" role="img" aria-label="оценка {{оценка 3}} из 5"></span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8 · ВЫБОР: как заказать -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#0f1512" id="kak" aria-label="Как заказать">
+      <div class="v-wrap steps">
+        <div class="steps__head" data-v-in data-v-in-self>
+          <h2 class="v-display v-display--lg">Как заказать</h2>
+          <p class="v-body">Пять шагов от первого сообщения до собранной кухни. <b>Ориентир по цене</b> в день обращения, <b>точная смета</b> после замера, <b>дата монтажа</b> в договоре.</p>
+        </div>
+        <ol class="steps__list" data-v-in data-v-stagger="90">
+          <li><span class="num">1</span><div><h3>Размеры и предварительный расчёт</h3><p>Присылаете план из ЖК, фото стены с рулеткой или просто длину и высоту. <b>За день</b> отвечаем предварительным расчётом и вариантами фасадов.</p></div></li>
+          <li><span class="num">2</span><div><h3>Замер</h3><p>Приезжаем с лазерным дальномером и образцами фасадов. Снимаем стены, окна, выводы воды, вентиляции и розеток.</p></div></li>
+          <li><span class="num">3</span><div><h3>Проект в 3D и точная смета</h3><p>После замера показываем проект с вашими фасадами и <b>точную смету</b> по нему. Меняем, пока не понравится.</p></div></li>
+          <li><span class="num">4</span><div><h3>Договор с датой</h3><p>В договоре <b>срок изготовления и дата монтажа</b>. Предоплата <b>{{предоплата}} %</b> фиксирует цену: смета после подписания не растёт.</p></div></li>
+          <li><span class="num">5</span><div><h3>Изготовление и монтаж</h3><p>Режем, кромим и красим на своём производстве, каждый фасад сверяем с образцом, который вы держали в руках. Собираем, подключаем мойку и технику, упаковку и пыль увозим с собой.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 9 · ДЕЙСТВИЕ: расчёт -->
+    <section data-v-act="pin" data-v-span="1.4" data-v-drift="#121a15" id="raschet" aria-label="Рассчитать кухню">
+      <div data-v-stage>
+        <div class="close" data-v-spotlight>
+          <div class="close__inner">
+            <h2 class="v-display v-display--lg" data-v-cue="0 2 0 0" data-v-kinetic="lines">Пришлите размеры, за день дадим расчёт</h2>
+            <p class="v-lede" data-v-cue="0 2 0 0">Фото стены с рулеткой, план из ЖК или просто длина и высота. Ответим предварительным расчётом, а точную смету дадим после замера.</p>
+            <div class="close__cta" data-v-cue="0 2 0 0" data-v-rise="0">
+              <a class="v-btn" href="{{ссылка-расчёта}}" data-v-magnet="0.22">Рассчитать кухню</a>
+            </div>
+            <p class="close__hint" data-v-cue="0 2 0 0">Ответим в течение рабочего дня. Шкафы и гардеробные считаем так же.</p>
+            <div class="close__meta" data-v-cue="0 2 0 0">
+              <a class="tap" href="tel:{{телефон}}">{{телефон}}</a>
+              <span class="tap">Шоурум: <b>&nbsp;{{адрес}}</b>, {{город}}</span>
+              <span class="tap">Пн–Сб 10:00 – 20:00</span>
+            </div>
+            <div class="who" data-v-cue="0 2 0 0" data-if="имя-владельца">
+              <span class="who__mark" aria-hidden="true"><i></i></span>
+              <img class="who__face" alt="{{имя-владельца}}" data-src="{{фото-владельца}}" width="56" height="56" loading="lazy">
+              <p><b>{{имя-владельца}}</b>, {{должность}}. Производство: {{адрес-производства}}, работаем с {{год-основания}} года.</p>
+            </div>
+          </div>
+          <footer class="foot">
+            <span>Мебель Платов · {{город}} · {{реквизиты}}</span>
+            <span>Кухни, шкафы, гардеробные по вашим размерам</span>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vibe.js"></script>
+<script>
+  (function () {
+    // На телефоне текст hero не гаснет до конца сцены: реплики «встречают» и держатся.
+    if (window.matchMedia('(max-width: 760px)').matches) {
+      document.querySelectorAll('[data-hero-cue]').forEach(function (el) { el.setAttribute('data-v-cue', '0 1 0 0'); });
+    }
+    // Слоты картинок: пока слот не заполнен адресом, картинка не запрашивается и виден слот-плашка.
+    document.querySelectorAll('img[data-src]').forEach(function (img) {
+      var src = img.getAttribute('data-src') || '';
+      if (!src || src.indexOf('{{') > -1) return;
+      img.src = src;
+      var host = img.closest('.work, .who, .exp__sign'); if (host) host.classList.add('is-photo');
+    });
+    // Звёзды рейтинга: из текста слота («4,8» или «4.8») в число для заливки.
+    document.querySelectorAll('.reviews__stars[data-r]').forEach(function (s) {
+      var r = parseFloat(String(s.getAttribute('data-r')).replace(',', '.'));
+      if (!isNaN(r)) s.style.setProperty('--r', Math.max(0, Math.min(5, r)));
+    });
+  })();
+
+  Vibe.mount(document.querySelector('.v-page'));
+
+  // Шапка: плотный фон, как только уехал первый экран.
+  (function () {
+    var bar = document.getElementById('bar'), on = null;
+    function check() { var s = window.scrollY > 80; if (s !== on) { on = s; bar.classList.toggle('is-scrolled', s); } }
+    window.addEventListener('scroll', check, { passive: true }); check();
+  })();
+
+  // Фирменный ход: конфигуратор фасадов. Четыре кадра одной кухни лежат друг на друге,
+  // прозрачность трёх верхних ведётся от --v-p акта: плато на каждом цвете, кроссфейд между ними.
+  (function () {
+    var act = document.getElementById('fasady');
+    var imgs = act.querySelectorAll('.conf__img');
+    var sws = act.querySelectorAll('.sw__btn');
+    var live = false, lastF = -1, lastN = -1;
+    var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function ss(t) { t = t < 0 ? 0 : t > 1 ? 1 : t; return t * t * (3 - 2 * t); }
+    function paint(f) {
+      for (var i = 1; i < imgs.length; i++) { var o = f - (i - 1); imgs[i].style.opacity = (o < 0 ? 0 : o > 1 ? 1 : o).toFixed(3); }
+      var n = Math.round(f);
+      if (n !== lastN) { lastN = n; sws.forEach(function (s, i) { s.classList.toggle('is-on', i === n); s.setAttribute('aria-pressed', i === n); }); }
+    }
+    function tick() {
+      var p = parseFloat(getComputedStyle(act).getPropertyValue('--v-p')) || 0;
+      var x = p * 3, k = Math.min(Math.floor(x), 2), f = k + ss((x - k - 0.35) / 0.3);
+      if (f !== lastF) { lastF = f; paint(f); }
+      if (live) requestAnimationFrame(tick);
+    }
+    new IntersectionObserver(function (es) { live = es[0].isIntersecting; if (live) tick(); }).observe(act);
+    tick();
+    // Клик по образцу: прокрутка к тому месту акта, где этот фасад стоит на плато.
+    var stops = [0.04, 0.333, 0.667, 0.96];
+    sws.forEach(function (s, i) {
+      s.addEventListener('click', function () {
+        var top = act.getBoundingClientRect().top + window.scrollY;
+        var y = top + (act.offsetHeight - window.innerHeight) * stops[i];
+        window.scrollTo({ top: y, behavior: RM ? 'instant' : 'smooth' });
+      });
+    });
+  })();
+</script>
+</body>
+</html>

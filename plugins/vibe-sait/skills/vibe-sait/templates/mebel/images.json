@@ -1,0 +1,149 @@
+{
+  "world": "Макро-текстура",
+  "preamble": "Extreme macro photography, 100mm macro lens. Razor-thin plane of focus, everything else falling to soft darkness. Backlit so edges glow. Visible surface texture and grain of the material. Deep negative space. Photographic realism, no CGI, no illustration, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "kitchen-base",
+      "raw": "raw/kitchen-base.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Wide interior view of a modern custom kitchen at night, seen straight on from the front: a long run of flat slab cabinet fronts in matte dark graphite, handleless, under a single warm under-cabinet LED strip that glows across a quartz stone countertop. Everything else in the room falls into deep dark green-black shadow. The kitchen occupies the lower two thirds of the frame; the upper third is empty dark space for text. No people, no windows, no text, no signs.",
+      "outputs": [
+        {
+          "file": "assets/kitchen-base.webp",
+          "width": 1920,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "kitchen-white",
+      "raw": "raw/kitchen-white.png",
+      "ar": "16:9",
+      "ref": "raw/kitchen-base.png",
+      "scene": "Keep the exact same kitchen, camera angle, framing, countertop, lighting and shadows. Change only the colour of the cabinet fronts: now they are warm white matte painted fronts. Same single warm under-cabinet light, same deep dark surroundings, upper third empty dark space. No people, no text.",
+      "outputs": [
+        {
+          "file": "assets/kitchen-white.webp",
+          "width": 1920,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "kitchen-oak",
+      "raw": "raw/kitchen-oak.png",
+      "ar": "16:9",
+      "ref": "raw/kitchen-base.png",
+      "scene": "Keep the exact same kitchen, camera angle, framing, countertop, lighting and shadows. Change only the cabinet fronts: now they are natural light oak wood veneer with visible straight grain. Same single warm under-cabinet light, same deep dark surroundings, upper third empty dark space. No people, no text.",
+      "outputs": [
+        {
+          "file": "assets/kitchen-oak.webp",
+          "width": 1920,
+          "quality": 78
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
+      ]
+    },
+    {
+      "id": "kitchen-green",
+      "raw": "raw/kitchen-green.png",
+      "ar": "16:9",
+      "ref": "raw/kitchen-base.png",
+      "scene": "Keep the exact same kitchen, camera angle, framing, countertop and shadows. Change only the cabinet fronts: now they are deep forest green matte painted fronts, a rich saturated emerald-forest green, clearly distinct from graphite or black. The fronts are lit by the warm under-cabinet LED strip and by a second soft warm light from the floor, so the green colour of every door is clearly visible and readable across the whole run, brighter than the surroundings. Same deep dark surroundings, upper third empty dark space. No people, no text.",
+      "outputs": [
+        {
+          "file": "assets/kitchen-green.webp",
+          "width": 1920,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "facade",
+      "raw": "raw/facade.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Corner of a matte graphite MDF cabinet front with a painted enamel edge, seen at an oblique angle so the thin edge and the flat face both show, warm backlight glowing along the edge. Subject in the lower half of the frame; upper half is soft darkness for text. No text, no people.",
+      "outputs": [
+        {
+          "file": "assets/facade.webp",
+          "width": 1200,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "quartz",
+      "raw": "raw/quartz.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Surface of a white quartz stone countertop with fine grey veining and tiny mineral sparkle, a single water droplet on it, warm light raking across from the side. Subject in the lower half; upper half falls to darkness for text. No text, no people.",
+      "outputs": [
+        {
+          "file": "assets/quartz.webp",
+          "width": 1200,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "hinge",
+      "raw": "raw/hinge.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "A metal soft-close cabinet hinge with its damper, mounted inside a dark cabinet door, brushed steel catching warm backlight, tiny machined details visible. Subject in the lower half; upper half is soft darkness for text. No text, no people.",
+      "outputs": [
+        {
+          "file": "assets/hinge.webp",
+          "width": 1200,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "door",
+      "raw": "raw/door.png",
+      "ar": "1:1",
+      "ref": null,
+      "preamble": false,
+      "generate": false,
+      "note": "Объект на вырезку для hero. Готовая вырезка с альфой уже лежит в assets/door.webp (см. keep), генерировать заново только если нужен другой цвет фасада или ручка. После генерации: node scripts/layers.mjs raw/door.png raw/door-cut.png, затем webp с альфой шириной 1000.",
+      "scene": "Studio product photography of a single rectangular kitchen cabinet door fragment: a matte deep forest green painted MDF front with a slim brushed brass bar handle, seen slightly from the side so the door's thickness shows, one warm key light from the upper left. Isolated on a plain flat uniform dark charcoal background, no floor, no shadow on the background, no reflections, centered with even empty space around. Photographic realism, no text, no logos, no watermark.",
+      "outputs": [
+        {
+          "file": "assets/door.webp",
+          "width": 1000,
+          "quality": 82,
+          "alpha": true
+        }
+      ]
+    },
+    {
+      "id": "veneer-edge",
+      "variant": "В",
+      "raw": "raw/veneer-edge.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Corner of a kitchen cabinet front in natural oak veneer, the thin edge and the flat face both visible at an oblique angle, straight wood grain running across the frame, a slim brushed brass handle catching the light. Warm backlight glowing along the edge, the rest of the frame falling to deep dark green-black. Subject low and right; a large empty dark space across the upper left for text. No text, no people, no logos.",
+      "outputs": [
+        {
+          "file": "assets/veneer-edge.webp",
+          "width": 1920,
+          "quality": 78
+        }
+      ]
+    }
+  ],
+  "keep": [
+    "assets/door.webp"
+  ]
+}

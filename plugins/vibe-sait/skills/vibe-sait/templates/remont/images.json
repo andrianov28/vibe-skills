@@ -1,0 +1,99 @@
+{
+  "world": "Документальный",
+  "preamble": "Documentary photography, available light only, handheld 35mm. Natural skin tones, honest imperfect surfaces, slight motion in the frame. Muted realistic grade, no colour cast, visible grain. Candid, unposed, nobody looking at camera. Absolutely not stock-photo styling, no fake smiles, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "room-before",
+      "raw": "raw/room-before.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Empty living room in a new-build apartment. Camera at chest height standing in the doorway, looking straight at the far wall. One large window centered on the far wall, a radiator below it, ceiling visible at the top, floor filling the lower third of the frame. Soft daylight from the window only, no artificial light. BEFORE renovation: bare grey concrete walls with rough plaster patches, dusty cement screed floor, electrical wires hanging out of the walls and from the ceiling, an aluminium stepladder standing to the left of the window, dusty window glass, a few cardboard scraps on the floor. The lower left third of the frame is plain empty floor with nothing on it, large empty space for text. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/room-before.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/room-before-1200.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/room-before-800.webp", "width": 800, "quality": 78 }
+      ]
+    },
+    {
+      "id": "room-after",
+      "raw": "raw/room-after.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Empty living room in a new-build apartment. Camera at chest height standing in the doorway, looking straight at the far wall. One large window centered on the far wall, a radiator below it, ceiling visible at the top, floor filling the lower third of the frame. Soft daylight from the window only, no artificial light. AFTER renovation, exactly the same room and the same camera position: smooth walls painted warm white, light oak parquet floor, white flat ceiling, clean window glass with a sheer linen curtain pulled aside, no furniture, freshly cleaned and empty. The lower left third of the frame is plain empty parquet floor, large empty space for text. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/room-after.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/room-after-1200.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/room-after-800.webp", "width": 800, "quality": 78 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
+      ]
+    },
+    {
+      "id": "hall-before",
+      "raw": "raw/hall-before.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Narrow apartment hallway seen from the entrance door, looking straight down the corridor to a doorway with a bright window at the far end. Vertical framing, camera at chest height. Daylight only, coming from the far end. BEFORE renovation: grey concrete walls, wires hanging from the ceiling, dust on the screed floor, an open bag of dry plaster mix and a bucket near the wall, footprints in the dust. The lower quarter of the frame is plain empty floor for text. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/hall-before.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/hall-before-800.webp", "width": 800, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hall-after",
+      "raw": "raw/hall-after.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Narrow apartment hallway seen from the entrance door, looking straight down the corridor to a doorway with a bright window at the far end. Vertical framing, camera at chest height. Daylight only, coming from the far end. AFTER renovation, the same corridor and the same camera position: smooth white walls, light oak floor, white door frames along the right wall, one small wall lamp switched off, clean and empty. The lower quarter of the frame is plain empty floor for text. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/hall-after.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/hall-after-800.webp", "width": 800, "quality": 78 }
+      ]
+    },
+    {
+      "id": "materials",
+      "raw": "raw/materials.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Neat stack of plain brown cardboard boxes of laminate flooring and boxes of ceramic tiles, wrapped tightly in transparent stretch film, standing on a floor covered with taped brown protective cardboard, in a room during renovation. Tight vertical composition, boxes in the lower two thirds, plain grey wall above them as empty space for text. Daylight from a window on the left. Boxes without any printed text or logos. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/materials.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/materials-800.webp", "width": 800, "quality": 78 }
+      ]
+    },
+    {
+      "id": "clean",
+      "raw": "raw/clean.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Room in the middle of a renovation right after cleaning: floor covered with protective film taped at the seams and swept clean, tools packed into a closed plastic case, a broom and dustpan leaning against the wall, tied bags of construction waste stacked neatly by the door, a roll of masking tape on the windowsill. Wide shot, daylight from a window on the right. The upper left area of the frame is a plain wall, empty space for text. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/clean.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/clean-1200.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/clean-800.webp", "width": 800, "quality": 78 }
+      ]
+    },
+    {
+      "id": "kitchen-before",
+      "raw": "raw/kitchen-before.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Kitchen-living room in a new-build apartment BEFORE renovation, seen from the room towards the kitchen wall. Vertical framing, camera at chest height. Bare grey concrete walls with rough plaster patches, dusty cement screed floor, water and sewage pipe stubs sticking out of the far wall at counter height, a single electrical wire hanging from the wall where the cooker hood will be, a large window on the right side, morning daylight from the window only. The upper third of the frame is plain concrete wall, empty space for text. No people, no text, no signs.",
+      "outputs": [
+        { "file": "assets/kitchen-before.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/kitchen-before-800.webp", "width": 800, "quality": 78 }
+      ]
+    },
+    {
+      "id": "kitchen-tall",
+      "raw": "raw/kitchen-tall.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Kitchen-living room in an apartment just after renovation, seen from the room towards the kitchen wall, morning daylight from a large window on the right side. Vertical framing, camera at chest height, so that both the countertop and the window are in frame. Matte grey kitchen fronts without handles along the far wall, a wooden countertop with nothing on it, light oak floor, white walls. The upper third of the frame is a plain pale wall with nothing on it, empty space for text. No people, no text, no signs, no logos.",
+      "outputs": [
+        { "file": "assets/kitchen-tall.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/kitchen-tall-800.webp", "width": 800, "quality": 78 }
+      ]
+    }
+  ],
+  "keep": []
+}

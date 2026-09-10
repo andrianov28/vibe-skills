@@ -1,0 +1,110 @@
+{
+  "world": "Высокий ключ",
+  "preamble": "Editorial still-life photography on a seamless warm off-white cyclorama. Large soft overhead source, huge white bounce, near-shadowless with one soft contact shadow. High key, gentle contrast, warm white and pale neutral grade. Medium-format sharpness, fine grain. Photographic realism, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "work1",
+      "raw": "raw/work1.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Macro beauty shot of one woman's hand resting on the warm off-white cyclorama, fingers gently curled, short almond nails with a sheer warm nude gel polish, glossy and flawless, cuticles clean. Hand enters from the bottom and sits in the lower two thirds of the frame; empty pale space across the top for text. No face, no jewelry, no text, no props.",
+      "outputs": [
+        { "file": "assets/work1.webp", "width": 900, "quality": 86 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "bottom", "format": "jpeg", "quality": 80 }
+      ]
+    },
+    {
+      "id": "work2",
+      "raw": "raw/work2.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Macro beauty shot of a woman's hand on the warm off-white cyclorama, fingers relaxed, short oval nails in a deep classic tomato red gel polish, mirror gloss, precise edges. Hand low and slightly left in the frame; empty pale space in the upper part for text. No face, no jewelry, no text, no props.",
+      "outputs": [
+        { "file": "assets/work2.webp", "width": 900, "quality": 86 }
+      ]
+    },
+    {
+      "id": "work3",
+      "raw": "raw/work3.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Macro beauty shot of a woman's hand on the warm off-white cyclorama, medium-length almond nails with a clean classic French manicure: milky pink base and thin crisp white tips. Fingers slightly spread, hand in the lower half of the frame; empty pale space above for text. No face, no jewelry, no text, no props.",
+      "outputs": [
+        { "file": "assets/work3.webp", "width": 900, "quality": 86 }
+      ]
+    },
+    {
+      "id": "work4",
+      "raw": "raw/work4.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Macro beauty shot of a woman's hand on the warm off-white cyclorama, short square nails in a milky translucent white gel polish, soft and even like porcelain, clean cuticles. Hand resting on the surface in the lower part of the frame, a soft contact shadow under the fingertips; empty pale space above for text. No face, no jewelry, no text, no props.",
+      "outputs": [
+        { "file": "assets/work4.webp", "width": 900, "quality": 86 }
+      ]
+    },
+    {
+      "id": "work5",
+      "raw": "raw/work5.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Macro beauty shot of a woman's hand on the warm off-white cyclorama, medium almond nails with a minimal nail art: pale sage green base and one thin hand-painted terracotta line across each nail, matte finish. Hand in the lower half of the frame, fingers gently curved; empty pale space above for text. No face, no jewelry, no text, no props, no glitter.",
+      "outputs": [
+        { "file": "assets/work5.webp", "width": 900, "quality": 86 }
+      ]
+    },
+    {
+      "id": "tools",
+      "raw": "raw/tools.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Top-down still life of a manicure workstation on the warm off-white cyclorama: a few sealed brown kraft sterilisation pouches with metal cuticle nippers and pushers inside, a disposable nail file and a buffer, a small white towel, an electric nail drill handpiece with a clean bit. Objects arranged loosely in the lower right two thirds; large empty pale space across the upper left for text. No hands, no text, no labels, no logos.",
+      "outputs": [
+        { "file": "assets/tools.webp", "width": 1600, "quality": 82 }
+      ]
+    },
+    {
+      "id": "master",
+      "raw": "raw/master.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Manicurist at work seen from behind and slightly above, only the shoulders and arms visible, wearing a plain white cotton shirt, holding a client's hand and working on a nail with a fine brush. Warm off-white cyclorama, a white table. No faces at all, the head is out of frame. Figure in the lower two thirds of the frame; empty pale space above for text. No text, no logos, no jewelry.",
+      "outputs": [
+        { "file": "assets/master.webp", "width": 900, "quality": 86 }
+      ]
+    },
+    {
+      "id": "pedicure",
+      "raw": "raw/pedicure.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Beauty shot of one woman's bare foot resting on the warm off-white cyclorama, seen from slightly above and the side, toes relaxed, short neat toenails in a sheer milky nude gel polish, glossy and even, clean cuticles, smooth well-cared skin. The foot enters from the lower right and sits in the lower two thirds of the frame; empty pale space across the top for text. No face, no second foot, no jewelry, no text, no props.",
+      "outputs": [
+        { "file": "assets/pedicure.webp", "width": 900, "quality": 86 }
+      ]
+    },
+    {
+      "id": "hero-b",
+      "variant": "Б",
+      "raw": "raw/hero-b.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Wide beauty shot of one woman's hand resting on the warm off-white cyclorama, seen from slightly above, fingers gently curled, short almond nails with a sheer warm nude gel polish, glossy and flawless, cuticles clean. Hand enters from the lower right corner and occupies the right third of the frame; large empty pale space across the left two thirds for text. No face, no jewelry, no text, no props.",
+      "outputs": [
+        { "file": "assets/hero-b.webp", "width": 1920, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hero-b-m",
+      "variant": "Б",
+      "raw": "raw/hero-b-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero-b.png",
+      "scene": "Same hand, same nude almond nails and same light as the reference, vertical frame for a phone screen. Hand enters from the bottom and sits in the lower half of the frame, fingers gently curled; large empty pale space across the upper half for text. No face, no jewelry, no text, no props.",
+      "outputs": [
+        { "file": "assets/hero-b-m.webp", "width": 1080, "quality": 78 }
+      ]
+    }
+  ],
+  "keep": []
+}

@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Лак и точка · студия маникюра</title>
+<meta name="description" content="Студия маникюра «Лак и точка» в {{город}}: работы как есть, цена названа до записи, запись на ближайшие три дня, стерильность видна.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Лак и точка · студия маникюра">
+<meta property="og:description" content="Работы как есть, цена до записи, запись на ближайшие три дня. Маникюр, педикюр, покрытие, укрепление, дизайн.">
+<meta property="og:image" content="{{ссылка-сайта}}/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="{{ссылка-сайта}}">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%278%27 fill=%27%23c8553d%27/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/tenor-sans-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/onest-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vibe.css">
+<style>
+  /* ---- шрифты: свои файлы, cyrillic + latin, swap ------------------------ */
+  @font-face { font-family: "Onest"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/onest-400-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: "Onest"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/onest-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "Onest"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/onest-500-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: "Onest"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/onest-500-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "Onest"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/onest-600-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: "Onest"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/onest-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: "Tenor Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/tenor-sans-400-cyrillic.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: "Tenor Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/tenor-sans-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+  html, body { margin: 0; background: #f6f2ec; }
+
+  /* ---- тема: шесть цветов, два шрифта ------------------------------------ */
+  .v-page {
+    --v-canvas: #f6f2ec; --v-surface: #ffffff;
+    --v-ink: #1f1c1a; --v-ink-soft: #615a53;          /* 6,1:1 на бежевом */
+    --v-accent: #c8553d; --v-accent-ink: #fff8f3;
+    --v-accent-deep: #a8432d;                           /* акцент для мелкого текста */
+    --v-font-display: "Tenor Sans", "Georgia", serif;
+    --v-font-text: "Onest", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 78 52 36;
+    --v-e1: 0 1px 2px rgb(var(--v-shadow-color) / .08), 0 8px 22px rgb(var(--v-shadow-color) / .10);
+    --v-e2: 0 2px 6px rgb(var(--v-shadow-color) / .10), 0 22px 54px rgb(var(--v-shadow-color) / .16);
+    --v-radius: 10px;
+    --v-track-tight: -0.01em;
+    /* мелкие кегли не ниже 13 и 15 px */
+    --v-t-xs: clamp(0.8125rem, 0.79rem + 0.15vw, 0.85rem);
+    --v-t-sm: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  }
+  /* Tenor Sans существует только в 400: дисплей без искусственной жирности */
+  .nd { font-weight: 400; letter-spacing: -0.01em; }
+  .nd--xl { font-size: var(--v-t-3xl); line-height: 1.02; }
+  .nd--lg { font-size: var(--v-t-2xl); line-height: 1.08; }
+  .nd--md { font-size: var(--v-t-xl); line-height: 1.14; }
+  .nd--sm { font-size: var(--v-t-lg); line-height: 1.2; }
+  @media (max-width: 700px) { .nd--xl { font-size: var(--v-t-2xl); } .nd--lg { font-size: var(--v-t-xl); } }
+  .nowrap { white-space: nowrap; }
+  .only-touch { display: none; }
+
+  /* ---- шапка: марка, индекс, одна кнопка. Сплошная подложка с размытием --- */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: var(--v-4);
+    padding: var(--v-3) var(--v-gutter);
+    background: rgb(246 242 236 / .88); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--v-hair); }
+  .bar__mark { font-family: var(--v-font-display); font-size: var(--v-t-base); letter-spacing: .01em; text-decoration: none; display: inline-flex; align-items: center; gap: .5em; white-space: nowrap; }
+  .bar__mark i { width: .5em; height: .5em; border-radius: 50%; background: var(--v-accent); display: inline-block; flex: none; }
+  .index { display: flex; gap: var(--v-6); font-size: var(--v-t-sm); }
+  .index a { text-decoration: none; color: var(--v-ink-soft); display: inline-flex; align-items: baseline; gap: .45em; padding-block: .3em; transition: color .16s var(--v-ease-out); }
+  .index a small { font-size: var(--v-t-xs); font-variant-numeric: tabular-nums; color: var(--v-accent-deep); letter-spacing: .06em; }
+  @media (hover: hover) and (pointer: fine) { .index a:hover { color: var(--v-ink); } }
+  .bar .v-btn { padding: .75em 1.3em; }
+  @media (max-width: 860px) {
+    .index { gap: var(--v-4); font-size: var(--v-t-xs); }
+    .index a small, .index a[data-top] { display: none; }
+    .bar .v-btn { padding: .65em 1em; }
+  }
+  @media (max-width: 600px) {
+    .bar__mark span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .bar__mark i { width: .6rem; height: .6rem; }
+    .index { gap: var(--v-3); }
+    .index a[data-long] { display: none; }
+    .only-touch { display: inline; }
+  }
+
+  /* ---- акт 1 · лента работ ---------------------------------------------------- */
+  .gal { display: flex; flex-direction: column; justify-content: center; height: 100%; padding-top: 4.5rem; }
+  .gal__rail { padding-inline: var(--v-gutter); align-items: flex-start; gap: clamp(1rem, 2.5vw, 2.5rem); }
+  .gal__intro { flex: none; width: clamp(18rem, 28vw, 27rem); padding-top: clamp(.5rem, 4vh, 3rem); padding-right: var(--v-6); }
+  .gal__intro .v-label { display: block; margin-bottom: var(--v-5); }
+  .gal__intro h1 { font-size: clamp(1.9rem, 1.1rem + 1.9vw, 2.7rem); line-height: 1.08; }
+  .gal__intro p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 30ch; text-wrap: pretty; }
+  .gal__price { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink); display: flex; flex-wrap: wrap; gap: .3em .6em; align-items: baseline; }
+  .gal__intro .gal__price { color: var(--v-ink); }
+  .gal__price b { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-lg); color: var(--v-accent-deep); white-space: nowrap; }
+  .gal__intro .v-btn { margin-top: var(--v-6); }
+
+  .work { flex: none; width: min(clamp(240px, 30vw, 400px), calc((100svh - 15rem) * .75)); }
+  .work__card { display: block; background: var(--v-surface); border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e1); cursor: zoom-in; }
+  .work__card img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  /* подпись – факт, она есть всегда; активная отличается номером и полной плотностью */
+  .work__cap { display: grid; grid-template-columns: auto 1fr; gap: var(--v-1) var(--v-4); padding: var(--v-4) 0 0; opacity: .7; transition: opacity .32s var(--v-ease-out); }
+  .work.is-near .work__cap { opacity: 1; }
+  @media (hover: hover) and (pointer: fine) { .work:hover .work__cap { opacity: 1; } }
+  .work__num { font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); color: var(--v-accent-deep); font-variant-numeric: tabular-nums; padding-top: .25em; }
+  .work__cap h3 { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-lg); letter-spacing: -0.005em; }
+  .work__cap p { grid-column: 2; color: var(--v-ink); font-size: var(--v-t-sm); }
+  .work__cap p span { color: var(--v-ink-soft); }
+
+  /* фирменный ход: линия-указатель над лентой; заполнение от --gal-p (свой JS) */
+  .pointer { position: absolute; z-index: 4; left: var(--v-gutter); right: var(--v-gutter); top: clamp(4.6rem, 10vh, 6.5rem);
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--v-4); font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); }
+  .pointer__num { font-variant-numeric: tabular-nums; color: var(--v-ink); }
+  .pointer__num i { font-style: normal; color: var(--v-ink-soft); }
+  .pointer__line { position: relative; height: 1px; background: var(--v-hair-strong); }
+  .pointer__line b { position: absolute; left: 0; top: 0; height: 100%; width: calc(var(--gal-p, 0) * 100%); background: var(--v-accent); }
+  .pointer__line s { position: absolute; top: -3px; left: calc(var(--gal-p, 0) * 100%); width: 7px; height: 7px; margin-left: -3px; border-radius: 50%; background: var(--v-accent); text-decoration: none; }
+  .pointer__name { color: var(--v-ink); }
+  @media (max-width: 860px) {
+    .gal { padding-top: 5rem; }
+    .gal__intro { width: 56vw; padding-top: 0; padding-right: var(--v-3); }
+    .gal__intro h1 { font-size: var(--v-t-xl); }
+    .work { width: min(78vw, calc((100svh - 14rem) * .75)); }
+    .pointer { top: 4.4rem; gap: var(--v-3); }
+  }
+  /* Тач: движок делает сцену горизонтальной прокруткой пальцем. Свой JS выносит вводную
+     карточку и указатель над ленту (класс gal--touch), лента начинается с работы 01 целиком. */
+  @media (pointer: coarse) {
+    .gal--touch { padding-top: 5rem; padding-bottom: var(--v-2); }
+    .gal--touch .gal__intro { width: auto; max-width: 36rem; padding: 0 var(--v-gutter); margin-bottom: var(--v-5); }
+    .gal--touch .gal__intro p { display: none; }
+    .gal--touch .gal__intro .gal__price { display: flex; margin-top: var(--v-3); }
+    .gal--touch .gal__intro .v-btn { margin-top: 1.25rem; }
+    .gal--touch .pointer { position: static; margin: 0 var(--v-gutter) var(--v-4); }
+    .gal--touch .gal { height: auto; padding-top: 0; display: block; }
+    .gal--touch [data-v-stage] { scroll-padding-inline: var(--v-gutter); }
+    .gal--touch .work { width: min(62vw, 21rem); }
+    .gal--touch .work__cap h3 { font-size: var(--v-t-base); }
+  }
+
+  /* ---- акт 2 · услуги и цены: строки с линиями ------------------------------- */
+  .services { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); grid-template-rows: auto 1fr; gap: var(--v-8) var(--v-9); align-items: start; }
+  .services__head { grid-column: 1; grid-row: 1; }
+  .services__fig { grid-column: 1; grid-row: 2; width: min(100%, 20rem); border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e1); background: var(--v-surface); }
+  .services__fig img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .services__fig figcaption { padding: var(--v-3) var(--v-4) var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .services__fig figcaption b { color: var(--v-ink); font-weight: 500; }
+  .services__list { grid-column: 2; grid-row: 1 / span 2; }
+  .services__head .v-label { display: block; margin-bottom: var(--v-5); }
+  .services__head p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 34ch; }
+  .terms { margin-top: var(--v-7); display: grid; gap: var(--v-3); font-size: var(--v-t-sm); }
+  .terms li { display: grid; grid-template-columns: auto 1fr; gap: var(--v-3); align-items: baseline; }
+  .terms li::before { content: ""; width: 1.4rem; height: 1px; background: var(--v-accent); align-self: center; }
+  .terms b { font-weight: 600; }
+  .rows li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: var(--v-1) var(--v-6); align-items: baseline; padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); }
+  .rows li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .rows h3 { grid-row: 1; grid-column: 1; font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-lg); letter-spacing: -0.005em; }
+  .rows p { grid-row: 2; grid-column: 1; color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 44ch; }
+  .rows .time { grid-row: 1; grid-column: 2; color: var(--v-ink-soft); font-size: var(--v-t-sm); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .rows .price { grid-row: 1; grid-column: 3; font-family: var(--v-font-display); font-size: var(--v-t-lg); color: var(--v-accent-deep); white-space: nowrap; min-width: 6.5ch; text-align: right; }
+  .rows .free { color: var(--v-ink); font-weight: 500; }
+  /* промежуточный призыв: та же кнопка, рядом одна строка-факт */
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-5); margin-top: var(--v-7); }
+  .cta span { color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 34ch; text-wrap: pretty; }
+  @media (max-width: 860px) {
+    .services { grid-template-columns: 1fr; grid-template-rows: none; gap: var(--v-7); }
+    .services__head, .services__list, .services__fig { grid-column: 1; grid-row: auto; }
+    .services__fig { width: min(100%, 17rem); }
+    .rows li { grid-template-columns: minmax(0, 1fr) auto; }
+    .rows .time { grid-row: 2; grid-column: 1; }
+    .rows p { grid-row: 3; }
+    .rows .price { grid-column: 2; font-size: var(--v-t-base); }
+  }
+
+  /* ---- акт 3 · стерильность ---------------------------------------------------- */
+  .clean { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--v-8) var(--v-9); align-items: center; }
+  .clean__fig { border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); aspect-ratio: 16 / 10; background: var(--v-surface); }
+  .clean__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .clean__copy .v-label { display: block; margin-bottom: var(--v-5); }
+  .facts { margin-top: var(--v-6); }
+  .facts li { padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-1); }
+  .facts li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .facts b { font-weight: 500; }
+  .facts span { color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  @media (max-width: 860px) { .clean { grid-template-columns: 1fr; gap: var(--v-6); } .clean__fig { aspect-ratio: 16 / 11; } }
+
+  /* ---- акт 4 · мастер ------------------------------------------------------------ */
+  .master { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); gap: var(--v-8) var(--v-9); align-items: center; }
+  .master__copy .v-label { display: block; margin-bottom: var(--v-5); }
+  .lines { margin-top: var(--v-6); max-width: 46ch; }
+  .lines p { padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); text-wrap: pretty; }
+  .lines p:last-child { border-bottom: 1px solid var(--v-hair); }
+  .master__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); aspect-ratio: 3 / 4; background: var(--v-surface); max-width: 30rem; justify-self: end; width: 100%; }
+  .master__fig img { width: 100%; height: 100%; object-fit: cover; }
+  /* скрим только на нижней трети, под подписью; верх кадра без высветления */
+  .master__fig .v-scrim { top: auto; height: 42%; }
+  .master__fig figcaption { position: absolute; z-index: 3; left: var(--v-5); right: var(--v-5); bottom: var(--v-5); display: grid; gap: .2em; }
+  .master__fig figcaption b { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-lg); }
+  .master__fig figcaption span { color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .master__fig figcaption .fact { color: var(--v-ink); }
+  @media (max-width: 860px) { .master { grid-template-columns: 1fr; gap: var(--v-6); } .master__fig { justify-self: start; max-width: 24rem; } }
+
+  /* ---- акт 5 · отзывы с Яндекс.Карт (честные слоты) ------------------------------ */
+  @property --r { syntax: "<number>"; inherits: false; initial-value: 0; }
+  .reviews__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--v-6) var(--v-8); align-items: end; margin-bottom: var(--v-7); }
+  .reviews__head .v-label { display: block; margin-bottom: var(--v-5); }
+  .reviews__rating { display: grid; grid-template-columns: auto auto; gap: var(--v-1) var(--v-4); align-items: center; font-size: var(--v-t-sm); }
+  .reviews__num { grid-row: 1 / span 2; font-family: var(--v-font-display); font-size: var(--v-t-xl); line-height: 1; color: var(--v-ink); }
+  .reviews__rating a { color: var(--v-ink); }
+  /* звёзды без картинок: пять фигур, заливка по --r (0..5) */
+  .reviews__stars { --size: 1.1rem; display: inline-block; width: calc(var(--size) * 5); height: var(--size);
+    background: linear-gradient(90deg, var(--v-accent) calc(var(--r, 0) / 5 * 100%), var(--v-hair-strong) 0);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x; }
+  .reviews__stars--sm { --size: .8rem; vertical-align: middle; }
+  .reviews__list { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--v-6); align-items: start; }
+  .reviews__item { padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .reviews__item--big .reviews__text { font-family: var(--v-font-display); font-size: var(--v-t-lg); line-height: 1.4; }
+  .reviews__text { text-wrap: pretty; }
+  .reviews__meta { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__meta b { color: var(--v-ink); font-weight: 600; }
+  @media (max-width: 860px) { .reviews__list { grid-template-columns: 1fr; } .reviews__head { grid-template-columns: 1fr; align-items: start; margin-bottom: var(--v-6); } }
+
+  /* ---- акт 6 · запись (финал) ------------------------------------------------------ */
+  .close { height: 100%; display: grid; grid-template-rows: 1fr auto; padding: 0 var(--v-gutter); }
+  .close__inner { align-self: center; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: var(--v-8); align-items: end; padding-top: var(--v-9); }
+  .close__inner p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 38ch; text-wrap: pretty; }
+  .close__btns { margin-top: var(--v-6); display: flex; flex-wrap: wrap; gap: var(--v-3); }
+  .close__meta { display: grid; gap: var(--v-3); color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .close__tel { font-family: var(--v-font-display); font-size: var(--v-t-xl); text-decoration: none; color: var(--v-ink); display: inline-block; padding-block: .4em; margin-bottom: var(--v-1); }
+  .close__meta b { color: var(--v-ink); font-weight: 500; }
+  .close__meta a:not(.close__tel) { color: var(--v-ink); display: inline-block; padding-block: .25em; }
+  .foot { display: flex; justify-content: space-between; gap: var(--v-4); flex-wrap: wrap; padding: var(--v-6) 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); }
+  @media (max-width: 860px) { .close__inner { grid-template-columns: 1fr; gap: var(--v-6); padding-top: var(--v-8); } .close__tel { font-size: var(--v-t-lg); } }
+
+  /* ---- увеличение фото работы: нативный dialog --------------------------------------- */
+  .zoom { border: 0; padding: 0; margin: 0; background: transparent; max-width: none; max-height: none; width: 100vw; height: 100svh; inset: 0; color: var(--v-ink); }
+  .zoom[open] { display: grid; place-items: center; }
+  .zoom::backdrop { background: rgb(31 28 26 / .62); }
+  .zoom img { max-width: min(92vw, 40rem); max-height: 88svh; width: auto; height: auto; border-radius: var(--v-radius); box-shadow: var(--v-e2); background: var(--v-surface); cursor: zoom-out; }
+  .zoom__close { position: fixed; top: max(var(--v-4), env(safe-area-inset-top)); right: var(--v-gutter); width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--v-surface); color: var(--v-ink); box-shadow: var(--v-e1); font-size: 1.4rem; line-height: 1; display: grid; place-items: center; }
+</style>
+</head>
+<body>
+<div class="v-page">
+  <span data-v-progress></span>
+
+  <header class="bar">
+    <a class="bar__mark" href="#raboty"><i aria-hidden="true"></i><span>Лак и точка</span></a>
+    <nav class="index" aria-label="Индекс">
+      <a href="#raboty" data-top><small>01–05</small>Работы</a>
+      <a href="#ceny"><small>06</small>Цены</a>
+      <a href="#sterilnost" data-long><small>07</small>Стерильность</a>
+      <a href="#master"><small>08</small>Мастер</a>
+      <a href="#otzyvy"><small>09</small>Отзывы</a>
+    </nav>
+    <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться</a>
+  </header>
+
+  <main>
+
+    <!-- 1 · ЛЕНТА РАБОТ: спина страницы, галерея-каталог -->
+    <section data-v-act="pan" data-v-span="4.6" id="raboty" aria-label="Работы">
+      <div data-v-stage>
+        <div class="pointer" aria-hidden="true">
+          <span class="pointer__num"><span id="ptr-n">01</span><i> / 05</i></span>
+          <span class="pointer__line"><b></b><s></s></span>
+          <span class="pointer__name" id="ptr-name">Нюд</span>
+        </div>
+
+        <div class="gal">
+          <div class="gal__rail" data-v-pan="0.02">
+            <div class="gal__intro" data-v-cue="0 1 0 0">
+              <span class="v-label"><span class="only-touch">Лак и точка · </span>Студия маникюра</span>
+              <h1 class="v-display nd nd--xl">Работы как есть. Цена до записи.</h1>
+              <p>Пять последних работ, под каждой время и цена. Запись на ближайшие три дня.</p>
+              <div class="gal__price"><b>{{цена}}&nbsp;₽</b><span>маникюр с гель-лаком, 90 минут</span></div>
+              <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться</a>
+            </div>
+
+            <figure class="work" data-work="Нюд">
+              <a class="work__card" href="assets/work1.webp" data-zoom data-v-tilt="5">
+                <img src="assets/work1.webp" alt="Короткий миндаль, нюдовый гель-лак" width="900" height="1200">
+              </a>
+              <figcaption class="work__cap">
+                <span class="work__num">01</span>
+                <h3>Нюд, короткий миндаль</h3>
+                <p><span>Гель-лак, укрепление.</span> 90 минут. <span class="nowrap">{{цена}}&nbsp;₽</span></p>
+              </figcaption>
+            </figure>
+
+            <figure class="work" data-work="Красный">
+              <a class="work__card" href="assets/work2.webp" data-zoom data-v-tilt="5">
+                <img src="assets/work2.webp" alt="Короткий овал, классический красный гель-лак" width="900" height="1200">
+              </a>
+              <figcaption class="work__cap">
+                <span class="work__num">02</span>
+                <h3>Красный, короткий овал</h3>
+                <p><span>Гель-лак.</span> 90 минут. <span class="nowrap">{{цена}}&nbsp;₽</span></p>
+              </figcaption>
+            </figure>
+
+            <figure class="work" data-work="Френч">
+              <a class="work__card" href="assets/work3.webp" data-zoom data-v-tilt="5">
+                <img src="assets/work3.webp" alt="Средний миндаль, классический френч" width="900" height="1200">
+              </a>
+              <figcaption class="work__cap">
+                <span class="work__num">03</span>
+                <h3>Френч, средний миндаль</h3>
+                <p><span>Гель-лак, укрепление, френч.</span> 120 минут. <span class="nowrap">{{цена}}&nbsp;₽</span></p>
+              </figcaption>
+            </figure>
+
+            <figure class="work" data-work="Молочный">
+              <a class="work__card" href="assets/work4.webp" data-zoom data-v-tilt="5">
+                <img src="assets/work4.webp" alt="Короткий квадрат, молочное покрытие" width="900" height="1200">
+              </a>
+              <figcaption class="work__cap">
+                <span class="work__num">04</span>
+                <h3>Молочный, короткий квадрат</h3>
+                <p><span>Комбинированный маникюр, гель-лак.</span> 90 минут. <span class="nowrap">{{цена}}&nbsp;₽</span></p>
+              </figcaption>
+            </figure>
+
+            <figure class="work" data-work="Дизайн">
+              <a class="work__card" href="assets/work5.webp" data-zoom data-v-tilt="5">
+                <img src="assets/work5.webp" alt="Средний миндаль, матовый шалфей с тонкой терракотовой линией" width="900" height="1200">
+              </a>
+              <figcaption class="work__cap">
+                <span class="work__num">05</span>
+                <h3>Дизайн, матовый шалфей</h3>
+                <p><span>Гель-лак, ручная роспись.</span> 120 минут. <span class="nowrap">{{цена}}&nbsp;₽</span></p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · УСЛУГИ И ЦЕНЫ: строки с линиями -->
+    <section class="v-section v-section--tight" data-v-act="flow" id="ceny" aria-label="Услуги и цены">
+      <div class="v-wrap services">
+        <div class="services__head" data-v-in data-v-stagger="60">
+          <span class="v-label">06 · Услуги и цены</span>
+          <h2 class="v-display nd nd--lg">Цена названа до записи</h2>
+          <p>В стоимость входит всё, что нужно для этой строки: обработка, покрытие, снятие старого. Доплата только за то, что вы выбрали сами.</p>
+          <ul class="terms">
+            <li><span><b>Гарантия 7 дней</b> на покрытие: откололось, переделаем бесплатно</span></li>
+            <li><span><b>Запись на ближайшие 3 дня</b>, а не через две недели</span></li>
+            <li><span><b>Время в строке</b> – это реальная длительность приёма</span></li>
+          </ul>
+        </div>
+        <figure class="services__fig" data-v-in>
+          <img src="assets/pedicure.webp" alt="Педикюр: короткие ногти в молочном нюдовом покрытии" width="900" height="1200" loading="lazy">
+          <figcaption><b>Педикюр тоже.</b> Аппаратный, с покрытием или без, 90 минут.</figcaption>
+        </figure>
+        <div class="services__list">
+          <ul class="rows" data-v-in data-v-stagger="50">
+            <li><h3>Маникюр без покрытия</h3><span class="time">60 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Комбинированный: аппарат и ножницы. Форма, кутикула, масло.</p></li>
+            <li><h3>Маникюр с гель-лаком</h3><span class="time">90 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Однотонное покрытие любого цвета из палитры. Снятие старого включено, в том числе если делали у другого мастера.</p></li>
+            <li><h3>Укрепление гелем</h3><span class="time">+30 минут</span><span class="price v-nums">+{{цена}}&nbsp;₽</span><p>Для тонких и ломких ногтей: слой геля под покрытие, носится до 4 недель.</p></li>
+            <li><h3>Френч, дизайн, роспись</h3><span class="time">+30 минут</span><span class="price v-nums">от {{цена}}&nbsp;₽</span><p>Цену на конкретный дизайн назовём по фото до записи.</p></li>
+            <li><h3>Наращивание и коррекция</h3><span class="time">120–180 минут</span><span class="price v-nums">от {{цена}}&nbsp;₽</span><p>Гель на формы, любая длина и форма. Коррекция раз в 3–4 недели, её цена ниже, назовём до записи.</p></li>
+            <li><h3>Педикюр</h3><span class="time">90 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Аппаратный, с покрытием или без. Стопы, кутикула, снятие старого включено.</p></li>
+            <li><h3>Ремонт одного ногтя</h3><span class="time">15 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Трещина, скол, отломанный уголок. <span class="free">Бесплатно</span>, если случилось в течение 7 дней после нашего покрытия.</p></li>
+            <li><h3>Снятие покрытия</h3><span class="time">20 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Аппаратом, без размачивания и ацетона. <span class="free">Бесплатно при новом покрытии</span>, в том числе если старое делали у другого мастера.</p></li>
+          </ul>
+          <div class="cta" data-v-in>
+            <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться</a>
+            <span>Напишите, что хотите сделать: назовём точную цену и свободное время на ближайшие три дня.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · СТЕРИЛЬНОСТЬ И МАТЕРИАЛЫ -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#faf7f2" id="sterilnost" aria-label="Стерильность и материалы">
+      <div class="v-wrap clean">
+        <figure class="clean__fig" data-v-reveal="left" data-v-reveal-at="0.12 0.5">
+          <img src="assets/tools.webp" alt="Рабочее место: инструменты в запечатанных крафт-пакетах, одноразовая пилка и баф" width="1600" height="1000" loading="lazy">
+        </figure>
+        <div class="clean__copy" data-v-in data-v-stagger="60">
+          <span class="v-label">07 · Стерильность</span>
+          <h2 class="v-display nd nd--lg">Пакет вскрываем при вас</h2>
+          <ul class="facts">
+            <li><b>Крафт-пакеты</b><span>Инструменты для каждого приёма запечатаны, пакет вскрывается на ваших глазах</span></li>
+            <li><b>Автоклав</b><span>Металлический инструмент после каждого клиента проходит автоклав, не просто ультрафиолет</span></li>
+            <li><b>Одноразовые пилки и бафы</b><span>Новые на каждый маникюр. Можете забрать с собой</span></li>
+            <li><b>Снятие аппаратом</b><span>Без ацетона и размачивания, ногтевая пластина не истончается</span></li>
+          </ul>
+          <div class="cta">
+            <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться</a>
+            <span>Хотите увидеть, как вскрывается пакет, до записи: приходите посмотреть студию в рабочие часы.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · МАСТЕР -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#f6f2ec" id="master" aria-label="Мастер">
+      <div class="v-wrap master">
+        <div class="master__copy" data-v-in data-v-stagger="70">
+          <span class="v-label">08 · Мастер</span>
+          <h2 class="v-display nd nd--lg">Сначала спрашиваю, как вы носите руки</h2>
+          <div class="lines">
+            <p>Клавиатура, тесто, ребёнок или спорт – от этого зависят форма и длина, а не от картинки из ленты.</p>
+            <p>Не предлагаю дизайн, если вы пришли за нюдом. Захотите – покажу варианты на своих ногтях.</p>
+            <p>Если за неделю что-то откололось, переделаю в тот же приём. Это в условиях записи, а не одолжение.</p>
+          </div>
+        </div>
+        <figure class="master__fig" data-v-reveal="up" data-v-reveal-at="0.12 0.5">
+          <img src="assets/master.webp" alt="Мастер за работой, руки клиента на столе" width="900" height="1200" loading="lazy">
+          <div class="v-scrim v-scrim--light v-scrim--band" aria-hidden="true"></div>
+          <figcaption>
+            <b>{{мастер}}</b>
+            <span>мастер маникюра и педикюра, «Лак и точка»</span>
+            <span class="fact">Стаж {{стаж}} · {{сертификат}}</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 5 · ОТЗЫВЫ С ЯНДЕКС.КАРТ: только настоящие, целиком на слотах -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#faf7f2" id="otzyvy" aria-label="Отзывы с Яндекс.Карт">
+      <div class="v-wrap reviews">
+        <div class="reviews__head" data-v-in data-v-stagger="60">
+          <div>
+            <span class="v-label">09 · Отзывы</span>
+            <h2 class="v-display nd nd--lg">Что пишут на Яндекс.Картах</h2>
+          </div>
+          <div class="reviews__rating">
+            <span class="reviews__num v-nums">{{рейтинг}}</span>
+            <span class="reviews__stars" style="--r: {{рейтинг}}" role="img" aria-label="рейтинг {{рейтинг}} из 5"></span>
+            <span><span class="v-soft">{{отзывов}} отзывов</span> · <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Читать все отзывы</a></span>
+          </div>
+        </div>
+        <ul class="reviews__list" data-v-in data-v-stagger="90">
+          <li class="reviews__item reviews__item--big">
+            <p class="reviews__text">«{{отзыв 1}}»</p>
+            <p class="reviews__meta"><b>{{имя 1}}</b> · {{дата 1}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 1}}" role="img" aria-label="оценка {{оценка 1}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 2}}»</p>
+            <p class="reviews__meta"><b>{{имя 2}}</b> · {{дата 2}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 2}}" role="img" aria-label="оценка {{оценка 2}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 3}}»</p>
+            <p class="reviews__meta"><b>{{имя 3}}</b> · {{дата 3}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 3}}" role="img" aria-label="оценка {{оценка 3}} из 5"></span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6 · ЗАПИСЬ: финал держит реплику, футер внутри сцены -->
+    <section data-v-act="pin" data-v-span="1.4" id="zapis" aria-label="Записаться">
+      <div data-v-stage>
+        <div class="close">
+          <div class="close__inner">
+            <div data-v-cue="0.04">
+              <h2 class="v-display nd nd--xl">Запись на ближайшие три дня</h2>
+              <p>Напишите или позвоните: назовём цену, предложим свободное время и ответим на вопросы про покрытие.</p>
+              <div class="close__btns">
+                <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться</a>
+                <a class="v-btn v-btn--ghost" href="tel:{{телефон}}">Позвонить</a>
+              </div>
+            </div>
+            <div class="close__meta" data-v-cue="0.1">
+              <a class="close__tel" href="tel:{{телефон}}">{{телефон}}</a>
+              <span><b>{{адрес}}</b>, {{город}}</span>
+              <span>{{часы}}, по записи</span>
+              <span>Отвечаем в мессенджере в рабочие часы</span>
+              <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Как добраться: студия на Яндекс.Картах</a>
+            </div>
+          </div>
+          <footer class="foot">
+            <span>Лак и точка · {{город}}</span>
+            <span>Маникюр, педикюр, покрытие, укрепление, наращивание, дизайн</span>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <dialog class="zoom" id="zoom" aria-label="Фото работы крупно">
+    <button class="zoom__close" type="button" aria-label="Закрыть">×</button>
+    <img id="zoom-img" alt="" width="900" height="1200">
+  </dialog>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NailSalon",
+  "name": "Лак и точка",
+  "description": "Студия маникюра: работы как есть, цена названа до записи, запись на ближайшие три дня.",
+  "url": "{{ссылка-сайта}}",
+  "image": "{{ссылка-сайта}}/assets/og.jpg",
+  "telephone": "{{телефон}}",
+  "priceRange": "от {{цена}} ₽",
+  "address": { "@type": "PostalAddress", "streetAddress": "{{адрес}}", "addressLocality": "{{город}}", "addressCountry": "RU" },
+  "openingHours": "{{часы}}",
+  "sameAs": ["{{ссылка-карты}}"]
+}
+</script>
+
+<script src="vibe.js"></script>
+<script>
+  (function () {
+    var act = document.getElementById('raboty');
+    var stage = act.querySelector('[data-v-stage]');
+    var intro = act.querySelector('.gal__intro');
+    var ptr = act.querySelector('.pointer');
+    var works = Array.prototype.slice.call(act.querySelectorAll('.work'));
+    var num = document.getElementById('ptr-n'), name = document.getElementById('ptr-name');
+
+    // Тач: движок делает сцену горизонтальной прокруткой пальцем. Вводную карточку
+    // и указатель выносим над ленту, чтобы первый экран был заголовок + цена + кнопка,
+    // а лента начиналась с работы 01 целиком.
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      act.insertBefore(intro, stage);
+      act.insertBefore(ptr, stage);
+      act.classList.add('gal--touch');
+    }
+
+    Vibe.mount(document.querySelector('.v-page'));
+
+    // Фирменный ход: линия-указатель над лентой. Номер и техника работы, что сейчас
+    // в центре; у неё подпись полной плотности (класс is-near). Заполнение линии –
+    // --gal-p на указателе: на десктопе это --v-p акта, на тач – положение ленты.
+    var last = -1;
+    function set(best, p) {
+      ptr.style.setProperty('--gal-p', p.toFixed(4));
+      if (best !== last) {
+        last = best;
+        works.forEach(function (w, i) { w.classList.toggle('is-near', i === best); });
+        num.textContent = String(best + 1).padStart(2, '0');
+        name.textContent = works[best].getAttribute('data-work');
+      }
+    }
+    function nearest(cx) {
+      var best = 0, bd = Infinity;
+      works.forEach(function (w, i) {
+        var b = w.getBoundingClientRect(), d = Math.abs(b.left + b.width / 2 - cx);
+        if (d < bd) { bd = d; best = i; }
+      });
+      return best;
+    }
+    if (Vibe.coarse) {
+      var onScroll = function () {
+        var max = stage.scrollWidth - stage.clientWidth, x = stage.scrollLeft;
+        // текущая – карточка у точки снапа (левый край + отступ), а не у центра экрана:
+        // на планшете видны две карточки сразу, центр между ними неоднозначен
+        var r = stage.getBoundingClientRect();
+        var pad = parseFloat(getComputedStyle(stage).scrollPaddingInlineStart) || parseFloat(getComputedStyle(stage).scrollPaddingLeft) || 0;
+        var best = nearest(r.left + pad + works[0].getBoundingClientRect().width / 2);
+        if (x < 4) best = 0;
+        if (max - x < 4) best = works.length - 1;
+        set(best, max > 0 ? x / max : 0);
+      };
+      stage.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      onScroll();
+    } else {
+      var live = false, lastP = -1;
+      var tick = function () {
+        var p = parseFloat(getComputedStyle(act).getPropertyValue('--v-p')) || 0;
+        if (p !== lastP) {
+          lastP = p;
+          var best = nearest(window.innerWidth / 2);
+          if (p < 0.03) best = 0;                      // при загрузке всегда «01 / 05»
+          if (p > 0.97) best = works.length - 1;       // в конце хода – последняя работа
+          set(best, p);
+        }
+        if (live) requestAnimationFrame(tick);
+      };
+      new IntersectionObserver(function (es) { live = es[0].isIntersecting; if (live) tick(); }).observe(act);
+      tick();
+    }
+
+    // Тап или клик по работе – фото крупно в нативном dialog. Без JS ссылка открывает файл.
+    var dlg = document.getElementById('zoom'), big = document.getElementById('zoom-img');
+    if (dlg && typeof dlg.showModal === 'function') {
+      Array.prototype.forEach.call(document.querySelectorAll('[data-zoom]'), function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var img = a.querySelector('img');
+          big.src = a.getAttribute('href'); big.alt = img ? img.alt : '';
+          dlg.showModal();
+        });
+      });
+      dlg.addEventListener('click', function () { dlg.close(); });
+      dlg.addEventListener('close', function () { big.removeAttribute('src'); });
+    }
+  })();
+</script>
+</body>
+</html>
