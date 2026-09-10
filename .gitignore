@@ -3,3 +3,5 @@ node_modules/
 raw/
 lab/
 .vibe/
+.env
+*.env
