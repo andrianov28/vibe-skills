@@ -50,7 +50,11 @@ const sharp = requireFromBuild("sharp");
 
 // ---------- палитра, шрифты, подпись ----------
 const html = fs.readFileSync(indexFile, "utf8");
-const cssVar = (name, d) => { const m = html.match(new RegExp(`--v-${name}\\s*:\\s*([^;]+);`)); return m ? m[1].trim() : d; };
+// тема сайта – последний блок `.v-page { … --v-font-display … }` (в самодостаточных файлах движок вшит первым, его цвета не берём;
+// локальные переопределения --v-canvas внутри глав идут без шрифтов и тоже не считаются)
+const themeBlocks = [...html.matchAll(/\.v-page\s*\{([^}]*--v-font-display[^}]*)\}/g)].map((m) => m[1]);
+const theme = themeBlocks.length ? themeBlocks[themeBlocks.length - 1] : html;
+const cssVar = (name, d) => { const m = theme.match(new RegExp(`--v-${name}\\s*:\\s*([^;]+);`)) || html.match(new RegExp(`--v-${name}\\s*:\\s*([^;]+);`)); return m ? m[1].trim() : d; };
 const pal = {
   canvas: cssVar("canvas", "#f4f2ee"), surface: cssVar("surface", "#ffffff"),
   ink: cssVar("ink", "#1b1b1b"), inkSoft: cssVar("ink-soft", "#6b6b6b"),
