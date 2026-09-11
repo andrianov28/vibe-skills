@@ -42,6 +42,9 @@ const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
 let body = bodyMatch ? bodyMatch[1] : html;
 // свой <style> страницы из <head>
 const fonts = [...html.matchAll(/family=([A-Za-z+]+?)[:&"]/g)].map((m) => m[1].split("+").join(" ")).filter((v, i, a) => a.indexOf(v) === i);
+// ссылка Google Fonts из <head> едет в блок как @import (первой строкой стилей): шрифты подключаются сами, без настроек Тильды
+const fontLinks = [...html.matchAll(/<link[^>]+href="(https:\/\/fonts\.googleapis\.com\/css2?[^"]+)"/gi)].map((m) => m[1].replace(/&amp;/g, "&"));
+const fontImport = fontLinks.map((u) => `@import url("${u}");`).join("");
 const headStyles = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1]).join("\n");
 body = body.replace(/<link[^>]+vibe\.css[^>]*>/gi, "").replace(/<script[^>]+vibe\.js[^>]*><\/script>/gi, "");
 body = body.replace(/<!--[\s\S]*?-->/g, "");
@@ -61,9 +64,10 @@ if (links.size) {
 body = body.replace(/\n\s*\n/g, "\n").replace(/^\s+/gm, "");
 
 const pack = `<!-- Вайб-сайт: HTML-блок T123. Картинки грузятся с ${assets} -->
-<style>${minCss(css)}\n${minCss(headStyles)}</style>
-${body}
-<script>${minJs(js)}</script>`;
+<style>${fontImport}${minCss(css)}\n${minCss(headStyles)}</style>
+<script>${minJs(js)}</script>
+${body}`;
+// движок стоит ДО разметки: вызов Vibe.mount внутри разметки выполняется сразу, как Тильда вставит блок (проверено в живой Тильде 11.09.2026)
 
 fs.writeFileSync(outFile, pack);
 const bytes = Buffer.byteLength(pack, "utf8");
@@ -80,8 +84,9 @@ if (clip) {
 }
 console.log(`
 В Тильде (4 действия):
-1. Мои сайты → сайт → «Создать страницу» (пустая).
-2. «+ Добавить блок» → раздел «Другое» → T123 «HTML-код». В блоке нажми «Контент».
-3. Вставь код (Ctrl+V), «Сохранить и закрыть».
-4. «Опубликовать» справа вверху. Открой страницу и пролистай на компьютере и телефоне.
-Один раз на сайт: Настройки сайта → «Шрифты и цвета» → та же пара шрифтов, что в коде (${fonts.join(" + ") || "см. template.md"}).`);
+1. Мои сайты → «Редактировать сайт» → «Создать новую страницу» → «Пустая страница» → «Выбрать».
+2. Внизу «Все блоки» → раздел «Другое» → T123 «HTML-код» (клик – блок встанет на страницу). Навести на блок → «Контент».
+3. Кликнуть в поле кода, вставить (Ctrl+V), «Сохранить и закрыть».
+4. «Опубликовать» справа вверху → ссылка вида имя.tilda.ws. Открыть и пролистать на компьютере и телефоне.
+Шрифты (${fonts.join(" + ") || "из template.md"}) подключены внутри блока, в настройках Тильды ничего выбирать не надо.
+Первый раз: Тильда попросит подтвердить телефон и почту, без этого блок HTML-кода не открывается.`);
