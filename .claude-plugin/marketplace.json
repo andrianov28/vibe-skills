@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "vibe-skills",
-  "version": "1.3.2",
-  "description": "Скиллы курса «Вайб-сайты» Академии Интернет Маркетинга: подбор заказов на Kwork, разбор ТЗ, сборка сайтов, публикация на GitHub Pages и в Тильду через Claude Code",
+  "version": "1.4.0",
+  "description": "Скиллы курса «Вайб-сайты» Академии Интернет Маркетинга: подбор заказов на Kwork, разбор ТЗ, сборка сайтов, публикация на GitHub Pages и в Тильду, мокапы для портфолио через Claude Code",
   "owner": {
     "name": "Евгений Андрианов, Академия Интернет Маркетинга",
     "email": "andrianov28@gmail.com"
@@ -58,6 +58,19 @@
         "github pages",
         "публикация",
         "тильда",
+        "вайб-сайты"
+      ]
+    },
+    {
+      "name": "vibe-mockup",
+      "description": "Мокап сайта для портфолио на Kwork: ноутбук и телефон с первым экраном сайта, подпись и фон в палитре сайта, размер под обложку кворка; тексты для кворка и работы в портфолио",
+      "version": "1.0.0",
+      "source": "./plugins/vibe-mockup",
+      "category": "productivity",
+      "keywords": [
+        "портфолио",
+        "мокап",
+        "kwork",
         "вайб-сайты"
       ]
     }
