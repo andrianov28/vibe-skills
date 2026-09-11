@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "vibe-skills",
-  "version": "1.2.6",
-  "description": "Скиллы курса «Вайб-сайты» Академии Интернет Маркетинга: подбор заказов на Kwork, сборка сайтов и поиск клиентов через Claude Code",
+  "version": "1.3.0",
+  "description": "Скиллы курса «Вайб-сайты» Академии Интернет Маркетинга: подбор заказов на Kwork, разбор ТЗ, сборка сайтов, публикация на GitHub Pages и в Тильду через Claude Code",
   "owner": {
     "name": "Евгений Андрианов, Академия Интернет Маркетинга",
     "email": "andrianov28@gmail.com"
@@ -45,6 +45,19 @@
         "лендинг",
         "тильда",
         "kie.ai",
+        "вайб-сайты"
+      ]
+    },
+    {
+      "name": "vibe-publish",
+      "description": "Публикация сайта: живая ссылка на GitHub Pages за минуту (бесплатно, правки и откат одной фразой) и перенос в Тильду одним блоком HTML-кода",
+      "version": "1.0.0",
+      "source": "./plugins/vibe-publish",
+      "category": "productivity",
+      "keywords": [
+        "github pages",
+        "публикация",
+        "тильда",
         "вайб-сайты"
       ]
     }

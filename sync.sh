@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 SRC="/e/YandexDisk/ИИ Клод Я/Курс по Клоду/07-скиллы"
-for s in kwork-podborka razbor-tz vibe-sait; do
+for s in kwork-podborka razbor-tz vibe-sait vibe-publish; do
   rm -rf "plugins/$s/skills/$s"
   mkdir -p "plugins/$s/skills"
   cp -r "$SRC/$s" "plugins/$s/skills/$s"
