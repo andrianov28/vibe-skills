@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кран и Щиток · сантехник и электрик на дом</title>
+<meta name="description" content="Сантехник и электрик с выездом на дом в {{город}}: интервал приезда и цена на типовую работу до выезда, стандартные детали с собой, гарантия на работу письменно.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Кран и Щиток">
+<meta property="og:title" content="Течёт прямо сейчас? Назовём интервал приезда и цену">
+<meta property="og:description" content="Сантехник и электрик на дом в {{город}}: напишите, что случилось, и пришлите фото. Ответим интервалом приезда и ценой на типовую работу до выезда.">
+<meta property="og:url" content="{{адрес сайта}}">
+<meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="assets/hero-m.webp" media="(max-width: 860px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero.webp" media="(min-width: 861px)" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%274%27 width=%2724%27 height=%2724%27 rx=%277%27 fill=%27%23f07a1f%27/%3E%3Crect x=%2714%27 y=%279%27 width=%274%27 height=%2714%27 rx=%272%27 fill=%27%231c1f23%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vibe.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","additionalType":["https://schema.org/Plumber","https://schema.org/Electrician"],"name":"Кран и Щиток","description":"Сантехник и электрик с выездом на дом: интервал приезда и цена на типовую работу до выезда, стандартные детали с собой, гарантия на работу письменно.","url":"{{адрес сайта}}","image":"{{адрес сайта}}/assets/og.jpg","telephone":"{{телефон}}","openingHours":"{{часы}}","areaServed":"{{город}}","address":{"@type":"PostalAddress","streetAddress":"{{адрес}}","addressLocality":"{{город}}","addressCountry":"RU"},"priceRange":"от {{цена}} ₽"}
+</script>
+<style>
+  /* ---- тема: шесть цветов, два шрифта --------------------------------- */
+  .v-page {
+    --v-canvas: #1c1f23; --v-surface: #272b31;
+    --v-ink: #f0eeea; --v-ink-soft: #a4a8ae;
+    --v-accent: #f07a1f; --v-accent-ink: #1a0f05;
+    --v-font-display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+    --v-font-text: "Onest", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 8 10 13;
+    --v-radius: 10px;
+    --v-display-weight: 500;
+    --v-track-tight: -0.012em;
+  }
+  html, body { background: #1c1f23; }
+  .v-page .v-lede { font-weight: 400; }
+  .v-page .v-label { font-weight: 500; }
+  .v-page .v-btn { font-size: var(--v-t-base); font-weight: 600; }
+
+  /* ---- шапка ---------------------------------------------------------------- */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; align-items: center; justify-content: space-between;
+    padding: var(--v-3) var(--v-gutter); gap: var(--v-4);
+    background: linear-gradient(to bottom, rgb(28 31 35 / .85), rgb(28 31 35 / 0));
+    transition: background-color .3s var(--v-ease-out), box-shadow .3s var(--v-ease-out); }
+  .bar.is-scrolled { background: rgb(28 31 35 / .82); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--v-hair); }
+  .bar__mark { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); letter-spacing: .02em; text-decoration: none;
+    display: inline-flex; align-items: center; gap: .5em; min-height: 44px; white-space: nowrap; }
+  .bar__mark i { width: .78em; height: .78em; border-radius: .22em; background: var(--v-accent); display: inline-block; position: relative; }
+  .bar__mark i::after { content: ""; position: absolute; left: 50%; top: 22%; width: 16%; height: 56%; margin-left: -8%; border-radius: 1px; background: var(--v-canvas); }
+  .bar__right { display: flex; align-items: center; gap: var(--v-4); }
+  .bar__tel { text-decoration: none; font-weight: 600; font-size: var(--v-t-sm); color: var(--v-ink); display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--v-2); }
+  @media (max-width: 700px) {
+    .bar__tel { display: none; }
+    .bar .v-btn { padding: 0 1em; min-height: 44px; font-size: .9rem; }
+    .bar__right { gap: var(--v-2); }
+    .bar__mark { font-size: 1.1rem; }
+  }
+  @media (max-width: 860px) { .bar.is-scrolled { background: rgb(28 31 35 / .96); } }
+  /* телефон: подписи не мельче 15 px (--v-t-sm на 390 px = 14 px) */
+  @media (max-width: 860px) {
+    .hero__tel, .plist .note, .prices__incl, .promise__facts span, .reviews__meta, .close__hint,
+    .poka__fig figcaption, .prices__fig figcaption, .promise__fig figcaption, .reviews__rating, .reviews__fact { font-size: .95rem; }
+  }
+
+  /* ---- hero: два плана, течёт под мойкой ---------------------------------- */
+  /* img внутри <picture>: селектор движка .v-layer > img не достаёт, позиционируем сами */
+  .hero__back img, .hero__card img { position: absolute; max-width: none; }
+  .hero__back img { width: 116%; height: 116%; left: -8%; top: -8%; object-fit: cover; }
+  .hero__card { --w: clamp(190px, 18vw, 300px); --r: clamp(2rem, 7vw, 8rem); --b: 13vh; }
+  .hero__card img { width: var(--w); height: calc(var(--w) * 4 / 3); right: var(--r); bottom: var(--b); object-fit: cover;
+    border-radius: var(--v-radius); box-shadow: 0 30px 60px rgb(0 0 0 / .55), var(--v-edge); }
+  .hero__floor { position: absolute; inset: auto 0 0 0; height: 36%; z-index: 2; pointer-events: none;
+    background: linear-gradient(to top, var(--v-canvas) 0%, rgb(28 31 35 / .55) 45%, transparent 100%); }
+  .hero__copy { bottom: clamp(5.5rem, 15vh, 10rem); max-width: min(44rem, 86vw); }
+  .hero__label { display: block; margin-bottom: var(--v-4); color: var(--v-ink); opacity: .85; }
+  .hero__copy .v-display { font-size: var(--v-t-3xl); line-height: .98; }
+  .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); opacity: .92; max-width: 38ch; }
+  .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
+  .hero__tel { text-decoration: none; color: var(--v-ink); font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
+  .hero__tel b { font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
+  .hero__note { position: absolute; z-index: 3; right: var(--v-gutter); top: clamp(5rem, 14vh, 9rem); text-align: right; display: grid; gap: .3em; }
+  .hero__note .v-nums { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); letter-spacing: .01em; }
+  .hero__note .hero__int { color: var(--v-ink); font-size: var(--v-t-sm); }
+  @media (max-width: 860px) {
+    .hero__card { --w: 34vw; --r: 5vw; --b: auto; }
+    .hero__card img { bottom: auto; top: 13vh; box-shadow: 0 18px 36px rgb(0 0 0 / .55); }
+    .hero__note { display: none; }
+    .hero__copy { bottom: clamp(2.5rem, 6vh, 4rem); }
+    .hero__copy .v-display { font-size: var(--v-t-2xl); }
+    .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-4); }
+    .hero__label { margin-bottom: var(--v-3); }
+    .hero__cta { margin-top: var(--v-5); gap: var(--v-2) var(--v-5); }
+  }
+  @media (max-width: 600px) and (max-height: 700px) { .hero__card { --w: 28vw; } .hero__card img { top: 11vh; } }
+
+  /* ---- фирменный ход: трекер «где сейчас мастер» ---------------------------- */
+  .track { position: fixed; left: 0; right: 0; bottom: 0; z-index: 32; display: grid; grid-template-columns: minmax(15rem, 20rem) 1fr; align-items: center; column-gap: var(--v-8);
+    padding: .7rem var(--v-gutter) .75rem; background: rgb(28 31 35 / .8); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    box-shadow: 0 -1px 0 var(--v-hair); transition: transform .3s var(--v-ease-out), opacity .3s var(--v-ease-out); }
+  .track__status { display: grid; gap: .15em; }
+  .track__status .v-label { font-size: .7rem; }
+  .track__state { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); line-height: 1.1; letter-spacing: .01em; transition: opacity .18s var(--v-ease-out); }
+  .track__state.is-swap { opacity: 0; }
+  .track__line { position: relative; height: 2.4rem; --edge: 4.5rem; --tp: 0; }
+  .track__rail { position: absolute; left: var(--edge); right: var(--edge); top: .6rem; height: 2px; background: var(--v-hair-strong); }
+  .track__rail i { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--tp) * 100%); background: var(--v-accent); }
+  .track__stops { position: absolute; left: var(--edge); right: var(--edge); top: 0; display: flex; justify-content: space-between; }
+  .track__stops li { position: relative; width: 0; display: flex; flex-direction: column; align-items: center; }
+  .track__stops li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: 2px; border-radius: 50%; background: var(--v-canvas); box-shadow: 0 0 0 2px var(--v-hair-strong);
+    transition: background-color .3s var(--v-ease-out), box-shadow .3s var(--v-ease-out); }
+  .track__stops li span { white-space: nowrap; margin-top: .5rem; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--v-ink-soft); transition: color .3s var(--v-ease-out); }
+  .track__stops li.is-past::before { background: var(--v-accent); box-shadow: 0 0 0 2px var(--v-accent); }
+  .track__stops li.is-past span { color: var(--v-ink); }
+  .track__marker { position: absolute; top: .6rem; left: calc(var(--edge) + var(--tp) * (100% - 2 * var(--edge))); width: 1.7rem; height: .95rem; margin: -.475rem 0 0 -.85rem;
+    border-radius: .5rem; background: var(--v-accent); box-shadow: 0 0 0 3px var(--v-canvas), 0 6px 18px rgb(240 122 31 / .45); }
+  .track__marker::after { content: ""; position: absolute; right: .3rem; top: .3rem; width: .35rem; height: .35rem; border-radius: 50%; background: var(--v-accent-ink); opacity: .7; }
+  .track__btn { display: none; }
+  @media (max-width: 860px) {
+    .track { grid-template-columns: 1fr auto; grid-template-areas: "status btn" "line btn"; column-gap: var(--v-4); row-gap: .35rem;
+      padding: .6rem var(--v-gutter) calc(.6rem + env(safe-area-inset-bottom)); background: rgb(28 31 35 / .94); }
+    .track__status { grid-area: status; min-width: 0; }
+    .track__status .v-label { display: none; }
+    .track__state { font-size: .95rem; }
+    /* панель с кнопкой видна – кнопку в шапке убираем, чтобы на экране была одна */
+    .v-page.track-on .bar .v-btn { display: none; }
+    .track__line { grid-area: line; height: 12px; --edge: 5px; }
+    .track__rail { top: 5px; }
+    .track__stops li::before { width: 8px; height: 8px; margin-top: 1px; }
+    .track__stops li span { display: none; }
+    .track__marker { top: 5px; width: 1.3rem; height: .75rem; margin: -.375rem 0 0 -.65rem; }
+    .track__btn { display: inline-flex; grid-area: btn; padding: 0 1.1em; min-height: 46px; font-size: .95rem; }
+    .track.is-hidden { transform: translateY(110%); opacity: 0; pointer-events: none; }
+  }
+
+  /* ---- цена бездействия: строки и фото с шторкой ---------------------------- */
+  .poka { display: grid; grid-template-columns: 1.05fr .95fr; gap: var(--v-9); align-items: start; }
+  .rows li { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-1); }
+  .rows li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .rows h3 { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); letter-spacing: var(--v-track-normal); line-height: 1.1; }
+  .rows p { color: var(--v-ink-soft); max-width: 48ch; text-wrap: pretty; }
+  .turn { padding: var(--v-5) var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: var(--v-e1), var(--v-edge); display: grid; gap: var(--v-2); }
+  .turn .v-label { color: var(--v-accent); }
+  .turn__text { font-size: var(--v-t-lg); line-height: 1.35; text-wrap: pretty; max-width: 40ch; }
+  .poka__fig { position: sticky; top: clamp(5rem, 12vh, 7rem); aspect-ratio: 4 / 3; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2), var(--v-edge); }
+  .poka__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .poka__fig figcaption, .prices__fig figcaption { position: absolute; left: var(--v-5); right: var(--v-5); bottom: var(--v-5); z-index: 1; font-size: var(--v-t-sm); color: var(--v-ink); }
+  .poka__fig::after, .prices__fig::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(to top, rgb(0 0 0 / .82), rgb(0 0 0 / .35) 50%, transparent); pointer-events: none; }
+  @media (max-width: 860px) {
+    .poka { grid-template-columns: 1fr; gap: var(--v-7); }
+    .poka__fig { position: static; aspect-ratio: 4 / 3; }
+    .rows h3 { font-size: var(--v-t-lg); }
+    .turn { padding: var(--v-5); }
+  }
+
+  /* ---- как проходит вызов: сцена со статусами --------------------------------- */
+  .steps__img img { width: 112%; height: 112%; left: -6%; top: -6%; object-fit: cover; }
+  .steps__copy { max-width: 46rem; }
+  .steps__copy .v-display--lg { font-size: clamp(2rem, 1.3rem + 3vw, 4rem); }
+  .steps__copy .v-lede { margin-top: var(--v-4); max-width: 40ch; color: var(--v-ink); opacity: .9; }
+  .chip { display: inline-flex; align-items: center; gap: .55em; margin-bottom: var(--v-4); padding: .35em .9em .35em .7em; border-radius: 999px;
+    box-shadow: inset 0 0 0 1px var(--v-hair-strong); background: rgb(28 31 35 / .55); font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink); }
+  .chip i { width: .55em; height: .55em; border-radius: 50%; background: var(--v-accent); box-shadow: 0 0 0 3px rgb(240 122 31 / .25); }
+  @media (max-width: 860px) {
+    .steps__copy .v-display--lg { font-size: var(--v-t-xl); }
+    .steps__copy .v-lede { font-size: var(--v-t-base); }
+  }
+
+  /* ---- цены: две колонки строк, сумка sticky ----------------------------------- */
+  .prices { display: grid; grid-template-columns: 1.45fr .55fr; gap: var(--v-9); align-items: start; }
+  .prices__seg { color: var(--v-ink); font-weight: 500; }
+  .prices__cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--v-7); }
+  .plist h3 { margin-bottom: var(--v-3); color: var(--v-accent); }
+  .plist li { display: grid; grid-template-columns: 1fr auto; gap: var(--v-1) var(--v-5); padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); align-items: baseline; }
+  .plist li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .plist .name { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); letter-spacing: var(--v-track-normal); line-height: 1.15; }
+  .plist .note { grid-column: 1; font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 36ch; }
+  .plist .price { grid-column: 2; grid-row: 1 / span 2; align-self: start; font-weight: 600; font-size: var(--v-t-base); color: var(--v-accent); white-space: nowrap; }
+  .prices__incl { font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 62ch; }
+  .prices__incl b { color: var(--v-ink); font-weight: 600; }
+  .prices__fig { position: sticky; top: clamp(5rem, 12vh, 7rem); aspect-ratio: 3 / 4; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2), var(--v-edge); }
+  .prices__fig img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 1100px) { .prices__cols { grid-template-columns: 1fr; } }
+  @media (max-width: 860px) {
+    .prices { grid-template-columns: 1fr; gap: var(--v-7); }
+    .prices__fig { position: static; aspect-ratio: 4 / 3; }
+    .plist .name { font-size: var(--v-t-base); }
+  }
+
+  /* ---- гарантия: фото со шторкой и факты ---------------------------------------- */
+  .promise { display: grid; grid-template-columns: 1fr 1fr; gap: var(--v-8); align-items: center; }
+  .promise__facts li { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-1); }
+  .promise__facts li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .promise__facts strong { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); letter-spacing: var(--v-track-normal); line-height: 1.15; }
+  .promise__facts span { color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 46ch; }
+  .promise__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; aspect-ratio: 16 / 11; box-shadow: var(--v-e2), var(--v-edge); }
+  .promise__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .promise__fig figcaption { position: absolute; left: var(--v-5); right: var(--v-5); bottom: var(--v-5); z-index: 1; font-size: var(--v-t-sm); color: var(--v-ink); }
+  .promise__fig::after { content: ""; position: absolute; inset: auto 0 0 0; height: 50%; background: linear-gradient(to top, rgb(0 0 0 / .8), rgb(0 0 0 / .3) 50%, transparent); pointer-events: none; }
+  @media (max-width: 860px) { .promise { grid-template-columns: 1fr; gap: var(--v-6); } .promise__fig { aspect-ratio: 4 / 3; } }
+
+  /* ---- отзывы с Яндекс.Карт: слоты под настоящие --------------------------------- */
+  .reviews__head { display: flex; flex-wrap: wrap; gap: var(--v-6); align-items: end; justify-content: space-between; margin-bottom: var(--v-7); }
+  .reviews__rating { display: flex; align-items: center; gap: var(--v-3); font-size: var(--v-t-sm); flex-wrap: wrap; }
+  .reviews__rating a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--v-2); }
+  .reviews__num { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-2xl); line-height: 1; }
+  .reviews__stars { --size: 1.1rem; display: inline-block; width: calc(var(--size) * 5); height: var(--size);
+    background: linear-gradient(90deg, var(--v-accent) calc(var(--r, 0) / 5 * 100%), var(--v-hair-strong) 0);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x; }
+  .reviews__stars--sm { --size: .8rem; vertical-align: middle; }
+  .reviews__list { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--v-6); align-items: start; }
+  .reviews__item { padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .reviews__item--big .reviews__text { font-size: var(--v-t-lg); line-height: 1.4; }
+  .reviews__text { text-wrap: pretty; }
+  .reviews__meta { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__meta b { color: var(--v-ink); font-weight: 600; }
+  .reviews__fact { margin-top: var(--v-7); padding-top: var(--v-5); border-top: 1px solid var(--v-hair); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  @media (max-width: 860px) { .reviews__list { grid-template-columns: 1fr; } }
+
+  /* ---- финал: одно сообщение ------------------------------------------------------ */
+  .close { min-height: 100svh; display: grid; grid-template-rows: 1fr auto; padding: clamp(6rem, 14vh, 9rem) var(--v-gutter) 4.5rem;
+    background: radial-gradient(60rem 40rem at calc(var(--v-mx, .5) * 100%) calc(var(--v-my, .5) * 100%), rgb(240 122 31 / .2), transparent 60%); }
+  .close__inner { align-self: center; display: grid; grid-template-columns: 1.25fr .75fr; gap: var(--v-9); align-items: start; padding-bottom: var(--v-9); }
+  .close__inner .v-display { margin-bottom: var(--v-5); }
+  .close__inner .v-lede { max-width: 40ch; }
+  .close__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
+  .close__tel { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; color: var(--v-ink); letter-spacing: .01em; }
+  .close__hint { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 44ch; }
+  .close__meta { display: grid; gap: var(--v-3); color: var(--v-ink-soft); padding-top: var(--v-2); }
+  .close__meta b { color: var(--v-ink); font-weight: 600; display: block; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; margin-bottom: .2em; }
+  .foot { display: flex; justify-content: space-between; gap: var(--v-4); padding: var(--v-6) 0 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); flex-wrap: wrap; }
+  @media (max-width: 860px) {
+    .close { min-height: 0; padding: clamp(5rem, 12vh, 7rem) var(--v-gutter) calc(6rem + env(safe-area-inset-bottom)); }
+    .close__inner { grid-template-columns: 1fr; gap: var(--v-7); padding-bottom: var(--v-8); }
+    .close__tel { font-size: var(--v-t-lg); }
+    .foot__more { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="v-page">
+  <span data-v-progress></span>
+  <div class="v-grain" aria-hidden="true"></div>
+
+  <header class="bar">
+    <a class="bar__mark" href="#top"><i aria-hidden="true"></i>Кран и Щиток</a>
+    <nav class="bar__right" aria-label="Быстрые ссылки">
+      <a class="bar__tel" href="tel:{{телефон}}">{{телефон}}</a>
+      <a class="v-btn" href="{{ссылка-записи}}" rel="noopener">Вызвать мастера</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 1 · УЗНАВАНИЕ: течёт под мойкой, два плана -->
+    <section id="top" data-v-act="pin" data-v-span="2.4" data-v-drift="#1c1f23" aria-label="Сантехник и электрик на дом">
+      <div data-v-stage>
+        <div class="v-layer hero__back" data-v-parallax="-0.7">
+          <picture>
+            <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
+            <img src="assets/hero.webp" alt="" width="1920" height="1067" fetchpriority="high">
+          </picture>
+        </div>
+        <div class="v-layer hero__card" data-v-parallax="-0.28">
+          <picture>
+            <source media="(max-width: 600px)" srcset="assets/card-480.webp" width="480" height="640">
+            <img src="assets/card.webp" alt="" width="900" height="1200" decoding="async">
+          </picture>
+        </div>
+        <div class="hero__floor" aria-hidden="true"></div>
+        <div class="v-scrim v-scrim--lead" aria-hidden="true"></div>
+
+        <div class="hero__note" data-v-cue="0 0.6 0" data-v-rise="0">
+          <span class="v-label">Принимаем вызовы</span>
+          <span class="v-nums">{{часы}}</span>
+          <span class="hero__int">Интервал приезда {{время-выезда}}</span>
+        </div>
+
+        <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.82 0">
+          <span class="v-label hero__label">Сантехник и электрик · выезд на дом · {{город}}</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Течёт прямо сейчас? Назовём интервал приезда и цену</h1>
+          <p class="v-lede">Напишите, что случилось, и пришлите фото. Ответим интервалом приезда и ценой на типовую работу до выезда. Детали с собой.</p>
+          <div class="hero__cta">
+            <a class="v-btn" href="{{ссылка-записи}}" rel="noopener">Вызвать мастера</a>
+            <a class="hero__tel" href="tel:{{телефон}}">или позвоните <b>{{телефон}}</b></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · ЦЕНА БЕЗДЕЙСТВИЯ и ПОВОРОТ: пока «завтра после обеда» -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#20242a" id="poka" aria-label="Почему не ждать до завтра">
+      <div class="v-wrap poka">
+        <div class="v-stack" data-v-in data-v-stagger="70">
+          <span class="v-label">Пока «мастер будет завтра после обеда»</span>
+          <h2 class="v-display v-display--lg">Течь не ждёт до завтра</h2>
+          <ul class="rows">
+            <li><h3>Вода уходит под стяжку</h3><p>За ночь она находит дорогу к соседям снизу. Тогда это уже не сифон за полчаса, а чужой потолок и ваш разговор с ними.</p></li>
+            <li><h3>Розетка греется и пахнет</h3><p>Плохой контакт сам не проходит. Пока ждёте мастера, выключите автомат на эту линию и не включайте в неё нагрузку.</p></li>
+            <li><h3>Цену «узнаете после работы»</h3><p>Когда смеситель уже разобран, спорить о сумме поздно. Соглашаетесь на любую, лишь бы собрали обратно.</p></li>
+          </ul>
+          <div class="turn">
+            <span class="v-label">Поэтому</span>
+            <p class="turn__text">Интервал приезда и цену на типовую работу называем до выезда, по описанию и фото. Стандартные детали везём с собой.</p>
+          </div>
+        </div>
+        <figure class="poka__fig" data-v-reveal="right" data-v-reveal-at="0.1 0.42">
+          <img src="assets/stain.webp" srcset="assets/stain-900.webp 900w, assets/stain.webp 1600w" sizes="(max-width: 860px) 100vw, 40vw" alt="Вода из-под двери санузла растеклась по полу коридора, у порога свёрнутое полотенце" width="1600" height="900" loading="lazy" decoding="async">
+          <figcaption>К утру этот пол будет у соседей на потолке</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 · ДОКАЗАТЕЛЬСТВО: как проходит вызов, четыре статуса -->
+    <section data-v-act="pin" data-v-span="2.6" data-v-drift="#181b1f" id="kak" aria-label="Как проходит вызов">
+      <div data-v-stage>
+        <div class="v-layer steps__img" data-v-parallax="-0.5">
+          <img src="assets/work.webp" alt="" width="1920" height="1067" loading="lazy" decoding="async">
+        </div>
+        <div class="v-scrim v-scrim--lead" aria-hidden="true"></div>
+        <div class="v-copy v-copy--lead steps__copy" data-v-cue="0 0.3 0 0.05">
+          <span class="chip"><i aria-hidden="true"></i>Статус · интервал и цена</span>
+          <h2 class="v-display v-display--lg">Вы написали, что течёт. Мы ответили интервалом и ценой</h2>
+          <p class="v-lede">Двух строк и фото достаточно. Интервал приезда {{время-выезда}}, цена по прайсу ниже, и на месте она не меняется.</p>
+        </div>
+        <div class="v-copy v-copy--lead steps__copy" data-v-cue="0.28 0.72 0.05 0.05">
+          <span class="chip"><i aria-hidden="true"></i>Статус · мастер выехал</span>
+          <h2 class="v-display v-display--lg">Мастер выехал со стандартными деталями</h2>
+          <p class="v-lede">Подводка, сифоны, краны, автоматы и розетки уже в сумке, чтобы не ездить за ними дважды.</p>
+        </div>
+        <div class="v-copy v-copy--lead steps__copy" data-v-cue="0.7 1 0.05 0">
+          <span class="chip"><i aria-hidden="true"></i>Статус · на месте</span>
+          <h2 class="v-display v-display--lg">Осмотрел, подтвердил цену до начала, сделал. Гарантия в акте</h2>
+          <p class="v-lede">Если на месте нашлось что-то ещё, скажет об этом до работы и спросит, делать ли.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · ВЫБОР: типовые работы и цены -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#1c1f23" id="ceny" aria-label="Цены на типовые работы">
+      <div class="v-wrap prices">
+        <div class="v-stack" data-v-in data-v-stagger="60">
+          <h2 class="v-display v-display--lg">Цена на типовые работы известна до приезда</h2>
+          <p class="v-body v-soft">Ориентиры на работу без стоимости деталей. Точную сумму называем по описанию и фото до выезда, на месте она не меняется. <span class="prices__seg">Выезжаем: {{зона-выезда}}.</span></p>
+          <div class="prices__cols">
+            <div class="plist">
+              <h3 class="v-label">Сантехника</h3>
+              <ul>
+                <li><span class="name">Устранить течь под мойкой</span><span class="note">Сифон, гибкая подводка, уплотнения</span><span class="price v-nums">от {{цена}} ₽</span></li>
+                <li><span class="name">Заменить смеситель</span><span class="note">Кухня или ванная, ваш или из стандартного набора</span><span class="price v-nums">от {{цена}} ₽</span></li>
+                <li><span class="name">Заменить арматуру бачка или унитаз</span><span class="note">Перестал набираться, подтекает, не держит воду</span><span class="price v-nums">от {{цена}} ₽</span></li>
+                <li><span class="name">Подключить стиральную или посудомоечную машину</span><span class="note">Вода, слив, проверка под нагрузкой</span><span class="price v-nums">от {{цена}} ₽</span></li>
+                <li><span class="name">Заменить кран на стояке</span><span class="note">Отключение стояка согласуем с управляющей компанией</span><span class="price v-nums">от {{цена}} ₽</span></li>
+              </ul>
+            </div>
+            <div class="plist">
+              <h3 class="v-label">Электрика</h3>
+              <ul>
+                <li><span class="name">Заменить розетку или выключатель</span><span class="note">Греется, искрит, болтается в стене</span><span class="price v-nums">от {{цена}} ₽</span></li>
+                <li><span class="name">Заменить автомат в щитке</span><span class="note">Или УЗО; подбираем номинал по линии</span><span class="price v-nums">от {{цена}} ₽</span></li>
+                <li><span class="name">Найти, почему выбивает автомат</span><span class="note">Проверка линии, поиск короткого замыкания или утечки</span><span class="price v-nums">от {{цена}} ₽</span></li>
+                <li><span class="name">Повесить люстру или светильник</span><span class="note">Со сборкой и подключением</span><span class="price v-nums">от {{цена}} ₽</span></li>
+                <li><span class="name">Перенести или добавить розетку</span><span class="note">Цена за точку, штробление отдельно</span><span class="price v-nums">от {{цена}} ₽</span></li>
+              </ul>
+            </div>
+          </div>
+          <p class="prices__incl"><b>Выезд и осмотр – {{цена}} ₽.</b> Если работу делаем, засчитываются в её стоимость. Нестандартную работу оцениваем на месте до начала и делаем только с вашего согласия.</p>
+        </div>
+        <figure class="prices__fig">
+          <img src="assets/bag.webp" srcset="assets/bag-800.webp 800w, assets/bag.webp 1200w" sizes="(max-width: 860px) 100vw, 30vw" alt="Открытая сумка мастера: гибкая подводка, сифон, шаровый кран, автоматы, розетка, ключ" width="1200" height="1600" loading="lazy" decoding="async">
+          <figcaption>В сумке стандартные детали: подводка, сифон, кран, автоматы, розетка</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 5 · ОБЕЩАНИЕ: гарантия и что с собой -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#20242a" id="garantiya" aria-label="Что обещаем письменно">
+      <div class="v-wrap promise">
+        <figure class="promise__fig" data-v-reveal="left" data-v-reveal-at="0.15 0.5">
+          <img src="assets/done.webp" srcset="assets/done-900.webp 900w, assets/done.webp 1600w" sizes="(max-width: 860px) 100vw, 46vw" alt="Новый смеситель на чистой мойке, шкаф под ней сухой, старый смеситель лежит на тряпке рядом" width="1600" height="900" loading="lazy" decoding="async">
+          <figcaption>Старый смеситель заберём с собой, мойку вытрем</figcaption>
+        </figure>
+        <div class="v-stack" data-v-in data-v-stagger="70">
+          <h2 class="v-display v-display--md">Что обещаем письменно</h2>
+          <ul class="promise__facts">
+            <li><strong>Цена не меняется после начала работы</strong><span>Названная до выезда сумма и есть итоговая. Нашли что-то ещё – скажем до работы и спросим, делать ли.</span></li>
+            <li><strong>Стандартные детали с собой</strong><span>Подводка, сифоны, шаровые краны, автоматы, розетки и выключатели. Нужной нет – привезём, цену согласуем до установки.</span></li>
+            <li><strong>Гарантия на работу {{гарантия}}</strong><span>Срок записан в акте. Снова потекло или выбило по нашей вине – приедем и переделаем бесплатно.</span></li>
+            <li><strong>После нас сухо и чисто</strong><span>Старые детали забираем, воду вытираем, упаковку не оставляем.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · ДОВЕРИЕ: отзывы с Яндекс.Карт (только настоящие, слоты; нет отзывов – удалить секцию целиком) -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#1c1f23" id="otzyvy" data-slot-optional aria-label="Отзывы с Яндекс.Карт">
+      <div class="v-wrap reviews">
+        <div class="reviews__head" data-v-in data-v-stagger="60">
+          <h2 class="v-display v-display--md">Что пишут на Яндекс.Картах</h2>
+          <div class="reviews__rating">
+            <span class="reviews__num v-nums">{{рейтинг}}</span>
+            <span class="reviews__stars" style="--r: {{рейтинг}}" role="img" aria-label="рейтинг {{рейтинг}} из 5"></span>
+            <span class="v-soft">{{отзывов}} отзывов</span>
+            <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Читать все отзывы</a>
+          </div>
+        </div>
+        <ul class="reviews__list" data-v-in data-v-stagger="90">
+          <li class="reviews__item reviews__item--big">
+            <p class="reviews__text">«{{отзыв 1}}»</p>
+            <p class="reviews__meta"><b>{{имя 1}}</b> · {{дата 1}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 1}}" role="img" aria-label="оценка {{оценка 1}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 2}}»</p>
+            <p class="reviews__meta"><b>{{имя 2}}</b> · {{дата 2}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 2}}" role="img" aria-label="оценка {{оценка 2}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 3}}»</p>
+            <p class="reviews__meta"><b>{{имя 3}}</b> · {{дата 3}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 3}}" role="img" aria-label="оценка {{оценка 3}} из 5"></span></p>
+          </li>
+        </ul>
+        <p class="reviews__fact" data-v-in data-v-in-self>Отзывы скопированы с карточки на Яндекс.Картах без правок.</p>
+      </div>
+    </section>
+
+    <!-- 7 · ДЕЙСТВИЕ: одно сообщение с фото -->
+    <section data-v-act="flow" data-v-drift="#1c1f23" id="vyzov" aria-label="Вызвать мастера">
+      <div class="close" data-v-spotlight>
+        <div class="close__inner">
+          <div data-v-in data-v-stagger="80">
+            <h2 class="v-display v-display--lg">Напишите, что случилось, и приложите фото</h2>
+            <p class="v-lede">Ответим интервалом приезда и ценой на типовую работу. Одно сообщение – и вызов в работе.</p>
+            <div class="close__cta">
+              <a class="v-btn" href="{{ссылка-записи}}" rel="noopener" data-v-magnet="0.22">Вызвать мастера</a>
+              <a class="close__tel" href="tel:{{телефон}}">{{телефон}}</a>
+            </div>
+            <p class="close__hint">В мессенджере отвечаем в часы приёма вызовов. Не любите писать – звоните, интервал и цену назовём по телефону.</p>
+          </div>
+          <div class="close__meta" data-v-in data-v-stagger="60">
+            <span><b>Принимаем вызовы</b>{{часы}}</span>
+            <span><b>Интервал приезда</b>{{время-выезда}}</span>
+            <span><b>Выезжаем</b>{{зона-выезда}}</span>
+            <span data-slot-optional><b>Адрес</b>{{адрес}}, {{город}}</span>
+          </div>
+        </div>
+        <footer class="foot">
+          <span>Кран и Щиток · {{город}}</span>
+          <span data-slot-optional>{{юрлицо}} · ИНН {{ИНН}}</span>
+          <span class="foot__more">Сантехник и электрик с выездом на дом: течи, смесители, унитазы, розетки, автоматы</span>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Фирменный ход: трекер вызова «Где сейчас мастер». На компьютере полоса внизу экрана,
+       на телефоне нижняя панель вместе с кнопкой (появляется, когда кнопка hero ушла за верх экрана, уходит в финале) -->
+  <aside class="track" id="track" aria-label="Статус вызова">
+    <div class="track__status">
+      <span class="v-label">Где сейчас мастер</span>
+      <b class="track__state" aria-live="polite">Ждём вашу заявку</b>
+    </div>
+    <div class="track__line" aria-hidden="true">
+      <div class="track__rail"><i></i></div>
+      <ol class="track__stops">
+        <li><span>Заявка</span></li>
+        <li><span>Интервал и цена</span></li>
+        <li><span>Выехал</span></li>
+        <li><span>На месте</span></li>
+        <li><span>Сделано</span></li>
+      </ol>
+      <span class="track__marker"></span>
+    </div>
+    <a class="v-btn track__btn" href="{{ссылка-записи}}" rel="noopener">Вызвать мастера</a>
+  </aside>
+</div>
+
+<script src="vibe.js"></script>
+<script>
+  // На телефоне пины короче: data-v-span из CSS не поменять, правим атрибут до монтирования.
+  if (window.matchMedia('(max-width: 860px)').matches) {
+    document.getElementById('top').setAttribute('data-v-span', '1.8');
+    document.getElementById('kak').setAttribute('data-v-span', '2.2');
+  }
+  Vibe.mount(document.querySelector('.v-page'));
+
+  // Шапка: подложка после 40 px прокрутки, чтобы текст секций не просвечивал.
+  (function () {
+    var bar = document.querySelector('.bar'), on = null;
+    function tick() { var s = window.scrollY > 40; if (s !== on) { on = s; bar.classList.toggle('is-scrolled', s); } }
+    window.addEventListener('scroll', tick, { passive: true }); tick();
+  })();
+
+  // Фирменный ход: трекер «где сейчас мастер». Пять остановок, маркер едет по прокрутке:
+  // у pin-актов позиция берётся из --v-p, у flow-актов из положения секции относительно середины экрана.
+  // Карта «акт → от какой остановки к какой»; секцию, удалённую при сборке (отзывы), пропускаем.
+  (function () {
+    var page = document.querySelector('.v-page'), track = document.getElementById('track'), line = track.querySelector('.track__line');
+    var stateEl = track.querySelector('.track__state'), stops = track.querySelectorAll('.track__stops li');
+    var states = ['Ждём вашу заявку', 'Интервал и цена названы', 'Мастер выехал', 'На месте: цена до начала', 'Сделано, гарантия в акте'];
+    var map = [['top', 0, 1], ['poka', 1, 1], ['kak', 1, 3], ['ceny', 3, 3], ['garantiya', 3, 4], ['otzyvy', 4, 4], ['vyzov', 4, 4]];
+    var acts = [];
+    map.forEach(function (m) { var el = document.getElementById(m[0]); if (el) acts.push({ el: el, a: m[1], b: m[2], pin: el.getAttribute('data-v-act') === 'pin' }); });
+    var heroBtn = document.querySelector('#top .hero__cta .v-btn'), fin = document.getElementById('vyzov');
+    var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+    var pv = function (el) { return parseFloat(getComputedStyle(el).getPropertyValue('--v-p')) || 0; };
+    var lastTp = -1, lastN = -1, lastS = -1, lastHid = null, raf = null, swap = null;
+    function tick() {
+      raf = null;
+      var y = window.scrollY, vh = window.innerHeight, mid = y + vh * 0.5, cur = acts[0];
+      for (var i = 0; i < acts.length; i++) if (acts[i].el.offsetTop <= mid) cur = acts[i];
+      var p = cur.pin ? pv(cur.el) : clamp((mid - cur.el.offsetTop) / Math.max(cur.el.offsetHeight, 1), 0, 1);
+      var pos = cur.a + (cur.b - cur.a) * p;
+      var tp = Math.round(pos / (stops.length - 1) * 1000) / 1000;
+      if (tp !== lastTp) { lastTp = tp; line.style.setProperty('--tp', tp); }
+      var n = Math.floor(pos + 0.02);
+      if (n !== lastN) { lastN = n; stops.forEach(function (s, i) { s.classList.toggle('is-past', i <= n); }); }
+      var s = Math.round(pos);
+      if (s !== lastS) {
+        lastS = s; clearTimeout(swap);
+        stateEl.classList.add('is-swap');
+        swap = setTimeout(function () { stateEl.textContent = states[s]; stateEl.classList.remove('is-swap'); }, 100);
+      }
+      // телефон: панель прячется, пока кнопка hero на экране, и в финале, где кнопка своя
+      var hid = heroBtn.getBoundingClientRect().bottom > 0 || (fin && fin.getBoundingClientRect().top < vh * 0.55);
+      if (hid !== lastHid) { lastHid = hid; track.classList.toggle('is-hidden', hid); page.classList.toggle('track-on', !hid); }
+    }
+    var ask = function () { if (!raf) raf = requestAnimationFrame(tick); };
+    window.addEventListener('scroll', ask, { passive: true });
+    window.addEventListener('resize', ask);
+    window.addEventListener('load', ask);
+    tick();
+  })();
+</script>
+</body>
+</html>

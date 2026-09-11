@@ -1,0 +1,140 @@
+{
+  "world": "Жёсткий свет",
+  "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
+  "preamble": "Studio photography with a single hard undiffused light source. Crisp high-contrast shadows used as graphic shapes. Saturated seamless colour backdrop. Punchy contrast, slight halation on highlights. Digital medium format, sharp throughout. Photographic, not rendered, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A single person in plain dark athletic clothes (black t-shirt, black shorts, dark sneakers) seen strictly from behind, back fully turned to the camera, head facing away, standing still on a black rubber gym floor in front of a plain matte black wall with one wall-mounted rack holding a few plain kettlebells and dumbbells. Seamless deep charcoal-graphite studio backdrop, one hard white light from the upper right throws one long crisp shadow of the person across the floor to the left. The person and the rack occupy the right third of the frame; the left two thirds are plain dark backdrop and empty floor with nothing on them, large empty space for text. Camera at waist height, wide 35mm. No face visible, nobody else, no mirrors, no text, no signs, no logos, no numbers on the weights, no posters.",
+      "outputs": [
+        {
+          "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 78
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "Portrait framing of the same person in plain dark athletic clothes seen strictly from behind as in the reference image, same black rubber gym floor, same matte black wall with the wall-mounted rack of plain kettlebells and dumbbells, same hard white light from the upper right with one long crisp shadow on the floor. The person stands in the lower half of the frame, slightly right of centre; the upper half is plain dark wall and backdrop with nothing on it, empty space for text. No face visible, nobody else, no mirrors, no text, no signs, no logos, no numbers on the weights.",
+      "outputs": [
+        {
+          "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "raw": "raw/card.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Close-up of two hands sliding a small plain black rubber weight plate onto the sleeve of a black barbell resting in a rack, seen from the side at chest height, only forearms and hands in the frame, no head. One hard white light from the upper left cuts crisp shadows of the plate and bar across a seamless deep charcoal backdrop. Tight vertical composition, hands and bar fill the lower two thirds; the upper third is plain dark backdrop, empty. No face, no text, no numbers or markings on the plate, no logos, no wristbands with logos.",
+      "outputs": [
+        {
+          "file": "assets/card.webp",
+          "width": 900,
+          "quality": 78
+        },
+        {
+          "file": "assets/card-480.webp",
+          "width": 480,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "rack",
+      "raw": "raw/rack.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A long two-tier steel rack of plain black rubber hex dumbbells standing on a black rubber floor in an empty gym, seen from the side at a low angle, wide 35mm, receding into the frame. One hard white light from the upper right throws crisp repeating shadows of the dumbbells across the floor to the left, walls plain matte dark grey, seamless deep charcoal backdrop. The rack occupies the right two thirds of the frame; the left third is plain dark wall and empty floor, empty space for text. No people, no mirrors, no text, no numbers on the dumbbells, no logos, no posters, no screens.",
+      "outputs": [
+        {
+          "file": "assets/rack.webp",
+          "width": 1600,
+          "quality": 78
+        },
+        {
+          "file": "assets/rack-900.webp",
+          "width": 900,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "grip",
+      "raw": "raw/grip.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Close-up from directly above of two hands with a light dusting of chalk gripping the handle of one plain black cast-iron kettlebell standing on a black rubber floor, only hands and forearms in the frame, no head, no body. One hard white light from the upper left makes crisp shadows of the fingers and the kettlebell across the floor, seamless deep charcoal backdrop. Tight vertical composition, hands and kettlebell in the lower two thirds; the upper third is plain dark floor, empty. No face, no text, no numbers or markings on the kettlebell, no logos, no watch.",
+      "outputs": [
+        {
+          "file": "assets/grip.webp",
+          "width": 900,
+          "quality": 78
+        },
+        {
+          "file": "assets/grip-480.webp",
+          "width": 480,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "bench",
+      "raw": "raw/bench.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "A plain black flat gym bench with a folded dark grey towel and a plain matte black water bottle without any label on it, a small plain black kettlebell on the floor beside the bench leg, seen from the side at seat height. One hard white light from the upper right throws crisp shadows of the bench legs and bottle across the black rubber floor, seamless deep charcoal backdrop behind. Tight vertical composition, bench in the lower two thirds; the upper third is plain dark backdrop, empty. No people, no text, no labels, no logos, no phone.",
+      "outputs": [
+        {
+          "file": "assets/bench.webp",
+          "width": 900,
+          "quality": 78
+        },
+        {
+          "file": "assets/bench-480.webp",
+          "width": 480,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "trainer",
+      "raw": "raw/trainer.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Two people seen strictly from behind, both full figures in the frame from head to feet, heads facing away from the camera: a person in plain dark athletic clothes holding a plain black kettlebell at chest height in a squat stance, and beside them, half a step behind, a trainer in a plain black t-shirt and black trousers with one hand resting flat on the person's upper back, the other hand pointing down at the person's knees. Black rubber floor, plain matte black wall, seamless deep charcoal backdrop, one hard white light from the upper right with two crisp overlapping shadows on the floor to the left. Vertical composition, both figures fully inside the frame in the lower two thirds, slightly right of centre, nothing cut off by the frame edges; the upper third is plain dark wall, empty space. No faces visible, no mirrors, no text, no logos, no numbers on the kettlebell.",
+      "outputs": [
+        {
+          "file": "assets/trainer.webp",
+          "width": 1200,
+          "quality": 78
+        },
+        {
+          "file": "assets/trainer-600.webp",
+          "width": 600,
+          "quality": 76
+        }
+      ]
+    }
+  ],
+  "keep": []
+}

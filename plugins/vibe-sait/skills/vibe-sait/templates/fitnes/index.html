@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Первый подход · персональные тренировки по записи</title>
+<meta name="description" content="Персональные тренировки в {{город}}: первая тренировка – знакомство без нагрузки на убой, тренер рядом всю тренировку, план под цель и график, формат и цена заранее. Пробная по записи.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Первый подход">
+<meta property="og:title" content="Первая тренировка – знакомство, а не проверка на прочность">
+<meta property="og:description" content="Персональные тренировки в {{город}}: без нагрузки на убой, тренер рядом всю тренировку, план под цель и график, формат и цена заранее.">
+<meta property="og:url" content="{{адрес сайта}}">
+<meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="assets/hero-m.webp" media="(max-width: 860px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero.webp" media="(min-width: 861px)" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%2710%27 width=%275%27 height=%2712%27 rx=%271%27 fill=%27%23c9f24a%27/%3E%3Crect x=%2723%27 y=%2710%27 width=%275%27 height=%2712%27 rx=%271%27 fill=%27%23c9f24a%27/%3E%3Crect x=%279%27 y=%2714.5%27 width=%2714%27 height=%273%27 fill=%27%23c9f24a%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vibe.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HealthClub","name":"Первый подход","description":"Персональные тренировки: первая тренировка – знакомство без нагрузки на убой, тренер рядом всю тренировку, план под цель и график, формат и цена заранее.","url":"{{адрес сайта}}","image":"{{адрес сайта}}/assets/og.jpg","telephone":"{{телефон}}","openingHours":"{{часы}}","address":{"@type":"PostalAddress","streetAddress":"{{адрес}}","addressLocality":"{{город}}","addressCountry":"RU"},"priceRange":"от {{цена}} ₽"}
+</script>
+<style>
+  /* ---- тема: шесть цветов, два шрифта --------------------------------- */
+  .v-page {
+    --v-canvas: #0e0f0d; --v-surface: #181a17;
+    --v-ink: #f1f3ec; --v-ink-soft: #a4aa9b;
+    --v-accent: #c9f24a; --v-accent-ink: #111406;
+    --v-font-display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+    --v-font-text: "Manrope", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 0 0 0;
+    --v-radius: 6px;
+    --v-display-weight: 600;
+    --v-section: clamp(3.5rem, 8vw, 7.5rem);
+    --v-track-tight: -0.005em;
+    /* полупрозрачные подложки считаем от палитры, чтобы смена палитры была одной правкой */
+    --v-canvas-85: color-mix(in oklab, var(--v-canvas) 85%, transparent);
+    --v-canvas-60: color-mix(in oklab, var(--v-canvas) 60%, transparent);
+    --v-accent-25: color-mix(in oklab, var(--v-accent) 25%, transparent);
+    --v-accent-10: color-mix(in oklab, var(--v-accent) 10%, transparent);
+    --v-surface-up: color-mix(in oklab, var(--v-surface) 82%, white);
+  }
+  html, body { background: #0e0f0d; }
+  .v-page .v-display { line-height: 1; }
+  .v-page .v-display--xl { line-height: .98; }
+  .v-page .v-lede { font-weight: 400; }
+  .v-page .v-label { font-weight: 600; }
+  .v-page .v-btn { font-size: var(--v-t-base); font-weight: 600; }
+  .v-page h3 { font-weight: 600; }
+
+  /* ---- шапка ------------------------------------------------------------ */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; align-items: center; justify-content: space-between;
+    padding: var(--v-3) var(--v-gutter); gap: var(--v-4);
+    background: linear-gradient(to bottom, var(--v-canvas-85), transparent);
+    transition: background-color .3s var(--v-ease-out), box-shadow .3s var(--v-ease-out); }
+  .bar.is-scrolled { background: var(--v-canvas-85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--v-hair); }
+  .bar__mark { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); letter-spacing: .01em; text-transform: uppercase; text-decoration: none;
+    display: inline-flex; align-items: center; gap: .55em; min-height: 44px; white-space: nowrap; }
+  .bar__mark i { width: 1.05em; height: .5em; display: inline-block; border-left: .24em solid var(--v-accent); border-right: .24em solid var(--v-accent);
+    background: linear-gradient(var(--v-accent), var(--v-accent)) center / 100% .14em no-repeat; }
+  .bar__right { display: flex; align-items: center; gap: var(--v-4); }
+  .bar__tel { text-decoration: none; font-weight: 600; font-size: var(--v-t-sm); color: var(--v-ink); display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--v-2); }
+  @media (max-width: 700px) {
+    .bar__tel { display: none; }
+    .bar .v-btn { padding: 0 1em; min-height: 44px; font-size: .95rem; }
+    .bar__right { gap: var(--v-2); }
+    .bar__mark { font-size: 1.1rem; }
+  }
+  @media (max-width: 860px) { .bar.is-scrolled { background: color-mix(in oklab, var(--v-canvas) 96%, transparent); } }
+
+  /* ---- hero: фигура на пороге зала, два плана --------------------------- */
+  /* img внутри <picture>: селектор движка .v-layer > img не достаёт, позиционируем сами */
+  .hero__back img, .hero__card img { position: absolute; max-width: none; }
+  .hero__back img { width: 116%; height: 116%; left: -8%; top: -8%; object-fit: cover; }
+  .hero__card { --w: clamp(170px, 15vw, 250px); --r: clamp(2rem, 4vw, 5rem); --b: 6vh; }
+  .hero__card img { width: var(--w); height: calc(var(--w) * 4 / 3); right: var(--r); bottom: var(--b); object-fit: cover;
+    border-radius: var(--v-radius); box-shadow: 14px 16px 0 rgb(0 0 0 / .5), var(--v-edge); }
+  .hero__floor { position: absolute; inset: auto 0 0 0; height: 34%; z-index: 2; pointer-events: none;
+    background: linear-gradient(to top, var(--v-canvas) 0%, var(--v-canvas-60) 45%, transparent 100%); }
+  .hero__copy { bottom: clamp(5.5rem, 15vh, 10rem); max-width: min(46rem, 86vw); }
+  .hero__label { display: block; margin-bottom: var(--v-4); color: var(--v-ink); opacity: .85; }
+  .hero__copy .v-display { font-size: clamp(2.6rem, 1.6rem + 4.6vw, 5.4rem); }
+  .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); opacity: .92; max-width: 42ch; }
+  .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
+  .hero__tel { text-decoration: none; color: var(--v-ink); font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
+  .hero__tel b { font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
+  .hero__note { position: absolute; z-index: 3; right: var(--v-gutter); top: clamp(5rem, 14vh, 9rem); text-align: right; display: grid; gap: .3em; font-size: var(--v-t-sm); color: var(--v-ink); }
+  .hero__note .v-nums { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); letter-spacing: .01em; }
+  .hero__top { display: none; }
+  @media (max-width: 860px) {
+    /* телефон: фигура в нижней половине кадра, текст сверху на пустой стене, карточка внизу слева */
+    .hero__top { display: block; position: absolute; inset: 0 0 auto 0; height: 64%; z-index: 2; pointer-events: none;
+      background: linear-gradient(to bottom, var(--v-canvas-85) 0%, var(--v-canvas-60) 55%, transparent 100%); }
+    .hero__floor { height: 22%; }
+    .v-page .hero__copy { top: 5.2rem; bottom: auto; }
+    .hero__copy .v-display { font-size: clamp(2.1rem, 1.2rem + 5vw, 2.9rem); }
+    .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-4); max-width: none; }
+    .hero__label { margin-bottom: var(--v-3); }
+    .hero__cta { margin-top: var(--v-5); gap: var(--v-2) var(--v-5); }
+    .hero__note { display: none; }
+    .hero__card { --w: 26vw; --r: auto; --b: 6vh; }
+    .hero__card img { right: auto; left: var(--v-gutter); box-shadow: 8px 10px 0 rgb(0 0 0 / .5); }
+  }
+  @media (max-width: 600px) and (max-height: 700px) { .hero__card { --w: 21vw; --b: 4vh; } }
+
+  /* ---- чужой зал: строки боли, поворот, широкий кадр со шторкой ---------- */
+  .poka__head { display: grid; gap: var(--v-3); margin-bottom: var(--v-7); max-width: 50rem; }
+  .poka__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: var(--v-9); align-items: start; margin-bottom: var(--v-8); }
+  .rows li { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-1); }
+  .rows li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .rows h3 { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); letter-spacing: var(--v-track-normal); line-height: 1.1; }
+  .rows p { color: var(--v-ink-soft); max-width: 46ch; text-wrap: pretty; }
+  .turn { position: sticky; top: clamp(5rem, 12vh, 7rem); padding: var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: 12px 12px 0 rgb(0 0 0 / .45), var(--v-edge); display: grid; gap: var(--v-3); }
+  .turn .v-label { color: var(--v-accent); }
+  .turn__text { font-size: var(--v-t-lg); line-height: 1.35; text-wrap: pretty; }
+  .turn__text b { font-weight: 600; }
+  .poka__fig { position: relative; aspect-ratio: 21 / 9; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2), var(--v-edge); }
+  .poka__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .poka__fig figcaption { position: absolute; left: var(--v-5); right: var(--v-5); bottom: var(--v-5); z-index: 1; font-size: var(--v-t-sm); color: var(--v-ink); max-width: 46ch; }
+  .poka__fig::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(to top, rgb(0 0 0 / .8), rgb(0 0 0 / .3) 50%, transparent); pointer-events: none; }
+  @media (max-width: 860px) {
+    .poka__grid { grid-template-columns: 1fr; gap: var(--v-6); margin-bottom: var(--v-7); }
+    .turn { position: static; padding: var(--v-5); box-shadow: 8px 8px 0 rgb(0 0 0 / .45), var(--v-edge); }
+    .rows h3 { font-size: var(--v-t-lg); }
+    .poka__fig { aspect-ratio: 4 / 3; }
+  }
+
+  /* ---- фирменный ход: стопка плиток с фиксатором ------------------------- */
+  .ld { height: 100%; display: grid; grid-template-rows: auto 1fr; padding: clamp(4.5rem, 11vh, 6.5rem) var(--v-gutter) clamp(1.5rem, 4vh, 3rem); gap: var(--v-5); }
+  .ld__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--v-6); }
+  .ld__head .v-label { color: var(--v-accent); }
+  .ld__meter { text-align: right; display: grid; gap: .2em; font-size: var(--v-t-sm); }
+  .ld__meter b { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); line-height: 1; letter-spacing: .01em; }
+  .ld__meter b span { color: var(--v-accent); }
+  .ld__body { display: grid; grid-template-columns: 1.05fr .95fr; gap: var(--v-8); align-items: stretch; min-height: 0; }
+  .ld__copy { position: relative; min-height: 0; }
+  .ld__cue { position: absolute; inset: 0; display: grid; align-content: center; gap: var(--v-3); max-width: 34rem; }
+  .ld__cue .v-display--md { font-size: clamp(1.9rem, 1.3rem + 2.2vw, 3.2rem); }
+  .ld__cue .v-body { max-width: 46ch; }
+  /* стопка: k – сколько плиток «взято»; три плато: 2 (первая), 5 (по плану), 7 (когда готовы) */
+  .stack { --n: 10; --lift: 14px; --p: var(--v-p, 0);
+    --k: calc(1 + clamp(0, var(--p) / .2, 1) + 3 * clamp(0, (var(--p) - .36) / .22, 1) + 2 * clamp(0, (var(--p) - .7) / .2, 1));
+    position: relative; justify-self: center; align-self: center; width: min(100%, 34rem); height: min(100%, 60svh); container-type: size; --ph: calc(100cqh / var(--n)); }
+  .stack__rod { position: absolute; top: -7%; bottom: 0; width: 3px; background: var(--v-hair-strong); border-radius: 2px; }
+  .stack__rod--l { left: calc(8rem + (100% - 14rem) * .3); }
+  .stack__rod--r { left: calc(8rem + (100% - 14rem) * .7); }
+  .stack__plate { position: absolute; z-index: 1; left: 8rem; right: 6rem; top: calc((var(--i) - 1) * var(--ph)); height: calc(var(--ph) - 5px);
+    --up: clamp(0, var(--k) - var(--i) + 1, 1); transform: translateY(calc(-1 * var(--lift) * var(--up)));
+    border-radius: 4px; background: linear-gradient(to bottom, var(--v-surface-up), var(--v-surface));
+    box-shadow: 10px 10px 0 rgb(0 0 0 / .5), var(--v-edge); will-change: transform; }
+  .stack__plate--no { background: repeating-linear-gradient(135deg, transparent 0 7px, var(--v-hair) 7px 8px), color-mix(in oklab, var(--v-surface) 70%, var(--v-canvas)); box-shadow: 10px 10px 0 rgb(0 0 0 / .35), var(--v-edge); }
+  .stack__pin { position: absolute; z-index: 2; left: calc(100% - 6rem - 1.2rem); width: 6.4rem; height: .8rem; border-radius: 999px; background: var(--v-accent);
+    top: calc((var(--k) - 1) * var(--ph) + var(--ph) / 2 - .4rem); transform: translateY(calc(-1 * var(--lift)));
+    box-shadow: 6px 6px 0 rgb(0 0 0 / .5); will-change: transform; }
+  .stack__pin::after { content: ""; position: absolute; right: -.4rem; top: -.35rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--v-accent); box-shadow: 6px 6px 0 rgb(0 0 0 / .5); }
+  .stack__tick { position: absolute; left: 0; width: 7rem; top: calc((var(--i) - 1) * var(--ph)); height: calc(var(--ph) - 5px); display: grid; align-content: center; justify-items: end; gap: .1em; text-align: right;
+    --up: clamp(0, var(--k) - var(--i) + 1, 1); --on: clamp(0, (var(--k) - var(--i) + 1) * 3, 1); transform: translateY(calc(-1 * var(--lift) * var(--up)));
+    opacity: calc(.42 + .58 * var(--on)); padding-right: .9rem; will-change: transform; }
+  .stack__tick::after { content: ""; position: absolute; right: 0; top: 50%; width: .6rem; height: 2px; background: var(--v-accent); opacity: var(--on); }
+  .stack__tick b { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-base); line-height: 1.05; letter-spacing: .01em; color: var(--v-ink); }
+  .stack__tick em { font-style: normal; font-size: var(--v-t-xs); color: var(--v-ink-soft); }
+  .stack__tick--no { top: calc(7 * var(--ph)); height: calc(3 * var(--ph) - 5px); --up: 0; --on: 0; opacity: .8; }
+  .stack__tick--no b { color: var(--v-ink-soft); text-decoration: line-through; text-decoration-color: var(--v-accent); text-decoration-thickness: 2px; }
+  .stack__tick--no::after { display: none; }
+  @media (max-width: 860px) {
+    .ld { grid-template-rows: auto 1fr; padding-top: 4.5rem; gap: var(--v-3); }
+    .ld__head { grid-template-columns: 1fr; align-items: start; gap: var(--v-2); }
+    .ld__meter { text-align: left; display: flex; align-items: baseline; gap: .6em; }
+    .ld__meter b { font-size: var(--v-t-lg); }
+    .ld__body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: var(--v-4); }
+    .ld__copy { min-height: 12.5rem; }
+    .ld__cue { align-content: start; gap: var(--v-2); }
+    .ld__cue .v-display--md { font-size: var(--v-t-xl); }
+    .ld__cue .v-body { font-size: var(--v-t-sm); }
+    .stack { --lift: 8px; width: min(100%, 22rem); height: 100%; align-self: start; }
+    .stack__plate { left: 6.2rem; right: 3.6rem; box-shadow: 6px 6px 0 rgb(0 0 0 / .5), var(--v-edge); }
+    .stack__plate--no { box-shadow: 6px 6px 0 rgb(0 0 0 / .35), var(--v-edge); }
+    .stack__rod--l { left: calc(6.2rem + (100% - 9.8rem) * .3); }
+    .stack__rod--r { left: calc(6.2rem + (100% - 9.8rem) * .7); }
+    .stack__pin { left: calc(100% - 3.6rem - 1rem); width: 4rem; height: .65rem; top: calc((var(--k) - 1) * var(--ph) + var(--ph) / 2 - .32rem); box-shadow: 4px 4px 0 rgb(0 0 0 / .5); }
+    .stack__pin::after { width: 1.15rem; height: 1.15rem; top: -.25rem; right: -.3rem; box-shadow: 4px 4px 0 rgb(0 0 0 / .5); }
+    .stack__tick { width: 5.6rem; padding-right: .7rem; }
+    .stack__tick b { font-size: .95rem; }
+    .stack__tick em { display: none; }
+  }
+  @media (max-width: 600px) and (max-height: 760px) { .ld__cue .v-body { display: none; } .ld__copy { min-height: 8rem; } }
+
+  /* ---- как проходит первая тренировка: лента шагов -------------------------- */
+  .kak { height: 100%; display: flex; align-items: center; }
+  .rail { padding-inline: var(--v-gutter); align-items: stretch; }
+  .step { flex: none; width: 24rem; min-height: min(66svh, 32rem); display: grid; grid-template-rows: auto 1fr; gap: var(--v-4); padding: var(--v-6); border-radius: var(--v-radius);
+    background: var(--v-surface); box-shadow: 12px 12px 0 rgb(0 0 0 / .45), var(--v-edge); }
+  .step--title { width: 28rem; background: transparent; box-shadow: none; padding-left: 0; grid-template-rows: auto auto 1fr; align-content: center; }
+  .step--title .v-display--lg { font-size: clamp(2.2rem, 1.4rem + 2.8vw, 4rem); }
+  .step--title p { align-self: end; max-width: 30ch; }
+  .step__label { color: var(--v-accent); }
+  .step__body { display: grid; gap: var(--v-3); align-content: start; }
+  .step h3 { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); letter-spacing: var(--v-track-normal); line-height: 1.1; text-wrap: balance; }
+  .step p { color: var(--v-ink-soft); text-wrap: pretty; }
+  .step--photo { width: 30rem; grid-template-rows: auto auto 1fr; }
+  .step__fig { aspect-ratio: 4 / 3; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-edge); }
+  .step__fig img { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; }
+  .step--last { box-shadow: 12px 12px 0 var(--v-accent-25), inset 0 0 0 1px var(--v-accent-25); }
+  @media (max-width: 860px) {
+    .step { width: 78vw; min-height: 0; padding: var(--v-5); box-shadow: 8px 8px 0 rgb(0 0 0 / .45), var(--v-edge); }
+    .step--title { width: 78vw; padding-left: 0; min-height: 0; box-shadow: none; }
+    .step--title p { align-self: start; }
+    .step--photo { width: 78vw; }
+    .step--last { box-shadow: 8px 8px 0 var(--v-accent-25), inset 0 0 0 1px var(--v-accent-25); }
+    .step__fig { aspect-ratio: 16 / 10; }
+    .step h3 { font-size: var(--v-t-lg); }
+  }
+  @media (pointer: coarse) {
+    .v-page .kak { display: block; padding-block: var(--v-section); }
+    .v-page .rail { padding-block: var(--v-2); }
+  }
+
+  /* ---- форматы и цены: строки и карточка «что входит» ------------------------ */
+  .prices { display: grid; grid-template-columns: 1.4fr .7fr; gap: var(--v-9); align-items: start; }
+  .plist li { display: grid; grid-template-columns: 1fr auto; gap: var(--v-1) var(--v-5); padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); align-items: baseline; }
+  .plist li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .plist .name { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); letter-spacing: var(--v-track-normal); line-height: 1.1; }
+  .plist .note { grid-column: 1; font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 44ch; }
+  .plist .price { grid-column: 2; grid-row: 1 / span 2; align-self: start; font-weight: 600; font-size: var(--v-t-base); color: var(--v-accent); white-space: nowrap; }
+  .plist li.is-trial .name { color: var(--v-accent); }
+  .prices__incl { font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 62ch; }
+  .prices__incl b { color: var(--v-ink); font-weight: 600; }
+  .prices__aside { position: sticky; top: clamp(5rem, 12vh, 7rem); }
+  .incl { padding: var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: 12px 12px 0 rgb(0 0 0 / .45), var(--v-edge); display: grid; gap: var(--v-4); }
+  .incl .v-label { color: var(--v-accent); }
+  .incl li { padding: var(--v-3) 0; border-top: 1px solid var(--v-hair); display: grid; gap: .2em; }
+  .incl li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .incl li b { font-weight: 600; }
+  .incl li span { font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  @media (max-width: 860px) {
+    .prices { grid-template-columns: 1fr; gap: var(--v-7); }
+    .prices__aside { position: static; }
+    .incl { padding: var(--v-5); box-shadow: 8px 8px 0 rgb(0 0 0 / .45), var(--v-edge); }
+    .plist .name { font-size: var(--v-t-lg); }
+  }
+  @media (max-width: 520px) {
+    .plist li { grid-template-columns: 1fr; }
+    .plist .price { grid-column: 1; grid-row: auto; }
+  }
+
+  /* ---- тренер: фото с параллаксом в рамке, факты ----------------------------- */
+  .tr { display: grid; grid-template-columns: .85fr 1.15fr; gap: var(--v-9); align-items: center; }
+  .tr__fig { position: relative; aspect-ratio: 3 / 4; border-radius: var(--v-radius); overflow: hidden; box-shadow: 14px 14px 0 rgb(0 0 0 / .45), var(--v-edge); }
+  .tr__fig > div { position: absolute; inset: -8% 0; will-change: transform; }
+  .tr__fig img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+  .tr__copy { display: grid; gap: var(--v-4); }
+  .tr__copy .v-lede { max-width: 44ch; }
+  .tr__name { font-size: clamp(2.2rem, 1.5rem + 2.8vw, 4rem); }
+  .tr__facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--v-4) var(--v-6); margin-top: var(--v-3); }
+  .tr__facts li { display: grid; gap: .2em; padding-top: var(--v-3); border-top: 1px solid var(--v-hair); }
+  .tr__facts b { font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); font-weight: 600; }
+  .tr__facts span { text-wrap: pretty; }
+  .tr__for { display: grid; gap: var(--v-2); padding: var(--v-5); margin-top: var(--v-2); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: var(--v-edge); }
+  .tr__for .v-label { color: var(--v-accent); }
+  .tr__for li { padding: .35em 0; border-top: 1px solid var(--v-hair); text-wrap: pretty; }
+  .tr__for li:first-of-type { border-top: 0; }
+  @media (max-width: 860px) {
+    .tr { grid-template-columns: 1fr; gap: var(--v-6); }
+    .tr__fig { aspect-ratio: 4 / 3; box-shadow: 8px 8px 0 rgb(0 0 0 / .45), var(--v-edge); }
+    .tr__facts { grid-template-columns: 1fr; gap: var(--v-3); }
+  }
+
+  /* ---- отзывы с Яндекс.Карт: одна крупная цитата и две малые ----------------- */
+  .reviews__head { display: flex; flex-wrap: wrap; gap: var(--v-6); align-items: end; justify-content: space-between; margin-bottom: var(--v-7); }
+  .reviews__rating { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-3); font-size: var(--v-t-sm); }
+  .reviews__rating a { display: inline-flex; align-items: center; min-height: 44px; }
+  .reviews__num { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-2xl); line-height: 1; }
+  .reviews__stars { --size: 1.1rem; display: inline-block; width: calc(var(--size) * 5); height: var(--size);
+    background: linear-gradient(90deg, var(--v-accent) calc(var(--r, 0) / 5 * 100%), var(--v-hair-strong) 0);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x; }
+  .reviews__stars--sm { --size: .8rem; vertical-align: middle; }
+  .reviews__list { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--v-6); align-items: start; }
+  .reviews__item { padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .reviews__item--big .reviews__text { font-size: var(--v-t-lg); line-height: 1.4; }
+  .reviews__text { text-wrap: pretty; }
+  .reviews__meta { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__meta b { color: var(--v-ink); font-weight: 600; }
+  .reviews__fact { flex-basis: 100%; font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  @media (max-width: 860px) { .reviews__list { grid-template-columns: 1fr; } .reviews__head { margin-bottom: var(--v-5); } }
+
+  /* ---- финал: заминка, запись на пробную ------------------------------------- */
+  .close { height: 100%; display: grid; grid-template-rows: 1fr auto; padding: clamp(6rem, 14vh, 9rem) var(--v-gutter) var(--v-6);
+    background: radial-gradient(60rem 40rem at calc(var(--v-mx, .5) * 100%) calc(var(--v-my, .5) * 100%), var(--v-accent-10), transparent 60%); }
+  .close__inner { align-self: center; display: grid; grid-template-columns: 1.25fr .75fr; gap: var(--v-9); align-items: start; padding-bottom: var(--v-8); }
+  .close__inner .v-display { margin-bottom: var(--v-5); }
+  .close__inner .v-lede { max-width: 44ch; }
+  .close__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
+  .close__tel { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; color: var(--v-ink); letter-spacing: .01em; }
+  .close__hint { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 46ch; }
+  .close__meta { display: grid; gap: var(--v-3); color: var(--v-ink-soft); padding-top: var(--v-2); }
+  .close__meta b { color: var(--v-ink); font-weight: 600; display: block; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; margin-bottom: .2em; }
+  .foot { display: flex; justify-content: space-between; gap: var(--v-4); padding: var(--v-6) 0 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); flex-wrap: wrap; }
+  @media (max-width: 860px) {
+    .close { padding: clamp(5rem, 12vh, 7rem) var(--v-gutter) calc(var(--v-5) + env(safe-area-inset-bottom)); }
+    .close__inner { grid-template-columns: 1fr; gap: var(--v-6); padding-bottom: var(--v-6); }
+    .close__inner .v-display { font-size: var(--v-t-xl); }
+    .close__tel { font-size: var(--v-t-lg); }
+    .foot__more { display: none; }
+  }
+  @media (max-width: 600px) and (max-height: 760px) { .close__hint { display: none; } .close__meta { gap: var(--v-2); } }
+
+  /* телефон: подписи и лейблы не мельче 15 px (в конце, чтобы перебить правила компонентов) */
+  @media (max-width: 860px) {
+    .hero__tel, .hero__note, .rows p, .turn__text, .poka__fig figcaption, .ld__meter, .ld__cue .v-body, .step p, .plist .note, .prices__incl,
+    .incl li span, .tr__facts span, .tr__for li, .reviews__meta, .reviews__rating, .reviews__fact, .close__hint, .close__meta, .foot,
+    .v-page .v-label, .tr__facts b, .close__meta b { font-size: .95rem; }
+  }
+</style>
+</head>
+<body>
+<div class="v-page">
+  <span data-v-progress></span>
+  <div class="v-grain" aria-hidden="true"></div>
+
+  <header class="bar">
+    <a class="bar__mark" href="#top"><i aria-hidden="true"></i>Первый подход</a>
+    <nav class="bar__right" aria-label="Быстрые ссылки">
+      <a class="bar__tel" href="tel:{{телефон}}">{{телефон}}</a>
+      <a class="v-btn" href="{{ссылка-записи}}" rel="noopener">Записаться на пробную</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 1 · РАЗМИНКА / УЗНАВАНИЕ: фигура на пороге зала, два плана -->
+    <section id="top" data-v-act="pin" data-v-span="2.0" data-v-drift="#0e0f0d" aria-label="Персональные тренировки по записи">
+      <div data-v-stage>
+        <div class="v-layer hero__back" data-v-parallax="-0.6">
+          <picture>
+            <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
+            <img src="assets/hero.webp" alt="" width="1920" height="1080" fetchpriority="high">
+          </picture>
+        </div>
+        <div class="v-layer hero__card" data-v-parallax="-0.25">
+          <picture>
+            <source media="(max-width: 600px)" srcset="assets/card-480.webp" width="480" height="640">
+            <img src="assets/card.webp" alt="" width="900" height="1200" decoding="async">
+          </picture>
+        </div>
+        <div class="hero__top" aria-hidden="true"></div>
+        <div class="hero__floor" aria-hidden="true"></div>
+        <div class="v-scrim v-scrim--lead" aria-hidden="true"></div>
+
+        <div class="hero__note" data-v-cue="0 0.6 0" data-v-rise="0">
+          <span class="v-label">Тренируем по записи</span>
+          <span class="v-nums">{{часы}}</span>
+          <span>Пробная тренировка {{длительность-пробной}}</span>
+        </div>
+
+        <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.9 0 0.1">
+          <span class="v-label hero__label">Персональные тренировки · {{город}}</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Первая тренировка – знакомство, а не проверка на прочность</h1>
+          <p class="v-lede">Без нагрузки на убой, тренер рядом всю тренировку. План под цель и график, формат и цена заранее.</p>
+          <div class="hero__cta">
+            <a class="v-btn" href="{{ссылка-записи}}" rel="noopener">Записаться на пробную</a>
+            <a class="hero__tel" href="tel:{{телефон}}">или позвоните <b>{{телефон}}</b></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · ЦЕНА БЕЗДЕЙСТВИЯ и ПОВОРОТ: чужой зал -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#121410" id="poka" aria-label="Почему первая тренировка на убой отбивает желание">
+      <div class="v-wrap">
+        <div class="poka__head" data-v-in data-v-stagger="70">
+          <span class="v-label">Пока в другом зале</span>
+          <h2 class="v-display v-display--lg">Первая тренировка «на убой» – и второй не будет</h2>
+        </div>
+        <div class="poka__grid">
+          <ul class="rows" data-v-in data-v-stagger="80">
+            <li><h3>На первой – до тошноты</h3><p>Тренер показывает всё, что умеет. Наутро не спуститься по лестнице, и «с понедельника» откладывается ещё на год.</p></li>
+            <li><h3>Тренер смотрит в телефон</h3><p>Повторы считаете сами и не знаете, правильно ли. Платите за присутствие, а не за работу с вами.</p></li>
+            <li><h3>Абонемент лежит, зал пугает</h3><p>Непонятно, что делать у стойки и как есть после. Проще не идти: абонемент сгорает, неловкость остаётся.</p></li>
+          </ul>
+          <div class="turn" data-v-in data-v-in-self>
+            <span class="v-label">Поэтому</span>
+            <p class="turn__text">Первая тренировка – знакомство: разговор про цель, техника на лёгком весе, нагрузка по силам. <b>Тренер рядом всю тренировку</b>, а не у стойки. Уходите с планом под цель и график – и с ценой, которую знали заранее.</p>
+          </div>
+        </div>
+        <figure class="poka__fig" data-v-reveal="left" data-v-reveal-at="0.4 0.68">
+          <img src="assets/rack.webp" srcset="assets/rack-900.webp 900w, assets/rack.webp 1600w" sizes="(max-width: 860px) 100vw, 76rem" alt="Стойка с гантелями в пустом зале под жёстким светом" width="1600" height="900" loading="lazy" decoding="async">
+          <figcaption>Так выглядит «сами разберётесь»: стойка с гантелями и никого рядом</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 · ПОВОРОТ → ДОКАЗАТЕЛЬСТВО: стопка плиток с фиксатором, фирменный ход -->
+    <section id="nagruzka" data-v-act="pin" data-v-span="2.2" data-v-drift="#0b0c0a" aria-label="Сколько нагрузки на первой тренировке и дальше">
+      <div data-v-stage>
+        <div class="ld">
+          <div class="ld__head">
+            <div>
+              <span class="v-label">Нагрузка</span>
+              <h2 class="v-display v-display--md">Фиксатор ставим сами – и не сразу вниз</h2>
+            </div>
+            <div class="ld__meter" aria-live="polite">
+              <span class="v-label">Плиток взято</span>
+              <b class="v-nums"><span data-ld-n>1</span> / 10</b>
+            </div>
+          </div>
+          <div class="ld__body">
+            <div class="ld__copy">
+              <div class="ld__cue" data-v-cue="0 0.38 0 0.06">
+                <h3 class="v-display v-display--md">Первая тренировка – две плитки из десяти</h3>
+                <p class="v-body v-soft">Техника, дыхание, разговор про цель. Уходите бодрым, а не разбитым – чтобы прийти на вторую.</p>
+              </div>
+              <div class="ld__cue" data-v-cue="0.36 0.72 0.06 0.06">
+                <h3 class="v-display v-display--md">Рабочие тренировки – по плану, а не по настроению</h3>
+                <p class="v-body v-soft">Нагрузка растёт, когда готовы вы, а не когда скучно тренеру. Каждый подход – под присмотром.</p>
+              </div>
+              <div class="ld__cue" data-v-cue="0.7 1 0.06 0">
+                <h3 class="v-display v-display--md">«На убой» – не здесь</h3>
+                <p class="v-body v-soft">Верхние плитки остаются на месте. Рекордов на первой неделе не ставим и не обещаем.</p>
+              </div>
+            </div>
+            <figure class="stack" aria-label="Стопка плиток грузоблока: сколько берём на первой тренировке, по плану и когда готовы">
+              <div class="stack__rod stack__rod--l" aria-hidden="true"></div>
+              <div class="stack__rod stack__rod--r" aria-hidden="true"></div>
+              <div class="stack__plate" style="--i:1" aria-hidden="true"></div>
+              <div class="stack__plate" style="--i:2" aria-hidden="true"></div>
+              <div class="stack__plate" style="--i:3" aria-hidden="true"></div>
+              <div class="stack__plate" style="--i:4" aria-hidden="true"></div>
+              <div class="stack__plate" style="--i:5" aria-hidden="true"></div>
+              <div class="stack__plate" style="--i:6" aria-hidden="true"></div>
+              <div class="stack__plate" style="--i:7" aria-hidden="true"></div>
+              <div class="stack__plate stack__plate--no" style="--i:8" aria-hidden="true"></div>
+              <div class="stack__plate stack__plate--no" style="--i:9" aria-hidden="true"></div>
+              <div class="stack__plate stack__plate--no" style="--i:10" aria-hidden="true"></div>
+              <div class="stack__pin" aria-hidden="true"></div>
+              <div class="stack__tick" style="--i:2"><b>Первая</b><em>знакомство</em></div>
+              <div class="stack__tick" style="--i:5"><b>По плану</b><em>рабочие</em></div>
+              <div class="stack__tick" style="--i:7"><b>Когда готовы</b><em>прибавляем</em></div>
+              <div class="stack__tick stack__tick--no"><b>На убой</b><em>не здесь</em></div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · ДОКАЗАТЕЛЬСТВО: как проходит первая тренировка, лента шагов -->
+    <section id="pervaya" data-v-act="pan" data-v-span="2.2" data-v-drift="#121410" aria-label="Как проходит первая тренировка">
+      <div data-v-stage>
+        <div class="kak">
+          <div class="rail" data-v-pan="0.04">
+            <div class="step step--title">
+              <span class="v-label">Первая тренировка</span>
+              <h2 class="v-display v-display--lg">По шагам, без сюрпризов</h2>
+              <p class="v-soft">Занимает {{длительность-пробной}}. Опыт не нужен: форма, кроссовки, вода – остальное здесь.</p>
+            </div>
+            <article class="step">
+              <span class="v-label step__label">Шаг 1 · разговор</span>
+              <div class="step__body">
+                <h3>Сначала говорим: цель, самочувствие, график</h3>
+                <p>Что беспокоит, что уже пробовали, сколько дней в неделю реально. Без взвешивания на пороге и без осуждения.</p>
+              </div>
+            </article>
+            <article class="step step--photo">
+              <span class="v-label step__label">Шаг 2 · разминка и техника</span>
+              <figure class="step__fig">
+                <img src="assets/grip.webp" srcset="assets/grip-480.webp 480w, assets/grip.webp 900w" sizes="(max-width: 860px) 78vw, 30rem" alt="Руки в магнезии на ручке гири, вид сверху" width="900" height="1200" loading="lazy" decoding="async">
+              </figure>
+              <div class="step__body">
+                <h3>Техника на лёгком весе</h3>
+                <p>Как приседать, тянуть и держать спину. Вес такой, чтобы думать о технике, а не о том, как выжить.</p>
+              </div>
+            </article>
+            <article class="step">
+              <span class="v-label step__label">Шаг 3 · нагрузка по силам</span>
+              <div class="step__body">
+                <h3>Тренер рядом каждый подход</h3>
+                <p>Считаем повторы вместе, поправляем по ходу. Устали – меняем вес, а не терпим.</p>
+              </div>
+            </article>
+            <article class="step step--photo step--last">
+              <span class="v-label step__label">Шаг 4 · план</span>
+              <figure class="step__fig">
+                <img src="assets/bench.webp" srcset="assets/bench-480.webp 480w, assets/bench.webp 900w" sizes="(max-width: 860px) 78vw, 30rem" alt="Скамья с полотенцем и бутылкой воды, рядом гиря" width="900" height="1200" loading="lazy" decoding="async">
+              </figure>
+              <div class="step__body">
+                <h3>Уходите с планом под цель и график</h3>
+                <p>Формат, дни, что делать между тренировками и как есть – на словах и в мессенджере. Цена следующей известна до выхода.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · ВЫБОР: форматы и цены -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#0e0f0d" id="formaty" aria-label="Форматы и цены">
+      <div class="v-wrap prices">
+        <div class="v-stack" data-v-in data-v-stagger="60">
+          <h2 class="v-display v-display--lg">Формат и цена – до первой тренировки</h2>
+          <p class="v-body v-soft">Цена за одну тренировку. Пакетом дешевле – сумму и срок действия назовём при записи. Пробная – отдельной строкой.</p>
+          <ul class="plist">
+            <li class="is-trial"><span class="name">Пробная тренировка</span><span class="note">{{длительность-пробной}}, знакомство: разговор про цель, техника, план</span><span class="price v-nums">{{цена}} ₽</span></li>
+            <li><span class="name">Персональная</span><span class="note">{{длительность}}, один на один, тренер рядом всю тренировку</span><span class="price v-nums">{{цена}} ₽</span></li>
+            <li><span class="name">Сплит – вдвоём</span><span class="note">{{длительность}}, с другом или партнёром, цена за каждого</span><span class="price v-nums">{{цена}} ₽</span></li>
+            <li><span class="name">Онлайн</span><span class="note">{{длительность}} по видеосвязи: техника, разбор, план под домашний инвентарь</span><span class="price v-nums">{{цена}} ₽</span></li>
+            <li><span class="name">План и сопровождение</span><span class="note">План под цель и график, правки и ответы в мессенджере, без тренировок в зале</span><span class="price v-nums">{{цена}} ₽ / месяц</span></li>
+          </ul>
+          <p class="prices__incl"><b>Условия переноса и срок действия пакета говорим при записи</b> – до оплаты, а не после. Онлайн и в зале один и тот же тренер.</p>
+        </div>
+        <aside class="prices__aside" data-v-in data-v-in-self>
+          <div class="incl" data-v-tilt="5">
+            <span class="v-label">Что входит в цену</span>
+            <ul>
+              <li><b>Тренер рядом всю тренировку</b><span>Не у стойки и не в телефоне: считает, поправляет, меняет вес.</span></li>
+              <li><b>План под цель и график</b><span>После пробной, правим по ходу, а не раз в год.</span></li>
+              <li><b>Ответы про еду</b><span>Без диет по бумажке: что есть до и после, чтобы хватало сил.</span></li>
+              <li><b>Вопросы между тренировками</b><span>Написали в мессенджер – ответим в часы работы.</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 6 · ДОВЕРИЕ: тренер (факты только от клиента, слотами) -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#121410" id="trener" aria-label="Тренер">
+      <div class="v-wrap tr">
+        <figure class="tr__fig" data-v-in data-v-in-self>
+          <div data-v-parallax="0.35">
+            <img src="assets/trainer.webp" srcset="assets/trainer-600.webp 600w, assets/trainer.webp 1200w" sizes="(max-width: 860px) 100vw, 32rem" alt="Тренер держит руку на спине ученика во время приседа с гирей, вид со спины" width="1200" height="1600" loading="lazy" decoding="async">
+          </div>
+        </figure>
+        <div class="tr__copy" data-v-in data-v-stagger="70">
+          <span class="v-label">Тренер</span>
+          <h2 class="v-display v-display--lg tr__name">{{тренер}}</h2>
+          <p class="v-lede">«Рядом всю тренировку» – это буквально: считает повторы, поправляет технику, меняет вес, когда видит, что пора.</p>
+          <ul class="tr__facts">
+            <li><b>Образование</b><span>{{образование}}</span></li>
+            <li><b>Опыт</b><span>{{опыт}}</span></li>
+            <li><b>Специализация</b><span>{{специализация}}</span></li>
+            <li><b>Формат</b><span>В зале и онлайн, персонально и сплит</span></li>
+          </ul>
+          <ul class="tr__for">
+            <li class="v-label">С кем работает</li>
+            <li>Похудеть – без голодовок и «сушки»</li>
+            <li>Окрепнуть – чтобы спина и колени перестали напоминать о себе</li>
+            <li>Вернуться после долгого перерыва – с нагрузки по силам</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · ДОВЕРИЕ: отзывы с Яндекс.Карт (только настоящие, слоты; нет отзывов – удалить секцию целиком) -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#0e0f0d" id="otzyvy" data-slot-optional aria-label="Отзывы с Яндекс.Карт">
+      <div class="v-wrap reviews">
+        <div class="reviews__head" data-v-in data-v-stagger="60">
+          <h2 class="v-display v-display--md">Что пишут на Яндекс.Картах</h2>
+          <div class="reviews__rating">
+            <span class="reviews__num v-nums">{{рейтинг}}</span>
+            <span class="reviews__stars" style="--r: {{рейтинг}}" role="img" aria-label="рейтинг {{рейтинг}} из 5"></span>
+            <span class="v-soft">{{отзывов}} отзывов</span>
+            <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Читать все отзывы</a>
+          </div>
+          <p class="reviews__fact">Отзывы скопированы с карточки на Яндекс.Картах без правок.</p>
+        </div>
+        <ul class="reviews__list" data-v-in data-v-stagger="90">
+          <li class="reviews__item reviews__item--big">
+            <p class="reviews__text">«{{отзыв 1}}»</p>
+            <p class="reviews__meta"><b>{{имя 1}}</b> · {{дата 1}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 1}}" role="img" aria-label="оценка {{оценка 1}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 2}}»</p>
+            <p class="reviews__meta"><b>{{имя 2}}</b> · {{дата 2}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 2}}" role="img" aria-label="оценка {{оценка 2}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 3}}»</p>
+            <p class="reviews__meta"><b>{{имя 3}}</b> · {{дата 3}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 3}}" role="img" aria-label="оценка {{оценка 3}} из 5"></span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8 · ЗАМИНКА / ДЕЙСТВИЕ: запись на пробную -->
+    <section data-v-act="pin" data-v-span="1.2" data-v-drift="#0b0c0a" id="zapis" aria-label="Записаться на пробную">
+      <div data-v-stage>
+        <div class="close" data-v-spotlight>
+          <div class="close__inner">
+            <div data-v-cue="0.04">
+              <h2 class="v-display v-display--lg">Запишитесь на пробную – и приходите как есть</h2>
+              <p class="v-lede">Напишите, какая цель и какие дни удобны. Ответим временем, форматом и ценой – до первой тренировки.</p>
+              <div class="close__cta">
+                <a class="v-btn" href="{{ссылка-записи}}" rel="noopener" data-v-magnet="0.22" data-v-rise="0">Записаться на пробную</a>
+                <a class="close__tel" href="tel:{{телефон}}">{{телефон}}</a>
+              </div>
+              <p class="close__hint">С собой: форма, кроссовки, вода. Опыт и «форма» не нужны – с этого и начинаем. Не любите писать – звоните.</p>
+            </div>
+            <div class="close__meta" data-v-cue="0.1">
+              <span><b>Часы работы</b>{{часы}}, по записи</span>
+              <span><b>Пробная тренировка</b>{{длительность-пробной}} · {{цена}} ₽</span>
+              <span><b>Адрес</b>{{адрес}}, {{город}}</span>
+              <span><b>Онлайн</b>По видеосвязи, {{длительность}}</span>
+            </div>
+          </div>
+          <footer class="foot">
+            <span>Первый подход · {{город}}</span>
+            <span data-slot-optional>{{юрлицо}} · ИНН {{ИНН}}</span>
+            <span class="foot__more">Персональные тренировки, сплит и онлайн – по записи, первая тренировка без нагрузки на убой</span>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vibe.js"></script>
+<script>
+  // На телефоне пины короче: data-v-span из CSS не поменять, правим атрибут до монтирования.
+  if (window.matchMedia('(max-width: 860px)').matches) {
+    document.getElementById('top').setAttribute('data-v-span', '1.7');
+    document.getElementById('nagruzka').setAttribute('data-v-span', '2.1');
+  }
+  Vibe.mount(document.querySelector('.v-page'));
+
+  // Шапка: подложка после 40 px прокрутки, чтобы текст секций не просвечивал.
+  (function () {
+    var bar = document.querySelector('.bar'), on = null;
+    function tick() { var s = window.scrollY > 40; if (s !== on) { on = s; bar.classList.toggle('is-scrolled', s); } }
+    window.addEventListener('scroll', tick, { passive: true }); tick();
+  })();
+
+  // Фирменный ход «стопка с фиксатором»: плитки и фиксатор живут в CSS от --v-p; скрипту остаётся счётчик «плиток взято».
+  (function () {
+    var act = document.getElementById('nagruzka'), out = act.querySelector('[data-ld-n]');
+    var clamp = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
+    var last = -1, live = false;
+    function tick() {
+      var p = parseFloat(getComputedStyle(act).getPropertyValue('--v-p')) || 0;
+      var k = 1 + clamp(p / .2) + 3 * clamp((p - .36) / .22) + 2 * clamp((p - .7) / .2);
+      var n = Math.round(k);
+      if (n !== last) { last = n; out.textContent = n; }
+      if (live) requestAnimationFrame(tick);
+    }
+    new IntersectionObserver(function (es) { live = es[0].isIntersecting; if (live) tick(); }).observe(act);
+    tick();
+  })();
+</script>
+</body>
+</html>

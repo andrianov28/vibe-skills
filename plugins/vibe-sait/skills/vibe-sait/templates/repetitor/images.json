@@ -1,0 +1,80 @@
+{
+  "world": "Высокий ключ",
+  "preamble": "Editorial still-life photography on a seamless warm off-white cyclorama. Large soft overhead source, huge white bounce, near-shadowless with one soft contact shadow. High key, gentle contrast, warm white and pale neutral grade. Medium-format sharpness, fine grain. Photographic realism, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "An open lined school exercise book lying on a pale warm off-white desk, seen from slightly above at a three-quarter angle, a dark blue fountain pen resting across its right page, two closed notebooks with plain pastel covers and a wooden pencil beside it. The whole group sits in the lower right third of the frame; the left two thirds of the frame are the empty smooth warm off-white desk surface for text. Soft daylight from the upper left, one soft contact shadow. Pages completely blank, no handwriting, no letters, no numbers, no text, no logos, no hands, no people.",
+      "outputs": [
+        { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/hero-1200.webp", "width": 1200, "quality": 76 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "bottom", "format": "jpeg", "quality": 80 }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "Same open exercise book, fountain pen, pastel notebooks and desk as the reference, same light, vertical frame for a phone screen. The notebook group sits in the lower half of the frame seen from slightly above; the upper half is the empty smooth warm off-white desk surface for text. Pages completely blank, no handwriting, no text, no logos, no hands, no people.",
+      "outputs": [
+        { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
+      ]
+    },
+    {
+      "id": "komu",
+      "raw": "raw/komu.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Three closed textbooks of different thickness stacked slightly askew on the warm off-white cyclorama, plain cloth covers in muted ink blue, pale ochre and warm grey without any lettering, a wooden pencil and a few blank pale sticky notes lying beside the stack. The stack sits in the lower two thirds of the frame; empty pale space above for text. Soft overhead light, one soft contact shadow. No text on covers, no letters, no logos, no hands, no people.",
+      "outputs": [
+        { "file": "assets/komu.webp", "width": 1000, "quality": 84 }
+      ]
+    },
+    {
+      "id": "hourglass",
+      "raw": "raw/hourglass.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A small sand hourglass in a pale wooden frame standing on a warm off-white desk next to a closed lined exercise book with a plain pastel cover and a wooden pencil, seen at eye level, about half of the sand already run through. The objects are grouped in the right third of the frame; the left two thirds are the empty smooth warm off-white desk surface for text. Soft daylight, one soft contact shadow. No text, no numbers, no logos, no hands, no people.",
+      "outputs": [
+        { "file": "assets/hourglass.webp", "width": 1600, "quality": 80 }
+      ]
+    },
+    {
+      "id": "teacher",
+      "raw": "raw/teacher.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "A teacher seen from behind and slightly above at a pale warm off-white desk, only the shoulders and arms in a plain light linen shirt are visible, the head is out of frame, one hand holding a pen over an open lined exercise book, a cup of tea and a closed notebook to the side. The figure and desk fill the lower two thirds of the frame; empty pale space above for text. Pages blank, no handwriting, no text, no face, no logos, no second person.",
+      "outputs": [
+        { "file": "assets/teacher.webp", "width": 1000, "quality": 84 }
+      ]
+    },
+    {
+      "id": "stack",
+      "raw": "raw/stack.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "A neat stack of eight thin school exercise books with plain pastel covers in pale ochre, ink blue, warm grey and off-white, no lettering at all, a wooden pencil lying on top, on the warm off-white cyclorama, seen from slightly above. The stack sits in the lower right of the frame; empty pale space across the upper left for text. Soft overhead light, one soft contact shadow. No text, no letters, no logos, no hands, no people.",
+      "outputs": [
+        { "file": "assets/stack.webp", "width": 1000, "quality": 84 }
+      ]
+    },
+    {
+      "id": "hero-b",
+      "variant": "Б",
+      "raw": "raw/hero-b.png",
+      "ar": "16:9",
+      "ref": "raw/hero.png",
+      "scene": "Same exercise book, fountain pen and desk as the reference, same light, shot straight down from above: the open notebook lies centred in the lower half of the frame with the pen across the fold; the upper half is the empty smooth warm off-white desk surface for a centred title. Pages completely blank, no handwriting, no text, no logos, no hands, no people.",
+      "outputs": [
+        { "file": "assets/hero-b.webp", "width": 1920, "quality": 78 }
+      ]
+    }
+  ],
+  "keep": []
+}

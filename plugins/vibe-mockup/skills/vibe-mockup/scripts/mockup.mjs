@@ -104,8 +104,8 @@ const dark = (() => { const m = pal.canvas.match(/^#([0-9a-f]{6})$/i); if (!m) r
 const layouts = {
   // 1: подпись слева, ноутбук справа, телефон перед ноутбуком слева-снизу
   "1": { laptop: { w: 0.62, x: 0.42, y: 0.15 }, phone: { h: 0.60, x: 0.255, y: 0.38 }, text: { x: 0.055, y: 0.12, w: 0.33 } },
-  // 2: подпись сверху во всю ширину, ноутбук по центру ниже, телефон справа
-  "2": { laptop: { w: 0.62, x: 0.10, y: 0.30 }, phone: { h: 0.56, x: 0.70, y: 0.40 }, text: { x: 0.055, y: 0.07, w: 0.9 } },
+  // 2: подпись сверху по центру во всю ширину, ноутбук по центру ниже, телефон справа
+  "2": { laptop: { w: 0.62, x: 0.10, y: 0.30 }, phone: { h: 0.56, x: 0.70, y: 0.40 }, text: { x: 0.05, y: 0.07, w: 0.9, center: true } },
 }[layout] || null;
 if (!layouts) { console.error("--layout 1 или 2"); process.exit(1); }
 const L = layouts;
@@ -131,10 +131,10 @@ const page = `<!doctype html><html lang="ru"><head><meta charset="utf-8">${fontL
       box-shadow: 0 30px 60px rgb(0 0 0 / .32), 0 6px 14px rgb(0 0 0 / .2); }
   .phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: ${Math.round(phoneW * 0.10)}px; }
   .phone::after { content: ""; position: absolute; left: 50%; top: 7px; width: 26%; height: 13px; transform: translateX(-50%); background: #15171a; border-radius: 10px; }
-  .text { position: absolute; left: ${Math.round(W * L.text.x)}px; top: ${Math.round(H * L.text.y)}px; width: ${Math.round(W * L.text.w)}px; }
+  .text { position: absolute; left: ${Math.round(W * L.text.x)}px; top: ${Math.round(H * L.text.y)}px; width: ${Math.round(W * L.text.w)}px; text-align: ${L.text.center ? "center" : "left"}; }
   .text .sub { font: 500 ${Math.round(W * 0.012)}px/1.3 ${pal.fontText}; letter-spacing: .12em; text-transform: uppercase; color: ${pal.accent}; margin: 0 0 ${Math.round(H * 0.02)}px; }
   .text h1 { font: 700 ${Math.round(W * (layout === "2" ? 0.048 : 0.040))}px/1.05 ${pal.fontDisplay}; margin: 0; color: ${pal.ink}; letter-spacing: -.01em; text-wrap: balance; }
-  .text .line { width: ${Math.round(W * 0.05)}px; height: 4px; background: ${pal.accent}; margin: ${Math.round(H * 0.03)}px 0 0; }
+  .text .line { width: ${Math.round(W * 0.05)}px; height: 4px; background: ${pal.accent}; margin: ${Math.round(H * 0.03)}px ${L.text.center ? "auto" : "0"} 0; }
 </style></head><body>
 <div class="glow"></div><div class="grain"></div>
 <div class="laptop"><div class="screen"><img src="${dataUrl(desk)}" alt=""></div><div class="base"></div></div>

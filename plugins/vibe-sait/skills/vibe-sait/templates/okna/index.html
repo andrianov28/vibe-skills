@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Створка · окна, балконы и натяжные потолки</title>
+<meta name="description" content="Пластиковые окна, остекление балконов и натяжные потолки в {{город}}: цена после замера не меняется, профиль и стеклопакет названы в договоре, монтаж за день с уборкой, гарантия письменно.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Створка">
+<meta property="og:title" content="Створка · окна, балконы и натяжные потолки">
+<meta property="og:description" content="Цена после замера не меняется. Профиль, стеклопакет и фурнитура названы в договоре, монтаж за один день с уборкой, гарантия письменно.">
+<meta property="og:url" content="{{адрес сайта}}">
+<meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="assets/hero-m.webp" media="(max-width: 860px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero.webp" media="(min-width: 861px)" fetchpriority="high">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%272%27 y=%272%27 width=%2728%27 height=%2728%27 rx=%276%27 fill=%27%235e5349%27/%3E%3Crect x=%278.5%27 y=%278.5%27 width=%2715%27 height=%2715%27 fill=%27none%27 stroke=%27%23fbf9f5%27 stroke-width=%272.4%27/%3E%3Cpath d=%27M16 8.5v15%27 stroke=%27%23fbf9f5%27 stroke-width=%272.4%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700&family=Golos+Text:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="vibe.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Створка","description":"Пластиковые окна, остекление балконов и натяжные потолки. Цена после замера не меняется, профиль и стеклопакет названы в договоре, монтаж за день с уборкой, гарантия письменно.","url":"{{адрес сайта}}","image":"{{адрес сайта}}/assets/og.jpg","telephone":"{{телефон}}","address":{"@type":"PostalAddress","streetAddress":"{{адрес}}","addressLocality":"{{город}}","addressCountry":"RU"},"areaServed":"{{город}}","openingHours":"{{часы}}","priceRange":"от {{цена}} ₽ за окно"}
+</script>
+<style>
+  html, body { margin: 0; background: #f4f2ee; }
+
+  /* ---- тема: белый и тёплый серый, окно как источник света --------------- */
+  .v-page {
+    --v-canvas: #f4f2ee; --v-surface: #ffffff;
+    --v-ink: #26231f; --v-ink-soft: #6a635b;           /* 5,3:1 на холсте */
+    --v-accent: #5e5349; --v-accent-ink: #fbf9f5;      /* кнопка 7,1:1 */
+    --v-font-display: "Onest", "Segoe UI", system-ui, sans-serif;
+    --v-font-text: "Golos Text", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 38 35 31;
+    --v-e1: 0 1px 2px rgb(var(--v-shadow-color) / .07), 0 8px 22px rgb(var(--v-shadow-color) / .09);
+    --v-e2: 0 2px 6px rgb(var(--v-shadow-color) / .09), 0 24px 56px rgb(var(--v-shadow-color) / .16);
+    --v-radius: 4px;
+    --v-section: clamp(3.5rem, 8vw, 7rem);
+    --v-track-tight: -0.022em;
+    /* окно: профиль и импост; старый профиль – желтоватый, новый – белый */
+    --prof: clamp(10px, 1.2vw, 17px); --mul: clamp(7px, .9vw, 13px);
+    --sash-old: #ddd6c8; --sash-new: #ffffff;
+    /* мелкие кегли не ниже 13 и 15 px */
+    --v-t-xs: clamp(0.8125rem, 0.79rem + 0.15vw, 0.85rem);
+    --v-t-sm: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  }
+  @media (max-width: 860px) { .v-page { --v-t-xs: 0.9375rem; } }
+  .v-page .v-display { font-weight: 600; }
+  .v-page h1.v-display { font-weight: 700; }
+  .v-page .v-btn { font-size: var(--v-t-base); border-radius: 6px; }
+  .v-page .v-lede { color: var(--v-ink); }
+  .v-page img { content-visibility: auto; }
+
+  /* ---- марка: окно в один штрих ------------------------------------------- */
+  .glyph { position: relative; display: inline-block; width: 1.05em; height: 1.05em; border: 2px solid currentColor; border-radius: 2px; flex: none; }
+  .glyph::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: currentColor; }
+
+  /* ---- шапка: марка, услуги, одна кнопка ------------------------------------- */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--v-6);
+    padding: var(--v-3) var(--v-gutter); background: rgb(244 242 238 / .84); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--v-hair); }
+  .bar__mark { font-family: var(--v-font-display); font-weight: 700; font-size: var(--v-t-base); text-decoration: none; display: inline-flex; align-items: center; gap: .55em; white-space: nowrap; letter-spacing: -.01em; }
+  .bar__tag { justify-self: center; font-size: var(--v-t-sm); color: var(--v-ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar .v-btn { padding: .72em 1.25em; }
+  @media (max-width: 860px) {
+    .bar { grid-template-columns: auto auto; justify-content: space-between; gap: var(--v-3); }
+    .bar__tag { display: none; }
+    .bar .v-btn { padding: .65em 1em; font-size: var(--v-t-sm); }
+  }
+
+  /* ---- 1 · hero: комната с окном, фото на весь экран ----------------------- */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--v-canvas); }
+  /* фото – дальний план: параллакс движка плюс медленный наезд и отставание от --v-p (0,5 при загрузке → 1 на выходе) */
+  .hero__back img { width: 116%; height: 116%; left: -8%; top: -8%; object-fit: cover; object-position: 50% 50%; transform-origin: 62% 56%;
+    transform: translate3d(0, calc((var(--v-p, .5) - .5) * 10vh), 0) scale(calc(1 + (var(--v-p, .5) - .5) * .14)); }
+  .hero__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(to right, rgb(244 242 238 / .74) 0%, rgb(244 242 238 / .46) 28%, rgb(244 242 238 / .12) 46%, transparent 56%); }
+  .hero__col { position: absolute; z-index: 3; left: var(--v-gutter); top: 0; bottom: 0; width: min(40rem, 46vw); display: flex; align-items: center; padding-top: 3.5rem; }
+  .hero__label { font-size: var(--v-t-sm); font-weight: 500; color: var(--v-ink-soft); margin-bottom: var(--v-4); }
+  .hero__copy h1 { font-size: clamp(2.4rem, 1.1rem + 3.2vw, 4.4rem); line-height: .98; }
+  .hero__copy .v-lede { margin-top: var(--v-5); max-width: 42ch; }
+  .hero__cta { margin-top: var(--v-6); display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); }
+  .hero__hint { font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 30ch; }
+  @media (max-width: 860px) {
+    .hero__back img { object-position: 50% 40%; transform-origin: 50% 36%; }
+    .hero__scrim { background: linear-gradient(to top, rgb(244 242 238 / .96) 0%, rgb(244 242 238 / .9) 36%, rgb(244 242 238 / .55) 56%, transparent 72%); }
+    .hero__col { left: var(--v-gutter); right: var(--v-gutter); top: auto; bottom: clamp(1.6rem, 4vh, 2.6rem); width: auto; display: block; padding-top: 0; }
+    .hero__label { margin-bottom: var(--v-3); }
+    .hero__copy h1 { font-size: clamp(1.9rem, 1.2rem + 3vw, 2.5rem); line-height: 1.02; }
+    .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-3); }
+    .hero__cta { margin-top: var(--v-4); flex-direction: column; align-items: flex-start; gap: var(--v-3); }
+  }
+  @media (max-width: 600px) { .hero__hint { display: none; } }
+  @media (min-width: 861px) and (max-height: 760px) {
+    .hero__copy h1 { font-size: clamp(2.2rem, 1rem + 2.9vw, 3.8rem); }
+    .hero__copy .v-lede { margin-top: var(--v-4); font-size: var(--v-t-base); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero__back img { transform: none; } }
+
+  /* ---- 2 · створка за створкой: стена с окном, что меняется ------------------- */
+  .wa [data-v-stage] { background: var(--v-canvas); }
+  .wa__wall img { object-position: 50% 50%; }
+  /* свет от окна на стене: холодный при старом окне, тёплый при новом; --q ставит скрипт */
+  .wa__light { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .wa__light--cool { background: radial-gradient(52% 64% at 74% 46%, rgb(196 203 208 / .42) 0%, rgb(196 203 208 / .18) 40%, transparent 72%); opacity: calc(1 - var(--q, 0)); }
+  .wa__light--warm { background: radial-gradient(52% 64% at 74% 46%, rgb(255 226 178 / .55) 0%, rgb(255 226 178 / .22) 40%, transparent 72%); opacity: var(--q, 0); }
+  .wa__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(to right, rgb(244 242 238 / .78) 0%, rgb(244 242 238 / .5) 30%, transparent 52%); }
+  .wa__col { position: absolute; z-index: 3; left: var(--v-gutter); top: 0; bottom: 0; width: min(38rem, 44vw); display: flex; align-items: center; padding-top: 3.5rem; }
+  .wa__label { font-size: var(--v-t-sm); font-weight: 500; color: var(--v-ink-soft); margin-bottom: var(--v-4); }
+  .wa__copy h2 { font-size: clamp(1.9rem, .9rem + 2.5vw, 3.4rem); line-height: 1; }
+  /* три строки, которые переключаются вместе со створками: старое гаснет, новое встаёт рядом (класс is-done ставит скрипт) */
+  .swap { margin-top: var(--v-6); display: grid; }
+  .swap li { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--v-2) var(--v-4); padding: var(--v-3) 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-lg); line-height: 1.3; }
+  .swap li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .swap li::before { content: ""; width: .55rem; height: .55rem; border-radius: 50%; align-self: center; flex: none; background: var(--v-hair-strong); transition: background-color .3s var(--v-ease-out); }
+  .swap li.is-done::before { background: var(--v-accent); }
+  .swap__old { color: var(--v-ink-soft); text-decoration: line-through; text-decoration-color: transparent; text-decoration-thickness: 1px; transition: text-decoration-color .3s var(--v-ease-out), opacity .3s var(--v-ease-out); }
+  .swap li.is-done .swap__old { text-decoration-color: currentColor; opacity: .62; }
+  .swap__new { font-family: var(--v-font-display); font-weight: 600; color: var(--v-ink); opacity: 0; transform: translateY(6px); transition: opacity .35s var(--v-ease-out), transform .35s var(--v-ease-out); }
+  .swap li.is-done .swap__new { opacity: 1; transform: none; }
+  .wa__note { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 40ch; text-wrap: pretty; }
+  .wa__note b { color: var(--v-ink); font-weight: 600; }
+
+  /* окно: рама CSS, три створки, внутри два кадра одного вида (старое стекло снизу, чистое сверху) */
+  .win { position: absolute; z-index: 3; right: clamp(4.5rem, 7vw, 8rem); top: 50%; transform: translateY(-50%); width: min(42vw, 72svh); margin: 0; padding-top: 1.5rem; }
+  .win__frame { position: relative; aspect-ratio: 4 / 3; padding: var(--prof); background: #ffffff; border-radius: 3px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--mul);
+    box-shadow: 0 32px 70px -24px rgb(var(--v-shadow-color) / .42), 0 2px 4px rgb(var(--v-shadow-color) / .06), inset 0 0 0 1px rgb(var(--v-shadow-color) / .09); }
+  .win__frame::before { content: ""; position: absolute; inset: var(--prof); z-index: 0; background: rgb(var(--v-shadow-color) / .05); }
+  .sash { --pad: calc(var(--prof) * .72); position: relative; z-index: 1; padding: var(--pad); background: var(--sash-old); border-radius: 2px; min-width: 0;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .8), inset 0 -1px 0 rgb(var(--v-shadow-color) / .1), 0 0 0 1px rgb(var(--v-shadow-color) / .1);
+    transition: background-color .4s var(--v-ease-out); }
+  .sash.is-new { background: var(--sash-new); }
+  /* ручка: у крайних створок, на внутренней стороне */
+  .sash::after { content: ""; position: absolute; top: 50%; width: 5px; height: clamp(24px, 3.2vw, 44px); margin-top: calc(-.5 * clamp(24px, 3.2vw, 44px)); border-radius: 3px; background: #f6f3ee; box-shadow: 0 1px 2px rgb(var(--v-shadow-color) / .35), inset 0 0 0 1px rgb(var(--v-shadow-color) / .12); }
+  .sash--l::after { right: calc(var(--pad) * .5 - 2px); }
+  .sash--r::after { left: calc(var(--pad) * .5 - 2px); }
+  .sash--c::after { display: none; }
+  .pane { position: relative; height: 100%; overflow: hidden; background: #9ea4a8; border-radius: 1px; }
+  /* стекло: блик и глубина фальца поверх кадра */
+  .pane::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: linear-gradient(115deg, rgb(255 255 255 / .16) 0%, rgb(255 255 255 / 0) 38%), linear-gradient(to bottom, rgb(var(--v-shadow-color) / .22), transparent 14%);
+    box-shadow: inset 0 0 0 1px rgb(var(--v-shadow-color) / .18); }
+  /* каждая створка держит свою копию всего вида, сдвинутую на свою долю: три створки – один кадр */
+  .glass { --gapin: calc(var(--mul) + 2 * var(--pad) + 2px); position: absolute; top: -26px; bottom: -26px; width: calc(300% + 2 * var(--gapin)); left: calc(-1 * var(--i, 0) * (100% + var(--gapin))); will-change: transform; }
+  .glass img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; content-visibility: visible; }
+  .glass--old img { transform: scale(1.045); }   /* прячет тёмную кромку старой рамы по краям кадра view-old */
+  .glass--new { z-index: 2; clip-path: inset(100% 0 0 0); }
+  .win__sill { height: clamp(8px, 1vw, 14px); margin: 0 calc(-1.6 * var(--prof)); background: #ffffff; border-radius: 0 0 3px 3px;
+    box-shadow: 0 8px 16px -6px rgb(var(--v-shadow-color) / .3), inset 0 0 0 1px rgb(var(--v-shadow-color) / .09), inset 0 2px 0 rgb(var(--v-shadow-color) / .05); }
+  .win__foot { margin-top: var(--v-5); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-3); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .win__state { display: grid; gap: .15em; }
+  .win__state b { color: var(--v-ink); font-weight: 600; font-family: var(--v-font-display); transition: opacity .16s var(--v-ease-out); }
+  .win__state span { transition: opacity .16s var(--v-ease-out); }
+  .win__foot.is-swap .win__state b, .win__foot.is-swap .win__state span { opacity: 0; }
+  /* шкала тишины: заливка от --q, справа от окна (на телефоне – горизонтально под окном) */
+  .meter { position: absolute; left: calc(100% + clamp(1.4rem, 2.2vw, 2.4rem)); top: 1.5rem; bottom: 4.6rem; width: 1.2rem; display: flex; flex-direction: column; align-items: center; gap: var(--v-2);
+    font-size: var(--v-t-xs); color: var(--v-ink-soft); white-space: nowrap; }
+  .meter__track { position: relative; flex: 1; width: 2px; border-radius: 1px; background: var(--v-hair-strong); overflow: hidden; }
+  .meter__track b { position: absolute; inset: 0; background: var(--v-accent); transform-origin: bottom; transform: scaleY(var(--q, 0)); }
+  .meter__top, .meter__bottom { font-weight: 500; }
+  .meter__top { color: var(--v-ink); }
+  @media (max-width: 860px) {
+    .wa__wall img { object-position: 62% 50%; }
+    .wa__scrim { background: linear-gradient(to top, rgb(244 242 238 / .97) 0%, rgb(244 242 238 / .94) 46%, rgb(244 242 238 / .6) 60%, transparent 74%); }
+    .wa__col { left: var(--v-gutter); right: var(--v-gutter); top: auto; bottom: clamp(1.2rem, 3.5vh, 2.4rem); width: auto; display: block; padding-top: 0; }
+    .wa__label { margin-bottom: var(--v-3); }
+    .wa__copy h2 { font-size: clamp(1.6rem, 1.1rem + 2.4vw, 2.1rem); line-height: 1.04; }
+    .swap { margin-top: var(--v-4); }
+    .swap li { font-size: var(--v-t-base); padding: var(--v-2) 0; gap: var(--v-1) var(--v-3); }
+    .wa__note { display: none; }
+    .win { left: var(--v-gutter); right: var(--v-gutter); top: 4.4rem; width: auto; transform: none; padding-top: 0; }
+    .win__frame { box-shadow: 0 22px 48px -20px rgb(var(--v-shadow-color) / .4), 0 2px 4px rgb(var(--v-shadow-color) / .06), inset 0 0 0 1px rgb(var(--v-shadow-color) / .09); }
+    .win__foot { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: end; margin-top: var(--v-4); }
+    .meter { position: static; width: auto; flex-direction: row; align-items: center; gap: var(--v-2); padding-bottom: .2em; }
+    .meter__track { width: auto; height: 2px; }
+    .meter__track b { transform-origin: left; transform: scaleX(var(--q, 0)); }
+    .meter__top { order: 3; }
+    .meter__bottom { order: 1; }
+    .meter__track { order: 2; }
+  }
+  /* низкий ноутбук: окно уже, текст компактнее */
+  @media (min-width: 861px) and (max-height: 760px) {
+    .win { width: min(40vw, 66svh); }
+    .wa__copy h2 { font-size: clamp(1.8rem, .9rem + 2.2vw, 3rem); }
+    .swap li { font-size: var(--v-t-base); }
+  }
+
+  /* ---- 3 · «замер бесплатно», а потом вдвое ---------------------------------- */
+  .vdvoe__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--v-7) var(--v-9); align-items: start; }
+  .vdvoe__head { display: flex; flex-direction: column; gap: var(--v-5); align-items: flex-start; }
+  .vdvoe__head .v-body { color: var(--v-ink-soft); }
+  .phrases li { display: grid; gap: var(--v-2); padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); }
+  .phrases li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .phrases b { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); line-height: 1.1; letter-spacing: var(--v-track-tight); }
+  .phrases span { color: var(--v-ink-soft); max-width: 48ch; text-wrap: pretty; }
+  .vdvoe__turn { margin-top: var(--v-3); padding: var(--v-5) var(--v-6); background: var(--v-surface); border-radius: var(--v-radius); box-shadow: var(--v-e1), var(--v-edge);
+    font-size: var(--v-t-base); line-height: 1.5; max-width: 44ch; text-wrap: pretty; }
+  .vdvoe__turn b { font-family: var(--v-font-display); font-weight: 600; }
+  @media (max-width: 860px) {
+    .vdvoe__grid { grid-template-columns: 1fr; gap: var(--v-5); }
+    .vdvoe__head { position: static; }
+    .phrases b { font-size: var(--v-t-lg); }
+    .vdvoe__turn { font-size: var(--v-t-base); padding: var(--v-4) var(--v-5); }
+  }
+
+  /* ---- 4 · как проходит: лента от замера до приёмки ----------------------------- */
+  .kak [data-v-stage] { display: flex; flex-direction: column; justify-content: center; padding-top: 3.5rem; }
+  .rail { padding-inline: var(--v-gutter) calc(var(--v-gutter) + 8vw); align-items: flex-start; }
+  .card { position: relative; flex: none; width: 24rem; padding-top: var(--v-5); border-top: 1px solid var(--v-hair-strong); }
+  .card--title { width: 26rem; }
+  .card--photo { width: 32rem; }
+  .card--wide { width: 38rem; }
+  .card--narrow { width: 21rem; }
+  .card__n { display: inline-grid; place-items: center; min-width: 2rem; height: 2rem; padding: 0 .55em; border-radius: 999px; background: var(--v-ink); color: var(--v-canvas);
+    font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xs); letter-spacing: .02em; margin-bottom: var(--v-4); }
+  .card--title .v-label { display: block; margin-bottom: var(--v-4); height: 2rem; line-height: 2rem; }
+  .card h2 { font-size: var(--v-t-2xl); }
+  .card h3 { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); line-height: 1.1; letter-spacing: var(--v-track-tight); text-wrap: balance; }
+  .card p { margin-top: var(--v-3); color: var(--v-ink-soft); max-width: 46ch; text-wrap: pretty; }
+  .card p b { color: var(--v-ink); font-weight: 600; }
+  .card figure { margin: var(--v-5) 0 0; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e1); background: var(--v-surface); }
+  .card figure img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .card--wide figure img { aspect-ratio: 16 / 9; }
+  .card--last { padding-right: var(--v-6); }
+  @media (pointer: coarse), (max-width: 860px) {
+    .kak { padding-block: var(--v-8) var(--v-7); }
+    .kak [data-v-stage] { display: block; padding-top: 0; scroll-padding-inline: var(--v-gutter); }
+    .rail { padding-inline: var(--v-gutter); gap: var(--v-5); }
+    .card, .card--title, .card--photo, .card--wide, .card--narrow { width: min(30rem, 78vw); }
+    .card h2 { font-size: var(--v-t-xl); }
+    .card h3 { font-size: var(--v-t-lg); }
+  }
+
+  /* ---- 5 · из чего делаем: сцена держится, пять образцов ----------------------- */
+  .mat__scrim { background: linear-gradient(to right, rgb(244 242 238 / .9) 0%, rgb(244 242 238 / .7) 34%, rgb(244 242 238 / .25) 52%, transparent 66%); }
+  .mat__title { position: absolute; z-index: 3; top: calc(4.6rem + var(--v-4)); left: var(--v-gutter); font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); font-weight: 500; }
+  .mat__cue { max-width: min(38rem, 48vw); bottom: clamp(6rem, 18vh, 11rem); }
+  .mat__n { display: block; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-sm); color: var(--v-ink-soft); margin-bottom: var(--v-3); }
+  .mat__cue h2 { font-size: clamp(1.8rem, 1rem + 2.2vw, 3.2rem); }
+  .mat__cue .v-lede { margin-top: var(--v-4); max-width: 44ch; font-size: var(--v-t-base); }
+  .mat__cue .v-lede b { font-weight: 600; }
+  /* образцы: пять квадратов-материалов, плотность от --v-p акта (чистый CSS) */
+  .mat__chips { position: absolute; z-index: 3; left: var(--v-gutter); bottom: clamp(2rem, 6vh, 3.5rem); display: flex; gap: var(--v-5); font-size: var(--v-t-xs); color: var(--v-ink); }
+  .mat__chips li { display: inline-flex; align-items: center; gap: var(--v-2); opacity: calc(.36 + .64 * clamp(0, (var(--v-p, 0) - var(--lo)) * 30, 1) * clamp(0, (var(--hi) - var(--v-p, 0)) * 30, 1)); }
+  .mat__chips i { width: 1.1rem; height: 1.1rem; border-radius: 3px; box-shadow: inset 0 0 0 1px rgb(var(--v-shadow-color) / .22); background: var(--c, #fff); }
+  .mat__chips li:nth-child(1) { --lo: -1; --hi: .25; }
+  .mat__chips li:nth-child(2) { --lo: .25; --hi: .42; }
+  .mat__chips li:nth-child(3) { --lo: .42; --hi: .58; }
+  .mat__chips li:nth-child(4) { --lo: .58; --hi: .75; }
+  .mat__chips li:nth-child(5) { --lo: .75; --hi: 2; }
+  @media (max-width: 860px) {
+    .mat__scrim { background: linear-gradient(to top, rgb(244 242 238 / .97) 0%, rgb(244 242 238 / .93) 44%, rgb(244 242 238 / .55) 62%, transparent 80%); }
+    .mat .v-fill img { object-position: 74% 50%; }
+    .mat__cue { max-width: none; bottom: clamp(4.6rem, 12vh, 7rem); }
+    .mat__cue .v-lede { font-size: var(--v-t-base); }
+    .mat__chips { gap: var(--v-3); flex-wrap: wrap; }
+    .mat__chips li span { display: none; }
+  }
+
+  /* ---- 6 · услуги и цены -------------------------------------------------------- */
+  .ceny__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--v-5) var(--v-8); margin-bottom: var(--v-7); }
+  .ceny__head h2 { max-width: 18ch; }
+  .ceny__head p { color: var(--v-ink-soft); max-width: 40ch; }
+  .ceny__grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--v-8) var(--v-7); align-items: start; }
+  .svc { display: grid; gap: var(--v-4); align-content: start; }
+  .svc__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--v-2) var(--v-4); padding-top: var(--v-4); border-top: 1px solid var(--v-hair-strong); }
+  .svc h3 { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); line-height: 1.1; letter-spacing: var(--v-track-tight); }
+  .price { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); white-space: nowrap; }
+  .svc > p { color: var(--v-ink-soft); text-wrap: pretty; }
+  .svc figure { margin: 0; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e1); background: var(--v-surface); }
+  .svc figure img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .inc { display: grid; }
+  .inc li { padding: var(--v-3) 0; border-top: 1px solid var(--v-hair); display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: var(--v-3); align-items: baseline; font-size: var(--v-t-sm); }
+  .inc li::before { content: ""; width: .55rem; height: .55rem; border-radius: 50%; background: var(--v-accent); align-self: center; }
+  .inc li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .inc__title { font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); font-weight: 500; margin-top: var(--v-2); }
+  .ceny__note { margin-top: var(--v-8); padding-top: var(--v-5); border-top: 1px solid var(--v-hair-strong); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--v-4) var(--v-6); }
+  .ceny__note p { font-size: var(--v-t-lg); line-height: 1.35; max-width: 40ch; text-wrap: balance; }
+  .ceny__note p b { font-family: var(--v-font-display); font-weight: 600; }
+  @media (max-width: 860px) {
+    .ceny__grid { grid-template-columns: 1fr; gap: var(--v-7); }
+    .svc figure img { aspect-ratio: 4 / 3; }
+    .ceny__note p { font-size: var(--v-t-base); }
+  }
+
+  /* ---- 7 · гарантия письменно + отзывы с Яндекс.Карт --------------------------- */
+  .gar { background: var(--v-surface); border-top: 1px solid var(--v-hair); }
+  .gar__grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: var(--v-7) var(--v-9); align-items: start; }
+  .gar__copy .v-body { margin-top: var(--v-5); color: var(--v-ink-soft); }
+  .facts { margin-top: var(--v-6); }
+  .facts li { padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-1); }
+  .facts li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .facts b { font-weight: 600; }
+  .facts span { color: var(--v-ink-soft); font-size: var(--v-t-sm); text-wrap: pretty; max-width: 56ch; }
+  .folder { position: sticky; top: 6rem; padding: var(--v-5) var(--v-6) var(--v-6); background: var(--v-canvas); border-radius: var(--v-radius); box-shadow: var(--v-edge), inset 0 0 0 1px var(--v-hair); }
+  .folder__title { font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); font-weight: 500; }
+  .folder h3 { margin-top: var(--v-2); font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.2; }
+  .folder ol { margin: var(--v-4) 0 0; padding: 0; list-style: none; counter-reset: doc; }
+  .folder li { counter-increment: doc; display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: var(--v-3); padding: var(--v-3) 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-sm); }
+  .folder li::before { content: counter(doc, decimal-leading-zero); font-family: var(--v-font-display); font-weight: 600; color: var(--v-ink-soft); font-variant-numeric: tabular-nums; }
+  .folder li b { font-weight: 600; display: block; }
+  .folder li span { grid-column: 2; color: var(--v-ink-soft); }
+  @media (max-width: 860px) {
+    .gar__grid { grid-template-columns: 1fr; gap: var(--v-6); }
+    .folder { position: static; }
+  }
+
+  @property --r { syntax: "<number>"; inherits: false; initial-value: 0; }
+  .reviews { margin-top: var(--v-10); }
+  .reviews__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--v-6) var(--v-8); align-items: end; margin-bottom: var(--v-7); }
+  .reviews__rating { display: grid; grid-template-columns: auto auto; gap: var(--v-1) var(--v-4); align-items: center; font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__num { grid-row: 1 / span 2; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); line-height: 1; color: var(--v-ink); }
+  .reviews__rating a { color: var(--v-ink); }
+  /* звёзды без картинок: пять фигур, заливка по --r (0..5) */
+  .reviews__stars { --size: 1.1rem; display: inline-block; width: calc(var(--size) * 5); height: var(--size);
+    background: linear-gradient(90deg, var(--v-accent) calc(var(--r, 0) / 5 * 100%), var(--v-hair-strong) 0);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x; }
+  .reviews__stars--sm { --size: .8rem; vertical-align: middle; }
+  .reviews__list { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--v-6); align-items: start; }
+  .reviews__item { padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .reviews__item--big .reviews__text { font-size: var(--v-t-lg); line-height: 1.4; }
+  .reviews__text { text-wrap: pretty; }
+  .reviews__meta { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__meta b { color: var(--v-ink); font-weight: 600; }
+  @media (max-width: 860px) { .reviews { margin-top: var(--v-9); } .reviews__list { grid-template-columns: 1fr; } .reviews__head { grid-template-columns: 1fr; align-items: start; margin-bottom: var(--v-6); } }
+
+  /* ---- 8 · финал: замерщик, контакты, малое окно с полной шкалой ----------------- */
+  .fin [data-v-stage] { background: var(--v-canvas); }
+  .fin__inner { height: 100%; width: min(100% - 2 * var(--v-gutter), 76rem); margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: var(--v-8); align-items: end;
+    padding: 6rem 0 clamp(5.5rem, 15vh, 8.5rem); }
+  .fin__label { font-size: var(--v-t-sm); font-weight: 500; color: var(--v-ink-soft); margin-bottom: var(--v-4); }
+  .fin__copy h2 { font-size: clamp(2.2rem, 1.2rem + 3vw, 4.2rem); line-height: 1; }
+  .fin__copy .v-lede { margin-top: var(--v-5); max-width: 42ch; }
+  .fin__copy .v-btn { margin-top: var(--v-6); }
+  .fin__side { display: grid; gap: var(--v-2); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .mini { --prof: 8px; --mul: 6px; --q: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--v-4); align-items: stretch; width: min(100%, 22rem); margin-bottom: var(--v-5); }
+  .mini__frame { aspect-ratio: 4 / 3; padding: var(--prof); background: #ffffff; border-radius: 3px; box-shadow: 0 18px 40px -18px rgb(var(--v-shadow-color) / .4), inset 0 0 0 1px rgb(var(--v-shadow-color) / .09); }
+  .mini__pane { position: relative; height: 100%; overflow: hidden; background: var(--sash-new); padding: 5px; }
+  .mini__pane img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; display: block; }
+  .mini__pane::after { content: ""; position: absolute; inset: 5px; box-shadow: inset 0 0 0 1px rgb(var(--v-shadow-color) / .18); background: linear-gradient(115deg, rgb(255 255 255 / .16) 0%, rgb(255 255 255 / 0) 38%); pointer-events: none; }
+  .mini .meter { position: static; width: 1.2rem; }
+  .fin__tel { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); color: var(--v-ink); }
+  .fin__msg { display: flex; flex-wrap: wrap; gap: var(--v-4); }
+  .fin__msg a { display: inline-flex; align-items: center; min-height: 44px; color: var(--v-ink); font-weight: 500; }
+  .fin__side b { color: var(--v-ink); font-weight: 500; }
+  .foot { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; padding: var(--v-4) var(--v-gutter); display: flex; justify-content: space-between; gap: var(--v-2) var(--v-4); flex-wrap: wrap;
+    border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); }
+  @media (max-width: 860px) {
+    .fin__inner { grid-template-columns: 1fr; gap: var(--v-5); align-content: end; padding: 5rem 0 5.5rem; }
+    .fin__copy h2 { font-size: clamp(1.7rem, 1.2rem + 2.6vw, 2.2rem); line-height: 1.04; }
+    .fin__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-3); }
+    .fin__copy .v-btn { margin-top: var(--v-4); }
+    .mini { display: none; }
+    .fin__tel { font-size: var(--v-t-lg); min-height: 40px; }
+    .fin__side { gap: var(--v-1); }
+    .fin__msg a { min-height: 40px; }
+    .foot { padding: var(--v-3) var(--v-gutter); }
+    .foot__more { display: none; }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .bar__mark:hover, .reviews__rating a:hover, .fin__msg a:hover { color: var(--v-accent); }
+  }
+</style>
+</head>
+<body>
+<div class="v-page">
+
+  <header class="bar" id="bar">
+    <a class="bar__mark" href="#okno"><i class="glyph" aria-hidden="true"></i><span>Створка</span></a>
+    <span class="bar__tag">Окна · остекление балконов · натяжные потолки</span>
+    <a class="v-btn" href="{{ссылка-расчёта}}">Вызвать замерщика</a>
+  </header>
+
+  <main>
+
+    <!-- 1 · УЗНАВАНИЕ: комната с окном на весь экран. Фото – дальний план (параллакс + наезд от --v-p),
+         оффер и кнопка на пустой стене слева, заголовок собирается построчно -->
+    <section class="hero" id="okno" data-v-act="flow" aria-label="Окна, балконы и натяжные потолки">
+      <div class="v-layer hero__back" data-v-parallax="0.5">
+        <picture>
+          <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
+          <img src="assets/hero.webp" srcset="assets/hero-1200.webp 1200w, assets/hero.webp 1920w" sizes="100vw" alt="" width="1920" height="1080" fetchpriority="high">
+        </picture>
+      </div>
+      <div class="hero__scrim" aria-hidden="true"></div>
+      <div class="hero__col">
+        <div class="hero__copy" data-v-cue="0 0.84 0 0.12" data-v-in data-v-stagger="90">
+          <p class="hero__label">Окна · остекление балконов · натяжные потолки</p>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Цена после замера не меняется</h1>
+          <p class="v-lede">Замерщик снимает размеры и называет сумму – она идёт в договор. Профиль, стеклопакет и фурнитура названы, монтаж за день с уборкой, гарантия письменно.</p>
+          <div class="hero__cta">
+            <a class="v-btn" href="{{ссылка-расчёта}}">Вызвать замерщика</a>
+            <p class="hero__hint">Приедем с образцами профиля, посчитаем на месте.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · ЧТО МЕНЯЕТСЯ: стена с окном. Слева три строки «было → стало», справа окно из трёх створок:
+         вид со двора через старое запотевшее стекло сменяется чистым – створка за створкой (скрипт внизу) -->
+    <section class="wa" id="stvorki" data-v-act="pin" data-v-span="2.1" aria-label="Что меняется после замены окна">
+      <div data-v-stage>
+        <div class="v-fill wa__wall">
+          <img src="assets/wall.webp" srcset="assets/wall-1200.webp 1200w, assets/wall.webp 1920w" sizes="100vw" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+        </div>
+        <div class="wa__light wa__light--cool" aria-hidden="true"></div>
+        <div class="wa__light wa__light--warm" aria-hidden="true"></div>
+        <div class="wa__scrim" aria-hidden="true"></div>
+        <div class="wa__col">
+          <div class="wa__copy" data-v-cue="0 0.92 0 0.08">
+            <p class="wa__label">Что меняется</p>
+            <h2 class="v-display v-display--lg">Дует, запотевает, слышно двор – пока окно старое</h2>
+            <ul class="swap" id="swap">
+              <li><span class="swap__old">Дует из-под рамы</span><span class="swap__new">Тепло у окна</span></li>
+              <li><span class="swap__old">Стекло запотевает</span><span class="swap__new">Сухо, без конденсата</span></li>
+              <li><span class="swap__old">Слышно двор</span><span class="swap__new">Тихо в комнате</span></li>
+            </ul>
+            <p class="wa__note">Меняем створка за створкой – <b>за один день, с уборкой</b>. Сумма – та, что назвали после замера.</p>
+          </div>
+        </div>
+        <figure class="win" id="win" aria-label="Одно и то же окно: старое запотевшее и новое, створка за створкой">
+          <div class="win__frame">
+            <div class="sash sash--l" style="--i:0"><div class="pane">
+              <div class="glass glass--old" data-v-parallax="-0.25"><img src="assets/view-old.webp" alt="" width="1600" height="900" decoding="async"></div>
+              <div class="glass glass--new" data-v-parallax="-0.25"><img src="assets/view.webp" alt="Вид со двора через чистое стекло: деревья и соседний дом" width="1600" height="900" decoding="async"></div>
+            </div></div>
+            <div class="sash sash--c" style="--i:1"><div class="pane">
+              <div class="glass glass--old" data-v-parallax="-0.25"><img src="assets/view-old.webp" alt="" width="1600" height="900" decoding="async"></div>
+              <div class="glass glass--new" data-v-parallax="-0.25"><img src="assets/view.webp" alt="" width="1600" height="900" decoding="async"></div>
+            </div></div>
+            <div class="sash sash--r" style="--i:2"><div class="pane">
+              <div class="glass glass--old" data-v-parallax="-0.25"><img src="assets/view-old.webp" alt="" width="1600" height="900" decoding="async"></div>
+              <div class="glass glass--new" data-v-parallax="-0.25"><img src="assets/view.webp" alt="" width="1600" height="900" decoding="async"></div>
+            </div></div>
+          </div>
+          <div class="win__sill" aria-hidden="true"></div>
+          <figcaption class="win__foot" id="winFoot">
+            <p class="win__state" aria-live="polite"><b id="winState">Старое окно</b><span id="winNote">Дует из-под рамы, стекло запотевает, слышно двор</span></p>
+            <div class="meter" aria-hidden="true"><span class="meter__top">тихо</span><i class="meter__track"><b></b></i><span class="meter__bottom">шум двора</span></div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 · ЦЕНА БЕЗДЕЙСТВИЯ: три фразы по телефону и что за ними; поворот – «поэтому у нас так» -->
+    <section class="v-section v-section--tight vdvoe" id="vdvoe" data-v-act="flow" aria-label="Что обычно говорят по телефону">
+      <div class="v-wrap vdvoe__grid" data-v-in data-v-stagger="80">
+        <div class="vdvoe__head">
+          <h2 class="v-display v-display--lg">«Замер бесплатно», а потом вдвое</h2>
+          <p class="v-body">Так звучит звонок в первую попавшуюся фирму. Сравнивать три-четыре предложения по таким словам не получится: за ними ничего не стоит.</p>
+          <p class="vdvoe__turn"><b>Поэтому у нас так:</b> сумма из замера идёт в договор и не меняется; профиль, стеклопакет и фурнитура названы; монтаж – один день, с уборкой; гарантия – письменно, талоном.</p>
+        </div>
+        <ul class="phrases">
+          <li><b>«Замер бесплатный»</b><span>А цена «уточнится после замера» – и уточняется вверх. Сумму вы узнаёте, когда замерщик уже в прихожей, и спорить неудобно.</span></li>
+          <li><b>«Немецкий профиль»</b><span>Без названия системы, без формулы стеклопакета, без паспорта. Сравнить с другим предложением не по чему.</span></li>
+          <li><b>«Поставим за день»</b><span>Бригада на два дня, пыль на всём, старые рамы у подъезда, а гарантия – «позвоните, если что».</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4 · ДОКАЗАТЕЛЬСТВО: лента от замера до приёмки. На десктопе едет по скроллу, на тач листается пальцем -->
+    <section class="kak" id="kak" data-v-act="pan" data-v-span="2.2" aria-label="Как проходит: от замера до приёмки">
+      <div data-v-stage>
+        <div class="rail" data-v-pan="0.05">
+          <article class="card card--title">
+            <span class="v-label">Как проходит</span>
+            <h2 class="v-display">От замера до приёмки – пять шагов</h2>
+            <p>Сумма фиксируется на втором шаге и дальше не меняется. Монтаж – один день, приёмка – по акту.</p>
+          </article>
+          <article class="card card--photo">
+            <span class="card__n">1 · Замер</span>
+            <h3>Замерщик снимает размеры и называет сумму на месте</h3>
+            <p>Смотрим проём, откосы, состояние стены, привозим образцы профиля и стеклопакета. <b>Сумма звучит при вас</b>, а не «мы вам перезвоним».</p>
+            <figure><img src="assets/zamer.webp" alt="Рулетка и лазерный дальномер на подоконнике перед заменой окна" width="1400" height="788" loading="lazy" decoding="async"></figure>
+          </article>
+          <article class="card">
+            <span class="card__n">2 · Договор</span>
+            <h3>Сумма из замера – в договор, и она не меняется</h3>
+            <p>В договоре: сумма, названия профиля, стеклопакета и фурнитуры, срок производства и день монтажа. Предоплата – <b>{{предоплата}}</b>, остальное после приёмки.</p>
+          </article>
+          <article class="card card--narrow">
+            <span class="card__n">3 · Производство</span>
+            <h3>Окна делают на заводе {{срок}} рабочих дней</h3>
+            <p>Дата монтажа согласована при подписании. Накануне подтверждаем время сообщением.</p>
+          </article>
+          <article class="card card--photo card--wide">
+            <span class="card__n">4 · Монтаж за день</span>
+            <h3>Одно-два окна – за один день, с уборкой</h3>
+            <p>Демонтаж, установка, пена, откосы, подоконник, отлив, регулировка. Пол укрыт, старые рамы и мусор увозим. Больше окон – по графику в договоре.</p>
+            <figure><img src="assets/montazh.webp" alt="Новая рама в проёме: пена, защитная плёнка, укрытый пол" width="1400" height="788" loading="lazy" decoding="async"></figure>
+          </article>
+          <article class="card card--last">
+            <span class="card__n">5 · Приёмка</span>
+            <h3>Проверяем вместе и подписываем акт</h3>
+            <p>Створки, ручки, откосы, уплотнение – при вас. Вместе с актом отдаём гарантийный талон и паспорта на профиль и стеклопакет.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · ДОКАЗАТЕЛЬСТВО: из чего делаем. Сцена держится, пять образцов-реплик, чипы внизу -->
+    <section class="mat" id="iz-chego" data-v-act="pin" data-v-span="2.2" aria-label="Из чего делаем">
+      <div data-v-stage>
+        <div class="v-fill">
+          <img src="assets/profile.webp" srcset="assets/profile-1200.webp 1200w, assets/profile.webp 1920w" sizes="100vw" alt="Угол нового белого окна: профиль, штапик, ручка, подоконник" width="1920" height="1080" loading="lazy" decoding="async">
+        </div>
+        <div class="v-scrim mat__scrim" aria-hidden="true"></div>
+        <p class="mat__title">Из чего делаем</p>
+        <div class="v-copy v-copy--lead mat__cue" data-v-cue="0 0.25 0 0.05">
+          <span class="mat__n">Профиль</span>
+          <h2 class="v-display v-display--lg">Профиль с названием, а не «немецкий»</h2>
+          <p class="v-lede">В договоре записано: система <b>{{профиль}}</b>, число камер и монтажная глубина. Паспорт системы выдаём при приёмке.</p>
+        </div>
+        <div class="v-copy v-copy--lead mat__cue" data-v-cue="0.25 0.42 0.05 0.05">
+          <span class="mat__n">Стеклопакет</span>
+          <h2 class="v-display v-display--lg">Стеклопакет по формуле</h2>
+          <p class="v-lede"><b>{{стеклопакет}}</b> – формула записана в договоре. Двухкамерный в комнаты, однокамерный на холодный балкон. Энергосберегающее стекло – по желанию, с ценой до заказа.</p>
+        </div>
+        <div class="v-copy v-copy--lead mat__cue" data-v-cue="0.42 0.58 0.05 0.05">
+          <span class="mat__n">Фурнитура</span>
+          <h2 class="v-display v-display--lg">Фурнитура, которую можно назвать</h2>
+          <p class="v-lede"><b>{{фурнитура}}</b>: поворотно-откидное открывание, микропроветривание, ручки с фиксацией – по вашему выбору, отдельной строкой в смете.</p>
+        </div>
+        <div class="v-copy v-copy--lead mat__cue" data-v-cue="0.58 0.75 0.05 0.05">
+          <span class="mat__n">Полотно потолка</span>
+          <h2 class="v-display v-display--lg">Полотно: матовое, сатин или глянец</h2>
+          <p class="v-lede"><b>{{полотно}}</b> – фактура, ширина полотна и способ крепления записаны в договоре. Светильники и карниз считаем до монтажа, а не по факту.</p>
+        </div>
+        <div class="v-copy v-copy--lead mat__cue" data-v-cue="0.75 1 0.05 0">
+          <span class="mat__n">Балкон</span>
+          <h2 class="v-display v-display--lg">Балкон: тёплый или холодный – скажем прямо</h2>
+          <p class="v-lede">Тёплое остекление – на том же профиле <b>{{профиль}}</b>, холодное – алюминиевое <b>{{профиль-балкона}}</b>. Что подходит вашему балкону, замерщик скажет на месте, с ценой.</p>
+        </div>
+        <ol class="mat__chips" aria-hidden="true">
+          <li><i style="--c:#ffffff"></i><span>Профиль</span></li>
+          <li><i style="--c:#c9d6dc"></i><span>Стеклопакет</span></li>
+          <li><i style="--c:#a8a9ab"></i><span>Фурнитура</span></li>
+          <li><i style="--c:#f7f6f2"></i><span>Полотно</span></li>
+          <li><i style="--c:#d9dde0"></i><span>Балкон</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6 · ВЫБОР: три услуги, цена слотами, «что входит» списком -->
+    <section class="v-section ceny" id="ceny" data-v-act="flow" aria-label="Услуги и цены">
+      <div class="v-wrap">
+        <div class="ceny__head" data-v-in data-v-stagger="60">
+          <h2 class="v-display v-display--lg">Цена до замера – ориентир, после замера – в договоре</h2>
+          <p>Ниже – от чего считать. Точную сумму назовёт замерщик на месте, и она не изменится.</p>
+        </div>
+        <div class="ceny__grid">
+          <article class="svc svc--okna" data-v-in data-v-stagger="60">
+            <div class="svc__head"><h3>Окна</h3><span class="price v-nums">от {{цена}} ₽ за окно</span></div>
+            <p>Пластиковое окно в типовой проём с установкой. Ламинация, раскладка и нестандартная форма – строкой в смете.</p>
+            <p class="inc__title">Что входит в цену окна</p>
+            <ul class="inc">
+              <li>Демонтаж старого окна и вывоз</li>
+              <li>Установка, монтажная пена, пароизоляция шва</li>
+              <li>Откосы и подоконник</li>
+              <li>Отлив снаружи</li>
+              <li>Регулировка створок и уборка</li>
+            </ul>
+          </article>
+          <article class="svc svc--balkon">
+            <figure data-v-reveal="left" data-v-reveal-at="0.12 0.48"><img src="assets/balkon.webp" alt="Застеклённый балкон изнутри: белые рамы, деревянный пол, свет" width="1000" height="1333" loading="lazy" decoding="async"></figure>
+            <div data-v-in data-v-stagger="60">
+              <div class="svc__head"><h3>Остекление балконов</h3><span class="price v-nums">от {{цена}} ₽ за балкон</span></div>
+              <p>Тёплое на профиле {{профиль}} или холодное алюминиевое, с подоконником и отделкой парапета. Крыша и утепление – по замеру.</p>
+            </div>
+          </article>
+          <article class="svc svc--potolok">
+            <figure data-v-reveal="up" data-v-reveal-at="0.12 0.48"><img src="assets/potolok.webp" alt="Комната с матовым натяжным потолком и световой линией" width="1000" height="1333" loading="lazy" decoding="async"></figure>
+            <div data-v-in data-v-stagger="60">
+              <div class="svc__head"><h3>Натяжные потолки</h3><span class="price v-nums">от {{цена}} ₽ за м²</span></div>
+              <p>Матовое, сатиновое или глянцевое полотно {{полотно}} с установкой. Светильники, карниз и обход труб – строкой в смете до монтажа.</p>
+            </div>
+          </article>
+        </div>
+        <div class="ceny__note" data-v-in data-v-stagger="60">
+          <p>Назовите, сколько окон или какой балкон – <b>подберём день замера</b>, сумму услышите на месте.</p>
+          <a class="v-btn v-btn--ghost" href="{{ссылка-расчёта}}">Вызвать замерщика</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · ДОВЕРИЕ: гарантия письменно, папка при приёмке, отзывы с Яндекс.Карт (только слоты) -->
+    <section class="v-section gar" id="garantiya" data-v-act="flow" aria-label="Гарантия письменно">
+      <div class="v-wrap">
+        <div class="gar__grid">
+          <div class="gar__copy" data-v-in data-v-stagger="70">
+            <h2 class="v-display v-display--lg">Гарантия письменно, а не «позвоните, если что»</h2>
+            <p class="v-body">Гарантийный талон выдаём при приёмке вместе с актом. Что в нём записано:</p>
+            <ul class="facts">
+              <li><b>На монтаж – {{гарантия}}</b><span>Монтажный шов, откосы, регулировка. Продувает или запотевает по шву – наш выезд, а не ваш спор.</span></li>
+              <li><b>На профиль и стеклопакет – по паспорту производителя</b><span>Паспорта на систему {{профиль}} и стеклопакет {{стеклопакет}} отдаём вместе с талоном.</span></li>
+              <li><b>На полотно потолка – {{гарантия-потолка}}</b><span>Провис, разошёлся шов или отошёл гарпун – переустанавливаем.</span></li>
+              <li><b>Регулировка после первой зимы</b><span>Створки садятся по погоде. Приезжаем по заявке в рабочие часы, условия – в талоне.</span></li>
+            </ul>
+          </div>
+          <aside class="folder" data-v-in data-v-stagger="70" aria-label="Документы при приёмке">
+            <p class="folder__title">Папка при приёмке</p>
+            <h3>Что остаётся у вас на руках</h3>
+            <ol>
+              <li><b>Договор</b><span>сумма из замера, материалы по названиям, сроки</span></li>
+              <li><b>Акт приёмки</b><span>подписываем вместе после проверки</span></li>
+              <li><b>Гарантийный талон</b><span>сроки и что покрывает</span></li>
+              <li><b>Паспорта</b><span>на профиль, стеклопакет и полотно</span></li>
+            </ol>
+          </aside>
+        </div>
+
+        <!-- Отзывы: только настоящие, с Яндекс.Карт. Меньше трёх – удалить блок целиком -->
+        <div class="reviews" data-slot-optional aria-label="Отзывы с Яндекс.Карт">
+          <div class="reviews__head" data-v-in data-v-stagger="60">
+            <h2 class="v-display v-display--md">Что пишут на Яндекс.Картах</h2>
+            <div class="reviews__rating">
+              <span class="reviews__num v-nums">{{рейтинг}}</span>
+              <span class="reviews__stars" style="--r: {{рейтинг}}" role="img" aria-label="Рейтинг {{рейтинг}} из 5"></span>
+              <span><span>{{отзывов}} отзывов</span> · <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Читать все отзывы</a></span>
+            </div>
+          </div>
+          <ul class="reviews__list" data-v-in data-v-stagger="90">
+            <li class="reviews__item reviews__item--big">
+              <p class="reviews__text">«{{отзыв 1}}»</p>
+              <p class="reviews__meta"><b>{{имя 1}}</b> · {{дата 1}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 1}}" role="img" aria-label="Оценка {{оценка 1}} из 5"></span></p>
+            </li>
+            <li class="reviews__item">
+              <p class="reviews__text">«{{отзыв 2}}»</p>
+              <p class="reviews__meta"><b>{{имя 2}}</b> · {{дата 2}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 2}}" role="img" aria-label="Оценка {{оценка 2}} из 5"></span></p>
+            </li>
+            <li class="reviews__item">
+              <p class="reviews__text">«{{отзыв 3}}»</p>
+              <p class="reviews__meta"><b>{{имя 3}}</b> · {{дата 3}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 3}}" role="img" aria-label="Оценка {{оценка 3}} из 5"></span></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · ДЕЙСТВИЕ: замерщик, контакты, малое окно с чистым видом и полной шкалой тишины -->
+    <section class="fin" id="vyzov" data-v-act="pin" data-v-span="1.3" aria-label="Вызвать замерщика">
+      <div data-v-stage>
+        <div class="fin__inner">
+          <div class="fin__copy" data-v-cue="0.04">
+            <p class="fin__label">Вызвать замерщика</p>
+            <h2 class="v-display">Замерщик приедет, назовёт сумму – она пойдёт в договор</h2>
+            <p class="v-lede">Напишите, сколько окон или какой балкон, и удобный день. Подтвердим время, приедем с образцами профиля и стеклопакета.</p>
+            <a class="v-btn" href="{{ссылка-расчёта}}">Вызвать замерщика</a>
+          </div>
+          <div class="fin__side" data-v-cue="0.1">
+            <div class="mini" aria-hidden="true">
+              <div class="mini__frame"><div class="mini__pane"><img src="assets/view.webp" alt="" width="1600" height="900" loading="lazy" decoding="async"></div></div>
+              <div class="meter"><span class="meter__top">тихо</span><i class="meter__track"><b></b></i><span class="meter__bottom">шум двора</span></div>
+            </div>
+            <a class="fin__tel" href="tel:{{телефон}}">{{телефон}}</a>
+            <p class="fin__msg" data-slot-optional><a href="https://t.me/{{телеграм}}" target="_blank" rel="noopener">Telegram</a><a href="https://wa.me/{{вотсап}}" target="_blank" rel="noopener">WhatsApp</a></p>
+            <span><b>{{адрес}}</b>, {{город}}</span>
+            <span>{{часы}}</span>
+            <span>Замер – в рабочие часы, по записи</span>
+          </div>
+        </div>
+        <footer class="foot">
+          <span>Створка · {{город}}</span>
+          <span>{{юрлицо}} · ИНН {{ИНН}}</span>
+          <span class="foot__more">Пластиковые окна, остекление балконов, натяжные потолки</span>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vibe.js"></script>
+<script>
+  // На телефоне пины короче. data-v-span из CSS не поменять, поэтому правим атрибут до монтирования.
+  if (window.matchMedia('(max-width: 860px)').matches) {
+    document.getElementById('stvorki').setAttribute('data-v-span', '2.0');
+    document.getElementById('iz-chego').setAttribute('data-v-span', '2.1');
+    document.getElementById('vyzov').setAttribute('data-v-span', '1.3');
+  }
+  Vibe.mount(document.querySelector('.v-page'));
+
+  // Фирменный ход (акт 2): створка за створкой. В каждой створке два кадра одного вида: старое запотевшее
+  // стекло снизу и чистое сверху. От --v-p акта каждая створка получает свою долю хода
+  // (створка 1: 0,12–0,32; 2: 0,36–0,56; 3: 0,60–0,80), новый кадр открывается снизу вверх
+  // clip-path внутри маски створки, профиль створки белеет, строка «было → стало» слева получает is-done.
+  // Шкала тишины и тёплый свет на стене идут от --q (0,1 → 0,85). Строка под окном меняется на середине каждой створки.
+  (function () {
+    var act = document.getElementById('stvorki');
+    var rows = Array.prototype.slice.call(document.querySelectorAll('#swap > li'));
+    var sashes = Array.prototype.slice.call(act.querySelectorAll('.sash'));
+    var news = sashes.map(function (s) { return s.querySelector('.glass--new'); });
+    var foot = document.getElementById('winFoot'), st = document.getElementById('winState'), nt = document.getElementById('winNote');
+    var texts = [
+      ['Старое окно', 'Дует из-под рамы, стекло запотевает, слышно двор'],
+      ['Меняем · створка 1 из 3', 'Старую раму вынимаем, новую ставим за день'],
+      ['Меняем · створка 2 из 3', 'Стеклопакет по формуле, уплотнитель по контуру'],
+      ['Меняем · створка 3 из 3', 'Откосы, подоконник, регулировка, уборка'],
+      ['Новое окно', 'Тихо и тепло. Сумма – та, что назвали после замера']
+    ];
+    var starts = [0.12, 0.36, 0.60], len = 0.2, live = false, lastK = -1, lastP = -1, swapT = null;
+    function ss(t) { t = t < 0 ? 0 : t > 1 ? 1 : t; return t * t * (3 - 2 * t); }
+    function setText(k) {
+      if (k === lastK) return;
+      lastK = k;
+      foot.classList.add('is-swap');
+      clearTimeout(swapT);
+      swapT = setTimeout(function () { st.textContent = texts[k][0]; nt.textContent = texts[k][1]; foot.classList.remove('is-swap'); }, 110);
+    }
+    function paint(p) {
+      var k = 0;
+      for (var i = 0; i < sashes.length; i++) {
+        var t = ss((p - starts[i]) / len);
+        news[i].style.clipPath = 'inset(' + ((1 - t) * 100).toFixed(2) + '% 0 0 0)';
+        sashes[i].classList.toggle('is-new', t > 0.5);
+        if (rows[i]) rows[i].classList.toggle('is-done', t > 0.5);
+        if (p >= starts[i]) k = i + 1;
+      }
+      if (p >= starts[2] + len) k = 4;
+      act.style.setProperty('--q', ss((p - 0.1) / 0.75).toFixed(4));
+      setText(k);
+    }
+    function tick() {
+      var p = parseFloat(getComputedStyle(act).getPropertyValue('--v-p')) || 0;
+      if (p !== lastP) { lastP = p; paint(p); }
+      if (live) requestAnimationFrame(tick);
+    }
+    new IntersectionObserver(function (es) { live = es[0].isIntersecting; if (live) tick(); }).observe(act);
+    tick();
+  })();
+</script>
+</body>
+</html>

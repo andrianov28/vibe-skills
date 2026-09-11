@@ -1,0 +1,138 @@
+{
+  "world": "Высокий ключ",
+  "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
+  "preamble": "Editorial still-life photography on a seamless warm off-white cyclorama. Large soft overhead source, huge white bounce, near-shadowless with one soft contact shadow. High key, gentle contrast, warm white and pale neutral grade. Medium-format sharpness, fine grain. Photographic realism, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "chair",
+      "raw": "raw/chair.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A single classic hydraulic barber chair standing alone on the warm off-white cyclorama, seen from the front three-quarter with the camera at seat height. The chair is unmistakably a professional barber chair: wide padded black leather seat, tall padded backrest with a padded headrest on top, padded armrests, a hydraulic pump under the seat with a chrome lever on the side, a heavy round polished chrome base plate on the floor and a chrome footrest bar in front. Early morning: in addition to the soft overhead source, a pale cool daylight comes from a tall window out of frame on the left, giving a gentle cool cast on the leather and chrome and one long soft shadow stretching to the right. The whole chair fits inside the right third of the frame with plain pale floor around it, not cropped; the left two thirds are plain empty pale cyclorama with nothing on it, large empty space for text. No people, no mirror, no trolley, no other objects, no text, no logos.",
+      "outputs": [
+        { "file": "assets/chair.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
+      ]
+    },
+    {
+      "id": "chair-day",
+      "raw": "raw/chair-day.png",
+      "ar": "16:9",
+      "ref": "raw/chair.png",
+      "scene": "Image-to-image relight of the reference: keep the same classic hydraulic barber chair (padded black leather seat, tall backrest with padded headrest, padded armrests, hydraulic pump with chrome lever, heavy round polished chrome base plate, chrome footrest bar) exactly the same size, at exactly the same position and scale in the frame, the same camera distance and height, the same framing and the same warm off-white cyclorama; do not move the camera, do not zoom in, do not enlarge the chair. Only the light changes: midday, bright even soft light from directly above, almost no shadow, neutral warm-white grade without any colour cast, no window glow on the left. The chair stays inside the right third of the frame with plain pale floor around it; the left two thirds remain plain empty pale cyclorama for text. No people, no other objects, no text, no logos.",
+      "outputs": [
+        { "file": "assets/chair-day.webp", "width": 1920, "quality": 76 }
+      ]
+    },
+    {
+      "id": "chair-evening",
+      "raw": "raw/chair-evening.png",
+      "ar": "16:9",
+      "ref": "raw/chair.png",
+      "scene": "Exactly the same classic hydraulic barber chair as the reference image (padded black leather seat, tall backrest with padded headrest, padded armrests, hydraulic pump with chrome lever, heavy round polished chrome base plate, chrome footrest bar), the same size, the same camera position, the same framing and the same warm off-white cyclorama; do not zoom in, do not enlarge the chair. Only the light changes: late evening, a low warm golden sunlight comes from a window out of frame on the right, amber highlights on the leather and chrome, one long soft warm shadow stretching to the left across the cyclorama, the whole frame slightly warmer. The chair stays inside the right third of the frame; the left two thirds remain plain empty pale cyclorama for text. No people, no other objects, no text, no logos.",
+      "outputs": [
+        { "file": "assets/chair-evening.webp", "width": 1920, "quality": 76 }
+      ]
+    },
+    {
+      "id": "salon",
+      "raw": "raw/salon.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Wide interior of a small bright hair salon: three identical styling chairs with black leather seats in a row in front of three large round frameless mirrors on a plain warm off-white wall, a pale wooden counter under the mirrors, light oak floor. Seen straight on from the middle of the room, camera at chest height. Bright soft daylight from large windows out of frame, near-shadowless, warm white grade. The chairs and mirrors occupy the lower two thirds of the frame; the upper third is plain pale wall, empty space for text. No people, no reflections of people in the mirrors, no posters, no text, no signs, no logos, no plants.",
+      "outputs": [
+        { "file": "assets/salon.webp", "width": 1600, "quality": 78 },
+        { "file": "assets/salon-900.webp", "width": 900, "quality": 76 }
+      ]
+    },
+    {
+      "id": "hands",
+      "raw": "raw/hands.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Hairdresser's hands cutting the ends of a client's straight dark hair with slim silver scissors and a black comb, seen from behind the client's shoulder so that only the hands, the scissors, the comb and the hair are in the frame. No faces at all, heads out of frame. Warm off-white cyclorama behind, the hairdresser in a plain white cotton shirt. The hands and hair sit in the lower two thirds of the frame; the upper third is plain pale cyclorama, empty space for text. No text, no logos, no jewelry, no watches.",
+      "outputs": [
+        { "file": "assets/hands.webp", "width": 900, "quality": 80 },
+        { "file": "assets/hands-480.webp", "width": 480, "quality": 76 }
+      ]
+    },
+    {
+      "id": "colour",
+      "raw": "raw/colour.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Hair colouring at work: a colourist's hands in thin black gloves applying creamy pale hair colour with a flat tint brush to a strand of light brown hair laid on a sheet of aluminium foil, a small black bowl of colour nearby, seen from behind and above the client's shoulder. No faces at all, heads out of frame. Warm off-white cyclorama behind. The hands, brush and foil sit in the lower two thirds; the upper third is plain pale cyclorama, empty space for text. No text, no logos, no packaging, no jewelry.",
+      "outputs": [
+        { "file": "assets/colour.webp", "width": 900, "quality": 80 },
+        { "file": "assets/colour-480.webp", "width": 480, "quality": 76 }
+      ]
+    },
+    {
+      "id": "beard",
+      "raw": "raw/beard.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Barber's still life on the warm off-white cyclorama: a closed straight razor with a dark horn handle, a wooden shaving brush with a soft cream tip, a compact black hair clipper with a metal blade, a small folded white cotton towel, arranged loosely on the pale surface and seen from slightly above. The objects sit in the lower two thirds of the frame; the upper third is plain pale cyclorama, empty space for text. No people, no hands, no text, no labels, no logos.",
+      "outputs": [
+        { "file": "assets/beard.webp", "width": 900, "quality": 80 },
+        { "file": "assets/beard-480.webp", "width": 480, "quality": 76 }
+      ]
+    },
+    {
+      "id": "coffee",
+      "raw": "raw/coffee.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Still life on a pale wooden salon counter in front of a warm off-white wall: a white ceramic cup of black coffee on a small saucer, a folded soft cream cotton towel, a black comb and a pair of slim silver scissors lying next to it, a hint of steam over the cup, seen from slightly above at an angle. Soft bright daylight, near-shadowless, warm white grade. The objects sit in the right half and lower part of the frame; the left half is plain pale wall and empty counter, large empty space for text. No people, no hands, no text, no labels, no logos.",
+      "outputs": [
+        { "file": "assets/coffee.webp", "width": 1600, "quality": 78 },
+        { "file": "assets/coffee-900.webp", "width": 900, "quality": 76 }
+      ]
+    },
+    {
+      "id": "hero-b",
+      "variant": "Б",
+      "raw": "raw/hero-b.png",
+      "ar": "16:9",
+      "ref": "raw/salon.png",
+      "scene": "The same bright hair salon as the reference image: three identical styling chairs with black leather seats in a row in front of three large round frameless mirrors on a plain warm off-white wall, pale wooden counter, light oak floor. Wider and taller framing from the middle of the room, camera at chest height: the chairs and mirrors occupy only the lower half of the frame; the upper half is plain empty pale wall, large empty space for text. Bright soft daylight, near-shadowless, warm white grade. No people, no reflections of people, no posters, no text, no signs, no logos, no plants.",
+      "outputs": [
+        { "file": "assets/hero-b.webp", "width": 1920, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hero-b-m",
+      "variant": "Б",
+      "raw": "raw/hero-b-m.png",
+      "ar": "9:16",
+      "ref": "raw/salon.png",
+      "scene": "Portrait framing of the same bright hair salon as the reference image: three styling chairs with black leather seats in front of round frameless mirrors on a plain warm off-white wall, light oak floor. The chairs and mirrors sit in the lower third of the frame; the upper two thirds are plain empty pale wall, empty space for text. Bright soft daylight, near-shadowless, warm white grade. No people, no reflections of people, no posters, no text, no signs, no logos.",
+      "outputs": [
+        { "file": "assets/hero-b-m.webp", "width": 1080, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hero-v",
+      "variant": "В",
+      "raw": "raw/hero-v.png",
+      "ar": "16:9",
+      "ref": "raw/chair.png",
+      "scene": "The same modern styling chair as the reference image standing in front of a large round frameless mirror on a plain warm off-white wall with a pale wooden counter under the mirror, seen from the side at seat height. The chair and mirror stand in the right half of the frame; the left half is plain empty pale wall and floor, large empty space for text. Bright soft daylight from a window out of frame on the right, near-shadowless, warm white grade. No people, no reflection of people in the mirror, no bottles, no text, no logos.",
+      "outputs": [
+        { "file": "assets/hero-v.webp", "width": 1920, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hero-v-m",
+      "variant": "В",
+      "raw": "raw/hero-v-m.png",
+      "ar": "9:16",
+      "ref": "raw/chair.png",
+      "scene": "Portrait framing of the same styling chair as the reference image in front of a round frameless mirror on a plain warm off-white wall, seen from the side at seat height. The chair and mirror sit in the lower half of the frame; the upper half is plain empty pale wall, empty space for text. Bright soft daylight, near-shadowless, warm white grade. No people, no reflection of people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/hero-v-m.webp", "width": 1080, "quality": 78 }
+      ]
+    }
+  ],
+  "keep": []
+}

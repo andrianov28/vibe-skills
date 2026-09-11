@@ -1,0 +1,158 @@
+{
+  "world": "Документальный",
+  "preamble": "Documentary photography, available light only, handheld 35mm. Natural skin tones, honest imperfect surfaces, slight motion in the frame. Muted realistic grade, no colour cast, visible grain. Candid, unposed, nobody looking at camera. Absolutely not stock-photo styling, no fake smiles, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Ordinary apartment kitchen just after a cleaning, shot from the doorway at chest height, wide. Morning daylight from a window on the right, no artificial light. Counters wiped and empty, a pale stone countertop, matte light-grey cabinet fronts, a clean hob, a dish rack with two clean plates, a folded blue microfiber cloth and a plain unlabelled spray bottle on the far right end of the counter. The lower left third of the frame is a plain empty light wall and clean pale floor with nothing on it, large quiet negative space for text. No people, no text, no labels, no signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 74
+        },
+        {
+          "file": "assets/hero-1200.webp",
+          "width": 1200,
+          "quality": 76
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "Same kitchen, same light, same wiped counter and folded blue cloth as the reference, vertical frame for a phone screen. The counter and window sit in the upper half of the frame; the lower half is plain empty light wall and clean floor, large quiet negative space for text. No people, no text, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "kitchen",
+      "raw": "raw/kitchen.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Hands in blue nitrile gloves wiping a black glass hob with a blue microfiber cloth, seen from the side at counter height, vertical framing, the person cropped at the shoulders, head out of frame. Daylight from a kitchen window on the left. A plain unlabelled spray bottle stands on the counter behind the hands. The upper quarter of the frame is a plain light wall, empty for text. No face, no text, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/kitchen.webp",
+          "width": 1000,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "bath",
+      "raw": "raw/bath.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Bathroom during a cleaning: a hand in a red nitrile glove pulling a rubber squeegee down a wet glass shower screen, water streaks on the glass, white ceramic tiles behind covering the whole wall from floor to ceiling, a chrome mixer tap catching daylight from a small frosted window. Vertical framing, the whole frame filled with the tiled wall and the glass, only the arm in frame, no face, no head. Tiles fill the top of the frame with nothing else on them. No text, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/bath.webp",
+          "width": 1000,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "room",
+      "raw": "raw/room.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Living room in an ordinary apartment: a person seen from behind, waist down only, pushing the nozzle of a vacuum cleaner across a light laminate floor along the front edge of a grey sofa that stands firmly on the floor. Daylight from a large window on the right with a sheer curtain, a bookshelf against the far wall. Vertical framing, camera at knee height, no face visible, the sofa and the person in the lower two thirds of the frame. The upper quarter of the frame is a plain pale wall above the sofa. No text, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/room.webp",
+          "width": 1000,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "hall",
+      "raw": "raw/hall.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Apartment entrance hallway: a flat mop with a grey microfiber pad being pushed across a light laminate floor, the mop handle entering from the top right, a plain bucket by the wall, a shoe rack with a few pairs of shoes, a mirror on the wall reflecting daylight from the room beyond. Vertical framing, camera low near the floor, no people visible except the mop handle. The upper quarter of the frame is plain pale wall, empty for text. No text, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hall.webp",
+          "width": 1000,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "process",
+      "raw": "raw/process.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Cleaner's equipment set down just inside an apartment front door on a light floor: a compact vacuum cleaner, a plastic crate with plain unlabelled bottles, a stack of folded microfiber cloths in blue, red and yellow, a folding step stool leaning on the wall. Wide shot from the corridor at knee height, daylight from a room at the far end, the door ajar on the right. The left half of the frame is plain empty wall and floor, large quiet negative space for text. No people, no text, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/process.webp",
+          "width": 1920,
+          "quality": 74
+        },
+        {
+          "file": "assets/process-1200.webp",
+          "width": 1200,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "supplies",
+      "raw": "raw/supplies.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Top-down documentary shot of cleaning supplies laid out on a light wooden floor: plain unlabelled spray bottles in white and clear plastic, four folded microfiber cloths in blue, red, yellow and green side by side, a pair of nitrile gloves, a small brush, all in the right two thirds of the frame. Daylight from a window, soft shadows. The left third of the frame is plain empty floor, negative space for text. No people, no text, no labels, no logos, no brand shapes.",
+      "outputs": [
+        {
+          "file": "assets/supplies.webp",
+          "width": 1600,
+          "quality": 76
+        },
+        {
+          "file": "assets/supplies-1000.webp",
+          "width": 1000,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "hero-b",
+      "variant": "Б",
+      "raw": "raw/hero-b.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Ordinary apartment kitchen just after a cleaning, wide shot from the room towards the kitchen, camera at chest height. Morning daylight from a window on the far right. The kitchen counter, hob and a folded blue microfiber cloth occupy only the right third of the frame; the left two thirds are a plain pale painted wall and a clean light floor with nothing on them, large quiet negative space for text. No people, no text, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hero-b.webp",
+          "width": 1920,
+          "quality": 74
+        }
+      ]
+    }
+  ],
+  "keep": []
+}

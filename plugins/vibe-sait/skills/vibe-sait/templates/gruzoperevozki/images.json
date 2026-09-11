@@ -1,0 +1,130 @@
+{
+  "world": "Документальный",
+  "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
+  "preamble": "Documentary photography, available light only, handheld 35mm. Natural skin tones, honest imperfect surfaces, slight motion in the frame. Muted realistic grade, no colour cast, visible grain. Candid, unposed, nobody looking at camera. Absolutely not stock-photo styling, no fake smiles, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Living room of an ordinary apartment in the middle of packing for a move: sealed plain brown cardboard boxes stacked two and three high along the right wall, a rolled-up rug and a floor lamp wrapped in stretch film beside them, a roll of packing tape lying on top of one box. Camera at chest height, wide shot. Soft daylight from a large window on the right. The boxes and furniture occupy the right half of the frame; the left half is a plain pale wall and an empty parquet floor with nothing on it, large bright empty space for text. No people, no text, no handwriting on the boxes, no labels, no signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 76
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "Portrait framing of the same apartment living room as the reference image: sealed plain brown cardboard boxes stacked along the wall, a rolled-up rug and a floor lamp wrapped in stretch film. Camera at chest height. Soft daylight from a window. The boxes sit in the lower half of the frame; the upper half is a plain pale wall with nothing on it, bright empty space for text. No people, no text, no handwriting, no labels, no signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "raw": "raw/card.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Three sealed plain brown cardboard boxes stacked on a two-wheel hand truck standing in an apartment hallway next to the open front door, plain brown packing tape without any printing, a folded grey moving blanket on top of the stack. Tight vertical composition, the boxes fill the lower two thirds of the frame, daylight coming from the doorway, a plain wall above the boxes as empty space. No people, no text, no handwriting, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/card.webp",
+          "width": 900,
+          "quality": 76
+        },
+        {
+          "file": "assets/card-480.webp",
+          "width": 480,
+          "quality": 74
+        }
+      ]
+    },
+    {
+      "id": "stairs",
+      "raw": "raw/stairs.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Landing of an apartment building staircase during a move: a sofa wrapped in stretch film and grey moving blankets waiting on the landing, a few plain cardboard boxes beside it, closed elevator doors, morning daylight from a stairwell window. Wide shot from a few steps below. The sofa and boxes occupy the lower right of the frame; the upper left is a plain painted wall, empty space for text. No people, no text, no signs, no graffiti, no numbers on the wall, no logos.",
+      "outputs": [
+        {
+          "file": "assets/stairs.webp",
+          "width": 1600,
+          "quality": 74
+        }
+      ]
+    },
+    {
+      "id": "load",
+      "raw": "raw/load.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Rear of a plain white cargo van parked at the curb by an apartment building entrance, rear doors wide open, the cargo bay half loaded: plain cardboard boxes stacked and secured with ratchet straps, a wardrobe wrapped in grey moving blankets, a two-wheel hand truck leaning against the bumper. Seen from behind at a slight angle, medium shot, overcast daylight. The van fills the right two thirds of the frame; the left third is empty asphalt and a plain building wall, space for text. No people, no license plate, no text, no signs, no logos, no writing on the van.",
+      "outputs": [
+        {
+          "file": "assets/load.webp",
+          "width": 1600,
+          "quality": 74
+        },
+        {
+          "file": "assets/load-900.webp",
+          "width": 900,
+          "quality": 72
+        }
+      ]
+    },
+    {
+      "id": "road",
+      "raw": "raw/road.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A plain white cargo van driving along an almost empty multi-lane city ring road in early morning light, seen from behind and slightly to the side from the road shoulder, the van small in the lower right third of the frame, long soft shadows on the asphalt. A wide pale overcast sky and a plain concrete noise barrier take up the upper left two thirds of the frame as large empty space for text. No other cars nearby, no license plate readable, no text, no billboards, no road signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/road.webp",
+          "width": 1920,
+          "quality": 74
+        }
+      ]
+    },
+    {
+      "id": "done",
+      "raw": "raw/done.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Empty room of a newly received apartment with a large window: plain cardboard boxes set down in neat stacks in the middle of the room, one box opened, a mattress wrapped in film leaning against the far wall, a grey moving blanket folded on top of a box. Camera at chest height, wide shot, bright daylight from the window on the right. The boxes in the right half of the frame; the left half is a plain white wall and bare floor, empty space for text. No people, no text, no handwriting, no labels, no logos.",
+      "outputs": [
+        {
+          "file": "assets/done.webp",
+          "width": 1600,
+          "quality": 74
+        },
+        {
+          "file": "assets/done-900.webp",
+          "width": 900,
+          "quality": 72
+        }
+      ]
+    }
+  ],
+  "keep": []
+}

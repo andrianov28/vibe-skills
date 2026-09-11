@@ -1,0 +1,200 @@
+{
+  "world": "Жёсткий свет",
+  "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
+  "preamble": "Studio photography with a single hard undiffused light source. Crisp high-contrast shadows used as graphic shapes. Saturated seamless colour backdrop. Punchy contrast, slight halation on highlights. Digital medium format, sharp throughout. Photographic, not rendered, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A dark graphite grey mid-size crossover, generic unbranded car with no badges, standing on a seamless deep charcoal-graphite studio backdrop, front three-quarter view from a low camera. One hard white light from the upper right throws a long crisp shadow across the floor to the left; paint and glass show sharp specular highlights, the wheels and tyres sharply detailed. The car occupies the right two thirds of the frame; the left third is plain dark backdrop and floor with nothing on it, large empty space for text. No people, no text, no signs, no logos, no brand badges, no licence plate.",
+      "outputs": [
+        {
+          "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 78
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "Portrait framing of the same dark graphite crossover as the reference image, same seamless deep charcoal studio backdrop, front three-quarter view from a low camera, one hard white light from the upper right with a crisp shadow on the floor. The car sits in the lower half of the frame; the upper half is plain dark backdrop with nothing on it, empty space for text. No people, no text, no logos, no brand badges, no licence plate.",
+      "outputs": [
+        {
+          "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "raw": "raw/card.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Close-up of a car wheel hub with the wheel removed: a new ventilated brake disc and a dark grey brake caliper on the hub, the car raised on a lift, seen from the side at hub height. One hard white light raking from the upper left makes the disc's vent slots and the caliper edges crisp with deep shadows, seamless dark graphite backdrop behind. Tight vertical composition, the disc and caliper fill the lower two thirds; the upper third is dark empty backdrop. No people, no text, no logos.",
+      "outputs": [
+        {
+          "file": "assets/card.webp",
+          "width": 900,
+          "quality": 78
+        },
+        {
+          "file": "assets/card-480.webp",
+          "width": 480,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "wait",
+      "raw": "raw/wait.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A dark grey generic unbranded sedan raised high on a two-post lift inside a service bay, its bonnet open, seen from the front at floor level, wide shot. A single hard work light from the upper right cuts sharp shadows of the lift arms across the smooth dark floor; the walls are plain dark grey. The car and lift sit in the right two thirds of the frame; the left third is plain dark wall and empty floor, empty space for text. No people, no text, no signs, no logos, no brand badges, no licence plate, no posters on the walls.",
+      "outputs": [
+        {
+          "file": "assets/wait.webp",
+          "width": 1600,
+          "quality": 78
+        },
+        {
+          "file": "assets/wait-900.webp",
+          "width": 900,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "side",
+      "raw": "raw/side.png",
+      "ar": "16:9",
+      "ref": "raw/hero.png",
+      "scene": "The same dark graphite crossover as the reference image in a strict side profile, exactly perpendicular to the camera, camera at door-handle height, standing on a seamless deep charcoal-graphite studio backdrop. One hard white light from directly above and slightly in front throws a crisp compact shadow under the car; the wheels, wheel arches, doors and bonnet line are sharply outlined. The car is centred and spans about seventy percent of the frame width, with plain dark empty backdrop above and below it. No people, no text, no logos, no brand badges, no licence plate, no reflections of objects.",
+      "outputs": [
+        {
+          "file": "assets/side.webp",
+          "width": 1920,
+          "quality": 78
+        },
+        {
+          "file": "assets/side-1000.webp",
+          "width": 1000,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "parts",
+      "raw": "raw/parts.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Two hands in dark work gloves holding up a worn old brake pad next to a new brake pad for comparison, the thick fresh friction layer on the new one and the thin worn layer on the old one clearly visible, seen straight on at chest height. One hard white light from the upper left, crisp shadows, seamless dark graphite backdrop behind. Tight vertical composition, hands and pads fill the lower two thirds; the upper third is dark empty backdrop. No face, no text, no logos, no packaging.",
+      "outputs": [
+        {
+          "file": "assets/parts.webp",
+          "width": 900,
+          "quality": 78
+        },
+        {
+          "file": "assets/parts-480.webp",
+          "width": 480,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "seat",
+      "raw": "raw/seat.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Driver's seat of a car with a dark charcoal grey interior, seen through the open door: a plain white disposable protective cover on the seat, a plain paper mat on the dark floor, the steering wheel wrapped in clear protective film, dark grey door panels and dashboard, everything clean. One hard white light from the upper right through the door opening cuts a sharp bright wedge across the seat and leaves the rest in deep shadow. Tight vertical composition, seat in the lower two thirds; the upper third is dark interior, empty space. Muted graphite and black tones only, no orange or coloured trim. No people, no text, no logos, no brand badges, no screen glow.",
+      "outputs": [
+        {
+          "file": "assets/seat.webp",
+          "width": 900,
+          "quality": 78
+        },
+        {
+          "file": "assets/seat-480.webp",
+          "width": 480,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "hero-b",
+      "variant": "Б",
+      "raw": "raw/hero-b.png",
+      "ar": "16:9",
+      "ref": "raw/hero.png",
+      "scene": "The same dark graphite crossover, the same seamless deep charcoal studio backdrop and exactly the same camera position as the reference image, but the bonnet is fully open and the engine bay is lit by the same hard white light from the upper right, crisp shadow on the floor to the left. The car occupies the right two thirds; the left third is plain dark backdrop and floor, empty space for text. No people, no text, no logos, no brand badges, no licence plate.",
+      "outputs": [
+        {
+          "file": "assets/hero-b.webp",
+          "width": 1920,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "hero-b-m",
+      "variant": "Б",
+      "raw": "raw/hero-b-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero-m.png",
+      "scene": "Same portrait framing, the same car and exactly the same camera position as the reference image, but the bonnet is fully open and the engine bay is lit by the hard white light from the upper right. The car sits in the lower half of the frame; the upper half is plain dark backdrop, empty space for text. No people, no text, no logos, no brand badges, no licence plate.",
+      "outputs": [
+        {
+          "file": "assets/hero-b-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "hero-v",
+      "variant": "В",
+      "raw": "raw/hero-v.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A dark graphite generic unbranded crossover standing on the floor of a clean service bay, seen from a low wide angle at the open roller door, a two-post lift and a tool cabinet without any labels deep in the bay. One hard white light from above throws crisp shadows on the smooth dark floor, walls plain dark grey. The car fills the lower two thirds of the frame; the upper third is plain dark wall and ceiling, large empty space for text. No people, no text, no signs, no logos, no brand badges, no licence plate.",
+      "outputs": [
+        {
+          "file": "assets/hero-v.webp",
+          "width": 1920,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "hero-v-m",
+      "variant": "В",
+      "raw": "raw/hero-v-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero-v.png",
+      "scene": "Portrait framing of the same service bay and the same dark graphite crossover as the reference image, seen from a low angle at the open door, one hard white light from above with crisp shadows on the floor. The car sits in the lower half of the frame; the upper half is plain dark wall and ceiling, empty space for text. No people, no text, no signs, no logos, no brand badges, no licence plate.",
+      "outputs": [
+        {
+          "file": "assets/hero-v-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
+      ]
+    }
+  ],
+  "keep": []
+}

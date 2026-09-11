@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>На полях · репетитор по {{предмет}}</title>
+<meta name="description" content="Репетитор по {{предмет}} в {{город}} и онлайн: пробное занятие, план на 8 недель по этапам, цена за занятие или пакет известна до оплаты. Экзамен, разговорный, школьная программа.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="На полях">
+<meta property="og:title" content="На полях · репетитор по {{предмет}}">
+<meta property="og:description" content="План по этапам, а не просто занятия. Пробное занятие, план на 8 недель, цена за занятие или пакет – до оплаты. Онлайн или очно.">
+<meta property="og:url" content="{{ссылка-сайта}}">
+<meta property="og:image" content="{{ссылка-сайта}}/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%273%27 y=%273%27 width=%2726%27 height=%2726%27 rx=%276%27 fill=%27%23e9b638%27/%3E%3Cpath d=%27M22 7v18%27 stroke=%27%231e2433%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3Cpath d=%27M9 12h8M9 17h8M9 22h8%27 stroke=%27%231e2433%27 stroke-width=%271.6%27 stroke-linecap=%27round%27 opacity=%27.55%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Piazzolla:wght@500;600&display=swap">
+<link rel="preload" as="image" href="assets/hero-m.webp" media="(max-width: 860px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero.webp" media="(min-width: 861px)" fetchpriority="high">
+<link rel="stylesheet" href="vibe.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":["LocalBusiness","EducationalOrganization"],"name":"На полях","description":"Репетитор по {{предмет}}: пробное занятие, план на 8 недель по этапам, цена за занятие или пакет известна до оплаты. Онлайн или очно.","url":"{{ссылка-сайта}}","image":"{{ссылка-сайта}}/assets/og.jpg","telephone":"{{телефон}}","address":{"@type":"PostalAddress","streetAddress":"{{адрес}}","addressLocality":"{{город}}","addressCountry":"RU"},"areaServed":"{{город}}","openingHours":"{{часы}}","priceRange":"от {{цена}} ₽ за занятие","sameAs":["{{ссылка-карты}}"]}
+</script>
+<style>
+  html, body { margin: 0; background: #f6f3ec; }
+
+  /* ---- тема: шесть цветов, два шрифта. Плюс цвета тетради (--nb-*) --------- */
+  .v-page {
+    --v-canvas: #f6f3ec; --v-surface: #ffffff;
+    --v-ink: #1e2433; --v-ink-soft: #5a6070;           /* 5,7:1 на бумаге */
+    --v-accent: #e9b638; --v-accent-ink: #1e2433;      /* кнопка 8,3:1 */
+    --v-accent-deep: #7a5a0c;                          /* мелкий акцентный текст, 5,8:1 */
+    --v-font-display: "Piazzolla", "Georgia", "Times New Roman", serif;
+    --v-font-text: "Manrope", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 46 52 70;
+    --v-e1: 0 1px 2px rgb(var(--v-shadow-color) / .08), 0 8px 22px rgb(var(--v-shadow-color) / .10);
+    --v-e2: 0 2px 6px rgb(var(--v-shadow-color) / .10), 0 22px 54px rgb(var(--v-shadow-color) / .16);
+    --v-radius: 8px;
+    --v-track-tight: -0.015em;
+    /* тетрадь: бумага листа, линейка, поля, обложка */
+    --nb-paper: #fffdf8; --nb-line: #cfd8e8; --nb-margin: #d9786c; --nb-cover: #33508f; --nb-cover-ink: #f6f3ec;
+    /* мелкие кегли не ниже 13 и 15 px */
+    --v-t-xs: clamp(0.8125rem, 0.79rem + 0.15vw, 0.85rem);
+    --v-t-sm: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  }
+  @media (max-width: 860px) { .v-page { --v-t-xs: 0.9375rem; } }  /* на телефоне мелкий кегль не ниже 15 px */
+  .v-page .v-display { font-weight: 500; }
+  .v-page .v-btn { font-size: var(--v-t-base); }
+  .v-page .v-lede { color: var(--v-ink); }
+  .nowrap { white-space: nowrap; }
+  /* маркер-текстовыделитель: одна форма акцента на всю страницу */
+  .mark { background: linear-gradient(to top, var(--v-accent) 0 .55em, transparent .55em); padding: 0 .12em; margin: 0 -.12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+  /* ---- шапка: марка, закладки тетради, одна кнопка --------------------------- */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--v-6);
+    padding: var(--v-3) var(--v-gutter); background: rgb(246 243 236 / .88); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--v-hair); }
+  .bar__mark { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1; text-decoration: none; display: inline-flex; align-items: center; gap: .5em; white-space: nowrap; letter-spacing: -.01em; }
+  .bar__mark i { width: .8em; height: 1em; border-radius: 2px; background: var(--v-accent); position: relative; flex: none; }
+  .bar__mark i::after { content: ""; position: absolute; top: 15%; bottom: 15%; right: 26%; width: 1.5px; background: var(--v-ink); opacity: .8; }
+  .tabs { display: flex; gap: var(--v-5); justify-self: center; font-size: var(--v-t-sm); }
+  .tabs a { text-decoration: none; color: var(--v-ink-soft); padding: .35em 0; border-bottom: 2px solid transparent; transition: color .16s var(--v-ease-out), border-color .16s var(--v-ease-out); }
+  @media (hover: hover) and (pointer: fine) { .tabs a:hover { color: var(--v-ink); border-color: var(--v-accent); } }
+  .bar .v-btn { padding: .72em 1.25em; font-size: var(--v-t-sm); }
+  @media (max-width: 1040px) { .tabs a[data-long] { display: none; } }
+  @media (max-width: 860px) {
+    .bar { grid-template-columns: auto auto; justify-content: space-between; gap: var(--v-3); }
+    .tabs { display: none; }
+    .bar .v-btn { padding: .65em 1em; }
+  }
+
+  /* ---- 1 · обложка: стол с тетрадью на весь экран ---------------------------- */
+  .hero__img img { object-position: 0% 60%; }
+  .hero__back { will-change: transform; }
+  .hero__back img { width: 112%; height: 112%; left: 0; top: -6%; object-fit: cover; }
+  .hero__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(to right, rgb(246 243 236 / .62) 0%, rgb(246 243 236 / .34) 30%, rgb(246 243 236 / .08) 48%, transparent 58%); }
+  .hero__copy { max-width: min(38rem, 46vw); bottom: 0; top: 0; display: flex; flex-direction: column; justify-content: center; padding-top: 3.5rem; }
+  .hero__label { font-size: var(--v-t-sm); font-weight: 500; color: var(--v-ink-soft); margin-bottom: var(--v-4); }
+  .hero__copy h1 { font-size: clamp(2.5rem, 1.1rem + 3.4vw, 4.6rem); line-height: .98; }
+  .hero__copy .v-lede { margin-top: var(--v-5); max-width: 40ch; }
+  .hero__cta { margin-top: var(--v-6); display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); }
+  .hero__hint { font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 30ch; }
+  .hero__hint b { color: var(--v-ink); font-weight: 600; }
+  /* вторая реплика: цена бездействия */
+  .hero__turn { max-width: min(38rem, 46vw); bottom: 0; top: 0; display: flex; flex-direction: column; justify-content: center; padding-top: 3.5rem; }
+  .hero__turn h2 { font-size: clamp(2rem, .9rem + 2.6vw, 3.6rem); line-height: 1.02; }
+  .hero__turn p { margin-top: var(--v-5); max-width: 40ch; }
+  .hero__turn p b { font-weight: 600; }
+  @media (max-width: 860px) {
+    .hero__img img { object-position: 50% 78%; left: -6%; }
+    .hero__scrim { background: linear-gradient(to bottom, rgb(246 243 236 / .96) 0%, rgb(246 243 236 / .9) 40%, rgb(246 243 236 / .5) 58%, transparent 72%); }
+    .hero__copy, .hero__turn { left: var(--v-gutter); right: var(--v-gutter); top: 4.6rem; bottom: auto; display: block; padding-top: 0; max-width: none; }
+    .hero__label { margin-bottom: var(--v-3); }
+    .hero__copy h1 { font-size: clamp(1.9rem, 1.2rem + 3.2vw, 2.6rem); line-height: 1.02; }
+    .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-3); }
+    .hero__cta { margin-top: var(--v-4); flex-direction: column; align-items: flex-start; gap: var(--v-3); }
+    .hero__turn h2 { font-size: clamp(1.7rem, 1.1rem + 2.6vw, 2.3rem); }
+    .hero__turn p { margin-top: var(--v-4); }
+  }
+  @media (min-width: 861px) and (max-height: 760px) {
+    .hero__copy h1 { font-size: clamp(2.2rem, 1rem + 2.9vw, 3.8rem); }
+    .hero__copy .v-lede { margin-top: var(--v-4); font-size: var(--v-t-base); }
+  }
+
+  /* ---- 2 · кому и зачем: три строки с линиями + фото учебников --------------- */
+  .komu { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: var(--v-8) var(--v-9); align-items: center; }
+  .komu__copy .v-label { display: block; margin-bottom: var(--v-5); }
+  .komu__copy > p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 44ch; text-wrap: pretty; }
+  .lines { margin-top: var(--v-6); max-width: 52ch; }
+  .lines li { display: grid; grid-template-columns: minmax(9rem, .38fr) 1fr; gap: var(--v-2) var(--v-6); padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); align-items: baseline; }
+  .lines li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .lines b { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.2; }
+  .lines span { color: var(--v-ink-soft); font-size: var(--v-t-sm); text-wrap: pretty; }
+  .komu__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); background: var(--v-surface); aspect-ratio: 3 / 4; max-width: 26rem; width: 100%; justify-self: end; }
+  .komu__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .komu__fig figcaption { position: absolute; z-index: 3; left: var(--v-5); right: var(--v-5); top: var(--v-5); font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 24ch; }
+  .komu__fig figcaption b { display: block; color: var(--v-ink); font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.2; margin-bottom: .3em; }
+  @media (max-width: 860px) {
+    .komu { grid-template-columns: 1fr; gap: var(--v-6); }
+    .komu__fig { justify-self: start; max-width: 22rem; }
+    .lines li { grid-template-columns: 1fr; gap: var(--v-1); }
+  }
+
+  /* ---- 3 · план: тетрадь, которую листаешь (фирменный ход) --------------------- */
+  .plan { height: 100%; display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: var(--v-8); align-items: center; padding: 5rem var(--v-gutter) 2rem; }
+  .plan__copy .v-label { display: block; margin-bottom: var(--v-5); }
+  .plan__copy h2 { font-size: clamp(1.9rem, .9rem + 2.4vw, 3.3rem); line-height: 1.02; }
+  .plan__copy > p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 42ch; text-wrap: pretty; }
+  /* этапы: текущий подсвечен маркером, --on считается от --v-p акта (наследуется) */
+  .stages { margin-top: var(--v-6); display: grid; max-width: 34rem; }
+  .stages li { --on: calc(clamp(0, (var(--v-p, 0) - var(--a)) * 40, 1) - clamp(0, (var(--v-p, 0) - var(--b)) * 40, 1));
+    display: grid; grid-template-columns: 6.5rem 1fr; gap: var(--v-4); align-items: baseline; padding: var(--v-3) 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-sm); }
+  .stages li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .stages li small { font-size: inherit; color: var(--v-ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .stages li span { position: relative; z-index: 0; color: var(--v-ink); opacity: calc(.55 + .45 * var(--on)); }
+  .stages li span::before { content: ""; position: absolute; z-index: -1; left: -.2em; right: -.2em; top: .55em; height: .6em; background: var(--v-accent); transform-origin: left; transform: scaleX(var(--on)); }
+  .plan__note { margin-top: var(--v-5); font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 40ch; }
+  .plan__note b { color: var(--v-ink); font-weight: 600; }
+
+  /* тетрадь: разворот из двух страниц, лист вращается вокруг корешка */
+  .nb { --pg: min(calc((100svh - 9.5rem) / 1.38), 24rem, 21vw); --lh: 1.75rem; --pad: 1.35rem;
+    position: relative; width: calc(var(--pg) * 2); height: calc(var(--pg) * 1.38); margin-left: auto; margin-right: clamp(0rem, 2vw, 2rem);
+    perspective: 2400px; transform-style: preserve-3d; }
+  .nb__base { position: absolute; left: 50%; top: 0; width: 50%; height: 100%; transform: translateZ(-14px); background: var(--nb-paper); border-radius: 0 3px 3px 0; box-shadow: var(--v-e2), inset 0 0 0 1px rgb(var(--v-shadow-color) / .06); }
+  .nb__base::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: rgb(var(--v-shadow-color) / .2); }
+  .leaf { --f: clamp(0, (var(--v-p, 0) - var(--a)) / (var(--b) - var(--a)), 1);
+    position: absolute; left: 50%; top: 0; width: 50%; height: 100%; transform-origin: 0 50%; transform-style: preserve-3d;
+    transform: translateZ(calc((var(--f) * 2 - 1) * var(--i) * 1.5px)) rotateY(calc(var(--f) * -180deg)); will-change: transform; }
+  .leaf__face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; padding: var(--pad) var(--pad) var(--pad) var(--pad); overflow: hidden;
+    background:
+      linear-gradient(to right, transparent calc(100% - 2.6rem), var(--nb-margin) calc(100% - 2.6rem), var(--nb-margin) calc(100% - 2.6rem + 1px), transparent calc(100% - 2.6rem + 1px)),
+      repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--lh) - 1px), var(--nb-line) calc(var(--lh) - 1px), var(--nb-line) var(--lh)),
+      var(--nb-paper);
+    background-origin: border-box; background-position: 0 0, 0 calc(var(--pad) + var(--lh) * .9), 0 0;
+    box-shadow: inset 0 0 0 1px rgb(var(--v-shadow-color) / .06); border-radius: 0 3px 3px 0; }
+  .leaf__face::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, rgb(var(--v-shadow-color) / .22), rgb(var(--v-shadow-color) / .06) 30%, transparent 55%); opacity: calc(var(--f) * 1.6); }
+  .leaf__back { transform: rotateY(180deg); border-radius: 3px 0 0 3px;
+    background:
+      linear-gradient(to right, transparent 2.6rem, var(--nb-margin) 2.6rem, var(--nb-margin) calc(2.6rem + 1px), transparent calc(2.6rem + 1px)),
+      repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--lh) - 1px), var(--nb-line) calc(var(--lh) - 1px), var(--nb-line) var(--lh)),
+      var(--nb-paper);
+    background-position: 0 0, 0 calc(var(--pad) + var(--lh) * .9), 0 0; padding-left: calc(var(--pad) + 2.2rem); }
+  .leaf__back::after { background: linear-gradient(to left, rgb(var(--v-shadow-color) / .18), rgb(var(--v-shadow-color) / .05) 30%, transparent 55%); opacity: calc((1 - var(--f)) * 1.6); }
+  /* обложка: плотный картон, наклейка с надписью */
+  .leaf--cover .leaf__front { background: var(--nb-cover); box-shadow: var(--v-e2), inset 0 0 0 1px rgb(255 255 255 / .08); color: var(--nb-cover-ink); display: grid; align-content: end; }
+  .leaf--cover .leaf__front::after { background: linear-gradient(to right, rgb(0 0 0 / .32), rgb(0 0 0 / .08) 30%, transparent 55%); }
+  .cover__label { background: var(--nb-paper); color: var(--v-ink); border-radius: 3px; padding: var(--v-4) var(--v-4) var(--v-3); margin-bottom: var(--v-3); display: grid; gap: .35em; box-shadow: 0 1px 2px rgb(0 0 0 / .18); }
+  .cover__label b { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.15; }
+  .cover__label span { font-size: var(--v-t-sm); color: var(--v-ink-soft); border-bottom: 1px solid var(--v-hair-strong); padding-bottom: .15em; }
+  .cover__label span i { font-style: normal; color: var(--v-ink); }
+  .cover__brand { font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; opacity: .8; }
+  /* страница этапа: заголовок и строки ложатся на линейку */
+  .pg__week { font-size: var(--v-t-sm); color: var(--v-accent-deep); font-weight: 600; line-height: var(--lh); font-variant-numeric: tabular-nums; }
+  .pg__title { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: var(--lh); color: var(--v-ink); }
+  .pg__lines { margin-top: var(--lh); }
+  .pg__lines li { line-height: var(--lh); font-size: var(--v-t-sm); color: var(--v-ink); padding-left: 1.1em; position: relative; }
+  .pg__lines li::before { content: ""; position: absolute; left: 0; top: calc(var(--lh) / 2 - .2em); width: .4em; height: .4em; border-radius: 50%; background: var(--v-accent-deep); opacity: .7; }
+  .pg__hw { position: absolute; left: var(--pad); right: calc(2.6rem + .4rem); bottom: var(--pad); line-height: var(--lh); font-size: var(--v-t-sm); color: var(--v-ink); }
+  .pg__hw b { font-weight: 600; }
+  .leaf__back .pg__hw { left: calc(var(--pad) + 2.2rem); right: var(--pad); }
+  .pg__note { font-size: var(--v-t-sm); color: var(--v-ink-soft); line-height: var(--lh); }
+  .pg__blank { display: grid; gap: 0; }
+  .pg__blank span { line-height: var(--lh); font-size: var(--v-t-sm); color: var(--v-ink-soft); display: flex; gap: .6em; align-items: baseline; }
+  .pg__blank span::before { content: ""; flex: 1; order: 1; border-bottom: 1px dotted var(--v-hair-strong); transform: translateY(-.35em); }
+  .pg__blank span i { order: 2; font-style: normal; color: var(--v-ink); font-weight: 600; }
+  /* скобы на корешке */
+  .nb__staple { position: absolute; left: 50%; width: 2px; height: 1rem; margin-left: -1px; background: rgb(var(--v-shadow-color) / .3); border-radius: 2px; z-index: 5; transform: translateZ(12px); }
+  .nb__staple--a { top: 22%; } .nb__staple--b { top: 72%; }
+    @media (max-width: 860px) {
+    .plan { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); gap: var(--v-4); padding: 5rem var(--v-gutter) 1.5rem; align-items: start; }
+    .plan__copy h2 { font-size: clamp(1.5rem, 1rem + 2.6vw, 2rem); }
+    .plan__copy > p { display: none; }
+    .stages { margin-top: var(--v-4); }
+    .stages li { padding: var(--v-2) 0; grid-template-columns: 5.6rem 1fr; }
+    .plan__note { display: none; }
+    /* на телефоне видна одна страница: разворот сдвинут так, что правая страница по центру, перевёрнутые листы уходят за край */
+    .nb { --pg: min(calc(100vw - 2 * var(--v-gutter) - 1rem), calc((100svh - 26.5rem) / 1.38), 20rem); --lh: 1.6rem; --pad: 1.1rem; margin: var(--v-3) 0 0 calc(50% - var(--pg) * 1.5); align-self: start; }
+  }
+  @media (max-width: 400px) { .nb { --lh: 1.5rem; } }
+  @media (min-width: 861px) and (max-height: 760px) { .nb { --lh: 1.6rem; --pad: 1.1rem; } .plan__copy > p { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .leaf { transform: rotateY(calc(var(--f) * -180deg)); } }
+
+  /* ---- 4 · занятие по минутам: лента ------------------------------------------ */
+  .les { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-top: 4rem; }
+  .les__rail { padding-inline: var(--v-gutter); align-items: stretch; gap: clamp(1rem, 2.5vw, 2.5rem); }
+  .card { flex: none; width: clamp(17rem, 24vw, 22rem); display: flex; flex-direction: column; }
+  .card--intro { width: clamp(18rem, 27vw, 26rem); padding-right: var(--v-6); justify-content: center; }
+  .card--intro .v-label { display: block; margin-bottom: var(--v-5); }
+  .card--intro h2 { font-size: clamp(1.9rem, 1rem + 2.2vw, 3rem); line-height: 1.02; }
+  .card--intro p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 30ch; text-wrap: pretty; }
+  .card--intro .v-btn { margin-top: var(--v-6); align-self: flex-start; }
+  .card--photo { width: clamp(22rem, 34vw, 32rem); }
+  .card--photo figure { display: flex; flex-direction: column; height: 100%; border-radius: var(--v-radius); overflow: hidden; background: var(--v-surface); box-shadow: var(--v-e1); }
+  .card--photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; }
+  .card--photo figcaption { padding: var(--v-4) var(--v-5); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .card--photo figcaption b { color: var(--v-ink); font-weight: 600; }
+  /* линейка минут: линия через всю карточку, залит свой отрезок из 45 */
+  .seg { position: relative; display: block; height: 1.4rem; margin-bottom: var(--v-4); }
+  .seg::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--v-hair-strong); }
+  .seg::after { content: ""; position: absolute; top: calc(50% - 2px); height: 5px; border-radius: 3px; background: var(--v-accent); left: calc(var(--from) / 45 * 100%); width: calc((var(--to) - var(--from)) / 45 * 100%); }
+  .card__min { font-size: var(--v-t-sm); color: var(--v-accent-deep); font-weight: 600; font-variant-numeric: tabular-nums; margin-bottom: var(--v-3); }
+  .card h3 { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); line-height: 1.12; }
+  .card > p { margin-top: var(--v-4); color: var(--v-ink); font-size: var(--v-t-sm); max-width: 30ch; text-wrap: pretty; }
+  .card__who { margin-top: auto; padding-top: var(--v-5); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .card__who b { color: var(--v-ink); font-weight: 600; }
+  @media (pointer: coarse) {
+    .les { height: auto; padding-top: 5rem; padding-bottom: var(--v-6); display: block; }
+    .les__rail { align-items: flex-start; }
+    .card, .card--intro { width: min(74vw, 22rem); }
+    .card--intro { justify-content: flex-start; }
+    .card--photo { width: min(78vw, 24rem); }
+    .card--photo img { aspect-ratio: 4 / 3; flex: none; }
+    .card--intro { padding-right: 0; }
+    .card--intro h2 { font-size: var(--v-t-xl); }
+    [data-v-stage] { scroll-padding-inline: var(--v-gutter); }
+  }
+
+  /* ---- 5 · цены и форматы: строки с линиями ----------------------------------- */
+  .prices { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); grid-template-rows: auto 1fr; gap: var(--v-7) var(--v-9); align-items: start; }
+  .prices__head { grid-column: 1; grid-row: 1; }
+  .prices__head .v-label { display: block; margin-bottom: var(--v-5); }
+  .prices__head p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 34ch; text-wrap: pretty; }
+  .terms { margin-top: var(--v-6); display: grid; gap: var(--v-3); font-size: var(--v-t-sm); }
+  .terms li { display: grid; grid-template-columns: auto 1fr; gap: var(--v-3); align-items: baseline; }
+  .terms li::before { content: ""; width: 1.3rem; height: 1px; background: var(--v-accent-deep); align-self: center; }
+  .terms b { font-weight: 600; }
+  .prices__fig { grid-column: 1; grid-row: 2; width: min(100%, 19rem); border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e1); background: var(--v-surface); }
+  .prices__fig img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .prices__fig figcaption { padding: var(--v-3) var(--v-4) var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .prices__fig figcaption b { color: var(--v-ink); font-weight: 600; }
+  .prices__list { grid-column: 2; grid-row: 1 / span 2; }
+  .rows li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: var(--v-1) var(--v-6); align-items: baseline; padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); }
+  .rows li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .rows h3 { grid-row: 1; grid-column: 1; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.2; }
+  .rows p { grid-row: 2; grid-column: 1; color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 46ch; text-wrap: pretty; }
+  .rows .time { grid-row: 1; grid-column: 2; color: var(--v-ink-soft); font-size: var(--v-t-sm); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .rows .price { grid-row: 1; grid-column: 3; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); color: var(--v-ink); white-space: nowrap; min-width: 7ch; text-align: right; }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-5); margin-top: var(--v-7); }
+  .cta span { color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 36ch; text-wrap: pretty; }
+  @media (max-width: 860px) {
+    .prices { grid-template-columns: 1fr; grid-template-rows: none; gap: var(--v-6); }
+    .prices__head, .prices__list, .prices__fig { grid-column: 1; grid-row: auto; }
+    .prices__fig { width: min(100%, 16rem); }
+    .rows li { grid-template-columns: minmax(0, 1fr) auto; }
+    .rows .time { grid-row: 2; grid-column: 1; }
+    .rows p { grid-row: 3; }
+    .rows .price { grid-column: 2; font-size: var(--v-t-base); }
+  }
+
+  /* ---- 6 · преподаватель: шторка снизу на фото + строки ------------------------- */
+  .prep { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: var(--v-8) var(--v-9); align-items: center; }
+  .prep__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); aspect-ratio: 3 / 4; background: var(--v-surface); max-width: 28rem; width: 100%; }
+  .prep__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .prep__fig .v-scrim { top: auto; height: 46%; }
+  .prep__fig figcaption { position: absolute; z-index: 3; left: var(--v-5); right: var(--v-5); bottom: var(--v-5); display: grid; gap: .2em; }
+  .prep__fig figcaption b { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); }
+  .prep__fig figcaption span { color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .prep__fig figcaption .fact { color: var(--v-ink); }
+  .prep__copy .v-label { display: block; margin-bottom: var(--v-5); }
+  .prep__copy .said { margin-top: var(--v-6); max-width: 50ch; }
+  .said p { padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); text-wrap: pretty; }
+  .said p:last-child { border-bottom: 1px solid var(--v-hair); }
+  .said b { font-weight: 600; }
+  @media (max-width: 860px) { .prep { grid-template-columns: 1fr; gap: var(--v-6); } .prep__fig { max-width: 22rem; order: 2; } }
+
+  /* ---- 7 · отзывы с Яндекс.Карт (честные слоты) ---------------------------------- */
+  @property --r { syntax: "<number>"; inherits: false; initial-value: 0; }
+  .reviews__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--v-6) var(--v-8); align-items: end; margin-bottom: var(--v-7); }
+  .reviews__head .v-label { display: block; margin-bottom: var(--v-5); }
+  .reviews__rating { display: grid; grid-template-columns: auto auto; gap: var(--v-1) var(--v-4); align-items: center; font-size: var(--v-t-sm); }
+  .reviews__num { grid-row: 1 / span 2; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); line-height: 1; color: var(--v-ink); }
+  .reviews__rating a { color: var(--v-ink); }
+  .reviews__stars { --size: 1.1rem; display: inline-block; width: calc(var(--size) * 5); height: var(--size);
+    background: linear-gradient(90deg, var(--v-accent) calc(var(--r, 0) / 5 * 100%), var(--v-hair-strong) 0);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x; }
+  .reviews__stars--sm { --size: .8rem; vertical-align: middle; }
+  .reviews__list { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--v-6); align-items: start; }
+  .reviews__item { padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .reviews__item--big .reviews__text { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); line-height: 1.4; }
+  .reviews__text { text-wrap: pretty; }
+  .reviews__meta { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__meta b { color: var(--v-ink); font-weight: 600; }
+  @media (max-width: 860px) { .reviews__list { grid-template-columns: 1fr; } .reviews__head { grid-template-columns: 1fr; align-items: start; margin-bottom: var(--v-6); } }
+
+  /* ---- 8 · запись на пробное: финал держит реплику, футер в сцене ---------------- */
+  .fin { height: 100%; display: grid; grid-template-rows: 1fr auto; padding: 0 var(--v-gutter); }
+  .fin__inner { align-self: center; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: var(--v-8); align-items: end; padding-top: var(--v-9); }
+  .fin__inner h2 { font-size: clamp(2.2rem, 1rem + 3vw, 4.2rem); line-height: .98; }
+  .fin__inner p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 40ch; text-wrap: pretty; }
+  .fin__btns { margin-top: var(--v-6); display: flex; flex-wrap: wrap; gap: var(--v-3); }
+  .fin__meta { display: grid; gap: var(--v-3); color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .fin__tel { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); text-decoration: none; color: var(--v-ink); display: inline-block; padding-block: .3em; margin-bottom: var(--v-1); }
+  .fin__meta b { color: var(--v-ink); font-weight: 600; }
+  .fin__meta a:not(.fin__tel) { color: var(--v-ink); display: inline-block; padding-block: .25em; }
+  .foot { display: flex; justify-content: space-between; gap: var(--v-4); flex-wrap: wrap; padding: var(--v-6) 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); }
+  @media (max-width: 860px) {
+    .fin__inner { grid-template-columns: 1fr; gap: var(--v-6); padding-top: var(--v-8); }
+    .fin__inner h2 { font-size: clamp(1.8rem, 1.2rem + 3vw, 2.4rem); }
+    .fin__tel { font-size: var(--v-t-lg); }
+    .foot span:last-child { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="v-page">
+  <span data-v-progress></span>
+
+  <header class="bar">
+    <a class="bar__mark" href="#top"><i aria-hidden="true"></i><span>На полях</span></a>
+    <nav class="tabs" aria-label="Закладки">
+      <a href="#plan">План</a>
+      <a href="#zanyatie">Занятие</a>
+      <a href="#ceny">Цены</a>
+      <a href="#prepod" data-long>Преподаватель</a>
+      <a href="#otzyvy" data-long>Отзывы</a>
+    </nav>
+    <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться на пробное</a>
+  </header>
+
+  <main>
+
+    <!-- 1 · ОБЛОЖКА: стол с тетрадью на весь экран. Оффер слева, кнопка над сгибом.
+         Вторая реплика – цена бездействия: занятия без плана -->
+    <section id="top" data-v-act="pin" data-v-span="1.9" aria-label="Репетитор: план по этапам">
+      <div data-v-stage>
+        <div class="v-layer hero__back" data-v-parallax="-0.3">
+          <div class="v-fill hero__img">
+            <picture>
+              <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
+              <img src="assets/hero.webp" srcset="assets/hero-1200.webp 1200w, assets/hero.webp 1920w" sizes="100vw" alt="Открытая тетрадь и ручка на столе" width="1920" height="1080" fetchpriority="high">
+            </picture>
+          </div>
+        </div>
+        <div class="hero__scrim" aria-hidden="true"></div>
+
+        <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.5 0 0.1">
+          <p class="hero__label">Репетитор по {{предмет}} · онлайн и очно</p>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">План по этапам, а не просто занятия</h1>
+          <p class="v-lede">Пробное занятие, план на 8 недель и цена за занятие или пакет – до оплаты. Экзамен, разговорный, школьная программа.</p>
+          <div class="hero__cta">
+            <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener" data-v-magnet="0.2" data-v-rise="0">Записаться на пробное</a>
+            <p class="hero__hint">Пробное – 45 минут, <b>{{цена}}&nbsp;₽</b>. После него план и цена, потом решение.</p>
+          </div>
+        </div>
+
+        <div class="v-copy v-copy--lead hero__turn" data-v-cue="0.5 1 0.08 0">
+          <p class="hero__label">Почему уходят через месяц</p>
+          <h2 class="v-display">Без плана занятие – это «поговорили и разошлись»</h2>
+          <p class="v-lede">Через месяц ученик не видит, куда идёт, и уходит. <b>Поэтому порядок такой:</b> пробное, план на 8 недель по этапам, и только потом оплата.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · КОМУ И ЗАЧЕМ: три задачи, с которыми приходят -->
+    <section class="v-section v-section--tight" data-v-act="flow" id="komu" aria-label="Кому и зачем">
+      <div class="v-wrap komu">
+        <div class="komu__copy" data-v-in data-v-stagger="70">
+          <span class="v-label">Кому</span>
+          <h2 class="v-display v-display--lg">Три задачи, с которыми приходят</h2>
+          <p>План зависит от задачи, а не от учебника. На пробном занятии выясняем, какая из трёх ваша, и от неё считаем недели.</p>
+          <ul class="lines">
+            <li><b>Экзамен</b><span>ЕГЭ, ОГЭ, международный. План строим от даты экзамена назад, задания в формате экзамена с первых недель.</span></li>
+            <li><b>Разговорный</b><span>Для работы и поездок. Говорим с первого занятия, грамматика подтягивается под то, что нужно сказать.</span></li>
+            <li><b>Школьная программа</b><span>Догнать четверть и перестать бояться контрольных. Разбираем то, на чём споткнулись, а не всё подряд.</span></li>
+          </ul>
+        </div>
+        <figure class="komu__fig" data-v-in>
+          <img src="assets/komu.webp" alt="Стопка учебников, карандаш и стикеры" width="1000" height="1333" loading="lazy">
+          <figcaption><b>Пробное – 45 минут</b>Диагностика, цель и первый план. Если не подошло, просто не продолжаем.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 · ПЛАН: тетрадь, которую листаешь. Фирменный ход: листы вращаются от --v-p, без JS -->
+    <section data-v-act="pin" data-v-span="2.5" data-v-drift="#faf8f3" id="plan" aria-label="План на 8 недель">
+      <div data-v-stage>
+        <div class="plan">
+          <div class="plan__copy" data-v-cue="0 1 0 0" data-v-rise="0">
+            <span class="v-label">План</span>
+            <h2 class="v-display">План на 8&nbsp;недель, а не абонемент на «поговорить»</h2>
+            <p>После пробного занятия вы получаете тетрадь: четыре этапа по две недели, что делаем на занятиях и что дома. Вот она, страница за страницей.</p>
+            <ol class="stages" aria-label="Этапы плана">
+              <li style="--a: .09; --b: .39"><small>Недели 1–2</small><span>Диагностика и база</span></li>
+              <li style="--a: .39; --b: .65"><small>Недели 3–4</small><span>Главные темы</span></li>
+              <li style="--a: .65; --b: .90"><small>Недели 5–6</small><span>Практика и скорость</span></li>
+              <li style="--a: .90; --b: 1.2"><small>Недели 7–8</small><span>Пробный экзамен и разбор</span></li>
+            </ol>
+            <p class="plan__note"><b>Каждые две недели – короткий итог:</b> что закрыли, что переносим. Родитель видит план целиком, а не «занимаемся».</p>
+          </div>
+
+          <div class="nb" aria-label="Тетрадь с планом на 8 недель" role="img">
+            <div class="nb__base" aria-hidden="true"></div>
+
+            <!-- листы: --a/--b – окно поворота по прогрессу акта; последний лист не переворачивается -->
+            <div class="leaf" style="--i: 4; --a: .84; --b: .96" aria-hidden="true">
+              <div class="leaf__face leaf__front">
+                <p class="pg__week">Недели 5–6</p>
+                <p class="pg__title">Практика и скорость</p>
+                <ul class="pg__lines">
+                  <li>Задания на время</li>
+                  <li>Ошибки – в отдельный список</li>
+                  <li>Диалог или эссе каждое занятие</li>
+                </ul>
+                <p class="pg__hw"><b>Дома:</b> 20 минут в день</p>
+              </div>
+              <div class="leaf__face leaf__back">
+                <p class="pg__note">Итог недель 5–6</p>
+                <ul class="pg__lines">
+                  <li>Что закрыли</li>
+                  <li>Что переносим в 7–8</li>
+                </ul>
+                <p class="pg__hw">Сообщение родителю в тот же день</p>
+              </div>
+            </div>
+
+            <div class="leaf" style="--i: 5; --a: 1.5; --b: 1.6" aria-hidden="true">
+              <div class="leaf__face leaf__front">
+                <p class="pg__week">Недели 7–8</p>
+                <p class="pg__title">Пробный экзамен и разбор</p>
+                <ul class="pg__lines">
+                  <li>Пробник в формате экзамена</li>
+                  <li>Разбор по пунктам</li>
+                  <li>Что дальше: план на следующие 8</li>
+                </ul>
+                <p class="pg__hw"><b>Дома:</b> повторить список ошибок</p>
+              </div>
+              <div class="leaf__face leaf__back"></div>
+            </div>
+
+            <div class="leaf" style="--i: 3; --a: .58; --b: .72" aria-hidden="true">
+              <div class="leaf__face leaf__front">
+                <p class="pg__week">Недели 3–4</p>
+                <p class="pg__title">Главные темы</p>
+                <ul class="pg__lines">
+                  <li>Одна тема за занятие</li>
+                  <li>Правило, примеры, проверка</li>
+                  <li>Слова только по теме</li>
+                </ul>
+                <p class="pg__hw"><b>Дома:</b> 20 минут в день</p>
+              </div>
+              <div class="leaf__face leaf__back">
+                <p class="pg__note">Итог недель 3–4</p>
+                <ul class="pg__lines">
+                  <li>Что закрыли</li>
+                  <li>Что переносим в 5–6</li>
+                </ul>
+                <p class="pg__hw">Сообщение родителю в тот же день</p>
+              </div>
+            </div>
+
+            <div class="leaf" style="--i: 2; --a: .32; --b: .46" aria-hidden="true">
+              <div class="leaf__face leaf__front">
+                <p class="pg__week">Недели 1–2</p>
+                <p class="pg__title">Диагностика и база</p>
+                <ul class="pg__lines">
+                  <li>Что знает, где путается</li>
+                  <li>Цель и дата: экзамен, поездка, четверть</li>
+                  <li>Первое домашнее</li>
+                </ul>
+                <p class="pg__hw"><b>Дома:</b> 15 минут в день</p>
+              </div>
+              <div class="leaf__face leaf__back">
+                <p class="pg__note">Итог недель 1–2</p>
+                <ul class="pg__lines">
+                  <li>Что закрыли</li>
+                  <li>Что переносим в 3–4</li>
+                </ul>
+                <p class="pg__hw">Сообщение родителю в тот же день</p>
+              </div>
+            </div>
+
+            <div class="leaf leaf--cover" style="--i: 1; --a: .02; --b: .16" aria-hidden="true">
+              <div class="leaf__face leaf__front">
+                <div class="cover__label">
+                  <b>План на 8 недель</b>
+                  <span>Предмет: <i>{{предмет}}</i></span>
+                  <span>Ученик:</span>
+                  <span>Цель:</span>
+                </div>
+                <p class="cover__brand">На полях · тетрадь</p>
+              </div>
+              <div class="leaf__face leaf__back">
+                <p class="pg__note">Как читать</p>
+                <div class="pg__blank">
+                  <span>Занятий в неделю<i>1</i></span>
+                  <span>Дома в день<i>20 минут</i></span>
+                  <span>Итог каждые<i>2 недели</i></span>
+                </div>
+                <p class="pg__hw">Пробное занятие – до плана</p>
+              </div>
+            </div>
+
+            <span class="nb__staple nb__staple--a" aria-hidden="true"></span>
+            <span class="nb__staple nb__staple--b" aria-hidden="true"></span>
+                  </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · ЗАНЯТИЕ ПО МИНУТАМ: лента. На тач – горизонтальная прокрутка пальцем -->
+    <section data-v-act="pan" data-v-span="2.2" id="zanyatie" aria-label="Как проходит занятие">
+      <div data-v-stage>
+        <div class="les">
+          <div class="les__rail" data-v-pan="0.03">
+            <div class="card card--intro" data-v-cue="0 1 0 0" data-v-rise="0">
+              <span class="v-label">Занятие</span>
+              <h2 class="v-display">45 минут по минутам</h2>
+              <p>Каждое занятие идёт по одной схеме: ученик знает, что будет, родитель – что было.</p>
+              <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться на пробное</a>
+            </div>
+
+            <div class="card card--photo">
+              <figure>
+                <img src="assets/hourglass.webp" alt="Песочные часы, тетрадь и карандаш на столе" width="1600" height="900" loading="lazy">
+                <figcaption><b>45 минут, онлайн или очно.</b> Перенос за 24 часа – без потери занятия.</figcaption>
+              </figure>
+            </div>
+
+            <div class="card">
+              <span class="seg" style="--from: 0; --to: 5" aria-hidden="true"></span>
+              <p class="card__min">0–5 минут</p>
+              <h3>Разбор домашнего</h3>
+              <p>Смотрим, что получилось. Ошибки разбираем сразу, а не «потом посмотрим».</p>
+              <p class="card__who"><b>Ученик:</b> видит, что домашнее проверяют, и делает его.</p>
+            </div>
+
+            <div class="card">
+              <span class="seg" style="--from: 5; --to: 25" aria-hidden="true"></span>
+              <p class="card__min">5–25 минут</p>
+              <h3>Одна новая тема</h3>
+              <p>Правило, три примера, проверочный вопрос. Одна тема за занятие, не пять сразу.</p>
+              <p class="card__who"><b>Ученик:</b> уходит с одной вещью, которую понял до конца.</p>
+            </div>
+
+            <div class="card">
+              <span class="seg" style="--from: 25; --to: 40" aria-hidden="true"></span>
+              <p class="card__min">25–40 минут</p>
+              <h3>Практика</h3>
+              <p>Ученик делает сам: упражнение, диалог или задание из экзамена. Подсказываю, а не решаю за него.</p>
+              <p class="card__who"><b>Ученик:</b> говорит и пишет больше, чем слушает.</p>
+            </div>
+
+            <div class="card">
+              <span class="seg" style="--from: 40; --to: 45" aria-hidden="true"></span>
+              <p class="card__min">40–45 минут</p>
+              <h3>Итог и домашнее</h3>
+              <p>Что получилось, что повторить. Домашнее на 20 минут в день и короткое сообщение родителю в тот же день.</p>
+              <p class="card__who"><b>Родитель:</b> знает, что было и что задано, без расспросов.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · ЦЕНЫ И ФОРМАТЫ: строки с линиями -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#f6f3ec" id="ceny" aria-label="Цены и форматы">
+      <div class="v-wrap prices">
+        <div class="prices__head" data-v-in data-v-stagger="60">
+          <span class="v-label">Цены и форматы</span>
+          <h2 class="v-display v-display--md">Цена за занятие или пакет – до оплаты</h2>
+          <p>Онлайн или очно, одна цена. Пакет – это ровно план на 8 недель, платить за «поговорить» не придётся.</p>
+          <ul class="terms">
+            <li><span><b>Онлайн</b> – видеосвязь и общая доска, <b>очно</b> – {{адрес}}</span></li>
+            <li><span><b>Оплата за занятие</b> или пакетом, пакет действует 10 недель</span></li>
+            <li><span><b>Перенос за 24 часа</b> – без потери занятия</span></li>
+          </ul>
+        </div>
+        <figure class="prices__fig" data-v-in>
+          <img src="assets/stack.webp" alt="Стопка тонких школьных тетрадей" width="1000" height="1333" loading="lazy">
+          <figcaption><b>Пакет 8 занятий</b> – одна тетрадь-план на 8 недель.</figcaption>
+        </figure>
+        <div class="prices__list">
+          <ul class="rows" data-v-in data-v-stagger="50">
+            <li><h3>Пробное занятие</h3><span class="time">45 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Диагностика, цель и первый план. Если не подошло, просто не продолжаем.</p></li>
+            <li><h3>Разовое занятие</h3><span class="time">60 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Онлайн или очно. Оплата после занятия, перенос за 24 часа – без потери.</p></li>
+            <li><h3>Пакет 8 занятий</h3><span class="time">8 × 60 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>План на 8 недель: одно занятие в неделю, итог каждые две недели. Занятие в пакете дешевле разового.</p></li>
+            <li><h3>Пакет 16 занятий</h3><span class="time">16 × 60 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Два занятия в неделю: подготовка к экзамену или сжатые сроки.</p></li>
+            <li><h3>Подготовка к экзамену</h3><span class="time">90 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>ЕГЭ, ОГЭ, международный. План от даты экзамена назад, пробники в формате экзамена.</p></li>
+            <li><h3>Мини-группа до 4 человек</h3><span class="time">60 минут</span><span class="price v-nums">{{цена}}&nbsp;₽</span><p>Разговорный: больше практики речи, ниже цена за занятие. Набор по уровню.</p></li>
+          </ul>
+          <div class="cta" data-v-in>
+            <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться на пробное</a>
+            <span>Напишите, кому и зачем: предложим время на пробное на ближайшие дни.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · ПРЕПОДАВАТЕЛЬ: факты слотами, фото без лица -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#faf8f3" id="prepod" aria-label="Преподаватель">
+      <div class="v-wrap prep">
+        <figure class="prep__fig" data-v-reveal="up" data-v-reveal-at="0.12 0.5">
+          <img src="assets/teacher.webp" alt="Преподаватель за столом проверяет тетрадь" width="1000" height="1333" loading="lazy">
+          <div class="v-scrim v-scrim--light v-scrim--band" aria-hidden="true"></div>
+          <figcaption>
+            <b>{{преподаватель}}</b>
+            <span>репетитор по {{предмет}}, «На полях»</span>
+            <span class="fact">{{образование}} · {{опыт}}</span>
+          </figcaption>
+        </figure>
+        <div class="prep__copy" data-v-in data-v-stagger="70">
+          <span class="v-label">Преподаватель</span>
+          <h2 class="v-display v-display--md">Сначала спрашиваю, зачем вам {{предмет}}</h2>
+          <div class="said">
+            <p><b>Экзамен, работа или четверть</b> – от этого зависит план, а не от учебника. Поэтому первое занятие – диагностика, а не «открываем страницу пять».</p>
+            <p><b>Одна тема за занятие.</b> Не пять. Тема считается закрытой, когда ученик объяснил её мне, а не наоборот.</p>
+            <p><b>Родителю пишу после каждого занятия:</b> что было, что задано, что получается. Без «всё хорошо».</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · ОТЗЫВЫ С ЯНДЕКС.КАРТ: только настоящие, целиком на слотах -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#f6f3ec" id="otzyvy" aria-label="Отзывы с Яндекс.Карт">
+      <div class="v-wrap reviews">
+        <div class="reviews__head" data-v-in data-v-stagger="60">
+          <div>
+            <span class="v-label">Отзывы</span>
+            <h2 class="v-display v-display--lg">Что пишут на Яндекс.Картах</h2>
+          </div>
+          <div class="reviews__rating">
+            <span class="reviews__num v-nums">{{рейтинг}}</span>
+            <span class="reviews__stars" style="--r: {{рейтинг}}" role="img" aria-label="рейтинг {{рейтинг}} из 5"></span>
+            <span><span class="v-soft">{{отзывов}} отзывов</span> · <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Читать все отзывы</a></span>
+          </div>
+        </div>
+        <ul class="reviews__list" data-v-in data-v-stagger="90">
+          <li class="reviews__item reviews__item--big">
+            <p class="reviews__text">«{{отзыв 1}}»</p>
+            <p class="reviews__meta"><b>{{имя 1}}</b> · {{дата 1}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 1}}" role="img" aria-label="оценка {{оценка 1}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 2}}»</p>
+            <p class="reviews__meta"><b>{{имя 2}}</b> · {{дата 2}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 2}}" role="img" aria-label="оценка {{оценка 2}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 3}}»</p>
+            <p class="reviews__meta"><b>{{имя 3}}</b> · {{дата 3}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 3}}" role="img" aria-label="оценка {{оценка 3}} из 5"></span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8 · ЗАПИСЬ НА ПРОБНОЕ: финал держит реплику, футер внутри сцены -->
+    <section data-v-act="pin" data-v-span="1.4" id="zapis" aria-label="Записаться на пробное">
+      <div data-v-stage>
+        <div class="fin">
+          <div class="fin__inner">
+            <div data-v-cue="0.04">
+              <h2 class="v-display">Начните с пробного занятия</h2>
+              <p>Напишите, кому и зачем нужен {{предмет}}: предложим время на ближайшие дни, проведём диагностику и вернёмся с планом на 8 недель и ценой.</p>
+              <div class="fin__btns">
+                <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться на пробное</a>
+                <a class="v-btn v-btn--ghost" href="tel:{{телефон}}">Позвонить</a>
+              </div>
+            </div>
+            <div class="fin__meta" data-v-cue="0.1">
+              <a class="fin__tel" href="tel:{{телефон}}">{{телефон}}</a>
+              <span><b>Онлайн</b> – видеосвязь, общая доска</span>
+              <span><b>Очно</b> – {{адрес}}, {{город}}</span>
+              <span>{{часы}}, по записи</span>
+              <span>Отвечаем в мессенджере в рабочие часы</span>
+              <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Как добраться: карточка на Яндекс.Картах</a>
+            </div>
+          </div>
+          <footer class="foot">
+            <span>На полях · репетитор по {{предмет}} · {{город}}</span>
+            <span>Экзамен, разговорный, школьная программа · онлайн и очно</span>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vibe.js"></script>
+<script>
+  // На телефоне пины короче: data-v-span правим до монтирования.
+  if (window.matchMedia('(max-width: 860px)').matches) {
+    document.getElementById('top').setAttribute('data-v-span', '1.6');
+    document.getElementById('plan').setAttribute('data-v-span', '2.3');
+    document.getElementById('zapis').setAttribute('data-v-span', '1.3');
+  }
+  Vibe.mount(document.querySelector('.v-page'));
+  // Фирменный ход «тетрадь, которую листаешь» живёт в CSS: каждый лист считает --f от --v-p акта
+  // (переменная наследуется с секции) и поворачивается rotateY вокруг корешка. JS не нужен.
+</script>
+</body>
+</html>

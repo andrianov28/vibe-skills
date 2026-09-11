@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Намётка · ателье: цена и срок до визита</title>
+<meta name="description" content="Ателье «Намётка» в {{город}}: цены и сроки на типовые работы известны до визита. Подшить, ушить, заменить молнию, сшить по меркам. Примерка в цене, срок в квитанции, вещь вернём вовремя.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Намётка">
+<meta property="og:title" content="Цена и срок до визита, а не после работы">
+<meta property="og:description" content="Типовые работы по прайсу: подшить, ушить, заменить молнию, сшить по меркам. Примерка в цене, срок в квитанции.">
+<meta property="og:url" content="{{адрес сайта}}">
+<meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="assets/hero.webp" fetchpriority="high" media="(min-width: 861px)">
+<link rel="preload" as="image" href="assets/hero-m.webp" fetchpriority="high" media="(max-width: 860px)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cpath d=%27M7 25 L25 7%27 stroke=%27%2324336e%27 stroke-width=%273.2%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%273.4%27 fill=%27none%27 stroke=%27%2324336e%27 stroke-width=%272.2%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vibe.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Намётка","description":"Ателье: ремонт одежды и пошив по меркам. Цены и сроки на типовые работы известны до визита, примерка в цене, срок в квитанции.","url":"{{адрес сайта}}","image":"{{адрес сайта}}/assets/og.jpg","telephone":"{{телефон}}","openingHours":"{{часы}}","address":{"@type":"PostalAddress","streetAddress":"{{адрес}}","addressLocality":"{{город}}","addressCountry":"RU"},"priceRange":"от {{цена}} ₽","sameAs":["{{ссылка-карты}}"]}
+</script>
+<style>
+  /* ---- тема: шесть цветов, два шрифта --------------------------------- */
+  .v-page {
+    --v-canvas: #ebe5d8; --v-surface: #f6f2ea;
+    --v-ink: #1c2130; --v-ink-soft: #5a5e6a;
+    --v-accent: #24336e; --v-accent-ink: #f3efe6;
+    --v-font-display: "IBM Plex Serif", "Georgia", "Times New Roman", serif;
+    --v-font-text: "Onest", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 60 52 38;
+    --v-e1: 0 1px 2px rgb(var(--v-shadow-color) / .10), 0 8px 22px rgb(var(--v-shadow-color) / .12);
+    --v-e2: 0 2px 6px rgb(var(--v-shadow-color) / .12), 0 22px 54px rgb(var(--v-shadow-color) / .18);
+    --v-radius: 8px;
+    --v-display-weight: 600;
+    --v-track-tight: -0.015em;
+    /* мелкие кегли не ниже 13 и 15 px */
+    --v-t-xs: clamp(0.8125rem, 0.79rem + 0.15vw, 0.85rem);
+    --v-t-sm: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+    /* полупрозрачные подложки считаем от палитры */
+    --v-canvas-85: color-mix(in oklab, var(--v-canvas) 85%, transparent);
+    --v-accent-10: color-mix(in oklab, var(--v-accent) 10%, transparent);
+    /* сцены на тёмном фото (hero и «Квитанция»): фото тёмное при любой палитре, поэтому текст и кнопка там светлые.
+       Для тёмной палитры (Б) --hero-accent задать равным --v-accent, см. template.md */
+    --hero-dark: #14131a;
+    --hero-ink: #f3efe6;
+    --hero-soft: color-mix(in oklab, var(--hero-ink) 74%, transparent);
+    --hero-accent: #ece4d2;
+    --hero-accent-ink: #1c2130;
+    /* бумага квитанции и штампы: бумага светлая при любой палитре */
+    --paper: #f7f3ea;
+    --paper-ink: #1c2130;
+    --paper-soft: #6a6d78;
+    --paper-hair: rgb(28 33 48 / .18);
+    --stamp: var(--v-accent);
+  }
+  html, body { background: #ebe5d8; }
+  .v-page .v-display { line-height: 1.04; }
+  .v-page .v-lede { font-weight: 400; }
+  .v-page .v-label { font-weight: 500; }
+  .v-page .v-btn { font-size: var(--v-t-base); font-weight: 600; border-radius: 6px; }
+  .v-page h3 { font-weight: 600; }
+  .v-page [id] { scroll-margin-top: 5rem; }
+
+  /* ---- шапка: светлая на тёмном титуле, плотная после ------------------- */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; align-items: center; justify-content: space-between;
+    padding: var(--v-3) var(--v-gutter); gap: var(--v-4); color: var(--hero-ink);
+    --v-accent: var(--hero-accent); --v-accent-ink: var(--hero-accent-ink);
+    background: linear-gradient(to bottom, rgb(20 19 26 / .55), transparent);
+    transition: background-color .3s var(--v-ease-out), box-shadow .3s var(--v-ease-out), color .3s var(--v-ease-out); }
+  .bar.is-scrolled { color: var(--v-ink); background: var(--v-canvas-85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--v-hair); }
+  .v-page .bar.is-scrolled { --v-accent: #24336e; --v-accent-ink: #f3efe6; }
+  .bar__mark { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); letter-spacing: -.01em; text-decoration: none;
+    display: inline-flex; align-items: center; gap: .5em; min-height: 44px; white-space: nowrap; }
+  .bar__mark i { width: .9em; height: .9em; display: inline-block; position: relative; }
+  .bar__mark i::before { content: ""; position: absolute; left: 0; bottom: 0; width: 1.1em; height: 2px; background: currentColor; border-radius: 2px; transform-origin: 0 100%; transform: rotate(-45deg); }
+  .bar__mark i::after { content: ""; position: absolute; right: -.05em; top: -.05em; width: .32em; height: .32em; border: 1.5px solid currentColor; border-radius: 50%; }
+  .bar__right { display: flex; align-items: center; gap: var(--v-4); }
+  .bar__tel { text-decoration: none; font-weight: 600; font-size: var(--v-t-sm); color: inherit; display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--v-2); }
+  @media (max-width: 700px) {
+    .bar__tel { display: none; }
+    .bar .v-btn { padding: 0 1em; min-height: 44px; font-size: .95rem; }
+    .bar__right { gap: var(--v-2); }
+    .bar__mark { font-size: var(--v-t-base); }
+  }
+  @media (max-width: 860px) { .bar.is-scrolled { background: color-mix(in oklab, var(--v-canvas) 96%, transparent); } }
+
+  /* ---- акт 1 · hero: игла в шве, бирка квитанции вторым планом ------------- */
+  #top { --v-accent: var(--hero-accent); --v-accent-ink: var(--hero-accent-ink); }
+  .hero { background: var(--hero-dark); color: var(--hero-ink); }
+  .hero__photo img { width: 112%; height: 120%; left: -6%; top: -10%; object-fit: cover; object-position: 60% 50%; }
+  .hero__veil { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(to right, rgb(20 19 26 / .62) 0%, rgb(20 19 26 / .3) 38%, transparent 62%); }
+  .hero__copy { bottom: clamp(4rem, 13vh, 9rem); max-width: min(46rem, 88vw); }
+  .hero__label { display: block; margin-bottom: var(--v-4); color: var(--hero-soft); }
+  .hero__copy .v-display { font-size: clamp(2.3rem, 1.4rem + 3.2vw, 4.4rem); line-height: 1.02; max-width: 15ch; }
+  .hero__copy .v-lede { margin-top: var(--v-5); max-width: 44ch; color: var(--hero-soft); }
+  .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
+  .hero__tel { text-decoration: none; color: var(--hero-soft); font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
+  .hero__tel b { color: var(--hero-ink); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
+  /* бирка квитанции: бумага на верёвке, второй план параллакса */
+  .tag { position: absolute; z-index: 3; right: clamp(2rem, 9vw, 11rem); top: clamp(6rem, 14vh, 9rem); width: clamp(15rem, 19vw, 19rem);
+    color: var(--paper-ink); transform: rotate(4deg); transform-origin: 50% -3rem; }
+  .tag::before { content: ""; position: absolute; left: 50%; bottom: 100%; width: 1px; height: 3.2rem; background: color-mix(in oklab, var(--hero-ink) 55%, transparent); }
+  .tag__paper { position: relative; background: var(--paper); border-radius: 4px; padding: var(--v-5) var(--v-5) var(--v-4); box-shadow: 0 30px 60px rgb(0 0 0 / .45), 0 2px 4px rgb(0 0 0 / .3); }
+  .tag__paper::before { content: ""; position: absolute; left: 50%; top: .7rem; width: .6rem; height: .6rem; margin-left: -.3rem; border-radius: 50%; background: var(--hero-dark); box-shadow: inset 0 1px 2px rgb(0 0 0 / .6); }
+  .tag__head { display: grid; gap: .1em; padding: .9rem 0 .7rem; border-bottom: 1px dashed var(--paper-hair); font-size: var(--v-t-xs); }
+  .tag__head b { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-base); letter-spacing: 0; }
+  .tag__head span { color: var(--paper-soft); letter-spacing: var(--v-track-wide); text-transform: uppercase; }
+  .tag__rows { display: grid; gap: .55rem; padding-top: .8rem; font-size: var(--v-t-xs); }
+  .tag__rows div { display: grid; grid-template-columns: 4.2rem 1fr; gap: .5rem; align-items: end; }
+  .tag__rows dt { color: var(--paper-soft); letter-spacing: var(--v-track-wide); text-transform: uppercase; font-size: var(--v-t-xs); padding-bottom: .1rem; }
+  .tag__rows dd { border-bottom: 1px dotted var(--paper-hair); min-height: 1.2em; font-family: var(--v-font-display); font-weight: 500; color: var(--paper-ink); }
+  .tag__rows dd.is-empty { color: transparent; }
+  .tag__stamp { display: inline-block; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--stamp); padding: .1em .45em; border: 1.5px solid var(--stamp); border-radius: 3px; outline: 1px solid var(--stamp); outline-offset: 2px; transform: rotate(-5deg); opacity: .9; margin-bottom: .15rem; }
+  @media (max-width: 1100px) { .tag { right: var(--v-gutter); } }
+  @media (max-width: 860px) {
+    .hero__photo img { width: 100%; height: 100%; left: 0; top: 0; object-position: 50% 100%; }
+    .hero__veil { background: linear-gradient(to bottom, rgb(20 19 26 / .55) 0%, rgb(20 19 26 / .25) 45%, transparent 70%); }
+    .tag { display: none; }
+    .v-page .hero__copy { top: 5.25rem; bottom: auto; max-width: none; }
+    .hero__copy .v-display { font-size: var(--v-t-2xl); max-width: none; }
+    .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-4); max-width: none; }
+    .hero__label { margin-bottom: var(--v-3); }
+    .hero__cta { margin-top: var(--v-5); gap: var(--v-2) var(--v-5); }
+  }
+  @media (max-width: 600px) and (max-height: 700px) { .hero__copy .v-lede { display: none; } }
+
+  /* ---- акт 2 · «зайдите, посмотрим»: цена бездействия и поворот -------------- */
+  .poka__head { display: grid; gap: var(--v-3); margin-bottom: var(--v-7); max-width: 56rem; }
+  .poka__head .v-display--lg { font-size: clamp(1.9rem, 1.2rem + 2.3vw, 3.3rem); }
+  .poka__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--v-8) var(--v-9); align-items: start; }
+  .poka__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); aspect-ratio: 3 / 4; background: var(--hero-dark); }
+  .poka__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .poka__fig figcaption { position: absolute; left: var(--v-4); right: var(--v-4); top: var(--v-4); z-index: 1; font-size: var(--v-t-sm); color: var(--hero-ink); max-width: 30ch; text-wrap: pretty; }
+  .rows li { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-1); }
+  .rows li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .rows h3 { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); letter-spacing: var(--v-track-normal); line-height: 1.15; text-wrap: balance; }
+  .rows p { color: var(--v-ink-soft); max-width: 52ch; text-wrap: pretty; }
+  .turn { margin-top: var(--v-6); padding: var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: var(--v-e1); display: grid; gap: var(--v-3); }
+  .turn__text { font-size: var(--v-t-lg); line-height: 1.35; text-wrap: pretty; }
+  .turn__text b { font-weight: 600; }
+  @media (max-width: 860px) {
+    .poka__head { margin-bottom: var(--v-6); }
+    .poka__grid { grid-template-columns: 1fr; gap: var(--v-6); }
+    .poka__fig { aspect-ratio: 4 / 3; }
+    .turn { padding: var(--v-5); }
+    .rows h3 { font-size: var(--v-t-base); }
+  }
+
+  /* ---- акт 3 · квитанция: шов прошивает бумагу, срок и цена встают штампами ---- */
+  .kv { height: 100%; position: relative; color: var(--hero-ink); background: var(--hero-dark); }
+  .kv__photo img { width: 112%; height: 116%; left: -6%; top: -8%; object-fit: cover; object-position: 70% 60%; opacity: .85; }
+  .kv__veil { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(to right, rgb(20 19 26 / .55) 0%, rgb(20 19 26 / .25) 45%, transparent 70%), linear-gradient(to top, rgb(20 19 26 / .6) 0%, transparent 40%); }
+  .kv__grid { position: relative; z-index: 2; height: 100%; display: grid; grid-template-columns: minmax(20rem, 26rem) minmax(0, 1fr); gap: var(--v-9); align-items: center;
+    padding: clamp(5rem, 12vh, 7rem) var(--v-gutter) clamp(2.5rem, 7vh, 4rem); }
+  .kv__copy { display: grid; gap: var(--v-5); align-self: center; }
+  .kv__head .v-label { display: block; margin-bottom: var(--v-3); color: var(--hero-soft); }
+  .kv__head .v-display--md { font-size: clamp(1.7rem, 1.2rem + 2vw, 2.9rem); max-width: 16ch; }
+  .kv__reps { position: relative; min-height: 15rem; }
+  .kv__rep { position: absolute; inset: 0 0 auto 0; display: grid; gap: var(--v-3); max-width: 38rem; }
+  .kv__rep .v-label { color: var(--hero-soft); }
+  .kv__rep h3 { font-family: var(--v-font-display); font-weight: 500; font-size: clamp(1.4rem, 1rem + 1.4vw, 2.1rem); line-height: 1.12; letter-spacing: var(--v-track-normal); }
+  .kv__rep p { color: var(--hero-soft); max-width: 46ch; text-wrap: pretty; }
+  .kv__rep p b { color: var(--hero-ink); font-weight: 500; }
+  /* бумага */
+  .rcpt { --p: var(--v-p, 0); position: relative; background: var(--paper); color: var(--paper-ink); border-radius: 4px; padding: var(--v-6) var(--v-6) var(--v-5) 3.2rem;
+    box-shadow: 0 40px 80px rgb(0 0 0 / .5), 0 2px 6px rgb(0 0 0 / .35); transform: rotate(-1.2deg); }
+  .rcpt__seam { position: absolute; left: 1.35rem; top: 1rem; bottom: 1rem; width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--stamp) 0 9px, transparent 9px 16px);
+    clip-path: inset(0 0 calc((1 - var(--p)) * 100%) 0); }
+  .rcpt__guide { position: absolute; left: 1.35rem; top: 1rem; bottom: 1rem; width: 2px; background: repeating-linear-gradient(to bottom, var(--paper-hair) 0 2px, transparent 2px 7px); }
+  .rcpt__needle { position: absolute; left: 1.35rem; top: calc(1rem + var(--p) * (100% - 2rem)); width: 2px; height: 2.4rem; margin-left: 1px;
+    background: linear-gradient(to top, #d9d9dc, #8d8f96); border-radius: 1px; transform-origin: 50% 100%; transform: translate(-50%, -100%) rotate(22deg);
+    box-shadow: 0 2px 6px rgb(0 0 0 / .35); }
+  .rcpt__needle::before { content: ""; position: absolute; left: 50%; top: .25rem; width: 3px; height: 6px; margin-left: -2.5px; border: 1px solid #8d8f96; border-radius: 2px; background: var(--paper); }
+  .rcpt__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--v-3); padding-bottom: var(--v-4); border-bottom: 1px dashed var(--paper-hair); }
+  .rcpt__head b { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); line-height: 1.1; }
+  .rcpt__head span { font-size: var(--v-t-xs); color: var(--paper-soft); letter-spacing: var(--v-track-wide); text-transform: uppercase; }
+  .rcpt__rows { display: grid; }
+  .rcpt__row { --on: clamp(0, (var(--p) - var(--a)) / .07, 1); display: grid; grid-template-columns: 5.2rem 1fr; gap: var(--v-3); align-items: start; padding: var(--v-4) 0; border-bottom: 1px dotted var(--paper-hair); min-height: 4.6rem; }
+  .rcpt__row dt { font-size: var(--v-t-xs); color: var(--paper-soft); letter-spacing: var(--v-track-wide); text-transform: uppercase; padding-top: .25em; }
+  .rcpt__row dd { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-base); line-height: 1.3; opacity: var(--on); transform: translateY(calc((1 - var(--on)) * 8px)); text-wrap: pretty; }
+  .rcpt__row dd small { display: block; font-family: var(--v-font-text); font-weight: 400; font-size: var(--v-t-xs); color: var(--paper-soft); margin-top: .25em; }
+  .stamp { display: inline-block; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-base); letter-spacing: .06em; text-transform: uppercase; line-height: 1.1;
+    color: var(--stamp); padding: .25em .6em; border: 2px solid var(--stamp); border-radius: 4px; outline: 1px solid var(--stamp); outline-offset: 3px; mix-blend-mode: multiply; white-space: nowrap; }
+  .rcpt__row--stamp dd { opacity: var(--on); transform: rotate(-6deg) scale(calc(1.7 - .7 * var(--on))); transform-origin: 30% 60%; }
+  .rcpt__row--stamp:nth-child(odd) dd { transform: rotate(4deg) scale(calc(1.7 - .7 * var(--on))); }
+  .rcpt__foot { padding-top: var(--v-4); font-size: var(--v-t-xs); color: var(--paper-soft); display: flex; justify-content: space-between; gap: var(--v-3); flex-wrap: wrap; }
+  @media (max-width: 1100px) { .kv__grid { grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr); gap: var(--v-7); } }
+  @media (max-width: 860px) {
+    .kv__photo img { object-position: 80% 100%; }
+    .kv__veil { background: linear-gradient(to bottom, rgb(20 19 26 / .7) 0%, rgb(20 19 26 / .45) 60%, rgb(20 19 26 / .7) 100%); }
+    .kv__grid { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; gap: var(--v-4); padding: 4.5rem var(--v-gutter) 1.25rem; align-items: start; }
+    .kv__head { order: -1; }
+    .kv__head .v-label { margin-bottom: var(--v-1); }
+    .kv__head .v-display--md { font-size: var(--v-t-xl); max-width: none; }
+    .kv__copy { display: contents; }
+    .kv__reps { min-height: 0; align-self: end; }
+    .kv__rep { gap: var(--v-2); inset: auto 0 0 0; }
+    .kv__rep h3 { font-size: var(--v-t-lg); }
+    .kv__rep p { font-size: var(--v-t-sm); }
+    .rcpt { padding: var(--v-4) var(--v-4) var(--v-3) 2.6rem; transform: rotate(-.6deg); }
+    .rcpt__seam, .rcpt__guide, .rcpt__needle { left: 1.1rem; }
+    .rcpt__head b { font-size: var(--v-t-base); }
+    .rcpt__row { padding: var(--v-2) 0; min-height: 3.3rem; grid-template-columns: 4.4rem 1fr; }
+    .rcpt__row dd { font-size: var(--v-t-sm); }
+    .rcpt__row dd small { display: none; }
+    .stamp { font-size: var(--v-t-sm); }
+    .rcpt__foot { display: none; }
+  }
+  @media (max-width: 600px) and (max-height: 760px) { .kv__rep p { display: none; } .kv__head .v-display--md { font-size: var(--v-t-lg); } }
+
+  /* ---- акт 4 · типовые работы: строки со сроком-штампом и ценой --------------- */
+  .prices { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .65fr); gap: var(--v-9); align-items: start; }
+  .prices__head { display: grid; gap: var(--v-3); max-width: 48rem; margin-bottom: var(--v-7); }
+  .pgroup { margin-bottom: var(--v-7); }
+  .pgroup__title { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); letter-spacing: var(--v-track-tight); margin-bottom: var(--v-4); display: flex; align-items: baseline; gap: var(--v-3); flex-wrap: wrap; }
+  .pgroup__title small { font-family: var(--v-font-text); font-weight: 400; font-size: var(--v-t-sm); color: var(--v-ink-soft); letter-spacing: 0; }
+  .plist li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: var(--v-1) var(--v-6); align-items: baseline; padding: var(--v-4) 0; border-top: 1px solid var(--v-hair); }
+  .plist li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .plist .name { grid-row: 1; grid-column: 1; font-weight: 600; font-size: var(--v-t-base); line-height: 1.25; }
+  .plist .time { grid-row: 1; grid-column: 2; align-self: center; white-space: nowrap; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xs); letter-spacing: .05em; text-transform: uppercase; color: var(--v-accent);
+    padding: .2em .55em; border: 1.5px solid var(--v-accent); border-radius: 3px; transform: rotate(-2deg); }
+  .plist .price { grid-row: 1; grid-column: 3; font-weight: 600; font-size: var(--v-t-base); white-space: nowrap; min-width: 8ch; text-align: right; }
+  .plist .note { grid-row: 2; grid-column: 1 / span 3; font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 60ch; text-wrap: pretty; }
+  .terms { display: grid; gap: var(--v-3); font-size: var(--v-t-sm); max-width: 60ch; }
+  .terms li { display: grid; grid-template-columns: auto 1fr; gap: var(--v-3); align-items: baseline; }
+  .terms li::before { content: ""; width: 1.4rem; height: 2px; background: repeating-linear-gradient(to right, var(--v-accent) 0 4px, transparent 4px 7px); align-self: center; }
+  .terms b { font-weight: 600; }
+  .prices__aside { position: sticky; top: clamp(5rem, 12vh, 7rem); display: grid; gap: var(--v-4); }
+  .prices__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e1); aspect-ratio: 4 / 3; background: var(--hero-dark); }
+  .prices__fig img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+  .prices__fig figcaption { position: absolute; left: var(--v-4); right: var(--v-4); top: var(--v-4); color: var(--hero-ink); font-size: var(--v-t-sm); max-width: 26ch; text-wrap: pretty; }
+  .how { padding: var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: var(--v-e2); display: grid; gap: var(--v-4); }
+  .how h3 { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); }
+  .how ol { display: grid; counter-reset: step; }
+  .how li { counter-increment: step; padding: var(--v-3) 0; border-top: 1px solid var(--v-hair); display: grid; grid-template-columns: 2rem 1fr; gap: var(--v-2) var(--v-3); }
+  .how li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .how li::before { content: counter(step); font-family: var(--v-font-display); font-weight: 600; color: var(--v-accent); font-size: var(--v-t-lg); line-height: 1; }
+  .how li b { display: block; font-weight: 600; }
+  .how li span { grid-column: 2; font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .how .cta { display: grid; gap: var(--v-3); justify-items: start; }
+  .how .cta small { font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  @media (max-width: 1100px) { .prices { grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: var(--v-7); } }
+  @media (max-width: 860px) {
+    .prices { grid-template-columns: 1fr; gap: var(--v-7); }
+    .prices__aside { position: static; }
+    .how { padding: var(--v-5); }
+    .pgroup { margin-bottom: var(--v-6); }
+    .plist li { grid-template-columns: minmax(0, 1fr) auto; }
+    .plist .time { grid-row: 2; grid-column: 1; justify-self: start; }
+    .plist .note { grid-row: 3; grid-column: 1 / span 2; }
+    .plist .price { grid-column: 2; }
+  }
+
+  /* ---- акт 5 · пошив по меркам: широкий кадр с параллаксом, факты ------------ */
+  .sew__fig { position: relative; aspect-ratio: 21 / 8; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); background: var(--hero-dark); margin-bottom: var(--v-8); }
+  .sew__fig .v-layer { inset: -18% 0; }
+  .sew__fig img { width: 100%; height: 100%; left: 0; top: 0; object-fit: cover; object-position: 50% 60%; }
+  .sew__fig figcaption { position: absolute; z-index: 2; left: var(--v-5); top: var(--v-5); color: var(--hero-ink); font-size: var(--v-t-sm); max-width: 34ch; text-wrap: pretty; }
+  .sew { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--v-7) var(--v-9); align-items: start; }
+  .sew__head { display: grid; gap: var(--v-3); position: sticky; top: clamp(5rem, 12vh, 7rem); }
+  .sew__head p { color: var(--v-ink-soft); max-width: 34ch; text-wrap: pretty; }
+  .fact { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; grid-template-columns: minmax(0, .5fr) minmax(0, 1fr); gap: var(--v-2) var(--v-6); align-items: baseline; }
+  .fact:last-child { border-bottom: 1px solid var(--v-hair); }
+  .fact b { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); letter-spacing: var(--v-track-normal); line-height: 1.15; }
+  .fact span { color: var(--v-ink-soft); text-wrap: pretty; max-width: 48ch; }
+  @media (max-width: 860px) {
+    .sew__fig { aspect-ratio: 4 / 3; margin-bottom: var(--v-6); }
+    .sew { grid-template-columns: 1fr; gap: var(--v-5); }
+    .sew__head { position: static; }
+    .fact { grid-template-columns: 1fr; gap: var(--v-1); }
+    .fact b { font-size: var(--v-t-base); }
+  }
+
+  /* ---- акт 6 · мастер и работы: фото-слоты, пока пусто – макро ножниц --------- */
+  .master { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: var(--v-8) var(--v-9); align-items: start; }
+  .master__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); aspect-ratio: 3 / 4; background: var(--hero-dark); }
+  .v-page .master__fig img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .v-page .master__fig .slot-img { display: none; }
+  .master__fig.is-photo .slot-img { display: block; }
+  .master__fig.is-photo .master__default { display: none; }
+  .master__fig figcaption { position: absolute; z-index: 2; left: var(--v-4); right: var(--v-4); bottom: var(--v-4); color: var(--hero-ink); font-size: var(--v-t-sm);
+    padding: .6em .9em; border-radius: 4px; background: rgb(20 19 26 / .72); }
+  .master__fig figcaption b { display: block; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-base); }
+  .master__copy { display: grid; gap: var(--v-4); }
+  .master__copy .v-label { display: block; }
+  .master__copy .v-display--md { font-size: clamp(1.7rem, 1.2rem + 2vw, 2.9rem); max-width: 18ch; }
+  .master__copy p { max-width: 56ch; text-wrap: pretty; color: var(--v-ink-soft); }
+  .master__copy p b { color: var(--v-ink); font-weight: 600; }
+  .works { margin-top: var(--v-4); display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-auto-rows: clamp(9rem, 14vw, 13rem); gap: var(--v-3); }
+  .work { position: relative; border-radius: var(--v-radius); overflow: hidden; background: var(--v-surface); box-shadow: var(--v-edge), var(--v-e1); }
+  .work--tall { grid-row: span 2; }
+  .v-page .work__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+  .work.is-photo .work__img { display: block; }
+  .work__empty { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: .3em; text-align: center; padding: var(--v-4);
+    background: repeating-linear-gradient(45deg, transparent 0 14px, var(--v-hair) 14px 15px); }
+  .work__empty .v-label { color: var(--v-ink-soft); background: var(--v-surface); padding: .3em .6em; border-radius: 3px; }
+  .work.is-photo .work__empty { display: none; }
+  .work.is-photo::after { content: ""; position: absolute; inset: auto 0 0 0; height: 50%; background: linear-gradient(to top, rgb(20 19 26 / .75), transparent); }
+  .work figcaption { position: absolute; z-index: 2; left: var(--v-3); right: var(--v-3); bottom: var(--v-3); font-size: var(--v-t-xs); color: var(--hero-ink); display: none; }
+  .work.is-photo figcaption { display: block; }
+  @media (max-width: 860px) {
+    .master { grid-template-columns: 1fr; gap: var(--v-6); }
+    .master__fig { aspect-ratio: 4 / 3; }
+    .master__copy .v-display--md { max-width: none; }
+    .works { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(8rem, 40vw, 12rem); }
+    .work--tall { grid-row: auto; }
+  }
+
+  /* ---- акт 7 · отзывы с Яндекс.Карт (честные слоты) -------------------------- */
+  @property --r { syntax: "<number>"; inherits: false; initial-value: 0; }
+  .reviews__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--v-6) var(--v-8); align-items: end; margin-bottom: var(--v-7); }
+  .reviews__head .v-label { display: block; margin-bottom: var(--v-3); }
+  .reviews__rating { display: grid; grid-template-columns: auto auto; gap: var(--v-1) var(--v-4); align-items: center; font-size: var(--v-t-sm); }
+  .reviews__num { grid-row: 1 / span 2; font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-2xl); line-height: 1; color: var(--v-ink); letter-spacing: -.02em; }
+  .reviews__rating a { color: var(--v-ink); display: inline-block; padding-block: .55em; }
+  .reviews__stars { --size: 1.1rem; display: inline-block; width: calc(var(--size) * 5); height: var(--size);
+    background: linear-gradient(90deg, var(--v-accent) calc(var(--r, 0) / 5 * 100%), var(--v-hair-strong) 0);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z'/%3E%3C/svg%3E") 0 0 / var(--size) var(--size) repeat-x; }
+  .reviews__stars--sm { --size: .8rem; vertical-align: middle; }
+  .reviews__list { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--v-6); align-items: start; }
+  .reviews__item { padding-top: var(--v-5); border-top: 1px solid var(--v-hair); }
+  .reviews__item--big .reviews__text { font-size: var(--v-t-lg); line-height: 1.4; font-family: var(--v-font-display); font-weight: 500; }
+  .reviews__text { text-wrap: pretty; }
+  .reviews__meta { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .reviews__meta b { color: var(--v-ink); font-weight: 600; }
+  .reviews__fact { margin-top: var(--v-2); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  @media (max-width: 860px) {
+    .reviews__list { grid-template-columns: 1fr; }
+    .reviews__head { grid-template-columns: 1fr; align-items: start; margin-bottom: var(--v-6); }
+    .reviews__rating { grid-template-columns: auto 1fr; }
+    .reviews__num { font-size: var(--v-t-xl); }
+  }
+
+  /* ---- акт 8 · финал: пришлите фото вещи (держит реплику, футер внутри сцены) --- */
+  .close { height: 100%; display: grid; grid-template-rows: 1fr auto; padding: 0 var(--v-gutter);
+    background: radial-gradient(60rem 40rem at calc(var(--v-mx, .5) * 100%) calc(var(--v-my, .5) * 100%), var(--v-accent-10), transparent 60%); }
+  .close__inner { align-self: center; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: var(--v-8); align-items: end; padding-top: var(--v-9); }
+  .close__inner .v-display { margin-bottom: var(--v-5); max-width: 18ch; }
+  .close__inner .v-lede { max-width: 42ch; }
+  .close__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
+  .close__tel { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; color: var(--v-ink); letter-spacing: -.01em; }
+  .close__hint { margin-top: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 48ch; }
+  .close__meta { display: grid; gap: var(--v-3); color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .close__meta b { color: var(--v-ink); font-weight: 600; display: block; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; margin-bottom: .2em; }
+  .close__meta a { color: var(--v-ink); display: inline-flex; align-items: center; min-height: 44px; }
+  .foot { display: flex; justify-content: space-between; gap: var(--v-4); padding: var(--v-6) 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); flex-wrap: wrap; }
+  @media (max-width: 860px) {
+    .close { padding-bottom: env(safe-area-inset-bottom); }
+    .close__inner { grid-template-columns: 1fr; gap: var(--v-6); padding-top: var(--v-8); align-items: start; }
+    .close__inner .v-display { max-width: none; }
+    .close__tel { font-size: var(--v-t-lg); }
+    .foot__more { display: none; }
+  }
+
+  /* телефон: подписи и лейблы не мельче 15 px (в конце, чтобы перебить правила компонентов) */
+  @media (max-width: 860px) {
+    .v-page { --v-t-xs: .9375rem; --v-t-sm: .9375rem; }
+    .v-page .v-label { font-size: .9375rem; }
+    .tag__rows dt, .plist .time, .rcpt__row dt, .rcpt__head span { font-size: .9375rem; }
+  }
+</style>
+</head>
+<body>
+<div class="v-page">
+  <span data-v-progress></span>
+
+  <header class="bar">
+    <a class="bar__mark" href="#top"><i aria-hidden="true"></i>Намётка</a>
+    <nav class="bar__right" aria-label="Быстрые ссылки">
+      <a class="bar__tel" href="tel:{{телефон}}">{{телефон}}</a>
+      <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Узнать срок и цену</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 1 · УЗНАВАНИЕ: игла в льняном шве, бирка квитанции вторым планом -->
+    <section id="top" data-v-act="pin" data-v-span="2" data-v-drift="#ebe5d8" aria-label="Ателье: цена и срок до визита">
+      <div data-v-stage class="hero">
+        <div class="v-layer hero__photo" data-v-parallax="-0.5">
+          <picture>
+            <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
+            <img src="assets/hero.webp" alt="" width="1920" height="1080" fetchpriority="high">
+          </picture>
+        </div>
+        <div class="hero__veil" aria-hidden="true"></div>
+
+        <div class="v-layer" data-v-parallax="-0.2" style="pointer-events: none">
+          <aside class="tag" aria-label="Так выглядит наша квитанция">
+            <div class="tag__paper">
+              <div class="tag__head"><span>Ателье «Намётка»</span><b>Квитанция</b></div>
+              <dl class="tag__rows">
+                <div><dt>Принято</dt><dd class="is-empty">–</dd></div>
+                <div><dt>Работа</dt><dd class="is-empty">–</dd></div>
+                <div><dt>Срок</dt><dd><span class="tag__stamp">до визита</span></dd></div>
+                <div><dt>Цена</dt><dd><span class="tag__stamp">по прайсу</span></dd></div>
+              </dl>
+            </div>
+          </aside>
+        </div>
+
+        <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.86 0 0.12">
+          <span class="v-label hero__label">Ателье · {{город}}</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Цена и срок до визита, а не после работы</h1>
+          <p class="v-lede">Типовые работы по прайсу: подшить, ушить, заменить молнию, сшить по меркам. Примерка в цене, вещь вернём в срок.</p>
+          <div class="hero__cta">
+            <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Узнать срок и цену</a>
+            <a class="hero__tel" href="tel:{{телефон}}">или позвоните <b>{{телефон}}</b></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · ЦЕНА БЕЗДЕЙСТВИЯ и ПОВОРОТ: «зайдите, посмотрим» -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#f1ece2" id="poka" aria-label="Почему «зайдите, посмотрим» дорого">
+      <div class="v-wrap">
+        <div class="poka__head" data-v-in data-v-stagger="70">
+          <span class="v-label">Пока в другом ателье: «зайдите, посмотрим»</span>
+          <h2 class="v-display v-display--lg">Ехать, чтобы узнать цену, и уйти без срока</h2>
+        </div>
+        <div class="poka__grid">
+          <figure class="poka__fig" data-v-reveal="left" data-v-reveal-at="0.22 0.55">
+            <img src="assets/chalk.webp" srcset="assets/chalk-600.webp 600w, assets/chalk.webp 1200w" sizes="(max-width: 860px) 100vw, 28rem" alt="Портновский мел и сантиметр на тёмной шерстяной ткани, свежая меловая линия" width="1200" height="1600" loading="lazy" decoding="async">
+            <figcaption>Мел, сантиметр и квитанция – три вещи, без которых мы не начинаем.</figcaption>
+          </figure>
+          <div>
+            <ul class="rows" data-v-in data-v-stagger="80">
+              <li><h3>«Зайдите, посмотрим»</h3><p>Час дороги с пальто в пакете, чтобы услышать цену, которую можно было назвать по фото.</p></li>
+              <li><h3>«Будет готово… ну, на неделе»</h3><p>Срок не записан – значит, его нет. Звоните сами, вещь «ещё в работе», а надо было к пятнице.</p></li>
+              <li><h3>Цену скажут после работы</h3><p>«Там подкладка», «там два шва» всплывают при выдаче, когда спорить неловко, а вещь уже у них.</p></li>
+            </ul>
+            <div class="turn" data-v-in data-v-in-self>
+              <span class="v-label">Поэтому</span>
+              <p class="turn__text">Цену и срок на типовые работы называем <b>по фото вещи, до визита</b>. Сложное обсуждаем на примерке до начала работы, а не после. Срок и цена – в квитанции, у вещи – бирка с номером.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · КАК ПРОХОДИТ: квитанция заполняется по скроллу, шов и штампы (фирменный ход) -->
+    <section id="kvitanciya" data-v-act="pin" data-v-span="2.6" data-v-drift="#ebe5d8" aria-label="Как проходит: вещь идёт по квитанции">
+      <div data-v-stage>
+        <div class="kv">
+          <div class="v-layer kv__photo" data-v-parallax="-0.3">
+            <img src="assets/pins.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          </div>
+          <div class="kv__veil" aria-hidden="true"></div>
+          <div class="kv__grid">
+            <div class="rcpt" data-v-cue="0 1 0 0" data-v-rise="0" aria-label="Квитанция ателье: пример заполнения">
+              <span class="rcpt__guide" aria-hidden="true"></span>
+              <span class="rcpt__seam" aria-hidden="true"></span>
+              <span class="rcpt__needle" aria-hidden="true"></span>
+              <div class="rcpt__head"><b>Квитанция</b><span>Ателье «Намётка»</span></div>
+              <dl class="rcpt__rows">
+                <div class="rcpt__row" style="--a: .04"><dt>Принято</dt><dd>Пальто шерстяное, тёмно-синее<small>Бирка с номером – на вещи, номер – в квитанции</small></dd></div>
+                <div class="rcpt__row" style="--a: .22"><dt>Работа</dt><dd>Укоротить рукава на 3 см по фабричному шву<small>Длину сняли на примерке, манжеты сохраняем</small></dd></div>
+                <div class="rcpt__row rcpt__row--stamp" style="--a: .44"><dt>Срок</dt><dd><span class="stamp">2 дня</span></dd></div>
+                <div class="rcpt__row rcpt__row--stamp" style="--a: .6"><dt>Цена</dt><dd><span class="stamp">{{цена}}&nbsp;₽</span></dd></div>
+                <div class="rcpt__row rcpt__row--stamp" style="--a: .84"><dt>Выдано</dt><dd><span class="stamp">В срок</span></dd></div>
+              </dl>
+              <div class="rcpt__foot"><span>Цена в квитанции после работы не меняется</span><span>Примерка при выдаче</span></div>
+            </div>
+
+            <div class="kv__copy">
+              <div class="kv__head" data-v-cue="0 1 0 0" data-v-rise="0">
+                <span class="v-label">Как проходит</span>
+                <h2 class="v-display v-display--md">Вещь идёт по квитанции, а не «на словах»</h2>
+              </div>
+              <div class="kv__reps">
+                <article class="kv__rep" data-v-cue="0 0.3 0 0.06">
+                  <span class="v-label">Шаг 1 · до визита</span>
+                  <h3>Написали или принесли</h3>
+                  <p>Фото вещи в мессенджер – и по типовой работе <b>сразу отвечаем ценой по прайсу и сроком</b>. Если работа не типовая, зовём на примерку и обсуждаем до начала.</p>
+                </article>
+                <article class="kv__rep" data-v-cue="0.28 0.56 0.06 0.06">
+                  <span class="v-label">Шаг 2 · в ателье</span>
+                  <h3>Примерили и записали</h3>
+                  <p>Мел, булавки, сантиметр – длину и посадку снимаем на вас, а не по линейке. <b>Что именно делаем – строкой в квитанции</b>, а не в памяти мастера.</p>
+                </article>
+                <article class="kv__rep" data-v-cue="0.54 0.8 0.06 0.06">
+                  <span class="v-label">Шаг 3 · штампы</span>
+                  <h3>Срок и цена – в квитанции</h3>
+                  <p>Оба стоят штампом до того, как мы взяли иглу. <b>Цена после работы не меняется.</b> Если срок горит – звоним заранее, а не в день выдачи.</p>
+                </article>
+                <article class="kv__rep" data-v-cue="0.78 1 0.06 0">
+                  <span class="v-label">Шаг 4 · выдача</span>
+                  <h3>Выдали в срок</h3>
+                  <p>Вещь отпарена, при выдаче – примерка. <b>Не село как надо – поправляем</b>, это входит в работу. Квитанцию забираете с собой.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · ВЫБОР: типовые работы – срок и цена -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#f1ece2" id="ceny" aria-label="Типовые работы: сроки и цены">
+      <div class="v-wrap prices">
+        <div>
+          <div class="prices__head" data-v-in data-v-stagger="60">
+            <span class="v-label">Типовые работы</span>
+            <h2 class="v-display v-display--lg">Срок и цена известны до визита</h2>
+            <p class="v-body v-soft">Это строки нашей квитанции. Срок считаем со дня примерки, цена – та, что в строке: подкладка, два шва и «сложная ткань» в ней уже учтены.</p>
+          </div>
+
+          <div class="pgroup" data-v-in data-v-stagger="50">
+            <h3 class="pgroup__title">Подшить <small>длину снимаем на примерке</small></h3>
+            <ul class="plist">
+              <li><span class="name">Брюки, джинсы</span><span class="time">1 день</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">По фабричному шву или с подгибом. Джинсы – с сохранением фабричной потёртости на крае.</span></li>
+              <li><span class="name">Юбка, платье</span><span class="time">1–2 дня</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">Ровняем по фигуре на примерке, а не по линейке. С подкладкой – та же цена.</span></li>
+              <li><span class="name">Рукава пальто, куртки</span><span class="time">2–3 дня</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">С подкладкой и без, манжеты и шлицы сохраняем.</span></li>
+            </ul>
+          </div>
+
+          <div class="pgroup" data-v-in data-v-stagger="50">
+            <h3 class="pgroup__title">Ушить или расставить <small>по фигуре, с примеркой</small></h3>
+            <ul class="plist">
+              <li><span class="name">Платье, юбка по боковым швам</span><span class="time">2 дня</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">Закалываем на примерке, шьём по булавкам.</span></li>
+              <li><span class="name">Брюки в поясе</span><span class="time">1–2 дня</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">Ушить по заднему шву или расставить, если есть запас.</span></li>
+              <li><span class="name">Пиджак по спинке</span><span class="time">3 дня</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">С подкладкой. Что можно и что нельзя – скажем на примерке до начала.</span></li>
+            </ul>
+          </div>
+
+          <div class="pgroup" data-v-in data-v-stagger="50">
+            <h3 class="pgroup__title">Заменить молнию <small>молния наша или ваша</small></h3>
+            <ul class="plist">
+              <li><span class="name">Джинсы, брюки</span><span class="time">1 день</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">Металлическая или пластиковая, в цвет старой.</span></li>
+              <li><span class="name">Куртка, ветровка</span><span class="time">2 дня</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">Разъёмная, с подкладкой. Молния – отдельной строкой в квитанции, если наша.</span></li>
+              <li><span class="name">Платье, юбка</span><span class="time">1 день</span><span class="price v-nums">{{цена}}&nbsp;₽</span><span class="note">Потайная или обычная, шов не заметен.</span></li>
+            </ul>
+          </div>
+
+          <div class="pgroup" data-v-in data-v-stagger="50">
+            <h3 class="pgroup__title">Сшить по меркам <small>две примерки в цене</small></h3>
+            <ul class="plist">
+              <li><span class="name">Юбка</span><span class="time">от 7 дней</span><span class="price v-nums">от {{цена}}&nbsp;₽</span><span class="note">Цена за работу, ткань – ваша или подберём вместе.</span></li>
+              <li><span class="name">Брюки</span><span class="time">от 7 дней</span><span class="price v-nums">от {{цена}}&nbsp;₽</span><span class="note">По вашим меркам и любимой посадке.</span></li>
+              <li><span class="name">Платье</span><span class="time">от 10 дней</span><span class="price v-nums">от {{цена}}&nbsp;₽</span><span class="note">Точную цену и срок называем после первой примерки макета.</span></li>
+              <li><span class="name">Рубашка</span><span class="time">от 7 дней</span><span class="price v-nums">от {{цена}}&nbsp;₽</span><span class="note">Воротник, манжеты и планка – по вашему образцу или нашему.</span></li>
+            </ul>
+          </div>
+
+          <ul class="terms" data-v-in data-v-stagger="60">
+            <li><span><b>Цена в квитанции не меняется</b> после работы: всё, что могло всплыть, мы смотрим на примерке.</span></li>
+            <li><span><b>Срок считаем со дня примерки</b> и пишем датой, а не «на неделе».</span></li>
+            <li><span><b>Нетиповую работу</b> оцениваем на примерке и называем цену до того, как взяли иглу.</span></li>
+          </ul>
+        </div>
+
+        <aside class="prices__aside" data-v-in data-v-in-self>
+          <figure class="prices__fig">
+            <img src="assets/zipper.webp" srcset="assets/zipper-600.webp 600w, assets/zipper.webp 1200w" sizes="(max-width: 860px) 100vw, 22rem" alt="Латунная молния в тёмном дениме, новая строчка вдоль тесьмы" width="1200" height="1600" loading="lazy" decoding="async">
+            <figcaption>Молния – в цвет старой, строчка – по старому следу.</figcaption>
+          </figure>
+          <div class="how" data-v-tilt="5">
+            <h3>Как узнать цену, не приезжая</h3>
+            <ol>
+              <li><b>Фото вещи в мессенджер</b><span>И два слова, что нужно: «подшить», «ушить в поясе», «молния».</span></li>
+              <li><b>Ответ ценой и сроком</b><span>По прайсу, в часы работы. Если работа не типовая – позовём на примерку.</span></li>
+              <li><b>Приносите</b><span>Примерка, квитанция со сроком и ценой, бирка на вещь.</span></li>
+            </ol>
+            <div class="cta">
+              <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Узнать срок и цену</a>
+              <small>Отвечаем в часы работы: {{часы}}</small>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 5 · ДОКАЗАТЕЛЬСТВО: пошив по меркам -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#ebe5d8" id="poshiv" aria-label="Пошив по меркам">
+      <div class="v-wrap">
+        <figure class="sew__fig">
+          <div class="v-layer" data-v-parallax="0.4">
+            <img src="assets/tape.webp" srcset="assets/tape-900.webp 900w, assets/tape.webp 1600w" sizes="(max-width: 860px) 100vw, 76rem" alt="Сантиметр на рулоне льняной ткани" width="1600" height="900" loading="lazy" decoding="async">
+          </div>
+          <figcaption>Мерки снимаем сами: двадцать минут, и вещь садится на вас, а не на манекен.</figcaption>
+        </figure>
+        <div class="sew">
+          <div class="sew__head" data-v-in data-v-stagger="60">
+            <span class="v-label">Пошив по меркам</span>
+            <h2 class="v-display v-display--md">Платье, юбка, брюки, рубашка – по вашим меркам</h2>
+            <p>Четыре условия, которые в квитанции стоят до начала работы.</p>
+          </div>
+          <ul data-v-in data-v-stagger="80">
+            <li class="fact"><b>Мерки – на вас</b><span>Снимаем сами, двадцать минут. Присланные «размер 46» и мерки с этикетки не берём: платье сядет на этикетку, а не на вас.</span></li>
+            <li class="fact"><b>Две примерки в цене</b><span>Первая – на макете или намётке, вторая – перед выдачей. Правки после первой примерки входят в работу.</span></li>
+            <li class="fact"><b>Ткань – ваша или наша</b><span>Приносите свою или выбираем вместе. Ткань, подкладка и фурнитура – отдельными строками в квитанции, работа – своей.</span></li>
+            <li class="fact"><b>Срок – датой</b><span>От 7 дней со дня первой примерки. К событию – называем дату примерки и дату выдачи, и обе пишем в квитанцию.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · КТО ШЬЁТ и ЧТО СШИТО: только настоящие имя и фото слотами -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#f1ece2" id="master" aria-label="Мастер и работы">
+      <div class="v-wrap master">
+        <figure class="master__fig" data-v-reveal="up" data-v-reveal-at="0.2 0.55" data-slot-host>
+          <img class="master__default" src="assets/shears.webp" srcset="assets/shears-600.webp 600w, assets/shears.webp 1200w" sizes="(max-width: 860px) 100vw, 24rem" alt="Портновские ножницы и катушка ниток на льняной ткани" width="1200" height="1600" loading="lazy" decoding="async">
+          <img class="slot-img" data-src="{{фото-мастера}}" alt="Мастер ателье {{имя-мастера}}" loading="lazy" decoding="async">
+          <figcaption data-slot-optional><b>{{имя-мастера}}</b>мастер ателье, ведёт вещь от примерки до выдачи</figcaption>
+        </figure>
+        <div class="master__copy" data-v-in data-v-stagger="70">
+          <span class="v-label">Кто шьёт</span>
+          <h2 class="v-display v-display--md">Одна вещь – один мастер</h2>
+          <p>Тот, кто снимал мерки на примерке, сам и шьёт, сам и выдаёт. <b>Имя мастера стоит в квитанции</b>, поэтому «а кто мне это делал» спрашивать не придётся, а правки на выдаче делает тот же человек.</p>
+          <p>Ниже – фото сшитых и переделанных вещей. Только настоящие, из этого ателье; пока фото нет, место отмечено.</p>
+          <div class="works">
+            <figure class="work work--tall" data-slot-host><img class="work__img" data-src="{{работа 1}}" alt="{{работа 1 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 1</span></div><figcaption>{{работа 1 подпись}}</figcaption></figure>
+            <figure class="work" data-slot-host><img class="work__img" data-src="{{работа 2}}" alt="{{работа 2 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 2</span></div><figcaption>{{работа 2 подпись}}</figcaption></figure>
+            <figure class="work" data-slot-host><img class="work__img" data-src="{{работа 3}}" alt="{{работа 3 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 3</span></div><figcaption>{{работа 3 подпись}}</figcaption></figure>
+            <figure class="work" data-slot-host><img class="work__img" data-src="{{работа 4}}" alt="{{работа 4 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 4</span></div><figcaption>{{работа 4 подпись}}</figcaption></figure>
+            <figure class="work" data-slot-host><img class="work__img" data-src="{{работа 5}}" alt="{{работа 5 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 5</span></div><figcaption>{{работа 5 подпись}}</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · ДОВЕРИЕ: отзывы с Яндекс.Карт (только настоящие, слоты; нет отзывов – удалить секцию целиком) -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#ebe5d8" id="otzyvy" data-slot-optional aria-label="Отзывы с Яндекс.Карт">
+      <div class="v-wrap reviews">
+        <div class="reviews__head" data-v-in data-v-stagger="60">
+          <div>
+            <span class="v-label">Отзывы</span>
+            <h2 class="v-display v-display--md">Что пишут на Яндекс.Картах</h2>
+            <p class="reviews__fact">Скопированы с карточки без правок.</p>
+          </div>
+          <div class="reviews__rating">
+            <span class="reviews__num v-nums">{{рейтинг}}</span>
+            <span class="reviews__stars" style="--r: {{рейтинг}}" role="img" aria-label="рейтинг {{рейтинг}} из 5"></span>
+            <span><span class="v-soft">{{отзывов}} отзывов</span> · <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Читать все отзывы</a></span>
+          </div>
+        </div>
+        <ul class="reviews__list" data-v-in data-v-stagger="90">
+          <li class="reviews__item reviews__item--big">
+            <p class="reviews__text">«{{отзыв 1}}»</p>
+            <p class="reviews__meta"><b>{{имя 1}}</b> · {{дата 1}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 1}}" role="img" aria-label="оценка {{оценка 1}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 2}}»</p>
+            <p class="reviews__meta"><b>{{имя 2}}</b> · {{дата 2}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 2}}" role="img" aria-label="оценка {{оценка 2}} из 5"></span></p>
+          </li>
+          <li class="reviews__item">
+            <p class="reviews__text">«{{отзыв 3}}»</p>
+            <p class="reviews__meta"><b>{{имя 3}}</b> · {{дата 3}} · <span class="reviews__stars reviews__stars--sm" style="--r: {{оценка 3}}" role="img" aria-label="оценка {{оценка 3}} из 5"></span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8 · ДЕЙСТВИЕ: пришлите фото вещи -->
+    <section data-v-act="pin" data-v-span="1.2" data-v-drift="#ebe5d8" id="zapis" aria-label="Узнать срок и цену">
+      <div data-v-stage>
+        <div class="close" data-v-spotlight>
+          <div class="close__inner">
+            <div data-v-cue="0.04">
+              <h2 class="v-display v-display--lg">Пришлите фото вещи – ответим сроком и ценой</h2>
+              <p class="v-lede">Напишите, что с ней нужно сделать. Типовая работа – сразу цена по прайсу и срок. Нетиповая – позовём на примерку и обсудим до начала.</p>
+              <div class="close__cta">
+                <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener" data-v-magnet="0.22" data-v-rise="0">Узнать срок и цену</a>
+                <a class="close__tel" href="tel:{{телефон}}">{{телефон}}</a>
+              </div>
+              <p class="close__hint">Отвечаем в часы работы. Вещь можно занести без записи: примерка и квитанция займут минут пятнадцать.</p>
+            </div>
+            <div class="close__meta" data-v-cue="0.1">
+              <span><b>Часы работы</b>{{часы}}</span>
+              <span><b>Адрес</b>{{адрес}}, {{город}}</span>
+              <span><b>Как добраться</b><a href="{{ссылка-карты}}" target="_blank" rel="noopener">Намётка на Яндекс.Картах</a></span>
+            </div>
+          </div>
+          <footer class="foot">
+            <span>Ателье «Намётка» · {{город}}</span>
+            <span data-slot-optional>{{юрлицо}} · ИНН {{ИНН}}</span>
+            <span class="foot__more">Подшить, ушить, заменить молнию, сшить по меркам – срок и цена в квитанции</span>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vibe.js"></script>
+<script>
+  // На телефоне пины короче: data-v-span из CSS не поменять, правим атрибут до монтирования.
+  if (window.matchMedia('(max-width: 860px)').matches) {
+    document.getElementById('top').setAttribute('data-v-span', '1.8');
+    document.getElementById('kvitanciya').setAttribute('data-v-span', '2.4');
+  }
+  Vibe.mount(document.querySelector('.v-page'));
+
+  // Шапка: подложка после 40 px прокрутки; на титуле светлая, дальше в цвет страницы.
+  (function () {
+    var bar = document.querySelector('.bar'), on = null;
+    function tick() { var s = window.scrollY > 40; if (s !== on) { on = s; bar.classList.toggle('is-scrolled', s); } }
+    window.addEventListener('scroll', tick, { passive: true }); tick();
+  })();
+
+  // Слоты картинок: адрес лежит в data-src, src ставим только если слот заполнен (нет «{{»),
+  // хозяину (.master__fig, .work) добавляем is-photo. Пустой слот не даёт битой картинки и 404.
+  (function () {
+    document.querySelectorAll('img[data-src]').forEach(function (img) {
+      var src = img.getAttribute('data-src') || '';
+      if (!src || src.indexOf('{{') > -1) return;
+      img.setAttribute('src', src);
+      var host = img.closest('[data-slot-host]'); if (host) host.classList.add('is-photo');
+    });
+  })();
+</script>
+</body>
+</html>

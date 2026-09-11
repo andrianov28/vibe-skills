@@ -1,0 +1,70 @@
+{
+  "world": "Высокий ключ",
+  "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
+  "preamble": "Editorial still-life photography on a seamless warm off-white cyclorama. Large soft overhead source, huge white bounce, near-shadowless with one soft contact shadow. High key, gentle contrast, warm white and pale neutral grade. Medium-format sharpness, fine grain. Photographic realism, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Editorial still life of a modern dental treatment chair in pale mint-white upholstery with its overhead examination lamp folded above it, standing on the seamless warm off-white cyclorama, seen from the front and slightly from the left at eye level. The chair occupies the right third of the frame; the left two thirds are empty pale cyclorama for text. Lamp switched off, no monitor, no instruments, no people, no text, no signs, no logos.",
+      "outputs": [
+        { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "Same dental chair, same pale mint-white upholstery and same soft light as the reference, vertical frame for a phone screen. The chair stands low in the frame, in the lower half; the upper half is empty pale cyclorama for text. Lamp switched off, no monitor, no people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
+      ]
+    },
+    {
+      "id": "hands",
+      "raw": "raw/hands.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Close still life of two hands in pale mint nitrile gloves holding a dental mouth mirror and a slim explorer probe above a white paper-covered instrument tray, hands entering from the lower right, forearms in white sleeves, on the warm off-white cyclorama. Hands and instruments occupy the lower two thirds of the frame; empty pale space across the top for text. No face, no body, no syringe, no text, no logos.",
+      "outputs": [
+        { "file": "assets/hands.webp", "width": 1200, "quality": 80 }
+      ]
+    },
+    {
+      "id": "tray",
+      "raw": "raw/tray.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Top-down still life of a dental treatment tray on the warm off-white cyclorama: two sealed sterilisation pouches with a mouth mirror and tweezers visible through clear film, a disposable saliva ejector, a few cotton rolls, a small paper cup, a folded white napkin and a pair of clear protective glasses. Objects arranged loosely in the lower right two thirds; large empty pale space across the upper left for text. No hands, no syringe, no text, no labels, no logos.",
+      "outputs": [
+        { "file": "assets/tray.webp", "width": 1600, "quality": 78 },
+        { "file": "assets/tray-900.webp", "width": 900, "quality": 78 }
+      ]
+    },
+    {
+      "id": "doctor",
+      "raw": "raw/doctor.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Dentist seen from behind, from the shoulders down, wearing pale mint scrubs, arranging instruments on a white tray beside an empty dental chair, on the warm off-white cyclorama. Head out of frame, no face at all. Figure in the lower two thirds of the frame; empty pale space above for text. No text, no logos, no jewelry, no second person.",
+      "outputs": [
+        { "file": "assets/doctor.webp", "width": 1200, "quality": 80 }
+      ]
+    },
+    {
+      "id": "autoclave",
+      "raw": "raw/autoclave.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Still life of a compact white tabletop steam autoclave with its round door open and a neat stack of sealed sterilisation pouches beside it, on the warm off-white cyclorama, seen from the front and slightly above. Display switched off and blank. Objects in the right half of the frame; empty pale space on the left for text. No hands, no text on the device, no labels, no logos.",
+      "outputs": [
+        { "file": "assets/autoclave.webp", "width": 1600, "quality": 78 }
+      ]
+    }
+  ],
+  "keep": []
+}

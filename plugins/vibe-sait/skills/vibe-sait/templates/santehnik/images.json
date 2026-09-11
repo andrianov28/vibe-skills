@@ -1,0 +1,165 @@
+{
+  "world": "Документальный",
+  "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
+  "preamble": "Documentary photography, available light only, handheld 35mm. Natural skin tones, honest imperfect surfaces, slight motion in the frame. Muted realistic grade, no colour cast, visible grain. Candid, unposed, nobody looking at camera. Absolutely not stock-photo styling, no fake smiles, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Ordinary apartment kitchen, the cabinet doors under the sink wide open, a plastic basin on the cabinet floor catching drips from a leaking siphon, a wet rag beside it, a few kitchen items moved out onto the floor. Camera at knee height, wide shot. Soft daylight from a window on the right. The open cabinet and basin sit in the right half of the frame; the left third of the frame is a plain kitchen wall and plain floor with nothing on it, large empty space for text. No people, no text, no signs, no logos, no brand names on packaging.",
+      "outputs": [
+        {
+          "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 78
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "Portrait framing of the same apartment kitchen as the reference image: the cabinet under the sink open, a plastic basin catching drips from the leaking siphon, a wet rag beside it. Camera at knee height. Soft daylight from a window. The open cabinet sits in the middle third of the frame; the upper third is a plain wall with nothing on it, the lower third is plain floor tiles with nothing on them, both are empty space for text. No people, no text, no signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "raw": "raw/card.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Close-up of two hands in worn work gloves tightening a new braided flexible water hose to a tap under a kitchen sink with an adjustable wrench, inside the open cabinet, daylight from the room falling in from the left. Tight vertical composition, hands and hose fill the lower two thirds, dark cabinet interior above as empty space. No face, no text, no logos.",
+      "outputs": [
+        {
+          "file": "assets/card.webp",
+          "width": 900,
+          "quality": 78
+        },
+        {
+          "file": "assets/card-480.webp",
+          "width": 480,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "stain",
+      "raw": "raw/stain.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Hallway floor of an apartment next to a bathroom door: water has spread across the laminate floor from under the door, a rolled towel pressed against the door sill, a bucket and a mop standing by the wall. Camera low, near the floor, wide shot, daylight coming from a room at the far end. The wet floor and towel occupy the lower right; the upper left of the frame is a plain pale wall, empty space for text. No people, no text, no signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/stain.webp",
+          "width": 1600,
+          "quality": 78
+        },
+        {
+          "file": "assets/stain-900.webp",
+          "width": 900,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "raw": "raw/work.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A plumber in a dark work jacket kneeling in front of an open cabinet under a bathroom sink, seen from behind and slightly to the side so the face is not visible, reaching inside with a wrench, a small canvas tool bag open on the floor beside him with parts laid out on a cloth. Wide shot, daylight from the bathroom window and the doorway. The plumber and bag occupy the right two thirds; the left third of the frame is plain tiled wall and floor, empty space for text. No face visible, no text, no signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/work.webp",
+          "width": 1920,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "bag",
+      "raw": "raw/bag.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Open canvas tool bag standing on an apartment floor, seen from above at an angle: inside and laid out next to it are plumbing and electrical spare parts in plain transparent packaging, braided flexible hoses, a white plastic siphon, a brass ball valve, a couple of grey modular circuit breakers, a white European round Schuko wall socket with two round pin holes, a roll of PTFE tape, an adjustable wrench and a screwdriver. Daylight from a window. Tight vertical composition, the bag in the lower two thirds, plain floor above it as empty space. Packaging without any printed text or brand names. No people, no text, no logos.",
+      "outputs": [
+        {
+          "file": "assets/bag.webp",
+          "width": 1200,
+          "quality": 78
+        },
+        {
+          "file": "assets/bag-800.webp",
+          "width": 800,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "done",
+      "raw": "raw/done.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Kitchen sink right after the repair: a new plain chrome single-lever mixer tap on a clean wiped sink, the cabinet below open and dry with new braided hoses visible, the old mixer tap lying on a folded rag on the countertop beside the sink. Camera at counter height, medium shot, daylight from the window behind. The new tap and sink in the right half; the left part of the frame is plain wall tiles, empty space for text. No people, no text, no logos.",
+      "outputs": [
+        {
+          "file": "assets/done.webp",
+          "width": 1600,
+          "quality": 78
+        },
+        {
+          "file": "assets/done-900.webp",
+          "width": 900,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "hero-b",
+      "variant": "Б",
+      "raw": "raw/hero-b.png",
+      "ar": "16:9",
+      "ref": "raw/hero.png",
+      "scene": "Same apartment kitchen and the same camera position as the reference image, but after the repair: the cabinet under the sink open and completely dry, a new white siphon and new braided hoses inside, no basin, no rag, the floor clean and the kitchen items back in place. Soft daylight from the window on the right. The open cabinet sits in the right half of the frame; the left third is a plain wall and plain floor, large empty space for text. No people, no text, no signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hero-b.webp",
+          "width": 1920,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "hero-b-m",
+      "variant": "Б",
+      "raw": "raw/hero-b-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero-m.png",
+      "scene": "Same portrait framing and camera position as the reference image, but after the repair: the cabinet under the sink open and completely dry, a new white siphon and new braided hoses inside, no basin, no rag, the floor clean. Soft daylight from the window. The cabinet in the middle third; upper third plain wall and lower third plain floor tiles, both empty space for text. No people, no text, no signs, no logos.",
+      "outputs": [
+        {
+          "file": "assets/hero-b-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
+      ]
+    }
+  ],
+  "keep": []
+}

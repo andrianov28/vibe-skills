@@ -1,0 +1,105 @@
+{
+  "world": "Макро-текстура",
+  "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
+  "preamble": "Extreme macro photography, 100mm macro lens. Razor-thin plane of focus, everything else falling to soft darkness. Backlit so edges glow. Visible surface texture and grain of the material. Deep negative space. Photographic realism, no CGI, no illustration, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A slim steel hand-sewing needle with a strand of ivory cotton thread caught mid-stitch in a straight seam of natural undyed pale linen fabric, the weave of the linen visible thread by thread, a faint line of tailor's chalk along the seam. The needle and the seam sit in the lower right quarter of the frame, the fabric folds falling away into soft warm darkness. Low backlight from behind the fabric makes the edge of the fold and the thread glow. The upper left two thirds of the frame are deep soft darkness with only a hint of linen texture, a large empty dark space for text. No hands, no people, no scissors, no text, no labels, no logos.",
+      "outputs": [
+        { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "Portrait framing of the same subject as the reference image: the same steel needle with ivory thread mid-stitch in the same seam of pale natural linen, the same warm backlight and the same soft darkness. The needle and the seam sit in the lower third of the frame; the upper two thirds are deep soft darkness with only a hint of linen texture, a large empty dark space for text. No hands, no people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
+      ]
+    },
+    {
+      "id": "chalk",
+      "raw": "raw/chalk.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "A flat triangular piece of white tailor's chalk lying on dark navy wool suiting fabric next to a fresh chalk line and a yellow cloth measuring tape curving out of focus, the herringbone weave of the wool sharp in the thin plane of focus. Warm backlight raking across the fabric so the chalk line and the tape edge glow. The chalk and tape sit in the lower half of the frame; the upper half is soft darkness, empty space for text. No hands, no people, no numbers legible on the tape, no text, no logos.",
+      "outputs": [
+        { "file": "assets/chalk.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/chalk-600.webp", "width": 600, "quality": 76 }
+      ]
+    },
+    {
+      "id": "pins",
+      "raw": "raw/pins.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A folded hem of pale natural linen fabric held by three steel dressmaker's pins with small glass heads, the fold and the pins seen from a low angle, the weave of the linen visible. Warm backlight from behind makes the edge of the fold and the glass heads glow. The hem and pins sit low and to the right of the frame; the left two thirds and the top are deep soft darkness, a large empty dark space for text. No hands, no people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/pins.webp", "width": 1920, "quality": 76 }
+      ]
+    },
+    {
+      "id": "zipper",
+      "raw": "raw/zipper.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "A half-open brass metal zipper sewn into dark indigo denim, the metal teeth and the pull tab sharp in the thin plane of focus, a new line of orange topstitching along the zipper tape, the denim twill texture visible. Warm backlight so the brass teeth and the stitching glow. The zipper sits in the lower half of the frame running diagonally; the upper half is soft darkness, empty space for text. No hands, no people, no text or lettering on the pull tab, no logos.",
+      "outputs": [
+        { "file": "assets/zipper.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/zipper-600.webp", "width": 600, "quality": 76 }
+      ]
+    },
+    {
+      "id": "tape",
+      "raw": "raw/tape.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A yellow cloth tailor's measuring tape draped in a loose curve across a bolt of pale natural linen fabric, the edge of the folded fabric and the tape in the thin plane of focus, the weave of the linen and the printed marks on the tape blurred into texture. Warm backlight from behind the bolt so the fabric edge glows. The tape and the bolt sit in the lower half of the frame; the upper half is soft darkness, a wide empty dark band for text. No hands, no people, no legible numbers, no text, no logos.",
+      "outputs": [
+        { "file": "assets/tape.webp", "width": 1600, "quality": 78 },
+        { "file": "assets/tape-900.webp", "width": 900, "quality": 76 }
+      ]
+    },
+    {
+      "id": "shears",
+      "raw": "raw/shears.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "The open blades of heavy steel tailor's shears resting on a piece of pale natural linen fabric next to a spool of ivory thread, the polished edge of the blade and the thread on the spool in the thin plane of focus, the linen weave visible. Warm backlight so the blade edge and the thread glow. The shears and the spool sit in the lower half of the frame; the upper half is soft darkness, empty space for text. No hands, no people, no text, no engraving on the blades, no logos.",
+      "outputs": [
+        { "file": "assets/shears.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/shears-600.webp", "width": 600, "quality": 76 }
+      ]
+    },
+    {
+      "id": "tape-m",
+      "variant": "Б",
+      "raw": "raw/tape-m.png",
+      "ar": "9:16",
+      "ref": "raw/tape.png",
+      "scene": "Portrait framing of the same subject as the reference image: the same yellow cloth measuring tape draped across the same bolt of pale natural linen, the same warm backlight and soft darkness. The tape and the bolt sit in the lower third of the frame; the upper two thirds are deep soft darkness, a large empty dark space for text. No hands, no people, no legible numbers, no text, no logos.",
+      "outputs": [
+        { "file": "assets/tape-m.webp", "width": 1080, "quality": 78 }
+      ]
+    },
+    {
+      "id": "pins-m",
+      "variant": "В",
+      "raw": "raw/pins-m.png",
+      "ar": "9:16",
+      "ref": "raw/pins.png",
+      "scene": "Portrait framing of the same subject as the reference image: the same folded hem of pale natural linen with three glass-head pins, the same warm backlight and soft darkness. The hem and pins sit in the lower third of the frame; the upper two thirds are deep soft darkness, a large empty dark space for text. No hands, no people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/pins-m.webp", "width": 1080, "quality": 78 }
+      ]
+    }
+  ],
+  "keep": []
+}

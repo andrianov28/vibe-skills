@@ -1,0 +1,157 @@
+{
+  "world": "Архитектурный",
+  "preamble": "Architectural photography, tilt-shift corrected verticals, wide 24mm lens. Vast negative space, strong linear geometry, raking daylight through structure. Cool neutral grade with one warm accent of natural wood. Long exposure stillness, no people. Photographic, no render, no CGI, no text, no logos, no watermark.",
+  "images": [
+    {
+      "id": "hero",
+      "raw": "raw/hero.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Empty apartment living room, wide 24mm shot straight on, verticals corrected: a tall floor-to-ceiling white PVC window with three sashes and a white sill fills the right half of the frame from the oak floor almost to the ceiling, bright morning sunlight pours through it, casting a long slanted rectangle of light and soft window-frame shadows across the light oak floorboards and the lower wall. The whole left half of the frame is a plain smooth white plastered wall in gentle shadow with a soft gradient of light from the window, empty quiet negative space for text. Warm oak floor takes the lower quarter of the frame. No furniture, no curtains, no radiator, no people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 74
+        },
+        { "file": "assets/hero-1200.webp",
+          "width": 1200,
+          "quality": 76
+        },
+        { "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
+      ]
+    },
+    {
+      "id": "hero-m",
+      "raw": "raw/hero-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero.png",
+      "scene": "The same empty room and the same tall floor-to-ceiling white PVC window from the reference, vertical portrait frame: the window with its white sill sits in the upper half of the frame, slightly right of centre, bright morning sunlight pours through it, blurred green trees behind the glass, a slanted rectangle of light on the oak floor. The lower half of the frame is plain white plastered wall in gentle shadow and a strip of light oak floor, empty quiet negative space for text. Same light, same colours as the reference. No furniture, no people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 74
+        }
+      ]
+    },
+    {
+      "id": "wall",
+      "raw": "raw/wall.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Empty apartment room photographed straight on, flat frontal elevation of a plain smooth white plastered wall filling the frame, a narrow strip of light oak floor along the bottom edge, no window and no door visible in the frame. Soft daylight enters from the right side out of frame and falls across the wall, brighter on the right, gently darker on the left. The whole wall is empty quiet negative space for text and for a window to be drawn on top. Nothing on the wall, no furniture, no skirting details, no people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/wall.webp",
+          "width": 1920,
+          "quality": 72
+        },
+        { "file": "assets/wall-1200.webp",
+          "width": 1200,
+          "quality": 74
+        }
+      ]
+    },
+    {
+      "id": "view",
+      "raw": "raw/view.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Outdoor photograph taken from an open window on the third floor, camera leaning out, so there is absolutely no window frame, no glass, no mullions, no wall and no reflections anywhere in the frame, only the outdoor view itself edge to edge: a quiet residential courtyard with two mature trees in early autumn leaf, part of a neighbouring pale brick house on the right, a strip of asphalt path and lawn below, a wide pale morning sky in the upper half. Crisp and sharp, calm and still. No cars, no people, no signs, no text, no logos.",
+      "outputs": [
+        { "file": "assets/view.webp",
+          "width": 1600,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "view-old",
+      "raw": "raw/view-old.png",
+      "ar": "16:9",
+      "ref": "raw/view.png",
+      "scene": "Exactly the same courtyard view from the reference, same framing, same trees, same house, same sky, but photographed through an old fogged window pane: dense condensation droplets and water streaks on the glass in the foreground, a grey misty haze, dust and grime on the glass, colours dull and washed out, contrast low, everything behind the glass soft and blurred. No people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/view-old.webp",
+          "width": 1600,
+          "quality": 74
+        }
+      ]
+    },
+    {
+      "id": "zamer",
+      "raw": "raw/zamer.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Bare window sill in an empty room before renovation: a yellow tape measure pulled out along the sill and a small grey laser distance meter standing next to it, the old window frame edge and daylight from the window above, plain white wall on the left. Shot from slightly above at an angle, the sill running diagonally, shallow depth. The upper left third is plain wall, empty. No people, no hands, no text, no labels, no logos.",
+      "outputs": [
+        { "file": "assets/zamer.webp",
+          "width": 1400,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "montazh",
+      "raw": "raw/montazh.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "A brand new white PVC window just set into a brick opening in an apartment during installation: fresh mounting foam around the frame, blue protective film still on the profile, no sill yet, the floor below covered with a grey drop cloth, a few tools laid neatly on the cloth, daylight pouring through the new glass. Wide shot from inside the empty room, straight on. No people, no text, no labels, no logos.",
+      "outputs": [
+        { "file": "assets/montazh.webp",
+          "width": 1400,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "profile",
+      "raw": "raw/profile.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Close-up of the lower corner of a new white PVC window from inside the room: the frame, the sash, the glazing bead, a matte white handle, the rubber seal, a white window sill, all in the right half of the frame. Raking daylight from the right grazes the profile and shows its clean geometry. The left half of the frame is a plain white wall in soft light, empty quiet negative space for text. No people, no text, no labels, no logos, no stickers on the glass.",
+      "outputs": [
+        { "file": "assets/profile.webp",
+          "width": 1920,
+          "quality": 74
+        },
+        { "file": "assets/profile-1200.webp",
+          "width": 1200,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "balkon",
+      "raw": "raw/balkon.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Interior of a freshly glazed apartment balcony, vertical frame: floor-to-ceiling white PVC glazing with slim mullions, warm oak floorboards, white painted walls, morning daylight and a soft view of trees behind the glass. Shot from the doorway looking along the balcony, verticals corrected. Empty, nothing on the floor. No people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/balkon.webp",
+          "width": 1000,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "potolok",
+      "raw": "raw/potolok.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Ordinary city apartment bedroom, vertical frame, camera tilted up towards the corner where a perfectly flat, horizontal, seamless matte white stretch ceiling meets two white walls; one thin straight recessed LED light line runs across the ceiling; below it the top of a tall white PVC window with daylight and the top edge of a plain linen curtain. Flat horizontal ceiling only: no sloped ceilings, no attic, no skylight, no beams. Verticals corrected, wide lens, calm negative space. No people, no text, no logos.",
+      "outputs": [
+        { "file": "assets/potolok.webp",
+          "width": 1000,
+          "quality": 78
+        }
+      ]
+    }
+  ],
+  "keep": []
+}
