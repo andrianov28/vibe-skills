@@ -250,7 +250,13 @@ saveCfg();
 const fresh = !fs.existsSync(path.join(pub, ".git"));
 if (fresh) {
   git(["init", "-q", "-b", "main"]);
-  const exists = gh(["repo", "view", `${cfg.owner}/${cfg.repo}`, "--json", "name"]).code === 0;
+  // gh repo view идёт по редиректу переименованного репозитория и отвечает успехом
+  // под старым именем – поэтому сверяем имя, которое вернул GitHub, с нужным.
+  const view = gh(["repo", "view", `${cfg.owner}/${cfg.repo}`, "--json", "name"]);
+  let exists = false;
+  if (view.code === 0) {
+    try { exists = JSON.parse(view.out).name.toLowerCase() === cfg.repo.toLowerCase(); } catch { exists = false; }
+  }
   if (exists) {
     info(`репозиторий ${cfg.repo} уже есть, подключаюсь к нему`);
     git(["remote", "add", "origin", `https://github.com/${cfg.owner}/${cfg.repo}.git`]);
