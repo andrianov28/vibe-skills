@@ -7,7 +7,7 @@
       "raw": "raw/hero.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "An open lined school exercise book lying on a pale warm off-white desk, seen from slightly above at a three-quarter angle, a dark blue fountain pen resting across its right page, two closed notebooks with plain pastel covers and a wooden pencil beside it. The whole group sits in the lower right third of the frame; the left two thirds of the frame are the empty smooth warm off-white desk surface for text. Soft daylight from the upper left, one soft contact shadow. Pages completely blank, no handwriting, no letters, no numbers, no text, no logos, no hands, no people.",
+      "scene": "A student's desk seen from slightly above at a three-quarter angle on a pale warm off-white surface, a collage of study tasks: a stack of three closed textbooks with plain cloth covers in muted ink blue, pale ochre and warm grey, an open lined exercise book with a dark blue fountain pen lying across it, a small plain grey calculator with unmarked blank keys and a wooden ruler, a pair of plain over-ear headphones resting on a thick closed dictionary-like book, one blank printed answer sheet with rows of small empty squares and no letters, a few blank pale sticky notes and a wooden pencil. The whole group fills the right half of the frame and stays below the top edge; the left half of the frame is the empty smooth warm off-white desk surface for text. Soft daylight from the upper left, one soft contact shadow. Everything blank: no handwriting, no letters, no numbers, no text, no logos, no brand marks, no screens, no hands, no people.",
       "outputs": [
         { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
         { "file": "assets/hero-1200.webp", "width": 1200, "quality": 76 },
@@ -19,7 +19,7 @@
       "raw": "raw/hero-m.png",
       "ar": "9:16",
       "ref": "raw/hero.png",
-      "scene": "Same open exercise book, fountain pen, pastel notebooks and desk as the reference, same light, vertical frame for a phone screen. The notebook group sits in the lower half of the frame seen from slightly above; the upper half is the empty smooth warm off-white desk surface for text. Pages completely blank, no handwriting, no text, no logos, no hands, no people.",
+      "scene": "Same desk objects as the reference (stacked textbooks, open exercise book with fountain pen, plain calculator, ruler, headphones on a thick book, blank answer sheet, sticky notes, pencil), same light, vertical frame for a phone screen. The whole group sits in the lower half of the frame seen from slightly above; the upper half is the empty smooth warm off-white desk surface for text. Everything blank, no handwriting, no letters, no numbers, no text, no logos, no hands, no people.",
       "outputs": [
         { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
       ]
@@ -70,7 +70,7 @@
       "raw": "raw/hero-b.png",
       "ar": "16:9",
       "ref": "raw/hero.png",
-      "scene": "Same exercise book, fountain pen and desk as the reference, same light, shot straight down from above: the open notebook lies centred in the lower half of the frame with the pen across the fold; the upper half is the empty smooth warm off-white desk surface for a centred title. Pages completely blank, no handwriting, no text, no logos, no hands, no people.",
+      "scene": "Same desk objects as the reference (textbooks, open exercise book with fountain pen, calculator, ruler, headphones, blank answer sheet, sticky notes, pencil), same light, shot straight down from above: the group lies spread across the lower half of the frame; the upper half is the empty smooth warm off-white desk surface for a centred title. Everything blank, no handwriting, no text, no logos, no hands, no people.",
       "outputs": [
         { "file": "assets/hero-b.webp", "width": 1920, "quality": 78 }
       ]

@@ -72,16 +72,27 @@
     .bar .v-btn { padding: .65em 1em; }
   }
 
-  /* ---- 1 · обложка: стол с тетрадью на весь экран ---------------------------- */
-  .hero__img img { object-position: 0% 60%; }
+  /* ---- 1 · обложка: стол ученика с задачами (учебники, тетрадь, калькулятор,
+          наушники, бланк экзамена) на весь экран. Картинка не кропится по бокам:
+          ширина 100 %, прижата к низу, сверху добираем бумагой и растушёвкой ------ */
+  .hero__img { overflow: hidden; }
   .hero__back { will-change: transform; }
-  .hero__back img { width: 112%; height: 112%; left: 0; top: -6%; object-fit: cover; }
+  .hero__back img { position: absolute; left: -3%; bottom: -16px; top: auto; width: 106%; height: auto; max-width: none; object-fit: fill; }
   .hero__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    background: linear-gradient(to right, rgb(246 243 236 / .62) 0%, rgb(246 243 236 / .34) 30%, rgb(246 243 236 / .08) 48%, transparent 58%); }
-  .hero__copy { max-width: min(38rem, 46vw); bottom: 0; top: 0; display: flex; flex-direction: column; justify-content: center; padding-top: 3.5rem; }
+    background:
+      linear-gradient(to bottom, rgb(246 243 236 / 1) 0%, rgb(246 243 236 / .9) 12%, rgb(246 243 236 / 0) 30%),
+      linear-gradient(to right, rgb(246 243 236 / .66) 0%, rgb(246 243 236 / .42) 32%, rgb(246 243 236 / .12) 48%, transparent 58%); }
+  .hero__copy { max-width: min(42rem, 50vw); bottom: 0; top: 0; display: flex; flex-direction: column; justify-content: center; padding-top: 3rem; }
   .hero__label { font-size: var(--v-t-sm); font-weight: 500; color: var(--v-ink-soft); margin-bottom: var(--v-4); }
-  .hero__copy h1 { font-size: clamp(2.5rem, 1.1rem + 3.4vw, 4.6rem); line-height: .98; }
+  .hero__copy h1 { font-size: clamp(2.3rem, 1rem + 2.6vw, 3.5rem); line-height: 1; }
   .hero__copy .v-lede { margin-top: var(--v-5); max-width: 40ch; }
+  /* стикеры-задачи поверх фото: по ним ученик узнаёт себя. Появляются по реплике hero, по одному */
+  .tags { position: absolute; inset: 0; z-index: 3; pointer-events: none; margin: 0; padding: 0; list-style: none; }
+  .tag { position: absolute; left: var(--x); top: var(--y); margin: 0; font-family: var(--v-font-display); font-weight: 500; font-size: clamp(1rem, .7rem + .55vw, 1.3rem); line-height: 1; letter-spacing: -.005em; color: var(--v-ink); background: var(--nb-paper); padding: .55em .8em .5em; border-radius: 2px; box-shadow: 0 1px 0 rgb(255 255 255 / .9) inset, var(--v-e1); white-space: nowrap;
+    opacity: 0; transform: rotate(var(--r, 0deg)) translateY(10px) scale(.96);
+    transition: opacity .5s var(--v-ease-out), transform .5s var(--v-ease-out); transition-delay: calc(var(--i, 0) * 90ms + 220ms); }
+  .tag::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: .28em; height: 1px; background: var(--nb-line); }
+  .tags.v-cue-on .tag { opacity: 1; transform: rotate(var(--r, 0deg)); }
   .hero__cta { margin-top: var(--v-6); display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); }
   .hero__hint { font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 30ch; }
   .hero__hint b { color: var(--v-ink); font-weight: 600; }
@@ -91,18 +102,21 @@
   .hero__turn p { margin-top: var(--v-5); max-width: 40ch; }
   .hero__turn p b { font-weight: 600; }
   @media (max-width: 860px) {
-    .hero__img img { object-position: 50% 78%; left: -6%; }
-    .hero__scrim { background: linear-gradient(to bottom, rgb(246 243 236 / .96) 0%, rgb(246 243 236 / .9) 40%, rgb(246 243 236 / .5) 58%, transparent 72%); }
-    .hero__copy, .hero__turn { left: var(--v-gutter); right: var(--v-gutter); top: 4.6rem; bottom: auto; display: block; padding-top: 0; max-width: none; }
+    .hero__back img { left: 0; width: 100%; }
+    .hero__scrim { background: linear-gradient(to bottom, rgb(246 243 236 / 1) 0%, rgb(246 243 236 / .94) 42%, rgb(246 243 236 / .55) 56%, transparent 68%); }
+    .hero__copy, .hero__turn { left: var(--v-gutter); right: var(--v-gutter); top: 4.4rem; bottom: auto; display: block; padding-top: 0; max-width: none; }
     .hero__label { margin-bottom: var(--v-3); }
-    .hero__copy h1 { font-size: clamp(1.9rem, 1.2rem + 3.2vw, 2.6rem); line-height: 1.02; }
+    .hero__copy h1 { font-size: clamp(1.7rem, 1.1rem + 2.8vw, 2.3rem); line-height: 1.04; }
     .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-3); }
     .hero__cta { margin-top: var(--v-4); flex-direction: column; align-items: flex-start; gap: var(--v-3); }
     .hero__turn h2 { font-size: clamp(1.7rem, 1.1rem + 2.6vw, 2.3rem); }
     .hero__turn p { margin-top: var(--v-4); }
+    /* стикеры на телефоне: кучка на столе над тетрадью, в две строки, всё в кадре */
+    .tags { inset: auto var(--v-gutter) 6.5vh var(--v-gutter); display: flex; flex-wrap: wrap; gap: var(--v-2) var(--v-3); align-content: flex-end; }
+    .tag { position: static; font-size: var(--v-t-sm); padding: .5em .7em .45em; }
   }
   @media (min-width: 861px) and (max-height: 760px) {
-    .hero__copy h1 { font-size: clamp(2.2rem, 1rem + 2.9vw, 3.8rem); }
+    .hero__copy h1 { font-size: clamp(2rem, .9rem + 2.4vw, 3.1rem); }
     .hero__copy .v-lede { margin-top: var(--v-4); font-size: var(--v-t-base); }
   }
 
@@ -344,24 +358,35 @@
 
   <main>
 
-    <!-- 1 · ОБЛОЖКА: стол с тетрадью на весь экран. Оффер слева, кнопка над сгибом.
-         Вторая реплика – цена бездействия: занятия без плана -->
+    <!-- 1 · ОБЛОЖКА: стол ученика с задачами на весь экран (учебники, тетрадь, калькулятор,
+         наушники, бланк экзамена) + стикеры-задачи поверх фото. Оффер слева по формуле
+         «что + для кого + одно УТП», кнопка над сгибом. Вторая реплика – цена бездействия -->
     <section id="top" data-v-act="pin" data-v-span="1.9" aria-label="Репетитор: план по этапам">
       <div data-v-stage>
         <div class="v-layer hero__back" data-v-parallax="-0.3">
           <div class="v-fill hero__img">
             <picture>
               <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
-              <img src="assets/hero.webp" srcset="assets/hero-1200.webp 1200w, assets/hero.webp 1920w" sizes="100vw" alt="Открытая тетрадь и ручка на столе" width="1920" height="1080" fetchpriority="high">
+              <img src="assets/hero.webp" srcset="assets/hero-1200.webp 1200w, assets/hero.webp 1920w" sizes="100vw" alt="Стол ученика: учебники, тетрадь с ручкой, калькулятор, наушники и бланк экзамена" width="1920" height="1080" fetchpriority="high">
             </picture>
           </div>
         </div>
         <div class="hero__scrim" aria-hidden="true"></div>
 
+        <!-- стикеры-задачи: с чем приходят. Позиции в % сцены, поворот – как записка на столе -->
+        <ul class="tags" data-v-cue="0 0.5 0 0.1" data-v-rise="0" aria-label="С чем приходят: ЕГЭ, ОГЭ, английский, математика, школа, институт">
+          <li class="tag" style="--x: 74%; --y: 86%; --r: -5deg; --i: 0">ЕГЭ</li>
+          <li class="tag" style="--x: 86%; --y: 74%; --r: 4deg; --i: 1">ОГЭ</li>
+          <li class="tag" style="--x: 78%; --y: 33%; --r: 3deg; --i: 2">английский</li>
+          <li class="tag" style="--x: 44%; --y: 62%; --r: -3deg; --i: 3">математика</li>
+          <li class="tag" style="--x: 58%; --y: 72%; --r: 2deg; --i: 4">школа</li>
+          <li class="tag" style="--x: 55%; --y: 34%; --r: -4deg; --i: 5">институт</li>
+        </ul>
+
         <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.5 0 0.1">
-          <p class="hero__label">Репетитор по {{предмет}} · онлайн и очно</p>
-          <h1 class="v-display v-display--xl" data-v-kinetic="lines">План по этапам, а не просто занятия</h1>
-          <p class="v-lede">Пробное занятие, план на 8 недель и цена за занятие или пакет – до оплаты. Экзамен, разговорный, школьная программа.</p>
+          <p class="hero__label">Онлайн и очно в {{город}}</p>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Репетитор по {{предмет}} школьникам и студентам: план по этапам</h1>
+          <p class="v-lede">Пробное занятие, план на 8 недель и цена за занятие или пакет – всё известно до оплаты.</p>
           <div class="hero__cta">
             <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener" data-v-magnet="0.2" data-v-rise="0">Записаться на пробное</a>
             <p class="hero__hint">Пробное – 45 минут, <b>{{цена}}&nbsp;₽</b>. После него план и цена, потом решение.</p>

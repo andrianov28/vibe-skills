@@ -8,14 +8,15 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Своё кресло">
-<meta property="og:title" content="Ближайшее окно к своему мастеру">
+<meta property="og:title" content="Парикмахерская в {{город}}: к своему мастеру в ближайшие дни">
 <meta property="og:description" content="Запись к конкретному мастеру на ближайшие дни, цена по прайсу без сюрпризов на кассе. Стрижка, укладка, окрашивание, борода.">
 <meta property="og:url" content="{{адрес сайта}}">
 <meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" as="image" href="assets/chair.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero.webp" fetchpriority="high" media="(min-width: 861px)">
+<link rel="preload" as="image" href="assets/hero-m.webp" fetchpriority="high" media="(max-width: 860px)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
@@ -85,28 +86,27 @@
   }
   @media (max-width: 860px) { .bar.is-scrolled { background: color-mix(in oklab, var(--v-canvas) 96%, transparent); } }
 
-  /* ---- акт 1 · hero и «смена»: кресло проходит день ----------------------- */
-  /* стопка кадров: все три рисуются одного размера (кроют контейнер с запасом 4 %), без object-fit,
-     чтобы проценты transform считались от самого кадра; --hx/--hy – где стоит центр кадра в контейнере */
-  .hero__photo { position: absolute; inset: 0; overflow: hidden; container-type: size; --hx: 38%; --hy: 47%; }
-  .hero__stack img { left: var(--hx); top: var(--hy); width: max(104cqw, calc(104cqh * 16 / 9)); height: auto; translate: -50% -50%;
-    transform-origin: var(--ox, 50%) var(--oy, 50%); transform: translate(var(--dx, 0%), var(--dy, 0%)) scale(var(--s, 1)); }
-  /* выравнивание кресла между кадрами: --ox/--oy – основание кресла в долях кадра (по замеру raw),
-     --s – во сколько раз увеличить кадр, чтобы кресло стало того же размера, что в опорном (дневном),
-     --dx/--dy – сдвиг, чтобы основания совпали (доли кадра). После перегенерации кадров пересчитать. */
-  .hero__img--morning { --ox: 66%; --oy: 85.3%; --s: 1.229; --dx: 11%; --dy: 2.2%; }
-  .hero__img--day { --ox: 77%; --oy: 87.5%; --s: 1; }
-  .hero__img--eve { --ox: 78%; --oy: 88.2%; --s: 1.059; --dx: -1%; --dy: -0.7%; }
-  /* фирменный ход: три кадра одного кресла, верхние два проявляются от --v-p */
-  .hero__img--day { opacity: clamp(0, (var(--v-p, 0) - .12) / .3, 1); }
-  .hero__img--eve { opacity: clamp(0, (var(--v-p, 0) - .55) / .3, 1); }
+  /* ---- акт 1 · hero и «смена»: рабочее место мастера проходит день ----------- */
+  /* один кадр (зеркало с подсветкой, полка с инструментами) внутри <picture>: селектор движка .v-layer > img
+     не достаёт, позиционируем сами; запас 8 % по высоте под parallax −0,25; --hx/--hy – точка кадра, которую держим */
+  .hero__photo { position: absolute; inset: 0; overflow: hidden; --hx: 35%; --hy: 50%; }
+  .hero__stack img { position: absolute; max-width: none; left: 0; top: -4%; width: 100%; height: 108%; object-fit: cover; object-position: var(--hx) var(--hy); }
+  /* фирменный ход: свет на рабочем месте проходит день – два световых слоя поверх кадра проявляются от --v-p:
+     утро (холодный свет из окна слева) гаснет к p ≈ 0,3, вечер (тёплое низкое солнце справа, лёгкая виньетка) встаёт с p ≈ 0,5.
+     Цвета слоёв не из палитры – это свет, при смене палитры не трогать. */
+  .hero__light { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply; }
+  .hero__light--morning { background: linear-gradient(100deg, rgb(178 196 216 / .62) 0%, rgb(178 196 216 / .3) 40%, rgb(178 196 216 / .08) 70%, transparent 100%);
+    opacity: calc(1 - clamp(0, var(--v-p, 0) / .3, 1)); }
+  .hero__light--eve { background: linear-gradient(262deg, rgb(255 176 96 / .78) 0%, rgb(255 190 120 / .42) 42%, rgb(226 190 150 / .2) 72%, rgb(200 170 140 / .16) 100%),
+      radial-gradient(120% 90% at 66% 46%, transparent 48%, rgb(96 60 30 / .28) 100%);
+    opacity: clamp(0, (var(--v-p, 0) - .5) / .35, 1); }
   .hero__wash { position: absolute; inset: 0; z-index: 2; pointer-events: none;
     background: linear-gradient(to right, var(--hero-wash) 0%, transparent 46%); }
   .hero__copy, .hero__note, .shift, .clock { color: var(--hero-ink); }
   .hero__copy .v-lede, .hero__label, .shift .v-label, .shift__cta span, .shift__desc, .clock__time i, .clock__lbl { color: color-mix(in oklab, var(--hero-ink) 78%, transparent); }
   .hero__copy { bottom: clamp(7rem, 18vh, 12rem); max-width: min(44rem, 86vw); }
   .hero__label { display: block; margin-bottom: var(--v-4); }
-  .hero__copy .v-display { font-size: clamp(2.2rem, 1.4rem + 3vw, 4rem); line-height: 1.02; }
+  .hero__copy .v-display { font-size: clamp(2.2rem, 1.2rem + 2.6vw, 3.5rem); line-height: 1.02; }
   .hero__copy .v-lede { margin-top: var(--v-5); max-width: 42ch; }
   .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
   .hero__tel { text-decoration: none; color: inherit; font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
@@ -146,12 +146,11 @@
   .clock__lbl { position: absolute; top: 100%; margin-top: .2em; font-size: var(--v-t-xs); font-variant-numeric: tabular-nums; }
   .clock__lbl--close { right: 0; }
   @media (max-width: 860px) {
-    /* телефон: текст сверху на кремовом фоне, кресло в нижней половине, часы на фото */
-    .hero__photo { top: auto; height: 50svh; }
-    .hero__photo { --hx: 24%; --hy: 38%; }
+    /* телефон: текст сверху на кремовом фоне, рабочее место в нижней половине (кадр 3:4), часы на фото */
+    .hero__photo { top: auto; height: 46svh; --hx: 50%; --hy: 50%; }
     .hero__wash { display: none; }
     .v-page .hero__copy { top: 5rem; bottom: auto; max-width: none; }
-    .hero__copy .v-display { font-size: var(--v-t-2xl); }
+    .hero__copy .v-display { font-size: clamp(1.6rem, 1.1rem + 2.6vw, 2rem); /* длинный H1 с городом: на ступень меньше --v-t-2xl, чтобы кнопка и телефон остались над фото */ }
     .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-4); max-width: none; }
     .hero__label { margin-bottom: var(--v-3); }
     .hero__cta { margin-top: var(--v-5); gap: var(--v-2) var(--v-5); }
@@ -163,11 +162,11 @@
     .shift__desc { display: none; }
     .shift__cta { margin-top: var(--v-2); gap: var(--v-2) var(--v-4); }
     .shift__cta span { display: none; } /* подсказка легла бы на кресло; на телефоне только кнопка */
-    .clock { bottom: 1.25rem; grid-template-columns: 1fr; gap: var(--v-3); }
+    .clock { bottom: 1.25rem; grid-template-columns: auto 1fr; gap: var(--v-3); } /* пилюля и шкала в одну строку: полка с инструментами остаётся над часами */
     .clock__rule { height: 1.1rem; }
     .clock__lbl { display: none; }
   }
-  @media (max-width: 600px) and (max-height: 700px) { .hero__photo { height: 44svh; } .hero__copy .v-lede { display: none; } }
+  @media (max-width: 600px) and (max-height: 700px) { .hero__photo { height: 40svh; } .hero__copy .v-lede { display: none; } }
 
   /* ---- акт 2 · «две недели»: цена бездействия и поворот ---------------------- */
   .poka__head { display: grid; gap: var(--v-3); margin-bottom: var(--v-7); max-width: 56rem; }
@@ -346,15 +345,18 @@
 
   <main>
 
-    <!-- 1 · УЗНАВАНИЕ и ОБЕЩАНИЕ: кресло проходит день, оффер сменяется расписанием -->
+    <!-- 1 · УЗНАВАНИЕ и ОБЕЩАНИЕ: рабочее место мастера проходит день, оффер сменяется расписанием -->
     <section id="top" data-v-act="pin" data-v-span="3" data-v-drift="#f4efe6" aria-label="Парикмахерская: запись к своему мастеру">
       <div data-v-stage class="hero">
         <div class="hero__photo">
           <div class="v-layer hero__stack" data-v-parallax="-0.25">
-            <img class="hero__img hero__img--morning" src="assets/chair.webp" alt="" width="1920" height="1080" fetchpriority="high">
-            <img class="hero__img hero__img--day" src="assets/chair-day.webp" alt="" width="1920" height="1080" decoding="async" aria-hidden="true">
-            <img class="hero__img hero__img--eve" src="assets/chair-evening.webp" alt="" width="1920" height="1080" decoding="async" aria-hidden="true">
+            <picture>
+              <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
+              <img class="hero__img" src="assets/hero.webp" alt="" width="1920" height="1080" fetchpriority="high">
+            </picture>
           </div>
+          <div class="hero__light hero__light--morning" aria-hidden="true"></div>
+          <div class="hero__light hero__light--eve" aria-hidden="true"></div>
           <div class="hero__wash" aria-hidden="true"></div>
         </div>
 
@@ -364,9 +366,9 @@
         </div>
 
         <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.3 0 0.08">
-          <span class="v-label hero__label">Парикмахерская · {{город}}</span>
-          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Ближайшее окно к своему мастеру</h1>
-          <p class="v-lede">Запись на ближайшие дни, а не через две недели. Цена по прайсу, без сюрпризов на кассе. Стрижка, окрашивание, борода.</p>
+          <span class="v-label hero__label">Стрижка · окрашивание · борода</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Парикмахерская в {{город}}: к своему мастеру в ближайшие дни</h1>
+          <p class="v-lede">Ближайшее окно к своему мастеру – утром до работы, днём или вечером после. Цена по прайсу, без сюрпризов на кассе.</p>
           <div class="hero__cta">
             <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться</a>
             <a class="hero__tel" href="tel:{{телефон}}">или позвоните <b>{{телефон}}</b></a>
@@ -664,7 +666,7 @@
     window.addEventListener('scroll', tick, { passive: true }); tick();
   })();
 
-  // Фирменный ход «кресло проходит день»: кадры, бегунок и подсветка окон живут в CSS от --v-p;
+  // Фирменный ход «рабочее место проходит день»: световые слои, бегунок и подсветка окон живут в CSS от --v-p;
   // скрипту остаются часы (от открытия до закрытия, шаг 15 минут) и подпись «утро / день / вечер».
   (function () {
     var act = document.getElementById('top'), clock = act.querySelector('.clock');

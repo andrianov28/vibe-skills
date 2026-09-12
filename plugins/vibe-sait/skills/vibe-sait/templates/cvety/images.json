@@ -1,14 +1,14 @@
 {
-  "world": "Макро-текстура",
+  "world": "Высокий ключ",
   "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
-  "preamble": "Extreme macro photography, 100mm macro lens. Razor-thin plane of focus, everything else falling to soft darkness. Backlit so edges glow. Visible surface texture and grain of the material. Deep negative space. Photographic realism, no CGI, no illustration, no text, no logos, no watermark.",
+  "preamble": "Editorial still-life photography on a seamless warm off-white cyclorama. Large soft overhead source, huge white bounce, near-shadowless with one soft contact shadow. High key, gentle contrast, warm white and pale neutral grade. Medium-format sharpness, fine grain. Photographic realism, no CGI, no text, no logos, no watermark.",
   "images": [
     {
       "id": "hero",
       "raw": "raw/hero.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "A lush hand-tied bouquet of powder-pink garden roses, white ranunculus and eucalyptus wrapped in plain brown kraft paper, standing upright on a dark green-black wooden table, seen from slightly above at a three-quarter angle. Backlit from behind right so the petal edges and the paper edge glow; the rest of the frame falls into deep forest-green darkness. The bouquet occupies the lower right third of the frame; the upper left two thirds of the frame are empty soft darkness for text. No people, no hands, no text, no card, no lettering on the paper, no logos, no watermark.",
+      "scene": "A very large, lush, generous hand-tied bouquet of vividly coloured flowers: deep magenta and blush-pink peonies, coral garden roses, apricot ranunculus and fresh green eucalyptus, wrapped in pale ivory paper, standing upright on a light wooden table in a bright florist studio, seen straight on at table height. Soft daylight from a large window on the right, warm gentle highlights on the petals; the flowers themselves in rich, saturated, lively colour. The bouquet fills the right half of the frame from the table almost to the top edge; the left half of the frame is a clean, empty, softly lit warm off-white wall for text. No people, no hands, no text, no card, no lettering on the paper, no vases or shelves in the background, no logos, no watermark.",
       "outputs": [
         { "file": "assets/hero.webp", "width": 1920, "quality": 76 },
         { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
@@ -19,27 +19,27 @@
       "raw": "raw/hero-m.png",
       "ar": "9:16",
       "ref": "raw/hero.png",
-      "scene": "Portrait framing of the same bouquet as the reference image: powder-pink garden roses, white ranunculus and eucalyptus in plain brown kraft paper standing on a dark green-black wooden table, same backlight, same colours. The bouquet sits in the lower half of the frame; the upper half of the frame is empty soft darkness for text. No people, no hands, no text, no lettering, no logos.",
+      "scene": "Portrait framing of the same bouquet as the reference image: the same deep magenta and blush-pink peonies, coral garden roses, apricot ranunculus and fresh green eucalyptus in pale ivory paper on a light wooden table, the same bright studio, the same soft window daylight and the same rich saturated colours. The bouquet sits in the lower half of the frame and fills it from edge to edge; the upper half of the frame is an empty, softly lit warm off-white wall for text. No people, no hands, no text, no lettering, no logos.",
       "outputs": [
         { "file": "assets/hero-m.webp", "width": 1080, "quality": 76 }
       ]
     },
     {
-      "id": "rose",
-      "raw": "raw/rose.png",
+      "id": "peony",
+      "raw": "raw/peony.png",
       "ar": "3:4",
       "ref": null,
-      "scene": "One single powder-pink garden rose head, fully open, filling the lower two thirds of the frame, petals backlit so their edges glow translucent, fine texture of the petals visible, the stem going straight down out of the frame. Deep forest-green-black background falling to darkness; the upper third of the frame is empty darkness. No people, no hands, no text, no logos.",
+      "scene": "One single deep magenta-pink peony head, fully open, in rich saturated colour, filling the lower two thirds of the frame, soft daylight revealing the layered petal texture, the green stem going straight down out of the frame. Clean warm off-white seamless background; the upper third of the frame is empty. No people, no hands, no text, no logos.",
       "outputs": [
-        { "file": "assets/rose.webp", "width": 900, "quality": 76 }
+        { "file": "assets/peony.webp", "width": 900, "quality": 76 }
       ]
     },
     {
       "id": "ranunculus",
       "raw": "raw/ranunculus.png",
       "ar": "3:4",
-      "ref": "raw/rose.png",
-      "scene": "Same lighting, same camera distance, same deep forest-green-black background and the same framing as the reference image, but the flower is a single white ranunculus head with tightly layered petals, fully open, filling the lower two thirds of the frame, petal edges glowing from the backlight, the stem going straight down out of the frame. Upper third of the frame is empty darkness. No people, no hands, no text, no logos.",
+      "ref": "raw/peony.png",
+      "scene": "Same lighting, same camera distance, same clean warm off-white seamless background and the same framing as the reference image, but the flower is a single coral-orange ranunculus head with tightly layered petals, fully open, in rich saturated colour, filling the lower two thirds of the frame, the green stem going straight down out of the frame. Upper third of the frame is empty. No people, no hands, no text, no logos.",
       "outputs": [
         { "file": "assets/ranunculus.webp", "width": 900, "quality": 76 }
       ]
@@ -48,8 +48,8 @@
       "id": "eucalyptus",
       "raw": "raw/eucalyptus.png",
       "ar": "3:4",
-      "ref": "raw/rose.png",
-      "scene": "Same lighting, same camera distance, same deep forest-green-black background and the same framing as the reference image, but the subject is a single upright sprig of silver-dollar eucalyptus with round blue-green leaves, filling the lower two thirds of the frame, leaf edges glowing from the backlight, leaf texture visible, the stem going straight down out of the frame. Upper third of the frame is empty darkness. No people, no hands, no text, no logos.",
+      "ref": "raw/peony.png",
+      "scene": "Same lighting, same camera distance, same clean warm off-white seamless background and the same framing as the reference image, but the subject is a single upright sprig of fresh, vivid green silver-dollar eucalyptus with round leaves, filling the lower two thirds of the frame, leaf texture visible, the stem going straight down out of the frame. Upper third of the frame is empty. No people, no hands, no text, no logos.",
       "outputs": [
         { "file": "assets/eucalyptus.webp", "width": 900, "quality": 76 }
       ]
@@ -58,8 +58,8 @@
       "id": "wrap",
       "raw": "raw/wrap.png",
       "ar": "3:4",
-      "ref": "raw/rose.png",
-      "scene": "Same lighting, same deep forest-green-black background and the same framing as the reference image, but the subject is a finished hand-tied bouquet of powder-pink garden roses, white ranunculus and eucalyptus wrapped in plain brown kraft paper and tied with a thin cream ribbon, standing upright, filling the lower two thirds of the frame, the edges of the petals and of the paper glowing from the backlight. Upper third of the frame is empty darkness. No people, no hands, no text, no card, no lettering on the paper, no logos.",
+      "ref": "raw/peony.png",
+      "scene": "Same lighting, same clean warm off-white seamless background and the same framing as the reference image, but the subject is a finished, full hand-tied bouquet of deep magenta and blush-pink peonies, coral-orange ranunculus, coral garden roses and fresh green eucalyptus wrapped in pale ivory paper and tied with a thin sage-green ribbon, standing upright, filling the lower two thirds of the frame, the flowers in rich saturated colour. Upper third of the frame is empty. No people, no hands, no text, no card, no lettering on the paper, no logos.",
       "outputs": [
         { "file": "assets/wrap.webp", "width": 900, "quality": 76 },
         { "file": "assets/wrap-480.webp", "width": 480, "quality": 74 }
@@ -70,7 +70,7 @@
       "raw": "raw/delivery.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "A finished bouquet of powder-pink garden roses, white ranunculus and eucalyptus wrapped in plain brown kraft paper, lying on its side on a dark wooden bench beside an apartment door, seen from a low angle at table height. Warm backlight from a hallway lamp glances across the petals and the paper; the rest of the frame falls into deep green-black shadow. The bouquet occupies the lower right of the frame; the upper left half of the frame is an empty dark wall, soft darkness for text. No people, no hands, no text, no door numbers, no signs, no logos.",
+      "scene": "A finished bouquet of deep magenta peonies, coral ranunculus and fresh green eucalyptus in pale ivory paper, lying on its side on a light oak console table beside a white apartment door in a bright hallway, seen from a low angle at table height. Soft daylight from a window on the right, the flowers in rich saturated colour. The bouquet occupies the lower right of the frame; the upper left half of the frame is an empty, softly lit pale wall for text. No people, no hands, no text, no door numbers, no signs, no logos.",
       "outputs": [
         { "file": "assets/delivery.webp", "width": 1920, "quality": 74 }
       ]
@@ -80,7 +80,7 @@
       "raw": "raw/wedding.png",
       "ar": "3:4",
       "ref": null,
-      "scene": "A bridal bouquet of white peonies, cream garden roses and eucalyptus, the stems wrapped in ivory satin ribbon, standing in a low glass of water on a dark wooden table, seen at a slight angle from above. Backlit so the petal edges glow, deep forest-green-black surroundings. The bouquet fills the lower two thirds of the frame; the upper third of the frame is empty darkness for text. No people, no hands, no text, no logos.",
+      "scene": "A bridal bouquet of white and blush-pink peonies, cream garden roses and green eucalyptus, the stems wrapped in ivory satin ribbon, standing in a low glass of water on a light linen tablecloth by a bright window, seen at a slight angle from above. Soft daylight, one gentle contact shadow. The bouquet fills the lower two thirds of the frame; the upper third of the frame is an empty pale wall for text. No people, no hands, no text, no logos.",
       "outputs": [
         { "file": "assets/wedding.webp", "width": 1200, "quality": 76 }
       ]

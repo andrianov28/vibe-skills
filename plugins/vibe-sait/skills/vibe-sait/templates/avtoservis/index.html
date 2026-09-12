@@ -8,8 +8,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Просвет">
-<meta property="og:title" content="Цена до приезда, а не после осмотра">
-<meta property="og:description" content="Автосервис и детейлинг в {{город}}: типовые работы по прайсу, ничего лишнего без согласования, машина в оговорённый срок. Запись на конкретное время.">
+<meta property="og:title" content="Автосервис в {{город}}: диагностика с фото, цена до работ">
+<meta property="og:description" content="Цена на типовые работы до приезда, запись на конкретное время, ничего лишнего без согласования, машина в оговорённый срок.">
 <meta property="og:url" content="{{адрес сайта}}">
 <meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -74,18 +74,15 @@
     .nope li span, .reviews__meta, .reviews__rating, .reviews__fact, .close__hint, .close__meta { font-size: .95rem; }
   }
 
-  /* ---- hero: машина под жёстким светом, два плана ------------------------ */
+  /* ---- hero: машина под жёстким светом, один кадр на весь экран ---------- */
   /* img внутри <picture>: селектор движка .v-layer > img не достаёт, позиционируем сами */
-  .hero__back img, .hero__card img { position: absolute; max-width: none; }
-  .hero__back img { width: 116%; height: 116%; left: -8%; top: -8%; object-fit: cover; }
-  .hero__card { --w: clamp(180px, 16vw, 270px); --r: clamp(2rem, 4vw, 5rem); --b: 5vh; }
-  .hero__card img { width: var(--w); height: calc(var(--w) * 4 / 3); right: var(--r); bottom: var(--b); object-fit: cover;
-    border-radius: var(--v-radius); box-shadow: 0 30px 60px rgb(0 0 0 / .6), var(--v-edge); }
+  .hero__back img { position: absolute; max-width: none; width: 116%; height: 116%; left: -8%; top: -8%; object-fit: cover; }
   .hero__floor { position: absolute; inset: auto 0 0 0; height: 34%; z-index: 2; pointer-events: none;
     background: linear-gradient(to top, var(--v-canvas) 0%, var(--v-canvas-60) 45%, transparent 100%); }
-  .hero__copy { bottom: clamp(5.5rem, 15vh, 10rem); max-width: min(44rem, 86vw); }
+  .hero__copy { bottom: clamp(5.5rem, 15vh, 10rem); max-width: min(46rem, 86vw); }
   .hero__label { display: block; margin-bottom: var(--v-4); color: var(--v-ink); opacity: .85; }
-  .hero__copy .v-display { font-size: var(--v-t-3xl); line-height: .98; }
+    /* H1 по формуле «что + для кого + УТП» длиннее прежнего: кегль между 2xl и 3xl, чтобы на 1440 было 3–4 строки, не 5 */
+  .hero__copy .v-display { font-size: clamp(2.4rem, 1.2rem + 3vw, 4.2rem); line-height: .98; }
   .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); opacity: .92; max-width: 40ch; }
   .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
   .hero__tel { text-decoration: none; color: var(--v-ink); font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
@@ -94,7 +91,7 @@
   .hero__note .v-nums { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); letter-spacing: -.01em; }
   .hero__top { display: none; }
   @media (max-width: 860px) {
-    /* телефон: машина в нижней половине кадра, текст сверху на пустом фоне, карточка внизу слева */
+    /* телефон: машина в нижней половине кадра, текст сверху на пустом фоне */
     .hero__top { display: block; position: absolute; inset: 0 0 auto 0; height: 62%; z-index: 2; pointer-events: none;
       background: linear-gradient(to bottom, var(--v-canvas-85) 0%, var(--v-canvas-60) 55%, transparent 100%); }
     .hero__floor { height: 22%; }
@@ -104,10 +101,7 @@
     .hero__label { margin-bottom: var(--v-3); }
     .hero__cta { margin-top: var(--v-5); gap: var(--v-2) var(--v-5); }
     .hero__note { display: none; }
-    .hero__card { --w: 27vw; --r: auto; --b: 6vh; }
-    .hero__card img { right: auto; left: var(--v-gutter); box-shadow: 0 18px 36px rgb(0 0 0 / .6); }
   }
-  @media (max-width: 600px) and (max-height: 700px) { .hero__card { --w: 22vw; --b: 4vh; } }
 
   /* ---- цена бездействия: строки боли, поворот, широкий кадр со шторкой ---- */
   .poka__head { display: grid; gap: var(--v-3); margin-bottom: var(--v-7); max-width: 46rem; }
@@ -295,19 +289,13 @@
 
   <main>
 
-    <!-- 1 · УЗНАВАНИЕ: машина под жёстким светом, два плана -->
+    <!-- 1 · УЗНАВАНИЕ: машина под жёстким светом на весь экран -->
     <section id="top" data-v-act="pin" data-v-span="2.0" data-v-drift="#16181c" aria-label="Автосервис и детейлинг по записи">
       <div data-v-stage>
         <div class="v-layer hero__back" data-v-parallax="-0.7">
           <picture>
             <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
             <img src="assets/hero.webp" alt="" width="1920" height="1080" fetchpriority="high">
-          </picture>
-        </div>
-        <div class="v-layer hero__card" data-v-parallax="-0.28">
-          <picture>
-            <source media="(max-width: 600px)" srcset="assets/card-480.webp" width="480" height="640">
-            <img src="assets/card.webp" alt="" width="900" height="1200" decoding="async">
           </picture>
         </div>
         <div class="hero__top" aria-hidden="true"></div>
@@ -321,9 +309,9 @@
         </div>
 
         <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.82 0">
-          <span class="v-label hero__label">Автосервис и детейлинг · {{город}}</span>
-          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Цена до приезда, а не после осмотра</h1>
-          <p class="v-lede">Типовые работы по прайсу, ничего лишнего без согласования, машина в оговорённый срок. Запись на конкретное время.</p>
+          <span class="v-label hero__label">Ремонт, ТО и детейлинг по записи</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Автосервис в {{город}}: диагностика с фото, цена до работ</h1>
+          <p class="v-lede">Цена на типовые работы до приезда, запись на конкретное время, ничего лишнего без согласования, машина в оговорённый срок.</p>
           <div class="hero__cta">
             <a class="v-btn" href="{{ссылка-записи}}" rel="noopener">Записаться на диагностику</a>
             <a class="hero__tel" href="tel:{{телефон}}">или позвоните <b>{{телефон}}</b></a>

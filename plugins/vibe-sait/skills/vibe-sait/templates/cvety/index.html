@@ -8,8 +8,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Стебель">
-<meta property="og:title" content="Букет как на фото, к часу">
-<meta property="og:description" content="Фото собранного букета перед отправкой, доставка к оговорённому часу, цена финальная при подтверждении заказа.">
+<meta property="og:title" content="Букеты с доставкой по {{город}} к вашему часу">
+<meta property="og:description" content="Фото собранного букета перед отправкой: едет то, что на фото. Состав и цена финальные при подтверждении заказа, курьер в оговорённый интервал.">
 <meta property="og:url" content="{{адрес сайта}}">
 <meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,27 +20,31 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230f1a14%27/%3E%3Cpath d=%27M16 26c0-8 3-13 10-16-1 8-4 13-10 16z%27 fill=%27%23e8b4ae%27/%3E%3Cpath d=%27M16 26c0-6-2-10-7-12 1 6 3 10 7 12z%27 fill=%27%23e8b4ae%27 opacity=%27.6%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%232f6b4d%27/%3E%3Cpath d=%27M16 26c0-8 3-13 10-16-1 8-4 13-10 16z%27 fill=%27%23f8f1ed%27/%3E%3Cpath d=%27M16 26c0-6-2-10-7-12 1 6 3 10 7 12z%27 fill=%27%23f8f1ed%27 opacity=%27.6%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="vibe.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Florist","name":"Стебель","description":"Букеты с доставкой к часу: фото собранного букета перед отправкой, состав и цена финальные при заказе, свадебная флористика, цветы в офис.","url":"{{адрес сайта}}","image":"{{адрес сайта}}/assets/og.jpg","telephone":"{{телефон}}","openingHours":"{{часы}}","areaServed":"{{город}}","address":{"@type":"PostalAddress","streetAddress":"{{адрес}}","addressLocality":"{{город}}","addressCountry":"RU"},"priceRange":"от {{цена}} ₽"}
 </script>
 <style>
-  /* ---- тема: шесть цветов, два шрифта (палитра А «тёмный лес + пудра») ---- */
+  /* ---- тема: шесть цветов, два шрифта (палитра А «пудра + лес», светлая) ---- */
   .v-page {
-    --v-canvas: #0f1a14; --v-surface: #182520;
-    --v-ink: #f4ece7; --v-ink-soft: #b1b7ac;
-    --v-accent: #e8b4ae; --v-accent-ink: #2b1517;
+    --v-canvas: #f8f1ed; --v-surface: #fffaf8;
+    --v-ink: #1d2a22; --v-ink-soft: #5a675f;          /* 5,3:1 на холсте */
+    --v-accent: #2f6b4d; --v-accent-ink: #f8f3ef;     /* 5,6:1 на холсте, 5,7:1 текст на кнопке */
     --v-font-display: "Tenor Sans", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
     --v-font-text: "Onest", "Segoe UI", system-ui, sans-serif;
-    --v-shadow-color: 2 6 4;
+    --v-shadow-color: 74 44 40;
+    /* светлый холст: тени легче, кромка карточек световая, а не тёмная */
+    --v-e1: 0 1px 2px rgb(var(--v-shadow-color) / .08), 0 8px 22px rgb(var(--v-shadow-color) / .10);
+    --v-e2: 0 2px 6px rgb(var(--v-shadow-color) / .10), 0 22px 54px rgb(var(--v-shadow-color) / .16);
+    --v-edge: inset 0 1px 0 rgb(255 255 255 / .7);
     --v-radius: 12px;
     --v-section: clamp(3.5rem, 8vw, 7rem);
     --v-display-weight: 400;
     --v-track-tight: -0.008em;
     --v-track-normal: 0;
   }
-  html, body { background: #0f1a14; }
+  html, body { background: #f8f1ed; }
   .v-page .v-display { font-weight: 400; }
   .v-page .v-display--xl { line-height: 1.02; }
   .v-page .v-lede { font-weight: 400; line-height: 1.45; }
@@ -51,9 +55,9 @@
   /* ---- шапка: прозрачная на первом экране, плотная после ------------------- */
   .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; align-items: center; justify-content: space-between;
     padding: var(--v-3) var(--v-gutter); gap: var(--v-4);
-    background: linear-gradient(to bottom, rgb(15 26 20 / .85), rgb(15 26 20 / 0));
+    background: linear-gradient(to bottom, rgb(248 241 237 / .85), rgb(248 241 237 / 0));
     transition: background-color .3s var(--v-ease-out), box-shadow .3s var(--v-ease-out); }
-  .bar.is-scrolled { background: rgb(15 26 20 / .88); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--v-hair); }
+  .bar.is-scrolled { background: rgb(248 241 237 / .88); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--v-hair); }
   .bar__mark { font-family: var(--v-font-display); font-size: var(--v-t-lg); letter-spacing: .02em; text-decoration: none;
     display: inline-flex; align-items: center; gap: .45em; min-height: 44px; white-space: nowrap; }
   .bar__mark i { width: .62em; height: .92em; border-radius: 100% 0 100% 0; background: var(--v-accent); display: inline-block; transform: rotate(-24deg); }
@@ -65,36 +69,36 @@
     .bar__right { gap: var(--v-2); }
     .bar__mark { font-size: 1.15rem; }
   }
-  @media (max-width: 860px) { .bar.is-scrolled { background: rgb(15 26 20 / .94); } }
+  @media (max-width: 860px) { .bar.is-scrolled { background: rgb(248 241 237 / .94); } }
 
-  /* ---- hero: букет на тёмном столе, два плана ------------------------------- */
+  /* ---- hero: букет в светлой студии, два плана ------------------------------- */
   /* img внутри <picture>: селектор движка .v-layer > img не достаёт, позиционируем сами */
-  .hero__back img { position: absolute; max-width: none; width: 112%; height: 112%; left: -6%; top: -6%; object-fit: cover; object-position: 50% 50%; }
+  .hero__back img { position: absolute; max-width: none; width: 112%; height: 112%; left: -6%; top: -6%; object-fit: cover; object-position: 0% 50%; } /* кадр прижат к левому краю: пустая стена под текстом шире */
   .hero__card { --w: clamp(160px, 13vw, 200px); --r: clamp(1.5rem, 4vw, 5rem); --t: clamp(5.5rem, 11vh, 8rem); }
   .hero__card figure { position: absolute; right: var(--r); top: var(--t); width: var(--w); padding: .45rem .45rem .6rem; border-radius: calc(var(--v-radius) - 4px);
-    background: var(--v-surface); box-shadow: 0 30px 60px rgb(2 6 4 / .55), var(--v-edge); transform: rotate(4deg); }
+    background: var(--v-surface); box-shadow: 0 30px 60px rgb(74 44 40 / .18), var(--v-edge); transform: rotate(4deg); }
   .hero__card img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: calc(var(--v-radius) - 7px); display: block; }
   .hero__card figcaption { margin-top: .55rem; font-size: var(--v-t-xs); line-height: 1.35; color: var(--v-ink-soft); }
   .hero__card figcaption b { display: block; color: var(--v-ink); font-weight: 500; }
-  /* тёмный скрим под текст: угол на компьютере, полоса на телефоне */
+  /* светлый скрим цвета холста под текст: угол на компьютере, полоса на телефоне */
   .hero__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    background: radial-gradient(120% 95% at 0% 100%, rgb(15 26 20 / .92) 0%, rgb(15 26 20 / .6) 38%, transparent 70%); }
+    background: radial-gradient(120% 95% at 0% 100%, rgb(248 241 237 / .92) 0%, rgb(248 241 237 / .6) 38%, transparent 70%); }
   .hero__floor { position: absolute; inset: auto 0 0 0; height: 26%; z-index: 2; pointer-events: none;
-    background: linear-gradient(to top, var(--v-canvas) 0%, rgb(15 26 20 / .5) 45%, transparent 100%); }
+    background: linear-gradient(to top, var(--v-canvas) 0%, rgb(248 241 237 / .5) 45%, transparent 100%); }
   .hero__copy { bottom: clamp(5rem, 14vh, 9rem); max-width: min(46rem, 86vw); }
   .hero__label { display: block; margin-bottom: var(--v-4); color: var(--v-accent); }
-  .hero__copy .v-display { font-size: var(--v-t-3xl); max-width: 14ch; }
-  .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); max-width: 42ch; }
+  .hero__copy .v-display { font-size: clamp(2.2rem, 1rem + 2.6vw, 3.5rem); max-width: 21ch; }
+  .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); max-width: 38ch; }
   .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
   .hero__tel { text-decoration: none; color: var(--v-ink); font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
   .hero__tel b { font-weight: 500; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
   @media (max-height: 760px) and (min-width: 861px) { .hero__copy .v-display { font-size: var(--v-t-2xl); } .hero__copy { bottom: clamp(3.5rem, 10vh, 6rem); } }
   @media (max-width: 860px) {
     .hero__back img { object-position: 50% 62%; }
-    .hero__scrim { background: linear-gradient(to bottom, rgb(15 26 20 / .94) 0%, rgb(15 26 20 / .8) 44%, transparent 66%); }
+    .hero__scrim { background: linear-gradient(to bottom, rgb(248 241 237 / .94) 0%, rgb(248 241 237 / .8) 44%, transparent 66%); }
     .hero__floor { height: 14%; }
     .hero__card { --w: 27vw; --r: 5vw; --t: auto; }
-    .hero__card figure { top: auto; bottom: 7vh; box-shadow: 0 18px 36px rgb(2 6 4 / .6); padding: .35rem .35rem .45rem; transform: rotate(-4deg); }
+    .hero__card figure { top: auto; bottom: 7vh; box-shadow: 0 18px 36px rgb(74 44 40 / .22); padding: .35rem .35rem .45rem; transform: rotate(-4deg); }
     .hero__card figcaption { display: none; }
     .hero__copy { top: clamp(5.5rem, 11vh, 7rem); bottom: auto; max-width: none; }
     .hero__copy .v-display { font-size: var(--v-t-2xl); max-width: none; }
@@ -141,12 +145,12 @@
      k – доля раскрытия своей карточки; w – выход готового букета. Ось вращения далеко под карточкой (250 %): веер идёт дугой, низ карточек расходится */
   .fan__card { --k: clamp(0, calc((var(--v-p, 0) - var(--s)) / .3), 1); --w: clamp(0, calc((var(--v-p, 0) - .58) / .24), 1);
     position: absolute; left: 27%; bottom: 6%; width: 46%; aspect-ratio: 3 / 4; transform-origin: 50% 250%; /* left = (100 − 46) / 2: у figure margin обнулён движком, центрируем через left */
-    border-radius: var(--v-radius); overflow: hidden; background: var(--v-surface); box-shadow: 0 24px 48px rgb(2 6 4 / .5), var(--v-edge);
+    border-radius: var(--v-radius); overflow: hidden; background: var(--v-surface); box-shadow: 0 24px 48px rgb(74 44 40 / .18), var(--v-edge);
     transform: translateX(calc(var(--k) * var(--tx))) rotate(calc(var(--a0) * (1 - var(--k)) + var(--a1) * var(--k))) translateY(calc(var(--k) * -6% + var(--w) * 5%));
     opacity: calc(1 - .6 * var(--w)); will-change: transform, opacity; }
   .fan__card img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .fan__card figcaption { position: absolute; left: var(--v-4); right: var(--v-4); bottom: var(--v-4); font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink);
-    opacity: calc(var(--k) * (1 - var(--w))); text-shadow: 0 1px 8px rgb(2 6 4 / .8); }
+    opacity: calc(var(--k) * (1 - var(--w))); text-shadow: 0 1px 8px rgb(255 250 248 / .9), 0 0 2px rgb(255 250 248 / .9); }
   .fan__card--1 { --s: .04; --a0: 0deg; --a1: -8deg; --tx: -30%; z-index: 3; }
   .fan__card--2 { --s: .14; --a0: 1deg; --a1: 0deg; --tx: 0%; z-index: 2; }
   .fan__card--3 { --s: .24; --a0: -1deg; --a1: 8deg; --tx: 30%; z-index: 1; }
@@ -195,7 +199,7 @@
   /* ---- фирменный ход 2: часы доставки ----------------------------------------- */
   .kc__img img { width: 112%; height: 112%; left: -6%; top: -6%; object-fit: cover; object-position: 60% 50%; }
   .kc__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    background: radial-gradient(115% 90% at 0% 0%, rgb(15 26 20 / .94) 0%, rgb(15 26 20 / .66) 40%, transparent 72%); }
+    background: radial-gradient(115% 90% at 0% 0%, rgb(248 241 237 / .94) 0%, rgb(248 241 237 / .66) 40%, transparent 72%); }
   .kc { position: absolute; inset: 0; z-index: 3; display: grid; grid-template-columns: 1.1fr .9fr; column-gap: var(--v-8); align-items: center;
     padding: clamp(4.5rem, 12vh, 7rem) var(--v-gutter) clamp(2.5rem, 8vh, 5rem); }
   .kc__copy { max-width: 36rem; }
@@ -206,12 +210,12 @@
   .kc__rep h3 { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-xl); line-height: 1.12; letter-spacing: 0; margin-bottom: var(--v-3); text-wrap: balance; }
   .kc__rep p { color: var(--v-ink); opacity: .9; max-width: 42ch; text-wrap: pretty; }
   .clock { position: relative; justify-self: center; align-self: end; margin: 0 3rem 2.6rem 0; width: min(100%, 40vh, 380px); aspect-ratio: 1 / 1; border-radius: 50%;
-    background: rgb(15 26 20 / .42); box-shadow: inset 0 0 0 2px var(--v-hair-strong), var(--v-e2); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    background: rgb(248 241 237 / .55); box-shadow: inset 0 0 0 2px var(--v-hair-strong), var(--v-e2); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
   .clock__tick { position: absolute; left: 50%; top: 4%; width: 2px; height: 5%; margin-left: -1px; background: var(--v-hair-strong); transform-origin: 50% 920%; transform: rotate(var(--deg)); }
   .clock__tick--big { background: var(--v-ink); height: 7%; transform-origin: 50% 657%; }
   .clock__mark { position: absolute; inset: 0; transform: rotate(var(--deg)); pointer-events: none; }
   .clock__mark i { position: absolute; left: 50%; top: 7.5%; width: .9rem; height: .9rem; margin-left: -.45rem; border-radius: 50%;
-    background: var(--v-accent); box-shadow: 0 0 0 0 rgb(232 180 174 / .45); transform: scale(calc(.55 + .45 * var(--on))); opacity: calc(.4 + .6 * var(--on)); }
+    background: var(--v-accent); box-shadow: 0 0 0 0 rgb(47 107 77 / .45); transform: scale(calc(.55 + .45 * var(--on))); opacity: calc(.4 + .6 * var(--on)); }
   .clock__mark b { position: absolute; left: 50%; top: -2.4rem; transform: translateX(-50%) rotate(calc(-1 * var(--deg))); font-family: var(--v-font-text); font-weight: 500; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; white-space: nowrap;
     color: var(--v-ink); opacity: calc(.55 + .45 * var(--on)); }
   .clock__mark--photo { --deg: 60deg; --on: clamp(0, calc((var(--v-p, 0) - .6) * 14), 1); }
@@ -227,7 +231,7 @@
   .clock__num--9 { left: 15%; top: 50%; transform: translateY(-50%); }
   .kc__legend { position: absolute; left: -4rem; right: -4rem; bottom: -1.9rem; text-align: center; white-space: nowrap; font-size: var(--v-t-xs); color: var(--v-ink-soft); letter-spacing: var(--v-track-wide); text-transform: uppercase; }
   @media (max-width: 860px) {
-    .kc__scrim { background: linear-gradient(to bottom, rgb(15 26 20 / .96) 0%, rgb(15 26 20 / .86) 46%, rgb(15 26 20 / .3) 78%, transparent 100%); }
+    .kc__scrim { background: linear-gradient(to bottom, rgb(248 241 237 / .96) 0%, rgb(248 241 237 / .86) 46%, rgb(248 241 237 / .3) 78%, transparent 100%); }
     .kc { grid-template-columns: 1fr; grid-template-rows: auto 1fr; row-gap: var(--v-4); align-items: start; padding: clamp(4.5rem, 11vh, 6rem) var(--v-gutter) clamp(1.5rem, 5vh, 3rem); }
     .kc__copy { max-width: none; grid-row: 2; }
     .kc__copy .v-label { display: none; }
@@ -248,7 +252,7 @@
   .ev__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; aspect-ratio: 3 / 4; box-shadow: var(--v-e2), var(--v-edge); }
   .ev__fig img { width: 100%; height: 100%; object-fit: cover; }
   .ev__fig figcaption { position: absolute; left: var(--v-5); right: var(--v-5); bottom: var(--v-5); z-index: 1; font-size: var(--v-t-sm); color: var(--v-ink); max-width: 30ch; }
-  .ev__fig::after { content: ""; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(to top, rgb(15 26 20 / .85), rgb(15 26 20 / .3) 55%, transparent); pointer-events: none; }
+  .ev__fig::after { content: ""; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(to top, rgb(248 241 237 / .85), rgb(248 241 237 / .3) 55%, transparent); pointer-events: none; }
   .ev__facts li { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-1); }
   .ev__facts li:last-child { border-bottom: 1px solid var(--v-hair); }
   .ev__facts strong { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-lg); letter-spacing: 0; line-height: 1.15; }
@@ -279,7 +283,7 @@
 
   /* ---- финал: одно сообщение ----------------------------------------------------- */
   .close { min-height: 86svh; display: grid; grid-template-rows: 1fr auto; padding: clamp(6rem, 14vh, 9rem) var(--v-gutter) 2.5rem;
-    background: radial-gradient(60rem 40rem at calc(var(--v-mx, .5) * 100%) calc(var(--v-my, .5) * 100%), rgb(232 180 174 / .13), transparent 60%); }
+    background: radial-gradient(60rem 40rem at calc(var(--v-mx, .5) * 100%) calc(var(--v-my, .5) * 100%), rgb(47 107 77 / .10), transparent 60%); }
   .close__inner { align-self: center; display: grid; grid-template-columns: 1.25fr .75fr; gap: var(--v-9); align-items: start; padding-bottom: var(--v-9); }
   .close__inner .v-display { margin-bottom: var(--v-5); }
   .close__inner .v-lede { max-width: 40ch; }
@@ -319,8 +323,8 @@
 
   <main>
 
-    <!-- 1 · УЗНАВАНИЕ: букет на тёмном столе, два плана -->
-    <section id="top" data-v-act="pin" data-v-span="2" data-v-drift="#0f1a14" aria-label="Букеты с доставкой к часу">
+    <!-- 1 · УЗНАВАНИЕ: букет в светлой студии, два плана -->
+    <section id="top" data-v-act="pin" data-v-span="2" data-v-drift="#f8f1ed" aria-label="Букеты с доставкой к часу">
       <div data-v-stage>
         <div class="v-layer hero__back" data-v-parallax="-0.6">
           <picture>
@@ -341,9 +345,9 @@
         <div class="hero__floor" aria-hidden="true"></div>
 
         <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.86 0 0.12">
-          <span class="v-label hero__label">Букеты с доставкой к часу · {{город}}</span>
-          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Букет как на фото, к часу</h1>
-          <p class="v-lede">Фото собранного букета перед отправкой, доставка к оговорённому часу, цена финальная при подтверждении заказа.</p>
+          <span class="v-label hero__label">Цветочная мастерская · фото перед отправкой</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Букеты с доставкой по {{город}} к вашему часу</h1>
+          <p class="v-lede">Фото собранного букета перед отправкой: едет то, что на фото. Состав и цена финальные при подтверждении заказа, курьер в оговорённый интервал.</p>
           <div class="hero__cta">
             <a class="v-btn" href="{{ссылка-записи}}" rel="noopener">Заказать букет</a>
             <a class="hero__tel" href="tel:{{телефон}}">или позвоните <b>{{телефон}}</b></a>
@@ -353,7 +357,7 @@
     </section>
 
     <!-- 2 · ЦЕНА БЕЗДЕЙСТВИЯ и ПОВОРОТ: повод бывает один раз -->
-    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#12201a" id="poka" aria-label="Что портит повод">
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#f2e7e2" id="poka" aria-label="Что портит повод">
       <div class="v-wrap">
         <div class="poka__head" data-v-in data-v-stagger="70">
           <h2 class="v-display v-display--lg">Повод бывает один раз</h2>
@@ -372,7 +376,7 @@
     </section>
 
     <!-- 3 · ПОВОРОТ и ВЫБОР: букет собирается (фирменный ход 1, веер карточек) -->
-    <section data-v-act="pin" data-v-span="2.4" data-v-drift="#0f1a14" id="sborka" aria-label="Как собираем букет">
+    <section data-v-act="pin" data-v-span="2.4" data-v-drift="#f8f1ed" id="sborka" aria-label="Как собираем букет">
       <div data-v-stage>
         <div class="sb">
           <div class="sb__head" data-v-cue="0 1 0 0" data-v-rise="0">
@@ -406,8 +410,8 @@
           <div class="fan" aria-hidden="true">
             <figure class="fan__card fan__card--3"><img src="assets/eucalyptus.webp" alt="" width="900" height="1200" loading="lazy" decoding="async"><figcaption>Эвкалипт · зелень</figcaption></figure>
             <figure class="fan__card fan__card--2"><img src="assets/ranunculus.webp" alt="" width="900" height="1200" loading="lazy" decoding="async"><figcaption>Ранункулюс · акцент</figcaption></figure>
-            <figure class="fan__card fan__card--1"><img src="assets/rose.webp" alt="" width="900" height="1200" loading="lazy" decoding="async"><figcaption>Роза садовая · основа</figcaption></figure>
-            <figure class="fan__card fan__card--wrap"><img src="assets/wrap.webp" alt="" width="900" height="1200" loading="lazy" decoding="async"><figcaption>Собрано · крафт, лента</figcaption></figure>
+            <figure class="fan__card fan__card--1"><img src="assets/peony.webp" alt="" width="900" height="1200" loading="lazy" decoding="async"><figcaption>Пион · основа</figcaption></figure>
+            <figure class="fan__card fan__card--wrap"><img src="assets/wrap.webp" alt="" width="900" height="1200" loading="lazy" decoding="async"><figcaption>Собрано · бумага, лента</figcaption></figure>
             <p class="fan__legend">Состав на фото – пример: ваш букет соберём под ваш повод</p>
           </div>
 
@@ -420,7 +424,7 @@
     </section>
 
     <!-- 4 · ВЫБОР: сколько стоит, три формата -->
-    <section class="v-section" data-v-act="flow" data-v-drift="#12201a" id="ceny" aria-label="Сколько стоит">
+    <section class="v-section" data-v-act="flow" data-v-drift="#f2e7e2" id="ceny" aria-label="Сколько стоит">
       <div class="v-wrap price">
         <div class="price__head" data-v-in data-v-in-self>
           <h2 class="v-display v-display--lg">Сколько стоит</h2>
@@ -454,7 +458,7 @@
     </section>
 
     <!-- 5 · ДОКАЗАТЕЛЬСТВО: к часу (фирменный ход 2, часы доставки) -->
-    <section data-v-act="pin" data-v-span="2" data-v-drift="#0d1611" id="kchasu" aria-label="Как доставляем к часу">
+    <section data-v-act="pin" data-v-span="2" data-v-drift="#fbf6f3" id="kchasu" aria-label="Как доставляем к часу">
       <div data-v-stage>
         <div class="v-layer kc__img" data-v-parallax="-0.4">
           <img src="assets/delivery.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async">
@@ -499,7 +503,7 @@
     </section>
 
     <!-- 6 · СОБЫТИЯ: свадьба и офис -->
-    <section class="v-section" data-v-act="flow" data-v-drift="#12201a" id="sobytiya" aria-label="Свадьба и офис">
+    <section class="v-section" data-v-act="flow" data-v-drift="#f2e7e2" id="sobytiya" aria-label="Свадьба и офис">
       <div class="v-wrap ev">
         <figure class="ev__fig" data-v-reveal="up" data-v-reveal-at="0.12 0.46" data-v-tilt="4">
           <img src="assets/wedding.webp" alt="Свадебный букет из белых пионов и садовых роз с эвкалиптом, стебли в атласной ленте" width="1200" height="1600" loading="lazy" decoding="async">
@@ -518,7 +522,7 @@
     </section>
 
     <!-- 7 · ДОВЕРИЕ: отзывы с Яндекс.Карт (только настоящие, слоты; нет отзывов – удалить секцию целиком) -->
-    <section class="v-section" data-v-act="flow" data-v-drift="#0f1a14" id="otzyvy" data-slot-optional aria-label="Отзывы с Яндекс.Карт">
+    <section class="v-section" data-v-act="flow" data-v-drift="#f8f1ed" id="otzyvy" data-slot-optional aria-label="Отзывы с Яндекс.Карт">
       <div class="v-wrap reviews">
         <div class="reviews__head" data-v-in data-v-stagger="60">
           <h2 class="v-display v-display--md">Что пишут на Яндекс.Картах</h2>
@@ -548,7 +552,7 @@
     </section>
 
     <!-- 8 · ДЕЙСТВИЕ: назовите повод и час -->
-    <section data-v-act="flow" data-v-drift="#0f1a14" id="zakaz" aria-label="Заказать букет">
+    <section data-v-act="flow" data-v-drift="#f8f1ed" id="zakaz" aria-label="Заказать букет">
       <div class="close" data-v-spotlight>
         <div class="close__inner">
           <div data-v-in data-v-stagger="80">

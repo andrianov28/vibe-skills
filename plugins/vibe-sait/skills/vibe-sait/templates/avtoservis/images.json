@@ -41,25 +41,6 @@
       ]
     },
     {
-      "id": "card",
-      "raw": "raw/card.png",
-      "ar": "3:4",
-      "ref": null,
-      "scene": "Close-up of a car wheel hub with the wheel removed: a new ventilated brake disc and a dark grey brake caliper on the hub, the car raised on a lift, seen from the side at hub height. One hard white light raking from the upper left makes the disc's vent slots and the caliper edges crisp with deep shadows, seamless dark graphite backdrop behind. Tight vertical composition, the disc and caliper fill the lower two thirds; the upper third is dark empty backdrop. No people, no text, no logos.",
-      "outputs": [
-        {
-          "file": "assets/card.webp",
-          "width": 900,
-          "quality": 78
-        },
-        {
-          "file": "assets/card-480.webp",
-          "width": 480,
-          "quality": 76
-        }
-      ]
-    },
-    {
       "id": "wait",
       "raw": "raw/wait.png",
       "ar": "16:9",

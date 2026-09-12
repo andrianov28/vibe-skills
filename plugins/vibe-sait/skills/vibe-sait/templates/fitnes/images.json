@@ -1,29 +1,17 @@
 {
-  "world": "Жёсткий свет",
+  "world": "Естественный свет",
   "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
-  "preamble": "Studio photography with a single hard undiffused light source. Crisp high-contrast shadows used as graphic shapes. Saturated seamless colour backdrop. Punchy contrast, slight halation on highlights. Digital medium format, sharp throughout. Photographic, not rendered, no text, no logos, no watermark.",
+  "preamble": "Natural-light lifestyle photography in a bright airy fitness studio: large windows, soft daylight filling the room, white walls, pale wooden floor, a few plain black kettlebells and dumbbells. High key, gentle contrast, clean fresh grade with true warm skin tones and no colour cast. Shot on 35mm at eye level, shallow depth of field, fine grain. Real people with natural relaxed expressions, plain unbranded athletic wear. Photographic realism, no CGI, no stock-photo gloss, no text, no signs, no logos, no watermark.",
   "images": [
     {
       "id": "hero",
       "raw": "raw/hero.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "A single person in plain dark athletic clothes (black t-shirt, black shorts, dark sneakers) seen strictly from behind, back fully turned to the camera, head facing away, standing still on a black rubber gym floor in front of a plain matte black wall with one wall-mounted rack holding a few plain kettlebells and dumbbells. Seamless deep charcoal-graphite studio backdrop, one hard white light from the upper right throws one long crisp shadow of the person across the floor to the left. The person and the rack occupy the right third of the frame; the left two thirds are plain dark backdrop and empty floor with nothing on them, large empty space for text. Camera at waist height, wide 35mm. No face visible, nobody else, no mirrors, no text, no signs, no logos, no numbers on the weights, no posters.",
+      "scene": "A female personal trainer in her early thirties, athletic build, hair in a ponytail, wearing a plain light-grey fitted t-shirt and plain black leggings, standing relaxed in the bright studio and looking straight at the camera with an open genuine smile, a small white towel over one shoulder. She stands in the right third of the frame, seen from mid-thigh up; the left two thirds of the frame are a plain bright white wall softly lit by window light, completely empty for text. Camera at chest height, 35mm, shallow depth of field, a blurred rack of black dumbbells far behind her on the right. One person only, no mirrors, no text, no signs, no logos on clothes.",
       "outputs": [
-        {
-          "file": "assets/hero.webp",
-          "width": 1920,
-          "quality": 78
-        },
-        {
-          "file": "assets/og.jpg",
-          "width": 1200,
-          "height": 630,
-          "fit": "cover",
-          "position": "centre",
-          "format": "jpeg",
-          "quality": 80
-        }
+        { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
+        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
       ]
     },
     {
@@ -31,108 +19,64 @@
       "raw": "raw/hero-m.png",
       "ar": "9:16",
       "ref": "raw/hero.png",
-      "scene": "Portrait framing of the same person in plain dark athletic clothes seen strictly from behind as in the reference image, same black rubber gym floor, same matte black wall with the wall-mounted rack of plain kettlebells and dumbbells, same hard white light from the upper right with one long crisp shadow on the floor. The person stands in the lower half of the frame, slightly right of centre; the upper half is plain dark wall and backdrop with nothing on it, empty space for text. No face visible, nobody else, no mirrors, no text, no signs, no logos, no numbers on the weights.",
+      "scene": "Portrait framing for a phone screen of the same female trainer as in the reference image: same face, same ponytail, same plain light-grey t-shirt, black leggings and white towel over the shoulder, same bright studio with soft window light, looking at the camera with the same open smile. She stands in the lower half of the frame, centred, seen from mid-thigh up; the upper half of the frame is plain bright white wall, empty for text. One person only, no mirrors, no text, no logos.",
       "outputs": [
-        {
-          "file": "assets/hero-m.webp",
-          "width": 1080,
-          "quality": 78
-        }
+        { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
       ]
     },
     {
-      "id": "card",
-      "raw": "raw/card.png",
-      "ar": "3:4",
-      "ref": null,
-      "scene": "Close-up of two hands sliding a small plain black rubber weight plate onto the sleeve of a black barbell resting in a rack, seen from the side at chest height, only forearms and hands in the frame, no head. One hard white light from the upper left cuts crisp shadows of the plate and bar across a seamless deep charcoal backdrop. Tight vertical composition, hands and bar fill the lower two thirds; the upper third is plain dark backdrop, empty. No face, no text, no numbers or markings on the plate, no logos, no wristbands with logos.",
-      "outputs": [
-        {
-          "file": "assets/card.webp",
-          "width": 900,
-          "quality": 78
-        },
-        {
-          "file": "assets/card-480.webp",
-          "width": 480,
-          "quality": 76
-        }
-      ]
-    },
-    {
-      "id": "rack",
-      "raw": "raw/rack.png",
+      "id": "duo",
+      "raw": "raw/duo.png",
       "ar": "16:9",
-      "ref": null,
-      "scene": "A long two-tier steel rack of plain black rubber hex dumbbells standing on a black rubber floor in an empty gym, seen from the side at a low angle, wide 35mm, receding into the frame. One hard white light from the upper right throws crisp repeating shadows of the dumbbells across the floor to the left, walls plain matte dark grey, seamless deep charcoal backdrop. The rack occupies the right two thirds of the frame; the left third is plain dark wall and empty floor, empty space for text. No people, no mirrors, no text, no numbers on the dumbbells, no logos, no posters, no screens.",
+      "ref": "raw/hero.png",
+      "scene": "The same female trainer as in the reference image (same face, ponytail, plain light-grey t-shirt) standing close beside a female client in her late thirties in a plain dark-blue t-shirt and black leggings who holds a small black kettlebell at chest height in a squat stance; the trainer gently corrects the client's elbow with one hand and both smile naturally, the trainer looking at the client, not at the camera. Wide frame, camera at waist height, 35mm: both figures three-quarter length on the right half of the frame; the left half is a bright empty studio wall with soft window light, empty for text. Two people only, no mirrors, no text, no logos.",
       "outputs": [
-        {
-          "file": "assets/rack.webp",
-          "width": 1600,
-          "quality": 78
-        },
-        {
-          "file": "assets/rack-900.webp",
-          "width": 900,
-          "quality": 76
-        }
+        { "file": "assets/duo.webp", "width": 1600, "quality": 78 },
+        { "file": "assets/duo-900.webp", "width": 900, "quality": 76 }
       ]
     },
     {
-      "id": "grip",
-      "raw": "raw/grip.png",
+      "id": "talk",
+      "raw": "raw/talk.png",
       "ar": "3:4",
-      "ref": null,
-      "scene": "Close-up from directly above of two hands with a light dusting of chalk gripping the handle of one plain black cast-iron kettlebell standing on a black rubber floor, only hands and forearms in the frame, no head, no body. One hard white light from the upper left makes crisp shadows of the fingers and the kettlebell across the floor, seamless deep charcoal backdrop. Tight vertical composition, hands and kettlebell in the lower two thirds; the upper third is plain dark floor, empty. No face, no text, no numbers or markings on the kettlebell, no logos, no watch.",
+      "ref": "raw/hero.png",
+      "scene": "The same female trainer as in the reference image (same face, ponytail, plain light-grey t-shirt) sitting on a flat black gym bench next to a male client in his forties in a plain grey t-shirt, both relaxed and talking with easy natural smiles, the trainer holding a plain closed notebook and a pen on her knee, soft window light from the left. Vertical composition, camera at eye level: the two seated figures fill the lower two thirds of the frame; the upper third is a bright plain wall, empty for text. Two people only, nothing written on the notebook, no phone, no text, no logos.",
       "outputs": [
-        {
-          "file": "assets/grip.webp",
-          "width": 900,
-          "quality": 78
-        },
-        {
-          "file": "assets/grip-480.webp",
-          "width": 480,
-          "quality": 76
-        }
-      ]
-    },
-    {
-      "id": "bench",
-      "raw": "raw/bench.png",
-      "ar": "3:4",
-      "ref": null,
-      "scene": "A plain black flat gym bench with a folded dark grey towel and a plain matte black water bottle without any label on it, a small plain black kettlebell on the floor beside the bench leg, seen from the side at seat height. One hard white light from the upper right throws crisp shadows of the bench legs and bottle across the black rubber floor, seamless deep charcoal backdrop behind. Tight vertical composition, bench in the lower two thirds; the upper third is plain dark backdrop, empty. No people, no text, no labels, no logos, no phone.",
-      "outputs": [
-        {
-          "file": "assets/bench.webp",
-          "width": 900,
-          "quality": 78
-        },
-        {
-          "file": "assets/bench-480.webp",
-          "width": 480,
-          "quality": 76
-        }
+        { "file": "assets/talk.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/talk-600.webp", "width": 600, "quality": 76 }
       ]
     },
     {
       "id": "trainer",
       "raw": "raw/trainer.png",
       "ar": "3:4",
-      "ref": null,
-      "scene": "Two people seen strictly from behind, both full figures in the frame from head to feet, heads facing away from the camera: a person in plain dark athletic clothes holding a plain black kettlebell at chest height in a squat stance, and beside them, half a step behind, a trainer in a plain black t-shirt and black trousers with one hand resting flat on the person's upper back, the other hand pointing down at the person's knees. Black rubber floor, plain matte black wall, seamless deep charcoal backdrop, one hard white light from the upper right with two crisp overlapping shadows on the floor to the left. Vertical composition, both figures fully inside the frame in the lower two thirds, slightly right of centre, nothing cut off by the frame edges; the upper third is plain dark wall, empty space. No faces visible, no mirrors, no text, no logos, no numbers on the kettlebell.",
+      "ref": "raw/hero.png",
+      "scene": "Portrait of the same female trainer as in the reference image (same face, ponytail, plain light-grey t-shirt), standing in the bright studio with arms loosely crossed, looking at the camera with a warm confident smile, soft window light from the left, blurred pale wooden floor and a few black dumbbells far behind. Vertical framing from the waist up, figure centred in the lower two thirds of the frame; the upper third is soft bright wall, empty. One person only, no mirrors, no text, no logos.",
       "outputs": [
-        {
-          "file": "assets/trainer.webp",
-          "width": 1200,
-          "quality": 78
-        },
-        {
-          "file": "assets/trainer-600.webp",
-          "width": 600,
-          "quality": 76
-        }
+        { "file": "assets/trainer.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/trainer-600.webp", "width": 600, "quality": 76 }
+      ]
+    },
+    {
+      "id": "studio",
+      "raw": "raw/studio.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Empty bright fitness studio interior: a low two-tier rack of plain black hex dumbbells, two black kettlebells and a rolled grey exercise mat on the pale wooden floor, large windows on the right with soft daylight, white walls. Wide 35mm at chest height: the equipment sits in the lower right half of the frame; the upper left is plain bright wall, empty for text. No people, no mirrors, no text, no posters, no screens, no logos.",
+      "outputs": [
+        { "file": "assets/studio.webp", "width": 1200, "quality": 78 },
+        { "file": "assets/studio-700.webp", "width": 700, "quality": 76 }
+      ]
+    },
+    {
+      "id": "water",
+      "raw": "raw/water.png",
+      "ar": "3:4",
+      "ref": null,
+      "scene": "Two clients just after a workout, a woman in her thirties in a plain coral t-shirt and a man in his forties in a plain white t-shirt, both a little flushed and laughing while giving each other a high five, each holding a plain unlabelled water bottle in the other hand, small white towels over their shoulders, bright studio with soft window light behind them. Vertical framing from the chest up, camera at eye level: the two figures fill the lower two thirds of the frame; the upper third is bright blurred window and wall, empty. Two people only, natural laughter, no text, no logos on bottles or clothes.",
+      "outputs": [
+        { "file": "assets/water.webp", "width": 900, "quality": 78 },
+        { "file": "assets/water-480.webp", "width": 480, "quality": 76 }
       ]
     }
   ],

@@ -8,7 +8,7 @@
       "raw": "raw/hero.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "A slim steel hand-sewing needle with a strand of ivory cotton thread caught mid-stitch in a straight seam of natural undyed pale linen fabric, the weave of the linen visible thread by thread, a faint line of tailor's chalk along the seam. The needle and the seam sit in the lower right quarter of the frame, the fabric folds falling away into soft warm darkness. Low backlight from behind the fabric makes the edge of the fold and the thread glow. The upper left two thirds of the frame are deep soft darkness with only a hint of linen texture, a large empty dark space for text. No hands, no people, no scissors, no text, no labels, no logos.",
+      "scene": "A half-finished evening dress of deep emerald green silk satin on a tailor's dress form, the bodice hand-basted with pale thread, a few pearl-headed pins in the shoulder seam, a yellow cloth tape measure hanging over the shoulder of the form, the silk falling in long smooth folds that catch the light. Behind, far out of focus, bolts of jewel-coloured silk (sapphire, ruby, gold) on the shelves of a warm tailoring workroom. Close framing on the bodice and shoulder of the dress form, which stands in the right third of the frame; the left two thirds of the frame fall into deep soft warm darkness with only a faint glow of the workroom, a large empty dark space for text. Low warm backlight from behind the form so the edges of the silk folds and the pins glow. No people, no faces, no head on the dress form, no hands, no text, no labels, no logos.",
       "outputs": [
         { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
         { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
@@ -19,7 +19,7 @@
       "raw": "raw/hero-m.png",
       "ar": "9:16",
       "ref": "raw/hero.png",
-      "scene": "Portrait framing of the same subject as the reference image: the same steel needle with ivory thread mid-stitch in the same seam of pale natural linen, the same warm backlight and the same soft darkness. The needle and the seam sit in the lower third of the frame; the upper two thirds are deep soft darkness with only a hint of linen texture, a large empty dark space for text. No hands, no people, no text, no logos.",
+      "scene": "Portrait framing of the same subject as the reference image: the same deep emerald green silk evening dress on the same tailor's dress form with pins in the shoulder seam and the yellow tape measure over the shoulder, the same warm backlight and the same soft darkness. The dress form sits in the lower third of the frame; the upper two thirds are deep soft darkness with only a faint glow of the workroom, a large empty dark space for text. No people, no faces, no head on the form, no hands, no text, no logos.",
       "outputs": [
         { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
       ]
@@ -29,7 +29,7 @@
       "raw": "raw/chalk.png",
       "ar": "3:4",
       "ref": null,
-      "scene": "A flat triangular piece of white tailor's chalk lying on dark navy wool suiting fabric next to a fresh chalk line and a yellow cloth measuring tape curving out of focus, the herringbone weave of the wool sharp in the thin plane of focus. Warm backlight raking across the fabric so the chalk line and the tape edge glow. The chalk and tape sit in the lower half of the frame; the upper half is soft darkness, empty space for text. No hands, no people, no numbers legible on the tape, no text, no logos.",
+      "scene": "A flat triangular piece of white tailor's chalk lying on smooth deep ruby red fine wool crepe next to a fresh crisp chalk line and a yellow cloth measuring tape curving out of focus, the fine even weave of the wool sharp in the thin plane of focus, the red rich and saturated. Warm backlight raking across the fabric so the chalk line and the edge of the tape glow. The chalk and the tape sit in the lower half of the frame; the upper half falls into soft darkness, empty space for text. No hands, no people, no legible numbers on the tape, no text, no logos.",
       "outputs": [
         { "file": "assets/chalk.webp", "width": 1200, "quality": 78 },
         { "file": "assets/chalk-600.webp", "width": 600, "quality": 76 }
@@ -40,7 +40,7 @@
       "raw": "raw/pins.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "A folded hem of pale natural linen fabric held by three steel dressmaker's pins with small glass heads, the fold and the pins seen from a low angle, the weave of the linen visible. Warm backlight from behind makes the edge of the fold and the glass heads glow. The hem and pins sit low and to the right of the frame; the left two thirds and the top are deep soft darkness, a large empty dark space for text. No hands, no people, no text, no logos.",
+      "scene": "A folded hem of lustrous deep sapphire blue silk satin held by three steel dressmaker's pins with pearl heads, the satin smooth and glossy with long soft highlights, a small curl of yellow cloth tape measure resting beside the fold. Seen from a low angle, the fold and the pins in the thin plane of focus. Warm backlight from behind the fold makes the edge of the satin and the pearl heads glow. The hem and the pins lie low along the bottom of the frame, slightly right of centre; the upper two thirds of the frame across the whole width are deep soft darkness, a large empty dark space for text. No hands, no people, no legible numbers, no text, no logos.",
       "outputs": [
         { "file": "assets/pins.webp", "width": 1920, "quality": 76 }
       ]
@@ -61,7 +61,7 @@
       "raw": "raw/tape.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "A yellow cloth tailor's measuring tape draped in a loose curve across a bolt of pale natural linen fabric, the edge of the folded fabric and the tape in the thin plane of focus, the weave of the linen and the printed marks on the tape blurred into texture. Warm backlight from behind the bolt so the fabric edge glows. The tape and the bolt sit in the lower half of the frame; the upper half is soft darkness, a wide empty dark band for text. No hands, no people, no legible numbers, no text, no logos.",
+      "scene": "Bolts of jewel-coloured fabric stacked on a tailor's cutting table: emerald silk satin, sapphire blue wool, ruby red crepe and a golden yellow silk, their folded edges glowing, a yellow cloth tailor's measuring tape draped in a loose curve across the top bolt and a pair of steel shears resting beside it. The folded edges of the bolts and the tape in the thin plane of focus, the weave of the fabrics visible. Warm backlight from behind the stack so the fabric edges glow. The bolts and the tape fill the lower half of the frame; the upper half falls into soft darkness, a wide empty dark band for text. No hands, no people, no legible numbers on the tape, no text, no labels, no logos.",
       "outputs": [
         { "file": "assets/tape.webp", "width": 1600, "quality": 78 },
         { "file": "assets/tape-900.webp", "width": 900, "quality": 76 }
@@ -72,7 +72,7 @@
       "raw": "raw/shears.png",
       "ar": "3:4",
       "ref": null,
-      "scene": "The open blades of heavy steel tailor's shears resting on a piece of pale natural linen fabric next to a spool of ivory thread, the polished edge of the blade and the thread on the spool in the thin plane of focus, the linen weave visible. Warm backlight so the blade edge and the thread glow. The shears and the spool sit in the lower half of the frame; the upper half is soft darkness, empty space for text. No hands, no people, no text, no engraving on the blades, no logos.",
+      "scene": "The open blades of heavy steel tailor's shears resting on a length of saffron golden yellow silk dupioni next to two wooden spools of thread in emerald and sapphire, the polished edge of the blade and the thread on the spools in the thin plane of focus, the slubbed weave of the silk visible and glowing. Warm backlight so the blade edge, the silk and the thread glow. The shears and the spools sit in the lower half of the frame; the upper half falls into soft darkness, empty space for text. No hands, no people, no text, no engraving on the blades, no logos.",
       "outputs": [
         { "file": "assets/shears.webp", "width": 1200, "quality": 78 },
         { "file": "assets/shears-600.webp", "width": 600, "quality": 76 }
@@ -84,7 +84,7 @@
       "raw": "raw/tape-m.png",
       "ar": "9:16",
       "ref": "raw/tape.png",
-      "scene": "Portrait framing of the same subject as the reference image: the same yellow cloth measuring tape draped across the same bolt of pale natural linen, the same warm backlight and soft darkness. The tape and the bolt sit in the lower third of the frame; the upper two thirds are deep soft darkness, a large empty dark space for text. No hands, no people, no legible numbers, no text, no logos.",
+      "scene": "Portrait framing of the same subject as the reference image: the same stack of jewel-coloured fabric bolts with the same yellow measuring tape draped across, the same warm backlight and soft darkness. The bolts and the tape sit in the lower third of the frame; the upper two thirds are deep soft darkness, a large empty dark space for text. No hands, no people, no legible numbers, no text, no logos.",
       "outputs": [
         { "file": "assets/tape-m.webp", "width": 1080, "quality": 78 }
       ]
@@ -95,7 +95,7 @@
       "raw": "raw/pins-m.png",
       "ar": "9:16",
       "ref": "raw/pins.png",
-      "scene": "Portrait framing of the same subject as the reference image: the same folded hem of pale natural linen with three glass-head pins, the same warm backlight and soft darkness. The hem and pins sit in the lower third of the frame; the upper two thirds are deep soft darkness, a large empty dark space for text. No hands, no people, no text, no logos.",
+      "scene": "Portrait framing of the same subject as the reference image: the same folded hem of deep sapphire blue silk satin with three pearl-head pins, the same warm backlight and soft darkness. The hem and pins sit in the lower third of the frame; the upper two thirds are deep soft darkness, a large empty dark space for text. No hands, no people, no text, no logos.",
       "outputs": [
         { "file": "assets/pins-m.webp", "width": 1080, "quality": 78 }
       ]

@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Намётка · ателье: цена и срок до визита</title>
+<title>Намётка · ремонт и пошив одежды в {{город}}: цена до визита</title>
 <meta name="description" content="Ателье «Намётка» в {{город}}: цены и сроки на типовые работы известны до визита. Подшить, ушить, заменить молнию, сшить по меркам. Примерка в цене, срок в квитанции, вещь вернём вовремя.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Намётка">
-<meta property="og:title" content="Цена и срок до визита, а не после работы">
-<meta property="og:description" content="Типовые работы по прайсу: подшить, ушить, заменить молнию, сшить по меркам. Примерка в цене, срок в квитанции.">
+<meta property="og:title" content="Ремонт и пошив одежды в {{город}} – цена до визита">
+<meta property="og:description" content="Подшить, ушить, заменить молнию, сшить по меркам. Срок и цену называем по фото до визита, примерка в цене.">
 <meta property="og:url" content="{{адрес сайта}}">
 <meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -95,7 +95,7 @@
   .hero { background: var(--hero-dark); color: var(--hero-ink); }
   .hero__photo img { width: 112%; height: 120%; left: -6%; top: -10%; object-fit: cover; object-position: 60% 50%; }
   .hero__veil { position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    background: linear-gradient(to right, rgb(20 19 26 / .62) 0%, rgb(20 19 26 / .3) 38%, transparent 62%); }
+    background: linear-gradient(to right, rgb(20 19 26 / .7) 0%, rgb(20 19 26 / .45) 40%, transparent 68%); }
   .hero__copy { bottom: clamp(4rem, 13vh, 9rem); max-width: min(46rem, 88vw); }
   .hero__label { display: block; margin-bottom: var(--v-4); color: var(--hero-soft); }
   .hero__copy .v-display { font-size: clamp(2.3rem, 1.4rem + 3.2vw, 4.4rem); line-height: 1.02; max-width: 15ch; }
@@ -155,7 +155,7 @@
 
   /* ---- акт 3 · квитанция: шов прошивает бумагу, срок и цена встают штампами ---- */
   .kv { height: 100%; position: relative; color: var(--hero-ink); background: var(--hero-dark); }
-  .kv__photo img { width: 112%; height: 116%; left: -6%; top: -8%; object-fit: cover; object-position: 70% 60%; opacity: .85; }
+  .kv__photo img { width: 112%; height: 138%; left: -6%; top: -3%; object-fit: cover; object-position: 70% 50%; opacity: .9; }
   .kv__veil { position: absolute; inset: 0; z-index: 1; pointer-events: none;
     background: linear-gradient(to right, rgb(20 19 26 / .55) 0%, rgb(20 19 26 / .25) 45%, transparent 70%), linear-gradient(to top, rgb(20 19 26 / .6) 0%, transparent 40%); }
   .kv__grid { position: relative; z-index: 2; height: 100%; display: grid; grid-template-columns: minmax(20rem, 26rem) minmax(0, 1fr); gap: var(--v-9); align-items: center;
@@ -410,9 +410,9 @@
         </div>
 
         <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.86 0 0.12">
-          <span class="v-label hero__label">Ателье · {{город}}</span>
-          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Цена и срок до визита, а не после работы</h1>
-          <p class="v-lede">Типовые работы по прайсу: подшить, ушить, заменить молнию, сшить по меркам. Примерка в цене, вещь вернём в срок.</p>
+          <span class="v-label hero__label">Ателье «Намётка»</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Ремонт и пошив одежды в {{город}} – цена до визита</h1>
+          <p class="v-lede">Подшить, ушить, заменить молнию, сшить по меркам. Срок и цену называем по фото до визита, примерка в цене.</p>
           <div class="hero__cta">
             <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Узнать срок и цену</a>
             <a class="hero__tel" href="tel:{{телефон}}">или позвоните <b>{{телефон}}</b></a>
@@ -430,7 +430,7 @@
         </div>
         <div class="poka__grid">
           <figure class="poka__fig" data-v-reveal="left" data-v-reveal-at="0.22 0.55">
-            <img src="assets/chalk.webp" srcset="assets/chalk-600.webp 600w, assets/chalk.webp 1200w" sizes="(max-width: 860px) 100vw, 28rem" alt="Портновский мел и сантиметр на тёмной шерстяной ткани, свежая меловая линия" width="1200" height="1600" loading="lazy" decoding="async">
+            <img src="assets/chalk.webp" srcset="assets/chalk-600.webp 600w, assets/chalk.webp 1200w" sizes="(max-width: 860px) 100vw, 28rem" alt="Портновский мел и сантиметр на красной шерстяной ткани, свежая меловая линия" width="1200" height="1600" loading="lazy" decoding="async">
             <figcaption>Мел, сантиметр и квитанция – три вещи, без которых мы не начинаем.</figcaption>
           </figure>
           <div>
@@ -585,7 +585,7 @@
       <div class="v-wrap">
         <figure class="sew__fig">
           <div class="v-layer" data-v-parallax="0.4">
-            <img src="assets/tape.webp" srcset="assets/tape-900.webp 900w, assets/tape.webp 1600w" sizes="(max-width: 860px) 100vw, 76rem" alt="Сантиметр на рулоне льняной ткани" width="1600" height="900" loading="lazy" decoding="async">
+            <img src="assets/tape.webp" srcset="assets/tape-900.webp 900w, assets/tape.webp 1600w" sizes="(max-width: 860px) 100vw, 76rem" alt="Рулоны цветного шёлка и шерсти на раскройном столе, сантиметр и ножницы" width="1600" height="900" loading="lazy" decoding="async">
           </div>
           <figcaption>Мерки снимаем сами: двадцать минут, и вещь садится на вас, а не на манекен.</figcaption>
         </figure>
@@ -609,7 +609,7 @@
     <section class="v-section" data-v-act="flow" data-v-drift="#f1ece2" id="master" aria-label="Мастер и работы">
       <div class="v-wrap master">
         <figure class="master__fig" data-v-reveal="up" data-v-reveal-at="0.2 0.55" data-slot-host>
-          <img class="master__default" src="assets/shears.webp" srcset="assets/shears-600.webp 600w, assets/shears.webp 1200w" sizes="(max-width: 860px) 100vw, 24rem" alt="Портновские ножницы и катушка ниток на льняной ткани" width="1200" height="1600" loading="lazy" decoding="async">
+          <img class="master__default" src="assets/shears.webp" srcset="assets/shears-600.webp 600w, assets/shears.webp 1200w" sizes="(max-width: 860px) 100vw, 24rem" alt="Портновские ножницы и катушки ниток на золотистом шёлке" width="1200" height="1600" loading="lazy" decoding="async">
           <img class="slot-img" data-src="{{фото-мастера}}" alt="Мастер ателье {{имя-мастера}}" loading="lazy" decoding="async">
           <figcaption data-slot-optional><b>{{имя-мастера}}</b>мастер ателье, ведёт вещь от примерки до выдачи</figcaption>
         </figure>
