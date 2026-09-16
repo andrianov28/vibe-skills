@@ -45,7 +45,8 @@ const fonts = [...html.matchAll(/family=([A-Za-z+]+?)[:&"]/g)].map((m) => m[1].s
 // ссылка Google Fonts из <head> едет в блок как @import (первой строкой стилей): шрифты подключаются сами, без настроек Тильды
 const fontLinks = [...html.matchAll(/<link[^>]+href="(https:\/\/fonts\.googleapis\.com\/css2?[^"]+)"/gi)].map((m) => m[1].replace(/&amp;/g, "&"));
 const fontImport = fontLinks.map((u) => `@import url("${u}");`).join("");
-const headStyles = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1]).join("\n");
+// свои шрифты каркаса (@font-face url(assets/fonts/…)) тоже едут с GitHub Pages, иначе в Тильде 404 (найдено 16.09.2026 на каркасе mebel)
+const headStyles = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1]).join("\n").replace(/(["'(])\.?\/?assets\//g, "$1" + assets);
 body = body.replace(/<link[^>]+vibe\.css[^>]*>/gi, "").replace(/<script[^>]+vibe\.js[^>]*><\/script>/gi, "");
 body = body.replace(/<!--[\s\S]*?-->/g, "");
 // плашка «Демо для заказчика» живёт только в демо, в Тильду не едет
