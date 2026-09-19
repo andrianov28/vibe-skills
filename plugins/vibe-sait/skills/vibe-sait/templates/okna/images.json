@@ -106,6 +106,34 @@
       ]
     },
     {
+      "id": "dogovor",
+      "raw": "raw/dogovor.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Close three-quarter view of a light oak table right by a sunny window: in the centre of the frame, filling most of it, a few sheets of a printed contract with a fountain pen lying on top (text blurred and unreadable), a short cut sample of a white PVC window profile showing its inner chambers standing next to the sheets, a small square sample of a double glazing unit and a yellow tape measure. Warm bright daylight across the table, soft shadows, warm oak tones, juicy but realistic. The objects fill the frame, no large empty areas. No people, no hands, no readable text, no logos, no stamps.",
+      "outputs": [
+        {
+          "file": "assets/dogovor.webp",
+          "width": 1400,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "zavod",
+      "raw": "raw/zavod.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Bright clean window factory workshop: new white PVC window frames standing in a neat row on a metal transport rack, one frame lying on a long assembly table with glazing beads beside it, large workshop windows giving soft daylight, light grey floor, everything tidy and new. Wide shot, verticals corrected, calm composition with empty light wall in the upper left. No people, no text, no signs, no logos, no labels.",
+      "outputs": [
+        {
+          "file": "assets/zavod.webp",
+          "width": 1400,
+          "quality": 76
+        }
+      ]
+    },
+    {
       "id": "montazh",
       "raw": "raw/montazh.png",
       "ar": "16:9",
@@ -114,6 +142,20 @@
       "outputs": [
         {
           "file": "assets/montazh.webp",
+          "width": 1400,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "priemka",
+      "raw": "raw/priemka.png",
+      "ar": "16:9",
+      "ref": null,
+      "scene": "Close view of a new white PVC window filling most of the frame, seen from inside a bright sunny room: the sash tilted open, green summer trees softly blurred outside, warm sunlight on the white window sill, and on the sill in the foreground a grey paper folder with documents, a pen and a small potted green plant. Warm bright daylight, spotless finished slopes and sill, juicy but realistic. The window and the sill fill the frame, no large empty wall areas. No people, no hands, no readable text, no logos.",
+      "outputs": [
+        {
+          "file": "assets/priemka.webp",
           "width": 1400,
           "quality": 76
         }

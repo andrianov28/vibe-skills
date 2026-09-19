@@ -10,8 +10,20 @@
       "ref": null,
       "scene": "A modern dental treatment chair in pale mint-white upholstery stands in a bright cozy dental office: light oak floor and cabinets, a large window with a sheer curtain and soft daylight, a green potted plant, tidy shelves. On a low wooden side cabinet right next to the chair stands a compact cylindrical smart speaker wrapped in light grey fabric with a thin softly glowing ring on top, no logos, no text, no screen. Eye level, seen from the front and slightly from the left; the chair and the speaker occupy the right half of the frame, the left half is a calm pale wall with a large empty space for text. Overhead lamp switched off and folded, no monitor clutter, no people, no text, no signs, no logos.",
       "outputs": [
-        { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
-        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
+        {
+          "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 78
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
       ]
     },
     {
@@ -21,7 +33,11 @@
       "ref": "raw/hero.png",
       "scene": "Same bright dental office, same pale mint-white chair, same light grey fabric smart speaker with a softly glowing ring on the wooden side cabinet, same soft window daylight as the reference, vertical frame for a phone screen. The chair and the speaker stand in the lower half of the frame; the upper half is calm pale wall and soft window light, empty for text. No people, no text, no signs, no logos.",
       "outputs": [
-        { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
+        {
+          "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
       ]
     },
     {
@@ -31,7 +47,11 @@
       "ref": null,
       "scene": "The whole dental office seen from the doorway: the treatment chair with its overhead lamp folded up, the dentist's stool, light oak cabinets, a large window with soft daylight and a sheer curtain, a green plant on the floor, everything tidy and calm. Vertical frame, eye level; the room fills the lower two thirds, the upper third is pale wall and ceiling with empty space for text. No people, no text, no signs, no logos.",
       "outputs": [
-        { "file": "assets/cabinet.webp", "width": 1200, "quality": 80 }
+        {
+          "file": "assets/cabinet.webp",
+          "width": 1200,
+          "quality": 80
+        }
       ]
     },
     {
@@ -41,8 +61,16 @@
       "ref": null,
       "scene": "A dentist's prepared workplace beside the treatment chair in the bright office: on the instrument table a white paper-lined tray with several sealed sterilisation pouches, a mouth mirror and tweezers clearly visible through the clear film, cotton rolls, a paper cup, a folded napkin and clear protective glasses; the chair and the folded lamp just behind, the window with soft daylight and a green plant further back. Medium shot from slightly above; tray and chair in the lower right two thirds, empty pale wall in the upper left for text. No hands, no people, no syringe, no text, no labels, no logos.",
       "outputs": [
-        { "file": "assets/workplace.webp", "width": 1600, "quality": 78 },
-        { "file": "assets/workplace-900.webp", "width": 900, "quality": 78 }
+        {
+          "file": "assets/workplace.webp",
+          "width": 1600,
+          "quality": 78
+        },
+        {
+          "file": "assets/workplace-900.webp",
+          "width": 900,
+          "quality": 78
+        }
       ]
     },
     {
@@ -52,7 +80,25 @@
       "ref": null,
       "scene": "Portrait of a dentist in pale mint scrubs standing beside the treatment chair in the bright office, facing the camera with a calm natural smile, arms relaxed, mask lowered around the neck; light oak cabinets, window daylight and a green plant softly out of focus behind. Waist-up, eye level, 85mm look with gentle depth of field, natural skin. The dentist stands in the lower two thirds and slightly to the right; empty pale space above for text. No stock-photo posing, no text on clothing, no logos, no name badge, no jewelry, no second person.",
       "outputs": [
-        { "file": "assets/doctor.webp", "width": 1200, "quality": 80 }
+        {
+          "file": "assets/doctor.webp",
+          "width": 1200,
+          "quality": 80
+        }
+      ]
+    },
+    {
+      "id": "doctor-2",
+      "raw": "raw/doctor-2.png",
+      "ar": "3:4",
+      "ref": "raw/doctor.png",
+      "scene": "The same bright dental office, the same treatment chair, lamp, light oak cabinets, window and green plant as in the reference image, the same framing and light, but a different person: a woman dentist about 40 years old, ordinary Russian woman of Slavic appearance, dark blonde hair tied back, pale mint scrubs, mask lowered around the neck, standing beside the treatment chair, facing the camera with a calm friendly expression and a slight closed-mouth smile, arms relaxed. Waist-up, eye level, 85mm look with gentle depth of field, natural skin, candid documentary portrait, not a stock photo, no wide toothy smile, no glamour. She stands in the lower two thirds and slightly to the right; empty pale space above for text. No text on clothing, no logos, no name badge, no jewelry, no second person.",
+      "outputs": [
+        {
+          "file": "assets/doctor-2.webp",
+          "width": 1200,
+          "quality": 80
+        }
       ]
     },
     {
@@ -62,7 +108,11 @@
       "ref": null,
       "scene": "Sterilisation area of the dental office: a white tabletop steam autoclave with its round door open and a loaded tray of sealed sterilisation pouches inside; on the light oak counter a neat row of sealed pouches with mirrors and probes visible through the clear film; an open wall shelf with more sealed pouches above; soft daylight from the side. Medium shot from the front and slightly above; autoclave, pouches and shelf fill the right two thirds, empty pale wall on the left for text. Display switched off and blank, no hands, no people, no text, no labels, no logos.",
       "outputs": [
-        { "file": "assets/steril.webp", "width": 1600, "quality": 78 }
+        {
+          "file": "assets/steril.webp",
+          "width": 1600,
+          "quality": 78
+        }
       ]
     },
     {
@@ -72,7 +122,11 @@
       "ref": "raw/hero.png",
       "scene": "The same dental office in the evening: the treatment chair by the window, dusk outside the glass, warm cozy light from a small table lamp, the light grey fabric smart speaker with its softly glowing ring on the wooden windowsill next to the green plant, everything quiet and ready for tomorrow. Wide shot, eye level; the chair, lamp, plant and speaker in the right half, the left half is a calm pale wall in soft warm light, a large empty space for text. No people, no text, no signs, no logos.",
       "outputs": [
-        { "file": "assets/final.webp", "width": 1920, "quality": 78 }
+        {
+          "file": "assets/final.webp",
+          "width": 1920,
+          "quality": 78
+        }
       ]
     }
   ],

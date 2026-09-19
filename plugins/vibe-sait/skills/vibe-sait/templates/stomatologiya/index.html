@@ -260,11 +260,22 @@
   .who { margin-top: var(--v-7); display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--v-8) var(--v-9); align-items: start; }
   .who__fig { position: relative; aspect-ratio: 3 / 4; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); background: var(--v-surface); max-width: 24rem; }
   .who__fig img { width: 100%; height: 100%; object-fit: cover; }
+  /* два портрета в одной рамке: фото меняется по клику на карточку врача (правка Евгения 19.09.2026) */
+  .v-page .who__ph { position: absolute; inset: 0; transition: opacity .6s var(--v-ease-out), transform .9s var(--v-ease-out); }
+  .v-page .who__ph--2 { opacity: 0; transform: scale(1.04); }
+  .who[data-doc="2"] .who__ph--1 { opacity: 0; transform: scale(1.04); }
+  .who[data-doc="2"] .who__ph--2 { opacity: 1; transform: none; }
   .who__fig figcaption { position: absolute; left: var(--v-5); right: var(--v-5); top: var(--v-5); font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 24ch; }
   .docs { display: grid; gap: var(--v-5); }
   /* tilt пишет transform сам: появление карточек только через opacity, без transition на transform */
   .docs > .doc { transform: none; transition: opacity .62s var(--v-ease-out); }
   .doc { display: grid; gap: var(--v-2); padding: var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: var(--v-e1); }
+  .doc[role="button"] { position: relative; cursor: pointer; transition: box-shadow .35s var(--v-ease-out), opacity .35s var(--v-ease-out); }
+  .doc[role="button"]:not(.is-on) { opacity: .72; }
+  .doc[role="button"].is-on { box-shadow: inset 3px 0 0 var(--v-accent), var(--v-e1); }
+  .doc[role="button"]:focus-visible { outline: 2px solid var(--v-accent); outline-offset: 3px; }
+  @media (hover: hover) { .doc[role="button"]:not(.is-on):hover { opacity: 1; } }
+  .docs > .docs__hint { font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; color: var(--v-ink-soft); }
   .doc--lead { padding: var(--v-7) var(--v-7) var(--v-6); }
   .doc b { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xl); letter-spacing: -0.015em; line-height: 1.1; }
   .doc--lead b { font-size: var(--v-t-2xl); }
@@ -585,23 +596,25 @@
           <h2 class="v-display v-display--lg">Врач, который отвечает на «зачем»</h2>
           <p>Имена, специализация и образование – только те, что есть в документах врачей. Ничего лишнего: ни «лучших в городе», ни выдуманного стажа.</p>
         </div>
-        <div class="who">
+        <div class="who" id="who" data-doc="1">
           <figure class="who__fig" data-v-reveal="up" data-v-reveal-at="0.12 0.5">
-            <img src="assets/doctor.webp" alt="Врач у кресла в светлом кабинете, лицом к пациенту, спокойная улыбка" width="1200" height="1600" loading="lazy" decoding="async">
+            <img class="who__ph who__ph--1" src="assets/doctor.webp" alt="Врач у кресла в светлом кабинете, лицом к пациенту, спокойная улыбка" width="1200" height="1600" loading="lazy" decoding="async">
+            <img class="who__ph who__ph--2" src="assets/doctor-2.webp" alt="Второй врач клиники у кресла в том же светлом кабинете, смотрит в камеру" width="1200" height="1600" loading="lazy" decoding="async">
             <figcaption>Врач, который объясняет план до кресла и каждый шаг в кресле</figcaption>
           </figure>
           <div class="docs" data-v-in data-v-stagger="90">
-            <article class="doc doc--lead" data-v-tilt="4">
+            <article class="doc doc--lead is-on" data-v-tilt="4" data-doc="1" role="button" tabindex="0" aria-pressed="true" aria-controls="who">
               <b>{{врач 1}}</b>
               <span class="spec">{{специализация 1}}</span>
               <span class="edu">{{образование 1}}</span>
               <p class="says">Перед приёмом объясняет план и цену, во время – каждое действие. Вопрос «зачем это» здесь нормальный, а не неудобный.</p>
             </article>
-            <article class="doc" data-v-tilt="4">
+            <article class="doc" data-v-tilt="4" data-doc="2" role="button" tabindex="0" aria-pressed="false" aria-controls="who">
               <b>{{врач 2}}</b>
               <span class="spec">{{специализация 2}}</span>
               <span class="edu">{{образование 2}}</span>
             </article>
+            <p class="docs__hint" aria-hidden="true">Нажмите на карточку – покажем фото врача</p>
           </div>
         </div>
         <div class="clean">
@@ -773,6 +786,25 @@
     new IntersectionObserver(function (es) { live = es[0].isIntersecting; if (live) tick(); }).observe(act);
     window.addEventListener('resize', function () { place(teeth[last]); });
     set(0);
+  })();
+
+  // Врачи: клик (или Enter / пробел) по карточке показывает слева фото этого врача.
+  (function () {
+    var who = document.getElementById('who'); if (!who) return;
+    var cards = who.querySelectorAll('.doc[data-doc]');
+    function pick(card) {
+      who.setAttribute('data-doc', card.getAttribute('data-doc'));
+      cards.forEach(function (c) { var on = c === card; c.classList.toggle('is-on', on); c.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    }
+    var fig = who.querySelector('.who__fig');
+    function show() { // на телефоне фото стоит выше карточек: подводим его в экран
+      if (!fig || !window.matchMedia('(max-width: 860px)').matches) return;
+      var r = fig.getBoundingClientRect(); if (r.top < 70 || r.bottom > window.innerHeight) fig.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    cards.forEach(function (c) {
+      c.addEventListener('click', function () { pick(c); show(); });
+      c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(c); } });
+    });
   })();
 </script>
 </body>
