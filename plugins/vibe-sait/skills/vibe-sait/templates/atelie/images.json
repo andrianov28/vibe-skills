@@ -10,8 +10,20 @@
       "ref": null,
       "scene": "A half-finished evening dress of deep emerald green silk satin on a tailor's dress form, the bodice hand-basted with pale thread, a few pearl-headed pins in the shoulder seam, a yellow cloth tape measure hanging over the shoulder of the form, the silk falling in long smooth folds that catch the light. Behind, far out of focus, bolts of jewel-coloured silk (sapphire, ruby, gold) on the shelves of a warm tailoring workroom. Close framing on the bodice and shoulder of the dress form, which stands in the right third of the frame; the left two thirds of the frame fall into deep soft warm darkness with only a faint glow of the workroom, a large empty dark space for text. Low warm backlight from behind the form so the edges of the silk folds and the pins glow. No people, no faces, no head on the dress form, no hands, no text, no labels, no logos.",
       "outputs": [
-        { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
-        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
+        {
+          "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 78
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
       ]
     },
     {
@@ -21,7 +33,11 @@
       "ref": "raw/hero.png",
       "scene": "Portrait framing of the same subject as the reference image: the same deep emerald green silk evening dress on the same tailor's dress form with pins in the shoulder seam and the yellow tape measure over the shoulder, the same warm backlight and the same soft darkness. The dress form sits in the lower third of the frame; the upper two thirds are deep soft darkness with only a faint glow of the workroom, a large empty dark space for text. No people, no faces, no head on the form, no hands, no text, no logos.",
       "outputs": [
-        { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
+        {
+          "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
       ]
     },
     {
@@ -31,8 +47,16 @@
       "ref": null,
       "scene": "A flat triangular piece of white tailor's chalk lying on smooth deep ruby red fine wool crepe next to a fresh crisp chalk line and a yellow cloth measuring tape curving out of focus, the fine even weave of the wool sharp in the thin plane of focus, the red rich and saturated. Warm backlight raking across the fabric so the chalk line and the edge of the tape glow. The chalk and the tape sit in the lower half of the frame; the upper half falls into soft darkness, empty space for text. No hands, no people, no legible numbers on the tape, no text, no logos.",
       "outputs": [
-        { "file": "assets/chalk.webp", "width": 1200, "quality": 78 },
-        { "file": "assets/chalk-600.webp", "width": 600, "quality": 76 }
+        {
+          "file": "assets/chalk.webp",
+          "width": 1200,
+          "quality": 78
+        },
+        {
+          "file": "assets/chalk-600.webp",
+          "width": 600,
+          "quality": 76
+        }
       ]
     },
     {
@@ -42,7 +66,11 @@
       "ref": null,
       "scene": "A folded hem of lustrous deep sapphire blue silk satin held by three steel dressmaker's pins with pearl heads, the satin smooth and glossy with long soft highlights, a small curl of yellow cloth tape measure resting beside the fold. Seen from a low angle, the fold and the pins in the thin plane of focus. Warm backlight from behind the fold makes the edge of the satin and the pearl heads glow. The hem and the pins lie low along the bottom of the frame, slightly right of centre; the upper two thirds of the frame across the whole width are deep soft darkness, a large empty dark space for text. No hands, no people, no legible numbers, no text, no logos.",
       "outputs": [
-        { "file": "assets/pins.webp", "width": 1920, "quality": 76 }
+        {
+          "file": "assets/pins.webp",
+          "width": 1920,
+          "quality": 76
+        }
       ]
     },
     {
@@ -52,8 +80,16 @@
       "ref": null,
       "scene": "A half-open brass metal zipper sewn into dark indigo denim, the metal teeth and the pull tab sharp in the thin plane of focus, a new line of orange topstitching along the zipper tape, the denim twill texture visible. Warm backlight so the brass teeth and the stitching glow. The zipper sits in the lower half of the frame running diagonally; the upper half is soft darkness, empty space for text. No hands, no people, no text or lettering on the pull tab, no logos.",
       "outputs": [
-        { "file": "assets/zipper.webp", "width": 1200, "quality": 78 },
-        { "file": "assets/zipper-600.webp", "width": 600, "quality": 76 }
+        {
+          "file": "assets/zipper.webp",
+          "width": 1200,
+          "quality": 78
+        },
+        {
+          "file": "assets/zipper-600.webp",
+          "width": 600,
+          "quality": 76
+        }
       ]
     },
     {
@@ -63,8 +99,16 @@
       "ref": null,
       "scene": "Bolts of jewel-coloured fabric stacked on a tailor's cutting table: emerald silk satin, sapphire blue wool, ruby red crepe and a golden yellow silk, their folded edges glowing, a yellow cloth tailor's measuring tape draped in a loose curve across the top bolt and a pair of steel shears resting beside it. The folded edges of the bolts and the tape in the thin plane of focus, the weave of the fabrics visible. Warm backlight from behind the stack so the fabric edges glow. The bolts and the tape fill the lower half of the frame; the upper half falls into soft darkness, a wide empty dark band for text. No hands, no people, no legible numbers on the tape, no text, no labels, no logos.",
       "outputs": [
-        { "file": "assets/tape.webp", "width": 1600, "quality": 78 },
-        { "file": "assets/tape-900.webp", "width": 900, "quality": 76 }
+        {
+          "file": "assets/tape.webp",
+          "width": 1600,
+          "quality": 78
+        },
+        {
+          "file": "assets/tape-900.webp",
+          "width": 900,
+          "quality": 76
+        }
       ]
     },
     {
@@ -74,8 +118,16 @@
       "ref": null,
       "scene": "The open blades of heavy steel tailor's shears resting on a length of saffron golden yellow silk dupioni next to two wooden spools of thread in emerald and sapphire, the polished edge of the blade and the thread on the spools in the thin plane of focus, the slubbed weave of the silk visible and glowing. Warm backlight so the blade edge, the silk and the thread glow. The shears and the spools sit in the lower half of the frame; the upper half falls into soft darkness, empty space for text. No hands, no people, no text, no engraving on the blades, no logos.",
       "outputs": [
-        { "file": "assets/shears.webp", "width": 1200, "quality": 78 },
-        { "file": "assets/shears-600.webp", "width": 600, "quality": 76 }
+        {
+          "file": "assets/shears.webp",
+          "width": 1200,
+          "quality": 78
+        },
+        {
+          "file": "assets/shears-600.webp",
+          "width": 600,
+          "quality": 76
+        }
       ]
     },
     {
@@ -86,7 +138,11 @@
       "ref": "raw/tape.png",
       "scene": "Portrait framing of the same subject as the reference image: the same stack of jewel-coloured fabric bolts with the same yellow measuring tape draped across, the same warm backlight and soft darkness. The bolts and the tape sit in the lower third of the frame; the upper two thirds are deep soft darkness, a large empty dark space for text. No hands, no people, no legible numbers, no text, no logos.",
       "outputs": [
-        { "file": "assets/tape-m.webp", "width": 1080, "quality": 78 }
+        {
+          "file": "assets/tape-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
       ]
     },
     {
@@ -97,7 +153,86 @@
       "ref": "raw/pins.png",
       "scene": "Portrait framing of the same subject as the reference image: the same folded hem of deep sapphire blue silk satin with three pearl-head pins, the same warm backlight and soft darkness. The hem and pins sit in the lower third of the frame; the upper two thirds are deep soft darkness, a large empty dark space for text. No hands, no people, no text, no logos.",
       "outputs": [
-        { "file": "assets/pins-m.webp", "width": 1080, "quality": 78 }
+        {
+          "file": "assets/pins-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "work-1",
+      "raw": "raw/work-1.png",
+      "ar": "3:4",
+      "ref": null,
+      "preamble": false,
+      "scene": "Editorial photograph in a small tailoring atelier, 50mm lens, medium shot, warm directional window light from the side with a soft glow on the fabric edges, deep warm dark background falling to soft darkness, rich jewel colours, visible fabric texture, juicy and attractive, photographic realism, no CGI, no illustration, no people, no faces, no text, no labels, no logos, no watermark. A finished evening dress of deep emerald green silk satin on a tailor's dress form, perfectly fitted at the waist, a neat invisible zipper in the back seam, the hem evenly pressed, a yellow cloth tape measure lying on the table edge below. The dress fills the frame vertically, the lower quarter of the frame is darker, space for a caption.",
+      "outputs": [
+        {
+          "file": "assets/work-1.webp",
+          "width": 800,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "work-2",
+      "raw": "raw/work-2.png",
+      "ar": "1:1",
+      "ref": null,
+      "preamble": false,
+      "scene": "Editorial photograph in a small tailoring atelier, 50mm lens, medium shot, warm directional window light from the side with a soft glow on the fabric edges, deep warm dark background falling to soft darkness, rich jewel colours, visible fabric texture, juicy and attractive, photographic realism, no CGI, no illustration, no people, no faces, no text, no labels, no logos, no watermark. A pair of dark navy wool suit trousers folded over a wooden hanger bar, the freshly shortened hem with a neat blind stitch turned towards the camera, a sharp pressed crease, a piece of white tailor's chalk beside it. Lower third darker, space for a caption.",
+      "outputs": [
+        {
+          "file": "assets/work-2.webp",
+          "width": 600,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "work-3",
+      "raw": "raw/work-3.png",
+      "ar": "1:1",
+      "ref": null,
+      "preamble": false,
+      "scene": "Editorial photograph in a small tailoring atelier, 50mm lens, medium shot, warm directional window light from the side with a soft glow on the fabric edges, deep warm dark background falling to soft darkness, rich jewel colours, visible fabric texture, juicy and attractive, photographic realism, no CGI, no illustration, no people, no faces, no text, no labels, no logos, no watermark. A camel wool coat on a wooden hanger against the dark warm wall, the sleeve turned to show a newly replaced silky sapphire blue lining and a row of re-sewn horn buttons. Lower third darker, space for a caption.",
+      "outputs": [
+        {
+          "file": "assets/work-3.webp",
+          "width": 600,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "work-4",
+      "raw": "raw/work-4.png",
+      "ar": "1:1",
+      "ref": null,
+      "preamble": false,
+      "scene": "Editorial photograph in a small tailoring atelier, 50mm lens, medium shot, warm directional window light from the side with a soft glow on the fabric edges, deep warm dark background falling to soft darkness, rich jewel colours, visible fabric texture, juicy and attractive, photographic realism, no CGI, no illustration, no people, no faces, no text, no labels, no logos, no watermark. A pair of indigo denim jeans laid on a cutting table, the waistband taken in with a neat new seam of orange topstitching and a new brass zipper, a wooden spool of orange thread beside them. Lower third darker, space for a caption.",
+      "outputs": [
+        {
+          "file": "assets/work-4.webp",
+          "width": 600,
+          "quality": 78
+        }
+      ]
+    },
+    {
+      "id": "work-5",
+      "raw": "raw/work-5.png",
+      "ar": "1:1",
+      "ref": null,
+      "preamble": false,
+      "scene": "Editorial photograph in a small tailoring atelier, 50mm lens, medium shot, warm directional window light from the side with a soft glow on the fabric edges, deep warm dark background falling to soft darkness, rich jewel colours, visible fabric texture, juicy and attractive, photographic realism, no CGI, no illustration, no people, no faces, no text, no labels, no logos, no watermark. Freshly sewn heavy curtains of saffron golden yellow linen hanging in even pleats on a dark rod, the bottom hem perfectly straight, warm light glowing through the fabric. Lower third darker, space for a caption.",
+      "outputs": [
+        {
+          "file": "assets/work-5.webp",
+          "width": 600,
+          "quality": 78
+        }
       ]
     }
   ],

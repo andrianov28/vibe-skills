@@ -15,8 +15,8 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" as="image" href="assets/hero-m.webp" media="(max-width: 860px)" fetchpriority="high">
-<link rel="preload" as="image" href="assets/hero.webp" media="(min-width: 861px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-voda-m.webp" media="(max-width: 860px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-voda.webp" media="(min-width: 861px)" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
@@ -68,36 +68,50 @@
     .poka__fig figcaption, .prices__fig figcaption, .promise__fig figcaption, .reviews__rating, .reviews__fact { font-size: .95rem; }
   }
 
-  /* ---- hero: два плана, течёт под мойкой ---------------------------------- */
+  /* ---- hero: диптих «вода | электрика», две половины едут с разной скоростью ---- */
   /* img внутри <picture>: селектор движка .v-layer > img не достаёт, позиционируем сами */
-  .hero__back img, .hero__card img { position: absolute; max-width: none; }
-  .hero__back img { width: 116%; height: 116%; left: -8%; top: -8%; object-fit: cover; }
-  .hero__card { --w: clamp(190px, 18vw, 300px); --r: clamp(2rem, 7vw, 8rem); --b: 13vh; }
-  .hero__card img { width: var(--w); height: calc(var(--w) * 4 / 3); right: var(--r); bottom: var(--b); object-fit: cover;
-    border-radius: var(--v-radius); box-shadow: 0 30px 60px rgb(0 0 0 / .55), var(--v-edge); }
-  .hero__floor { position: absolute; inset: auto 0 0 0; height: 36%; z-index: 2; pointer-events: none;
-    background: linear-gradient(to top, var(--v-canvas) 0%, rgb(28 31 35 / .55) 45%, transparent 100%); }
-  .hero__copy { bottom: clamp(5.5rem, 15vh, 10rem); max-width: min(44rem, 86vw); }
+  .hero__half img { position: absolute; max-width: none; top: -40px; width: 50%; height: min(50vw, 96svh); object-fit: cover; object-position: 50% 0;
+    -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 100%); mask-image: linear-gradient(to bottom, #000 68%, transparent 100%); }
+  .hero__half--voda img { left: 0; }
+  .hero__half--svet img { left: 50%; }
+  .hero__seam { position: absolute; z-index: 1; left: 50%; top: 0; bottom: 0; width: 4px; margin-left: -2px; background: var(--v-canvas); pointer-events: none; }
+  .hero__floor { position: absolute; inset: auto 0 0 0; height: 62%; z-index: 2; pointer-events: none;
+    background: linear-gradient(to top, var(--v-canvas) 0%, var(--v-canvas) 16%, rgb(28 31 35 / .82) 46%, rgb(28 31 35 / .4) 74%, transparent 100%); }
+  /* оффер ушёл (p > .6) – затемнение снимается, кадры открываются целиком: таз, кейс, тестер */
+  @media (min-width: 861px) { .hero__floor, #top .v-scrim { opacity: clamp(.12, calc((.92 - var(--v-p, 0)) / .3), 1); } }
+  .hero__tag { position: absolute; z-index: 3; top: clamp(4.6rem, 11vh, 6.2rem); display: inline-flex; align-items: center; gap: .55em;
+    padding: .5em .95em .5em .8em; border-radius: 999px; background: rgb(28 31 35 / .78); color: var(--v-ink);
+    font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  .hero__tag i { width: .55em; height: .55em; border-radius: 50%; background: var(--v-accent); }
+  .hero__tag--voda { left: var(--v-gutter); }
+  .hero__tag--svet { left: calc(50% + var(--v-gutter) * .5); }
+  .hero__copy { bottom: clamp(5rem, 12vh, 8rem); max-width: min(70rem, 92vw); }
   .hero__label { display: block; margin-bottom: var(--v-4); color: var(--v-ink); opacity: .85; }
-  .hero__copy .v-display { font-size: var(--v-t-3xl); line-height: .98; }
-  .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); opacity: .92; max-width: 38ch; }
+  .hero__copy .v-display { font-size: clamp(2.4rem, 1.5rem + 3.3vw, 4.4rem); line-height: 1; max-width: 22ch; }
+  .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); opacity: .92; max-width: 62ch; }
   .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
   .hero__tel { text-decoration: none; color: var(--v-ink); font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
   .hero__tel b { font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
-  .hero__note { position: absolute; z-index: 3; right: var(--v-gutter); top: clamp(5rem, 14vh, 9rem); text-align: right; display: grid; gap: .3em; }
+  .hero__note { position: absolute; z-index: 3; right: var(--v-gutter); bottom: clamp(5rem, 12vh, 8rem); text-align: right; display: grid; gap: .3em; }
   .hero__note .v-nums { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); letter-spacing: .01em; }
   .hero__note .hero__int { color: var(--v-ink); font-size: var(--v-t-sm); }
+  @media (max-width: 1100px) { .hero__note { display: none; } }
   @media (max-width: 860px) {
-    .hero__card { --w: 34vw; --r: 5vw; --b: auto; }
-    .hero__card img { bottom: auto; top: 13vh; box-shadow: 0 18px 36px rgb(0 0 0 / .55); }
-    .hero__note { display: none; }
+    .hero__half img { top: -24px; height: calc(48svh + 48px); }
+    .hero__half--voda img { object-position: 82% 50%; }
+    .hero__half--svet img { object-position: 72% 50%; }
+    .hero__seam { width: 3px; margin-left: -1.5px; bottom: 50%; }
+    .hero__floor { height: 70%; background: linear-gradient(to top, var(--v-canvas) 0%, var(--v-canvas) 66%, rgb(28 31 35 / .7) 80%, transparent 100%); }
+    .hero__tag { top: 4.6rem; font-size: .72rem; padding: .45em .8em .45em .7em; }
+    .hero__tag--svet { left: calc(50% + .6rem); }
+    .hero__tag--voda { left: .6rem; }
     .hero__copy { bottom: clamp(2.5rem, 6vh, 4rem); }
-    .hero__copy .v-display { font-size: var(--v-t-2xl); }
+    .hero__copy .v-display { font-size: var(--v-t-2xl); max-width: none; }
     .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-4); }
     .hero__label { margin-bottom: var(--v-3); }
     .hero__cta { margin-top: var(--v-5); gap: var(--v-2) var(--v-5); }
   }
-  @media (max-width: 600px) and (max-height: 700px) { .hero__card { --w: 28vw; } .hero__card img { top: 11vh; } }
+  @media (max-width: 600px) and (max-height: 700px) { .hero__half img { height: calc(40svh + 48px); } .hero__seam { bottom: 58%; } }
 
   /* ---- фирменный ход: трекер «где сейчас мастер» ---------------------------- */
   .track { position: fixed; left: 0; right: 0; bottom: 0; z-index: 32; display: grid; grid-template-columns: minmax(15rem, 20rem) 1fr; align-items: center; column-gap: var(--v-8);
@@ -258,23 +272,27 @@
 
   <main>
 
-    <!-- 1 · УЗНАВАНИЕ: течёт под мойкой, два плана -->
+    <!-- 1 · УЗНАВАНИЕ: диптих «вода | электрика» – течь под мойкой и сгоревшая розетка, обе чинятся -->
     <section id="top" data-v-act="pin" data-v-span="2.4" data-v-drift="#1c1f23" aria-label="Сантехник и электрик на дом">
       <div data-v-stage>
-        <div class="v-layer hero__back" data-v-parallax="-0.7">
+        <div class="v-layer hero__half hero__half--voda" data-v-parallax="-0.7">
           <picture>
-            <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
-            <img src="assets/hero.webp" alt="" width="1920" height="1067" fetchpriority="high">
+            <source media="(max-width: 860px)" srcset="assets/hero-voda-m.webp" width="640" height="1138">
+            <img src="assets/hero-voda.webp" alt="Сантехник затягивает текущее соединение под кухонной мойкой, вода капает в таз" width="1280" height="1280" fetchpriority="high">
           </picture>
         </div>
-        <div class="v-layer hero__card" data-v-parallax="-0.28">
+        <div class="v-layer hero__half hero__half--svet" data-v-parallax="-0.2">
           <picture>
-            <source media="(max-width: 600px)" srcset="assets/card-480.webp" width="480" height="640">
-            <img src="assets/card.webp" alt="" width="900" height="1200" decoding="async">
+            <source media="(max-width: 860px)" srcset="assets/hero-svet-m.webp" width="640" height="1138">
+            <img src="assets/hero-svet.webp" alt="Электрик снимает обгоревшую розетку, на обоях след копоти" width="1280" height="1280" fetchpriority="high">
           </picture>
         </div>
+        <div class="hero__seam" aria-hidden="true"></div>
         <div class="hero__floor" aria-hidden="true"></div>
         <div class="v-scrim v-scrim--lead" aria-hidden="true"></div>
+
+        <span class="hero__tag hero__tag--voda" data-v-cue="0 1 0 0" data-v-rise="0"><i></i>Сантехника</span>
+        <span class="hero__tag hero__tag--svet" data-v-cue="0 1 0 0" data-v-rise="0"><i></i>Электрика</span>
 
         <div class="hero__note" data-v-cue="0 0.6 0" data-v-rise="0">
           <span class="v-label">Принимаем вызовы</span>
@@ -485,6 +503,8 @@
   // На телефоне пины короче: data-v-span из CSS не поменять, правим атрибут до монтирования.
   if (window.matchMedia('(max-width: 860px)').matches) {
     document.getElementById('top').setAttribute('data-v-span', '1.8');
+    // на телефоне под кадрами холст: оффер держим до конца акта, иначе пол-экрана пустые
+    document.querySelector('#top .hero__copy').setAttribute('data-v-cue', '0 1 0 0');
     document.getElementById('kak').setAttribute('data-v-span', '2.2');
   }
   Vibe.mount(document.querySelector('.v-page'));

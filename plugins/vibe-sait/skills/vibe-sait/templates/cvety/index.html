@@ -80,6 +80,22 @@
   .hero__card img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: calc(var(--v-radius) - 7px); display: block; }
   .hero__card figcaption { margin-top: .55rem; font-size: var(--v-t-xs); line-height: 1.35; color: var(--v-ink-soft); }
   .hero__card figcaption b { display: block; color: var(--v-ink); font-weight: 500; }
+  /* карточка-переписка: «букет готов, вот фото» – «Супер, спасибо!» (правка Евгения 19.09.2026) */
+  .hero__chat { --cw: clamp(215px, 17.5vw, 262px); }
+  .chat { position: absolute; right: calc(var(--r, clamp(1.5rem, 4vw, 5rem)) + clamp(1.5rem, 5vw, 5.5rem)); top: calc(clamp(5.5rem, 11vh, 8rem) + clamp(160px, 13vw, 200px) * 1.333 + 5.2rem); width: var(--cw);
+    padding: .55rem .6rem .7rem; border-radius: calc(var(--v-radius) - 2px); background: var(--v-surface); box-shadow: 0 30px 60px rgb(74 44 40 / .2), var(--v-edge); transform: rotate(-3deg); font-size: .84rem; line-height: 1.35; color: var(--v-ink); }
+  .chat__head { display: flex; align-items: center; gap: .5rem; padding: .1rem .15rem .5rem; border-bottom: 1px solid var(--v-hair); margin-bottom: .55rem; }
+  .chat__ava { flex: none; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--v-accent); display: grid; place-items: center; }
+  .chat__ava i { width: .5rem; height: .78rem; border-radius: 100% 0 100% 0; background: var(--v-accent-ink); transform: rotate(-24deg); }
+  .chat__who { display: grid; line-height: 1.2; }
+  .chat__who b { font-weight: 500; }
+  .chat__who span { font-size: .7rem; color: var(--v-accent); }
+  .chat__msg { position: relative; max-width: 88%; padding: .45rem .6rem 1.05rem; border-radius: .95rem .95rem .95rem .3rem; background: #f3e9e4; }
+  .chat__msg img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 30%; border-radius: .6rem; margin-bottom: .4rem; }
+  .chat__msg time { position: absolute; right: .6rem; bottom: .3rem; font-size: .62rem; color: var(--v-ink-soft); }
+  .chat__msg--me { margin: .45rem 0 0 auto; width: max-content; padding-right: 4.6rem; padding-bottom: .45rem; border-radius: .95rem .95rem .3rem .95rem; background: #dcebe1; }
+  .chat__msg--me time { bottom: .42rem; color: var(--v-accent); }
+  @media (max-height: 760px) and (min-width: 861px) { .chat__msg img { aspect-ratio: 16 / 9; } .chat { font-size: .76rem; } }
   /* светлый скрим цвета холста под текст: угол на компьютере, полоса на телефоне */
   .hero__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
     background: radial-gradient(120% 95% at 0% 100%, rgb(248 241 237 / .92) 0%, rgb(248 241 237 / .6) 38%, transparent 70%); }
@@ -100,6 +116,10 @@
     .hero__card { --w: 27vw; --r: 5vw; --t: auto; }
     .hero__card figure { top: auto; bottom: 7vh; box-shadow: 0 18px 36px rgb(74 44 40 / .22); padding: .35rem .35rem .45rem; transform: rotate(-4deg); }
     .hero__card figcaption { display: none; }
+    .hero__card figure { display: none; }
+    .hero__chat { --cw: min(58vw, 236px); }
+    .chat { right: 4vw; top: auto; bottom: 4.5vh; transform: rotate(-2.5deg); font-size: .78rem; box-shadow: 0 18px 36px rgb(74 44 40 / .24), var(--v-edge); }
+    .chat__msg img { aspect-ratio: 16 / 10; }
     .hero__copy { top: clamp(5.5rem, 11vh, 7rem); bottom: auto; max-width: none; }
     .hero__copy .v-display { font-size: var(--v-t-2xl); max-width: none; }
     .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-4); }
@@ -209,14 +229,14 @@
   .kc__rep > div { position: absolute; left: 0; top: 0; max-width: 32rem; }
   .kc__rep h3 { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-xl); line-height: 1.12; letter-spacing: 0; margin-bottom: var(--v-3); text-wrap: balance; }
   .kc__rep p { color: var(--v-ink); opacity: .9; max-width: 42ch; text-wrap: pretty; }
-  .clock { position: relative; justify-self: center; align-self: end; margin: 0 3rem 2.6rem 0; width: min(100%, 40vh, 380px); aspect-ratio: 1 / 1; border-radius: 50%;
+  .clock { position: relative; justify-self: start; align-self: center; margin: -20vh 0 0 -15.5vw; width: min(100%, 33vh, 300px); aspect-ratio: 1 / 1; border-radius: 50%;
     background: rgb(248 241 237 / .55); box-shadow: inset 0 0 0 2px var(--v-hair-strong), var(--v-e2); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
   .clock__tick { position: absolute; left: 50%; top: 4%; width: 2px; height: 5%; margin-left: -1px; background: var(--v-hair-strong); transform-origin: 50% 920%; transform: rotate(var(--deg)); }
   .clock__tick--big { background: var(--v-ink); height: 7%; transform-origin: 50% 657%; }
   .clock__mark { position: absolute; inset: 0; transform: rotate(var(--deg)); pointer-events: none; }
   .clock__mark i { position: absolute; left: 50%; top: 7.5%; width: .9rem; height: .9rem; margin-left: -.45rem; border-radius: 50%;
     background: var(--v-accent); box-shadow: 0 0 0 0 rgb(47 107 77 / .45); transform: scale(calc(.55 + .45 * var(--on))); opacity: calc(.4 + .6 * var(--on)); }
-  .clock__mark b { position: absolute; left: 50%; top: -2.4rem; transform: translateX(-50%) rotate(calc(-1 * var(--deg))); font-family: var(--v-font-text); font-weight: 500; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; white-space: nowrap;
+  .clock__mark b { position: absolute; left: 50%; top: -2.4rem; padding: .05rem .45rem; border-radius: 1rem; background: rgb(248 241 237 / .88); transform: translateX(-50%) rotate(calc(-1 * var(--deg))); font-family: var(--v-font-text); font-weight: 500; font-size: var(--v-t-xs); letter-spacing: var(--v-track-wide); text-transform: uppercase; white-space: nowrap;
     color: var(--v-ink); opacity: calc(.55 + .45 * var(--on)); }
   .clock__mark--photo { --deg: 60deg; --on: clamp(0, calc((var(--v-p, 0) - .6) * 14), 1); }
   .clock__mark--door { --deg: 90deg; --on: clamp(0, calc((var(--v-p, 0) - .92) * 14), 1); }
@@ -229,17 +249,18 @@
   .clock__num--3 { right: 15%; top: 50%; transform: translateY(-50%); }
   .clock__num--6 { left: 50%; bottom: 15%; transform: translateX(-50%); }
   .clock__num--9 { left: 15%; top: 50%; transform: translateY(-50%); }
-  .kc__legend { position: absolute; left: -4rem; right: -4rem; bottom: -1.9rem; text-align: center; white-space: nowrap; font-size: var(--v-t-xs); color: var(--v-ink-soft); letter-spacing: var(--v-track-wide); text-transform: uppercase; }
+  .kc__legend { position: absolute; left: 0; right: 0; bottom: auto; top: -3.4rem; text-align: center; white-space: normal; text-wrap: balance; line-height: 1.5; font-size: var(--v-t-xs); color: var(--v-ink-soft); letter-spacing: var(--v-track-wide); text-transform: uppercase; }
+  @media (max-width: 1100px) and (min-width: 861px) { .clock { margin-left: 0; } }
   @media (max-width: 860px) {
     .kc__scrim { background: linear-gradient(to bottom, rgb(248 241 237 / .96) 0%, rgb(248 241 237 / .86) 46%, rgb(248 241 237 / .3) 78%, transparent 100%); }
-    .kc { grid-template-columns: 1fr; grid-template-rows: auto 1fr; row-gap: var(--v-4); align-items: start; padding: clamp(4.5rem, 11vh, 6rem) var(--v-gutter) clamp(1.5rem, 5vh, 3rem); }
-    .kc__copy { max-width: none; grid-row: 2; }
+    .kc { grid-template-columns: 1fr; grid-template-rows: auto 1fr; /* текст сверху, часы внизу на букете */ row-gap: var(--v-4); align-items: start; padding: clamp(4.5rem, 11vh, 6rem) var(--v-gutter) clamp(1.5rem, 5vh, 3rem); }
+    .kc__copy { max-width: none; grid-row: 1; }
     .kc__copy .v-label { display: none; }
     .kc__copy .v-display--lg { font-size: var(--v-t-xl); margin-bottom: var(--v-4); }
     .kc__rep { min-height: 9rem; }
     .kc__rep h3 { font-size: var(--v-t-lg); margin-bottom: var(--v-2); }
     .kc__rep p { font-size: var(--v-t-sm); }
-    .clock { grid-row: 1; width: min(52vw, 30vh); justify-self: start; align-self: start; margin: 0; }
+    .clock { grid-row: 2; width: min(54vw, 30vh); justify-self: center; align-self: end; margin: 0 14vw 3vh 0; }
     .clock__mark i { top: -.45rem; } /* точка на ободе, чтобы не упиралась в цифру 3 */
     .clock__mark b { top: -2.1rem; font-size: .95rem; }
     .kc__legend { display: none; }
@@ -341,6 +362,13 @@
             </picture>
             <figcaption><b>Фото перед отправкой</b>в ваш чат за час до доставки</figcaption>
           </figure>
+        </div>
+        <div class="v-layer hero__chat" data-v-parallax="-0.12" aria-hidden="true">
+          <div class="chat">
+            <div class="chat__head"><span class="chat__ava"><i></i></span><span class="chat__who"><b>Стебель</b><span>в сети</span></span></div>
+            <p class="chat__msg"><img src="assets/wrap-480.webp" alt="" width="480" height="640" decoding="async">Ваш букет готов – вот фото. Через час привезём по вашему адресу, ожидайте курьера.<time>13:02</time></p>
+            <p class="chat__msg chat__msg--me">Супер, спасибо!<time>13:03 ✓✓</time></p>
+          </div>
         </div>
         <div class="hero__floor" aria-hidden="true"></div>
 

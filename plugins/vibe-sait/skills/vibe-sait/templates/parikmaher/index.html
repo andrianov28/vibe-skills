@@ -192,11 +192,11 @@
   }
 
   /* ---- акт 3 · мастера: реплики встык, фото рук сменяется ------------------- */
-  .mas { height: 100%; display: grid; grid-template-rows: auto 1fr; padding: clamp(4.5rem, 11vh, 6.5rem) var(--v-gutter) clamp(2rem, 6vh, 4rem); gap: var(--v-5); }
+  .mas { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; padding: clamp(4.5rem, 11vh, 6.5rem) var(--v-gutter) clamp(2rem, 6vh, 4rem); gap: var(--v-5); }
   .mas__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--v-6); }
   .mas__head .v-label { display: block; margin-bottom: var(--v-3); }
   .mas__head .v-display--md { font-size: clamp(1.7rem, 1.2rem + 2vw, 2.9rem); }
-  .mas__index { display: flex; gap: var(--v-3); font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-sm); font-variant-numeric: tabular-nums; }
+  .mas__index { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--v-3); font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-sm); font-variant-numeric: tabular-nums; }
   .mas__index li { --on: clamp(0, min((var(--v-p, 0) - var(--a)) * 10 + 1, (var(--b) - var(--v-p, 0)) * 10 + 1), 1);
     width: 2.6rem; height: 2.6rem; display: grid; place-items: center; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--v-hair-strong);
     background: color-mix(in oklab, var(--v-accent) calc(var(--on) * 100%), transparent); color: color-mix(in oklab, var(--v-accent-ink) calc(var(--on) * 100%), var(--v-ink-soft)); }
@@ -222,10 +222,11 @@
     .mas__head .v-display--md { font-size: var(--v-t-xl); }
     .mas__head .v-label { margin-bottom: var(--v-1); }
     .mas__index li { width: 2.1rem; height: 2.1rem; }
-    .mas__body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: var(--v-4); align-items: start; }
+    .mas__body { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; gap: var(--v-4); align-items: start; }
     .mas__fig { order: -1; justify-self: start; width: 100%; aspect-ratio: auto; height: 32svh; }
     .mas__copy { min-height: 0; }
     .mas__one { inset: 0 0 auto 0; gap: var(--v-2); }
+    .mas__one .v-label { white-space: normal; }
     .mas__one .v-display--lg { font-size: var(--v-t-xl); }
     .mas__one p { font-size: var(--v-t-sm); }
     .mas__cta { margin-top: var(--v-2); }
@@ -446,7 +447,7 @@
       </div>
     </section>
 
-    <!-- 3 · ВЫБОР МАСТЕРА: три реплики встык, фото рук сменяется -->
+    <!-- 3 · ВЫБОР МАСТЕРА: три реплики встык, портрет мастера сменяется (правка Евгения 19.09.2026: лица мастеров вместо рук; заглушки заменить фотографиями настоящих мастеров) -->
     <section id="mastera" data-v-act="pin" data-v-span="2.4" data-v-drift="#f4efe6" aria-label="Мастера">
       <div data-v-stage>
         <div class="mas">
@@ -505,13 +506,13 @@
             </div>
             <div class="mas__fig">
               <figure data-v-cue="0 0.36 0 0.06" data-v-rise="0">
-                <img src="assets/hands.webp" srcset="assets/hands-480.webp 480w, assets/hands.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Руки мастера с ножницами и расчёской подравнивают волосы" width="900" height="1200" loading="lazy" decoding="async">
+                <img src="assets/master-1.webp" srcset="assets/master-1-480.webp 480w, assets/master-1.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Мастер по стрижкам у рабочего места с ножницами и расчёской, смотрит в кадр" width="900" height="1200" loading="lazy" decoding="async">
               </figure>
               <figure data-v-cue="0.34 0.7 0.06 0.06" data-v-rise="0">
-                <img src="assets/colour.webp" srcset="assets/colour-480.webp 480w, assets/colour.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Окрашивание: кисть с краской наносится на прядь, уложенную на фольгу" width="900" height="1200" loading="lazy" decoding="async">
+                <img src="assets/master-2.webp" srcset="assets/master-2-480.webp 480w, assets/master-2.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Мастер-колорист с кистью и чашей краски, за спиной клиентка с прядями в фольге" width="900" height="1200" loading="lazy" decoding="async">
               </figure>
               <figure data-v-cue="0.68 1 0.06 0" data-v-rise="0">
-                <img src="assets/beard.webp" srcset="assets/beard-480.webp 480w, assets/beard.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Инструменты барбера: опасная бритва, помазок, машинка и полотенце" width="900" height="1200" loading="lazy" decoding="async">
+                <img src="assets/master-3.webp" srcset="assets/master-3-480.webp 480w, assets/master-3.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Барбер с машинкой стрижёт клиента и смотрит в кадр" width="900" height="1200" loading="lazy" decoding="async">
               </figure>
             </div>
           </div>

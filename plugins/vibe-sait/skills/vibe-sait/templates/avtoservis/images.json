@@ -8,7 +8,7 @@
       "raw": "raw/hero.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "A dark graphite grey mid-size crossover, generic unbranded car with no badges, standing on a seamless deep charcoal-graphite studio backdrop, front three-quarter view from a low camera. One hard white light from the upper right throws a long crisp shadow across the floor to the left; paint and glass show sharp specular highlights, the wheels and tyres sharply detailed. The car occupies the right two thirds of the frame; the left third is plain dark backdrop and floor with nothing on it, large empty space for text. No people, no text, no signs, no logos, no brand badges, no licence plate.",
+      "scene": "Editorial photograph of a real working car repair shop, crisp and sharp throughout, bright clean light, punchy contrast, saturated natural colours, slight halation on highlights. Photographic, not rendered, not CGI, no text, no logos, no watermark.\n\nA tidy, clean, modern independent car service bay in a Russian city on a working day. A dark graphite grey mid-size crossover, a used everyday car with light road dust, generic and unbranded, stands in the bay with its bonnet wide open; a mechanic leans over the engine bay with a ratchet wrench in his hand, a bright cordless work lamp hanging under the bonnet lights the engine. Next to him a red tool trolley with an open drawer and neatly laid out tools. Deeper in the shop, slightly out of focus, another car is raised on a two-post lift with a wheel taken off. Bright white LED ceiling panels, glossy light grey epoxy floor with soft reflections, walls painted dark graphite below and light grey above. Camera at chest height, wide shot, front three-quarter view of the car. The car, the mechanic and the trolley occupy the right half of the frame; the left 45 percent of the frame is a plain dark graphite wall and clean empty floor with nothing on it, large calm empty space for text; the wall above the car is plain too. The mechanic is an ordinary Russian man of about 40, Slavic appearance, short hair, everyday look, plain dark grey work overalls without any logos, calm natural concentrated expression, looking at his work and not at the camera, candid documentary moment, not a stock photo, no wide toothy smile, no perfect white teeth, no glamour, not a model. No text, no signs, no posters, no banners, no logos, no brand badges on the car, no licence plate, no brand names on tools or equipment.",
       "outputs": [
         {
           "file": "assets/hero.webp",
@@ -24,21 +24,23 @@
           "format": "jpeg",
           "quality": 80
         }
-      ]
+      ],
+      "preamble": false
     },
     {
       "id": "hero-m",
       "raw": "raw/hero-m.png",
       "ar": "9:16",
       "ref": "raw/hero.png",
-      "scene": "Portrait framing of the same dark graphite crossover as the reference image, same seamless deep charcoal studio backdrop, front three-quarter view from a low camera, one hard white light from the upper right with a crisp shadow on the floor. The car sits in the lower half of the frame; the upper half is plain dark backdrop with nothing on it, empty space for text. No people, no text, no logos, no brand badges, no licence plate.",
+      "scene": "Editorial photograph of a real working car repair shop, crisp and sharp throughout, bright clean light, punchy contrast, saturated natural colours, slight halation on highlights. Photographic, not rendered, not CGI, no text, no logos, no watermark.\n\nPortrait framing of the same car service bay, the same dark graphite crossover with its bonnet open and the same mechanic as in the reference image: he leans over the engine bay with a ratchet wrench, the work lamp under the bonnet lights the engine, the red tool trolley stands beside him, bright LED ceiling light, glossy light grey floor. The car, the mechanic and the trolley sit in the lower half of the tall frame. It must still read as a real workshop, not a studio: in the lower half, behind the car on the right, the service bay continues into depth with a two-post lift and another car raised on it with a wheel taken off, slightly out of focus, lit by white LED ceiling panels. The upper 45 percent of the frame is the plain dark graphite wall of the bay with nothing on it, calm empty space for text. The mechanic is an ordinary Russian man of about 40, Slavic appearance, short hair, everyday look, plain dark grey work overalls without any logos, calm natural concentrated expression, looking at his work and not at the camera, candid documentary moment, not a stock photo, no wide toothy smile, no perfect white teeth, no glamour, not a model. No text, no signs, no posters, no banners, no logos, no brand badges on the car, no licence plate, no brand names on tools or equipment.",
       "outputs": [
         {
           "file": "assets/hero-m.webp",
           "width": 1080,
           "quality": 78
         }
-      ]
+      ],
+      "preamble": false
     },
     {
       "id": "wait",
@@ -63,8 +65,8 @@
       "id": "side",
       "raw": "raw/side.png",
       "ar": "16:9",
-      "ref": "raw/hero.png",
-      "scene": "The same dark graphite crossover as the reference image in a strict side profile, exactly perpendicular to the camera, camera at door-handle height, standing on a seamless deep charcoal-graphite studio backdrop. One hard white light from directly above and slightly in front throws a crisp compact shadow under the car; the wheels, wheel arches, doors and bonnet line are sharply outlined. The car is centred and spans about seventy percent of the frame width, with plain dark empty backdrop above and below it. No people, no text, no logos, no brand badges, no licence plate, no reflections of objects.",
+      "ref": null,
+      "scene": "A dark graphite grey mid-size crossover, generic unbranded car with no badges, in a strict side profile, exactly perpendicular to the camera, camera at door-handle height, standing on a seamless deep charcoal-graphite studio backdrop. One hard white light from directly above and slightly in front throws a crisp compact shadow under the car; the wheels, wheel arches, doors and bonnet line are sharply outlined. The car is centred and spans about seventy percent of the frame width, with plain dark empty backdrop above and below it. No people, no text, no logos, no brand badges, no licence plate, no reflections of objects.",
       "outputs": [
         {
           "file": "assets/side.webp",
@@ -122,7 +124,8 @@
       "raw": "raw/hero-b.png",
       "ar": "16:9",
       "ref": "raw/hero.png",
-      "scene": "The same dark graphite crossover, the same seamless deep charcoal studio backdrop and exactly the same camera position as the reference image, but the bonnet is fully open and the engine bay is lit by the same hard white light from the upper right, crisp shadow on the floor to the left. The car occupies the right two thirds; the left third is plain dark backdrop and floor, empty space for text. No people, no text, no logos, no brand badges, no licence plate.",
+      "preamble": false,
+      "scene": "Editorial photograph of a real working car repair shop, crisp and sharp throughout, bright clean light, punchy contrast, saturated natural colours, slight halation on highlights. Photographic, not rendered, not CGI, no text, no logos, no watermark.\n\nThe same car service bay, the same dark graphite crossover and exactly the same camera position as the reference image, but the job is finished: the bonnet is closed, the car is washed and clean, the mechanic has gone, the red tool trolley is closed and pushed to the wall, the work lamp is off, the floor is clean. Same bright LED ceiling light and glossy light grey floor. The car occupies the right half of the frame; the left 45 percent is the same plain dark graphite wall and empty floor, calm empty space for text. No people, no text, no signs, no posters, no logos, no brand badges on the car, no licence plate, no brand names on tools or equipment.",
       "outputs": [
         {
           "file": "assets/hero-b.webp",
@@ -137,7 +140,8 @@
       "raw": "raw/hero-b-m.png",
       "ar": "9:16",
       "ref": "raw/hero-m.png",
-      "scene": "Same portrait framing, the same car and exactly the same camera position as the reference image, but the bonnet is fully open and the engine bay is lit by the hard white light from the upper right. The car sits in the lower half of the frame; the upper half is plain dark backdrop, empty space for text. No people, no text, no logos, no brand badges, no licence plate.",
+      "preamble": false,
+      "scene": "Editorial photograph of a real working car repair shop, crisp and sharp throughout, bright clean light, punchy contrast, saturated natural colours, slight halation on highlights. Photographic, not rendered, not CGI, no text, no logos, no watermark.\n\nThe same portrait framing, the same car service bay, the same dark graphite crossover and exactly the same camera position as the reference image, but the job is finished: the bonnet is closed, the car is washed and clean, the mechanic has gone, the red tool trolley is closed, the floor is clean. The car sits in the lower half of the tall frame; the upper half is the same plain dark graphite wall, calm empty space for text. No people, no text, no signs, no posters, no logos, no brand badges on the car, no licence plate, no brand names on tools or equipment.",
       "outputs": [
         {
           "file": "assets/hero-b-m.webp",

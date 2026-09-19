@@ -131,6 +131,40 @@
   }
 
   /* ---- 2 · вопрос 1 «Будет больно?»: фото слева, доводы справа ----------------------- */
+  /* услуги клиники: «меню» крупной типографикой, строка = услуга + УТП + цена от */
+  .usl__head { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: var(--v-8); align-items: end; margin-bottom: var(--v-6); }
+  .usl__head .v-label { grid-column: 1 / -1; }
+  .usl__head .v-display { font-size: clamp(2rem, 1.2rem + 2.2vw, 3.1rem); }
+  .usl__head .v-label { display: block; margin-bottom: var(--v-3); color: var(--v-accent-deep); }
+  .usl__head p { margin-top: 0; color: var(--v-ink-soft); max-width: 60ch; font-size: var(--v-t-md, 1.125rem); text-wrap: pretty; }
+  .usl__list { list-style: none; margin: 0; padding: 0; counter-reset: usl; border-bottom: 1px solid var(--v-hair); display: grid; grid-template-columns: 3.2rem minmax(0, 1.05fr) minmax(0, 1.35fr) auto; column-gap: var(--v-6); }
+  .usl__list li { counter-increment: usl; position: relative; grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: baseline;
+    padding: var(--v-5) var(--v-4); margin: 0 calc(-1 * var(--v-4)); border-top: 1px solid var(--v-hair); transition: background-color .35s ease, box-shadow .35s ease; }
+  .usl__list li::before { content: counter(usl, decimal-leading-zero); font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-sm); color: var(--v-accent-deep); font-variant-numeric: tabular-nums; }
+  .usl__list h3 { font-family: var(--v-font-display); font-weight: 500; font-size: clamp(1.45rem, 1rem + 1.3vw, 2.1rem); letter-spacing: var(--v-track-tight); line-height: 1.1; text-wrap: balance; transition: transform .35s ease, color .35s ease; }
+  .usl__list p { color: var(--v-ink-soft); max-width: 52ch; text-wrap: pretty; }
+  .usl__list .sum { font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-lg); color: var(--v-accent-deep); white-space: nowrap; justify-self: end; text-align: right; }
+  @media (hover: hover) {
+    .usl__list li:hover { border-radius: calc(var(--v-radius) - 6px); background: var(--v-canvas); box-shadow: inset 3px 0 0 var(--v-accent); border-top-color: transparent; }
+    .usl__list li:hover + li { border-top-color: transparent; }
+    .usl__list li:hover h3 { transform: translateX(.35rem); color: var(--v-accent-deep); }
+  }
+  .usl__foot { margin-top: var(--v-7); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--v-5) var(--v-8); }
+  .usl__foot p { color: var(--v-ink-soft); max-width: 62ch; text-wrap: pretty; }
+  @media (max-width: 1000px) {
+    .usl__head { grid-template-columns: 1fr; row-gap: var(--v-4); }
+    .usl__list { display: block; }
+    .usl__list li { grid-template-columns: 2.4rem minmax(0, 1fr) auto; row-gap: var(--v-2); padding: var(--v-4) var(--v-3); margin: 0 calc(-1 * var(--v-3)); }
+    .usl__list p { grid-column: 2 / -1; grid-row: 2; }
+    .usl__list .sum { font-size: var(--v-t-base); }
+  }
+  @media (max-width: 600px) {
+    .usl__list li { grid-template-columns: 2rem minmax(0, 1fr); }
+    .usl__list h3 { font-size: 1.3rem; }
+    .usl__list p { font-size: .95rem; grid-column: 2; grid-row: auto; }
+    .usl__list .sum { grid-column: 2; justify-self: start; min-width: 0; text-align: left; }
+    .usl__foot .v-btn { width: 100%; justify-content: center; }
+  }
   .pain { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--v-8) var(--v-9); align-items: start; }
   .pain__fig { aspect-ratio: 3 / 4; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); background: var(--v-surface); max-width: 26rem; position: sticky; top: clamp(5rem, 12vh, 7rem); }
   .pain__fig .v-layer img { width: 100%; height: 118%; left: 0; top: -9%; object-fit: cover; }
@@ -315,6 +349,7 @@
   <header class="bar">
     <a class="bar__mark" href="#top"><i aria-hidden="true"></i>Ясно</a>
     <nav class="qnav" aria-label="Пять вопросов до кресла">
+      <a href="#uslugi">Услуги</a>
       <a href="#bolno"><b>1</b>Будет больно?</a>
       <a href="#vizit"><b>2</b>Что будете делать?</a>
       <a href="#ceny"><b>3</b>Сколько стоит?</a>
@@ -380,6 +415,31 @@
             <li><b>4</b>Кто будет лечить?</li>
             <li><b>5</b>Когда можно прийти?</li>
           </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · ВЫБОР: услуги клиники списком сразу после первого экрана (правка Евгения 19.09.2026) -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#ffffff" id="uslugi" aria-label="Услуги клиники">
+      <div class="v-wrap usl">
+        <div class="usl__head" data-v-in data-v-stagger="70">
+          <span class="v-label">Услуги</span>
+          <h2 class="v-display v-display--lg">Услуги клиники: от гигиены до имплантации</h2>
+          <p>Взрослым и детям, в одном кабинете и у своего врача. По каждой услуге – письменный план и цена до начала лечения.</p>
+        </div>
+        <ol class="usl__list" data-v-in data-v-stagger="55">
+          <li><h3>Лечение кариеса и каналов</h3><p>С анестезией. Пломба – за один визит, лечение каналов – по письменному плану с ценой каждого этапа.</p><span class="sum v-nums">от {{цена-кариес}}&nbsp;₽</span></li>
+          <li><h3>Профессиональная гигиена</h3><p>Ультразвук, порошок, полировка и рекомендации по уходу. Один визит, около часа.</p><span class="sum v-nums">{{цена-гигиена}}&nbsp;₽</span></li>
+          <li><h3>Отбеливание</h3><p>Только после осмотра и гигиены: сначала здоровые зубы, потом цвет. Оттенок согласуем до начала.</p><span class="sum v-nums">от {{цена-отбеливание}}&nbsp;₽</span></li>
+          <li><h3>Удаление зубов</h3><p>Простое и сложное, включая зубы мудрости. Анестезия, рекомендации письменно, контрольный осмотр.</p><span class="sum v-nums">от {{цена-удаление}}&nbsp;₽</span></li>
+          <li><h3>Имплантация</h3><p>От снимка до коронки на импланте: этапы, сроки и цена каждого этапа записаны в плане до начала.</p><span class="sum v-nums">от {{цена-имплант}}&nbsp;₽</span></li>
+          <li><h3>Коронки, виниры, мосты</h3><p>Материал подбираем под зуб и бюджет. На время изготовления ставим временную коронку.</p><span class="sum v-nums">от {{цена-коронка}}&nbsp;₽</span></li>
+          <li><h3>Брекеты и элайнеры</h3><p>Консультация ортодонта, план по этапам и цена всего лечения – до установки.</p><span class="sum v-nums">от {{цена-брекеты}}&nbsp;₽</span></li>
+          <li><h3>Детская стоматология</h3><p>Первый визит – знакомство с кабинетом. Лечим молочные зубы, герметизируем фиссуры.</p><span class="sum v-nums">от {{цена-детская}}&nbsp;₽</span></li>
+        </ol>
+        <div class="usl__foot" data-v-in data-v-in-self>
+          <p>Не нашли свою ситуацию или не знаете, что именно нужно? Начните с осмотра: врач посмотрит, объяснит и напишет план с ценой по пунктам.</p>
+          <a class="v-btn v-btn--ghost" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться</a>
         </div>
       </div>
     </section>

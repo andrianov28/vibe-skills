@@ -60,57 +60,57 @@
       ]
     },
     {
-      "id": "hands",
-      "raw": "raw/hands.png",
+      "id": "master-1",
+      "raw": "raw/master-1.png",
       "ar": "3:4",
       "ref": null,
-      "scene": "Hairdresser's hands cutting the ends of a client's straight dark hair with slim silver scissors and a black comb, seen from behind the client's shoulder so that only the hands, the scissors, the comb and the hair are in the frame. No faces at all, heads out of frame. Warm off-white cyclorama behind, the hairdresser in a plain white cotton shirt. The hands and hair sit in the lower two thirds of the frame; the upper third is plain pale cyclorama, empty space for text. No text, no logos, no jewelry, no watches.",
+      "scene": "Vertical portrait of a woman hairdresser about 32 years old at her workstation, standing, seen from the waist up, body turned three quarters, looking straight into the camera. Light brown hair gathered in a low bun, plain white cotton shirt and a dark grey canvas apron, slim silver scissors and a black comb held in one hand at chest level. Ordinary Russian person, Slavic appearance, everyday natural look, calm friendly expression with at most a slight closed-mouth smile, candid documentary portrait, not a stock photo, no wide toothy smile, no perfect white teeth, no glamour, no model looks, natural skin. Bright calm hair salon: plain warm off-white plaster wall, a large round frameless mirror with a soft warm LED halo and a pale oak shelf with tools softly out of focus behind, light oak floor, soft daylight from tall windows on the left, warm white grade. The face is in the upper third and clearly visible, sharp focus on the eyes. No text, no logos, no name badges, no jewelry, no watches.",
       "outputs": [
         {
-          "file": "assets/hands.webp",
+          "file": "assets/master-1.webp",
           "width": 900,
           "quality": 80
         },
         {
-          "file": "assets/hands-480.webp",
+          "file": "assets/master-1-480.webp",
           "width": 480,
           "quality": 76
         }
       ]
     },
     {
-      "id": "colour",
-      "raw": "raw/colour.png",
+      "id": "master-2",
+      "raw": "raw/master-2.png",
       "ar": "3:4",
       "ref": null,
-      "scene": "Hair colouring at work: a colourist's hands in thin black gloves applying creamy pale hair colour with a flat tint brush to a strand of light brown hair laid on a sheet of aluminium foil, a small black bowl of colour nearby, seen from behind and above the client's shoulder. No faces at all, heads out of frame. Warm off-white cyclorama behind. The hands, brush and foil sit in the lower two thirds; the upper third is plain pale cyclorama, empty space for text. No text, no logos, no packaging, no jewelry.",
+      "scene": "Vertical portrait of a woman hair colourist about 40 years old at work, seen from the waist up, body half turned to the side, head turned to the camera, looking into the camera. Dark blonde shoulder-length hair, plain black t-shirt and a dark apron, thin black gloves, holding a small black tint bowl and a flat tint brush with pale cream colour. Behind her, out of focus, a client sits in a salon chair with strands wrapped in aluminium foil, seen only from the back. Ordinary Russian person, Slavic appearance, everyday natural look, calm friendly expression with at most a slight closed-mouth smile, candid documentary portrait, not a stock photo, no wide toothy smile, no perfect white teeth, no glamour, no model looks, natural skin. Bright calm hair salon: plain warm off-white plaster wall, a large round frameless mirror with a soft warm LED halo and a pale oak shelf with tools softly out of focus behind, light oak floor, soft daylight from tall windows on the left, warm white grade. The colourist's face is in the upper third and clearly visible, sharp focus on the eyes. No text, no logos, no packaging, no name badges, no jewelry.",
       "outputs": [
         {
-          "file": "assets/colour.webp",
+          "file": "assets/master-2.webp",
           "width": 900,
           "quality": 80
         },
         {
-          "file": "assets/colour-480.webp",
+          "file": "assets/master-2-480.webp",
           "width": 480,
           "quality": 76
         }
       ]
     },
     {
-      "id": "beard",
-      "raw": "raw/beard.png",
+      "id": "master-3",
+      "raw": "raw/master-3.png",
       "ar": "3:4",
       "ref": null,
-      "scene": "Barber's still life on the warm off-white cyclorama: a closed straight razor with a dark horn handle, a wooden shaving brush with a soft cream tip, a compact black hair clipper with a metal blade, a small folded white cotton towel, arranged loosely on the pale surface and seen from slightly above. The objects sit in the lower two thirds of the frame; the upper third is plain pale cyclorama, empty space for text. No people, no hands, no text, no labels, no logos.",
+      "scene": "Vertical portrait of a male barber about 35 years old at work, seen from the waist up, standing behind a seated client whose head is seen only from the back in the lower part of the frame. The barber has short dark hair and a short neat beard, plain dark grey shirt with rolled sleeves and a brown canvas apron, a compact black hair clipper in his hand near the client's temple, his head slightly turned, glancing into the camera. Ordinary Russian person, Slavic appearance, everyday natural look, calm friendly expression with at most a slight closed-mouth smile, candid documentary portrait, not a stock photo, no wide toothy smile, no perfect white teeth, no glamour, no model looks, natural skin. Bright calm hair salon: plain warm off-white plaster wall, a large round frameless mirror with a soft warm LED halo and a pale oak shelf with tools softly out of focus behind, light oak floor, soft daylight from tall windows on the left, warm white grade. The barber's face is in the upper third and clearly visible, sharp focus on the eyes. No text, no logos, no tattoos on the face or neck, no name badges.",
       "outputs": [
         {
-          "file": "assets/beard.webp",
+          "file": "assets/master-3.webp",
           "width": 900,
           "quality": 80
         },
         {
-          "file": "assets/beard-480.webp",
+          "file": "assets/master-3-480.webp",
           "width": 480,
           "quality": 76
         }

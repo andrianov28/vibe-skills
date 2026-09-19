@@ -1,17 +1,29 @@
 {
   "world": "Естественный свет",
   "model": "seedream/5-pro (kie.ai), scripts/kie.mjs still",
-  "preamble": "Natural-light lifestyle photography in a bright airy fitness studio: large windows, soft daylight filling the room, white walls, pale wooden floor, a few plain black kettlebells and dumbbells. High key, gentle contrast, clean fresh grade with true warm skin tones and no colour cast. Shot on 35mm at eye level, shallow depth of field, fine grain. Real people with natural relaxed expressions, plain unbranded athletic wear. Photographic realism, no CGI, no stock-photo gloss, no text, no signs, no logos, no watermark.",
+  "preamble": "Candid documentary photography in an ordinary fitness club in a Russian city, bright and clean: large windows, soft daylight filling the room, white walls, light laminate floor, plain black dumbbells and kettlebells. Bright, juicy but true-to-life colours, natural skin tones with real skin texture, no colour cast, no retouching. Shot on 35mm at eye level, fine grain. Ordinary Russian people, Slavic appearance, everyday look, calm natural expression, candid documentary photo, not a stock photo, no wide toothy smiles, no perfect white teeth, no glamour, no models. Ordinary non-athletic body types, plain unbranded sportswear, mouths closed or at most a slight smile, no glossy advertising light. Photographic realism, no CGI, no text, no signs, no posters, no logos, no watermark.",
   "images": [
     {
       "id": "hero",
       "raw": "raw/hero.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "A female personal trainer in her early thirties, athletic build, hair in a ponytail, wearing a plain light-grey fitted t-shirt and plain black leggings, standing relaxed in the bright studio and looking straight at the camera with an open genuine smile, a small white towel over one shoulder. She stands in the right third of the frame, seen from mid-thigh up; the left two thirds of the frame are a plain bright white wall softly lit by window light, completely empty for text. Camera at chest height, 35mm, shallow depth of field, a blurred rack of black dumbbells far behind her on the right. One person only, no mirrors, no text, no signs, no logos on clothes.",
+      "scene": "Composition first: the left half of the frame contains no people and no equipment at all, only a plain bright white wall with a large window, soft daylight and empty light laminate floor, quiet room for a headline. All seven people are grouped in the right half of the frame. Scene: a small group fitness class in the group-exercise hall of an ordinary Russian fitness club. A wall-to-wall mirror covers the whole back wall on the right side of the hall and reflects the group; light laminate floor, white walls, bright daylight from the windows on the left. A female trainer, about 35, Slavic face, light-brown hair in a simple ponytail, no visible makeup, plain light-grey t-shirt and black leggings, stands just right of the centre of the frame, side-on to the camera, facing right towards the participants, her face seen in profile, demonstrating a squat with a pair of small dumbbells held at her shoulders. To the right of her six participants (four women and two men, aged from 25 to 50, ordinary everyday body types, some a little overweight, plain t-shirts, leggings, shorts, sneakers) stand on mats in two staggered rows facing the trainer and perform the same squat with small dumbbells in sync, their faces seen three-quarter, focused and calm. Wide shot, camera at chest height. Sunny daytime, fresh and inviting, but documentary. No text, no posters, no screens, no clocks, no logos on clothes.",
       "outputs": [
-        { "file": "assets/hero.webp", "width": 1920, "quality": 78 },
-        { "file": "assets/og.jpg", "width": 1200, "height": 630, "fit": "cover", "position": "centre", "format": "jpeg", "quality": 80 }
+        {
+          "file": "assets/hero.webp",
+          "width": 1920,
+          "quality": 78
+        },
+        {
+          "file": "assets/og.jpg",
+          "width": 1200,
+          "height": 630,
+          "fit": "cover",
+          "position": "centre",
+          "format": "jpeg",
+          "quality": 80
+        }
       ]
     },
     {
@@ -19,31 +31,13 @@
       "raw": "raw/hero-m.png",
       "ar": "9:16",
       "ref": "raw/hero.png",
-      "scene": "Portrait framing for a phone screen of the same female trainer as in the reference image: same face, same ponytail, same plain light-grey t-shirt, black leggings and white towel over the shoulder, same bright studio with soft window light, looking at the camera with the same open smile. She stands in the lower half of the frame, centred, seen from mid-thigh up; the upper half of the frame is plain bright white wall, empty for text. One person only, no mirrors, no text, no logos.",
+      "scene": "Portrait framing for a phone screen of the same group class as in the reference image: the same hall with the mirror wall, the same female trainer in the light-grey t-shirt, the same participants in the same clothes, the same squat with small dumbbells in sync, the same daylight. The trainer and the group fill the lower 60 percent of the frame, the trainer closer to the camera; the upper 40 percent of the frame is quiet: plain bright white wall above the mirror and soft window light, empty for text. Faces focused and calm. No text, no posters, no screens, no clocks, no logos.",
       "outputs": [
-        { "file": "assets/hero-m.webp", "width": 1080, "quality": 78 }
-      ]
-    },
-    {
-      "id": "duo",
-      "raw": "raw/duo.png",
-      "ar": "16:9",
-      "ref": "raw/hero.png",
-      "scene": "The same female trainer as in the reference image (same face, ponytail, plain light-grey t-shirt) standing close beside a female client in her late thirties in a plain dark-blue t-shirt and black leggings who holds a small black kettlebell at chest height in a squat stance; the trainer gently corrects the client's elbow with one hand and both smile naturally, the trainer looking at the client, not at the camera. Wide frame, camera at waist height, 35mm: both figures three-quarter length on the right half of the frame; the left half is a bright empty studio wall with soft window light, empty for text. Two people only, no mirrors, no text, no logos.",
-      "outputs": [
-        { "file": "assets/duo.webp", "width": 1600, "quality": 78 },
-        { "file": "assets/duo-900.webp", "width": 900, "quality": 76 }
-      ]
-    },
-    {
-      "id": "talk",
-      "raw": "raw/talk.png",
-      "ar": "3:4",
-      "ref": "raw/hero.png",
-      "scene": "The same female trainer as in the reference image (same face, ponytail, plain light-grey t-shirt) sitting on a flat black gym bench next to a male client in his forties in a plain grey t-shirt, both relaxed and talking with easy natural smiles, the trainer holding a plain closed notebook and a pen on her knee, soft window light from the left. Vertical composition, camera at eye level: the two seated figures fill the lower two thirds of the frame; the upper third is a bright plain wall, empty for text. Two people only, nothing written on the notebook, no phone, no text, no logos.",
-      "outputs": [
-        { "file": "assets/talk.webp", "width": 1200, "quality": 78 },
-        { "file": "assets/talk-600.webp", "width": 600, "quality": 76 }
+        {
+          "file": "assets/hero-m.webp",
+          "width": 1080,
+          "quality": 78
+        }
       ]
     },
     {
@@ -51,10 +45,56 @@
       "raw": "raw/trainer.png",
       "ar": "3:4",
       "ref": "raw/hero.png",
-      "scene": "Portrait of the same female trainer as in the reference image (same face, ponytail, plain light-grey t-shirt), standing in the bright studio with arms loosely crossed, looking at the camera with a warm confident smile, soft window light from the left, blurred pale wooden floor and a few black dumbbells far behind. Vertical framing from the waist up, figure centred in the lower two thirds of the frame; the upper third is soft bright wall, empty. One person only, no mirrors, no text, no logos.",
+      "scene": "Portrait of the female trainer from the reference image (the woman in the light-grey t-shirt who leads the class): an ordinary Russian woman of about 35, Slavic face, light-brown hair in a simple ponytail, no visible makeup, natural skin, plain light-grey t-shirt. She stands in the same bright hall, arms loosely crossed, looking at the camera calmly and kindly, mouth closed, only a hint of a smile. Soft window light from the left, blurred mirror wall and a few black dumbbells far behind. Vertical framing from the waist up, figure centred in the lower two thirds of the frame; the upper third is soft bright wall, empty. One person only, looks like a real coach from a neighbourhood gym, not a model. No text, no logos.",
       "outputs": [
-        { "file": "assets/trainer.webp", "width": 1200, "quality": 78 },
-        { "file": "assets/trainer-600.webp", "width": 600, "quality": 76 }
+        {
+          "file": "assets/trainer.webp",
+          "width": 1200,
+          "quality": 78
+        },
+        {
+          "file": "assets/trainer-600.webp",
+          "width": 600,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "duo",
+      "raw": "raw/duo.png",
+      "ar": "16:9",
+      "ref": "raw/trainer.png",
+      "scene": "The same female trainer as in the reference image (same face, ponytail, plain light-grey t-shirt) stands close beside a female client of about 40, an ordinary slightly plump Russian woman in a plain dark-blue t-shirt and black leggings, who holds a small black kettlebell at chest height in a squat stance. The trainer gently corrects the client's elbow with one hand and watches her movement attentively; the client looks ahead, concentrated. Both calm and focused, no laughing, nobody looks at the camera. Wide frame, camera at waist height, 35mm: both figures three-quarter length in the right half of the frame; the left half is a bright empty wall of the hall with soft window light, empty for text. Two people only, no mirrors, no text, no logos.",
+      "outputs": [
+        {
+          "file": "assets/duo.webp",
+          "width": 1600,
+          "quality": 78
+        },
+        {
+          "file": "assets/duo-900.webp",
+          "width": 900,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "talk",
+      "raw": "raw/talk.png",
+      "ar": "3:4",
+      "ref": "raw/trainer.png",
+      "scene": "The same female trainer as in the reference image (same face, ponytail, plain light-grey t-shirt) sits on a flat black gym bench next to a male client of about 45, an ordinary Russian man with short hair, a slight belly, plain grey t-shirt and dark shorts. He is telling her something, she listens attentively and holds a plain closed notebook and a pen on her knee. Calm everyday conversation, relaxed faces, no laughing, nobody looks at the camera, soft window light from the left. Vertical composition, camera at eye level: the two seated figures fill the lower two thirds of the frame; the upper third is a bright plain wall, empty for text. Two people only, nothing written on the notebook, no phone, no text, no logos.",
+      "outputs": [
+        {
+          "file": "assets/talk.webp",
+          "width": 1200,
+          "quality": 78
+        },
+        {
+          "file": "assets/talk-600.webp",
+          "width": 600,
+          "quality": 76
+        }
       ]
     },
     {
@@ -64,8 +104,16 @@
       "ref": null,
       "scene": "Empty bright fitness studio interior: a low two-tier rack of plain black hex dumbbells, two black kettlebells and a rolled grey exercise mat on the pale wooden floor, large windows on the right with soft daylight, white walls. Wide 35mm at chest height: the equipment sits in the lower right half of the frame; the upper left is plain bright wall, empty for text. No people, no mirrors, no text, no posters, no screens, no logos.",
       "outputs": [
-        { "file": "assets/studio.webp", "width": 1200, "quality": 78 },
-        { "file": "assets/studio-700.webp", "width": 700, "quality": 76 }
+        {
+          "file": "assets/studio.webp",
+          "width": 1200,
+          "quality": 78
+        },
+        {
+          "file": "assets/studio-700.webp",
+          "width": 700,
+          "quality": 76
+        }
       ]
     },
     {
@@ -73,10 +121,108 @@
       "raw": "raw/water.png",
       "ar": "3:4",
       "ref": null,
-      "scene": "Two clients just after a workout, a woman in her thirties in a plain coral t-shirt and a man in his forties in a plain white t-shirt, both a little flushed and laughing while giving each other a high five, each holding a plain unlabelled water bottle in the other hand, small white towels over their shoulders, bright studio with soft window light behind them. Vertical framing from the chest up, camera at eye level: the two figures fill the lower two thirds of the frame; the upper third is bright blurred window and wall, empty. Two people only, natural laughter, no text, no logos on bottles or clothes.",
+      "scene": "Two ordinary participants resting right after a group class, sitting side by side on a low bench by the window of the hall: a Russian woman of about 40 in a plain coral t-shirt and a Russian man of about 45 in a plain white t-shirt, ordinary builds, a little flushed and pleasantly tired, small white towels over their shoulders, each holding a plain unlabelled water bottle. They talk quietly, she looks at him, he looks down at his bottle with a slight content closed-mouth smile; nobody looks at the camera, no laughing, no high fives. Vertical framing from the knees up, camera at eye level: the two figures fill the lower two thirds of the frame; the upper third is bright blurred window and wall, empty. Two people only, no text, no logos on bottles or clothes.",
       "outputs": [
-        { "file": "assets/water.webp", "width": 900, "quality": 78 },
-        { "file": "assets/water-480.webp", "width": 480, "quality": 76 }
+        {
+          "file": "assets/water.webp",
+          "width": 900,
+          "quality": 78
+        },
+        {
+          "file": "assets/water-480.webp",
+          "width": 480,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "ba1-do",
+      "raw": "raw/ba1-do.png",
+      "ar": "3:4",
+      "ref": null,
+      "preamble": false,
+      "scene": "Amateur 'before' progress photo taken on a phone, the kind a fitness trainer keeps to track a client's progress. An ordinary Russian woman, 38 years old, Slavic appearance, dark-blonde hair tied back, no makeup, stands straight facing the camera against a plain light-grey painted wall of a gym, arms relaxed at her sides, feet hip-width apart, framed from head to knees, centred. She wears a plain grey t-shirt and plain black leggings. She is moderately overweight: a soft round belly under the t-shirt, full hips and thighs, soft upper arms, slightly slouched shoulders. Neutral, slightly shy expression, mouth closed. Flat even daylight, true-to-life colours, real skin texture, no retouching, slight phone-camera softness. Candid documentary photo, not a stock photo, not an advertisement, no glamour, not a model, fully clothed. No text, no numbers, no captions, no watermark, no logos, no mirrors, no other people.",
+      "outputs": [
+        {
+          "file": "assets/uchenik-1-do.webp",
+          "width": 600,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "ba1-posle",
+      "raw": "raw/ba1-posle.png",
+      "ar": "3:4",
+      "ref": "raw/ba1-do.png",
+      "preamble": false,
+      "scene": "The same woman as in the reference image, photographed several months later for an 'after' progress photo: exactly the same face, same hair, same age, the same plain light-grey wall, the same standing pose facing the camera with arms at her sides, the same framing from head to knees, the same flat daylight, the same plain grey t-shirt and black leggings, which now fit looser. Her body is moderately and realistically more toned: a noticeably slimmer waist and flatter belly, firmer arms, slimmer thighs, straight confident posture with shoulders back. Still an ordinary woman, not a fitness model, no visible abs. Calm content expression, mouth closed, a slight smile. Flat even daylight, true-to-life colours, real skin texture, no retouching, slight phone-camera softness. Candid documentary photo, not a stock photo, not an advertisement, no glamour, not a model, fully clothed. No text, no numbers, no captions, no watermark, no logos, no mirrors, no other people.",
+      "outputs": [
+        {
+          "file": "assets/uchenik-1-posle.webp",
+          "width": 600,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "ba2-do",
+      "raw": "raw/ba2-do.png",
+      "ar": "3:4",
+      "ref": null,
+      "preamble": false,
+      "scene": "Amateur 'before' progress photo taken on a phone at home. An ordinary Russian man, 43 years old, Slavic appearance, short dark-blond hair, light stubble, stands straight facing the camera against a plain pale-beige wall of an ordinary apartment, a strip of laminate floor below, arms relaxed at his sides, framed from head to knees, centred. He wears a plain navy t-shirt and plain grey knee-length shorts. He is moderately overweight: a round beer belly stretching the t-shirt, soft chest and arms, rounded shoulders. Neutral tired expression, mouth closed. Flat even daylight, true-to-life colours, real skin texture, no retouching, slight phone-camera softness. Candid documentary photo, not a stock photo, not an advertisement, no glamour, not a model, fully clothed. No text, no numbers, no captions, no watermark, no logos, no mirrors, no other people.",
+      "outputs": [
+        {
+          "file": "assets/uchenik-2-do.webp",
+          "width": 600,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "ba2-posle",
+      "raw": "raw/ba2-posle.png",
+      "ar": "3:4",
+      "ref": "raw/ba2-do.png",
+      "preamble": false,
+      "scene": "The same man as in the reference image, photographed several months later for an 'after' progress photo: exactly the same face, same haircut and stubble, same age, the same plain pale-beige apartment wall and strip of laminate floor, the same standing pose facing the camera with arms at his sides, the same framing from head to knees, the same flat daylight, the same plain navy t-shirt and grey shorts, which now hang looser. His body is moderately and realistically fitter: a clearly smaller belly, a flatter stomach line under the t-shirt, firmer arms and shoulders, upright posture. Still an ordinary man, not a bodybuilder, not a fitness model. Calm, quietly pleased expression, mouth closed. Flat even daylight, true-to-life colours, real skin texture, no retouching, slight phone-camera softness. Candid documentary photo, not a stock photo, not an advertisement, no glamour, not a model, fully clothed. No text, no numbers, no captions, no watermark, no logos, no mirrors, no other people.",
+      "outputs": [
+        {
+          "file": "assets/uchenik-2-posle.webp",
+          "width": 600,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "ba3-do",
+      "raw": "raw/ba3-do.png",
+      "ar": "3:4",
+      "ref": null,
+      "preamble": false,
+      "scene": "Amateur 'before' progress photo taken on a phone in a gym. An ordinary Russian woman, 29 years old, Slavic appearance, light-brown hair in a low bun, no makeup, stands straight facing the camera against a plain white painted brick wall of a gym, arms relaxed at her sides, framed from head to knees, centred. She wears a plain loose white t-shirt and plain dark-grey leggings. She is slightly overweight: a soft belly and soft waistline, full thighs, slouched posture with rounded shoulders. Neutral, a little unsure expression, mouth closed. Flat even daylight, true-to-life colours, real skin texture, no retouching, slight phone-camera softness. Candid documentary photo, not a stock photo, not an advertisement, no glamour, not a model, fully clothed. No text, no numbers, no captions, no watermark, no logos, no mirrors, no other people.",
+      "outputs": [
+        {
+          "file": "assets/uchenik-3-do.webp",
+          "width": 600,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "ba3-posle",
+      "raw": "raw/ba3-posle.png",
+      "ar": "3:4",
+      "ref": "raw/ba3-do.png",
+      "preamble": false,
+      "scene": "The same young woman as in the reference image, photographed several months later for an 'after' progress photo: exactly the same face, same hair in a low bun, same age, the same plain white painted brick wall, the same standing pose facing the camera with arms at her sides, the same framing from head to knees, the same flat daylight, the same plain white t-shirt and dark-grey leggings, now fitting looser. She has clearly lost weight and become fitter, the difference with the reference is easy to see at a glance: a visibly narrower waist and flat belly, the t-shirt hangs loose on her, a slimmer face with a defined jawline, slimmer arms, noticeably slimmer firm thighs, straight posture with open shoulders. Still an ordinary young woman, not a fitness model, no visible abs. Calm confident expression, mouth closed, a slight smile. Flat even daylight, true-to-life colours, real skin texture, no retouching, slight phone-camera softness. Candid documentary photo, not a stock photo, not an advertisement, no glamour, not a model, fully clothed. No text, no numbers, no captions, no watermark, no logos, no mirrors, no other people.",
+      "outputs": [
+        {
+          "file": "assets/uchenik-3-posle.webp",
+          "width": 600,
+          "quality": 76
+        }
       ]
     }
   ],

@@ -4,15 +4,15 @@
   "preamble": "Documentary photography, available light only, handheld 35mm. Natural skin tones, honest imperfect surfaces, slight motion in the frame. Muted realistic grade, no colour cast, visible grain. Candid, unposed, nobody looking at camera. Absolutely not stock-photo styling, no fake smiles, no CGI, no text, no logos, no watermark.",
   "images": [
     {
-      "id": "hero",
-      "raw": "raw/hero.png",
-      "ar": "16:9",
+      "id": "hero-voda",
+      "raw": "raw/hero-voda.png",
+      "ar": "1:1",
       "ref": null,
-      "scene": "Ordinary apartment kitchen, the cabinet doors under the sink wide open, a plastic basin on the cabinet floor catching drips from a leaking siphon, a wet rag beside it, a few kitchen items moved out onto the floor. Camera at knee height, wide shot. Soft daylight from a window on the right. The open cabinet and basin sit in the right half of the frame; the left third of the frame is a plain kitchen wall and plain floor with nothing on it, large empty space for text. No people, no text, no signs, no logos, no brand names on packaging.",
+      "scene": "A plumber at work in an ordinary apartment kitchen: a man of about 40 with short hair and light stubble, in a plain dark navy work jacket, crouching in front of the open cabinet under the kitchen sink and tightening a leaking pipe joint under the sink with an adjustable wrench. The leak is obvious at a glance: water drips and a thin jet sprays from the joint, drops fall into a blue plastic basin half full of water on the cabinet floor, a wet rag and a small puddle on the floor tiles. He is seen in three-quarter profile from the side, face visible, looking at the pipe, not at the camera. Camera at his eye level, medium shot. Bright soft daylight from a window, light-coloured clean room, fresh lively natural colours, well exposed, not dark, not gloomy. White wall tiles, light kitchen cabinets. The man's head, his hands with the wrench and the dripping pipe are in the upper two thirds of the square frame, horizontally centred; the bottom third of the frame is only floor tiles. Ordinary Russian man, Slavic appearance, everyday look, calm natural concentrated expression, candid documentary photo, not a stock photo, no smile for the camera, no perfect white teeth, no glamour, not a model. Ordinary Russian city apartment. No text, no signs, no logos, no brand names on clothing or packaging.",
       "outputs": [
         {
-          "file": "assets/hero.webp",
-          "width": 1920,
+          "file": "assets/hero-voda.webp",
+          "width": 1280,
           "quality": 78
         },
         {
@@ -20,41 +20,50 @@
           "width": 1200,
           "height": 630,
           "fit": "cover",
-          "position": "centre",
+          "position": "top",
           "format": "jpeg",
           "quality": 80
         }
       ]
     },
     {
-      "id": "hero-m",
-      "raw": "raw/hero-m.png",
-      "ar": "9:16",
-      "ref": "raw/hero.png",
-      "scene": "Portrait framing of the same apartment kitchen as the reference image: the cabinet under the sink open, a plastic basin catching drips from the leaking siphon, a wet rag beside it. Camera at knee height. Soft daylight from a window. The open cabinet sits in the middle third of the frame; the upper third is a plain wall with nothing on it, the lower third is plain floor tiles with nothing on them, both are empty space for text. No people, no text, no signs, no logos.",
+      "id": "hero-svet",
+      "raw": "raw/hero-svet.png",
+      "ar": "1:1",
+      "ref": null,
+      "scene": "An electrician at work in an ordinary apartment room: a man of about 40 with short hair, in a plain dark navy work jacket, crouching by a wall and unscrewing a burnt-out wall socket with an orange-handled indicator screwdriver. The trouble is obvious at a glance: the white European round Schuko socket is scorched, its plastic melted and yellowed, with black soot marks fanning up the light wallpaper above it, the cover plate is off and the wires are visible. On the floor beside him an open tool case, a multimeter with probes and a new white socket without packaging. He is seen in three-quarter profile from the side, face visible, looking at the socket, not at the camera. Camera at his eye level, medium shot. Bright soft daylight from a window, light-coloured clean room, fresh lively natural colours, well exposed, not dark, not gloomy. Light plain wallpaper, light laminate floor. The man's head, his hands with the screwdriver and the scorched socket are in the upper two thirds of the square frame, horizontally centred; the bottom third of the frame is only floor. Ordinary Russian man, Slavic appearance, everyday look, calm natural concentrated expression, candid documentary photo, not a stock photo, no smile for the camera, no perfect white teeth, no glamour, not a model. Ordinary Russian city apartment. No text, no signs, no logos, no brand names on tools or clothing.",
       "outputs": [
         {
-          "file": "assets/hero-m.webp",
-          "width": 1080,
+          "file": "assets/hero-svet.webp",
+          "width": 1280,
           "quality": 78
         }
       ]
     },
     {
-      "id": "card",
-      "raw": "raw/card.png",
-      "ar": "3:4",
-      "ref": null,
-      "scene": "Close-up of two hands in worn work gloves tightening a new braided flexible water hose to a tap under a kitchen sink with an adjustable wrench, inside the open cabinet, daylight from the room falling in from the left. Tight vertical composition, hands and hose fill the lower two thirds, dark cabinet interior above as empty space. No face, no text, no logos.",
+      "id": "hero-voda-m",
+      "raw": "raw/hero-voda-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero-voda.png",
+      "scene": "Portrait framing of the same scene as the reference image: the same plumber in the same dark navy work jacket in the same kitchen, crouching at the open cabinet under the sink, tightening the leaking pipe joint with an adjustable wrench, water dripping into the blue basin, wet rag and puddle on the floor. Three-quarter profile, face visible, looking at the pipe. Bright soft daylight from a window, light-coloured clean room, fresh lively natural colours, well exposed, not dark, not gloomy. The man, his hands and the dripping pipe fill the middle of the tall frame and stay horizontally centred; plain white wall tiles at the very top, floor tiles at the bottom. Ordinary Russian man, Slavic appearance, everyday look, calm natural concentrated expression, candid documentary photo, not a stock photo, no smile for the camera, no perfect white teeth, no glamour, not a model. Ordinary Russian city apartment. No text, no signs, no logos.",
       "outputs": [
         {
-          "file": "assets/card.webp",
-          "width": 900,
-          "quality": 78
-        },
+          "file": "assets/hero-voda-m.webp",
+          "width": 640,
+          "quality": 76
+        }
+      ]
+    },
+    {
+      "id": "hero-svet-m",
+      "raw": "raw/hero-svet-m.png",
+      "ar": "9:16",
+      "ref": "raw/hero-svet.png",
+      "scene": "Portrait framing of the same scene as the reference image: the same electrician in the same dark navy work jacket in the same room, crouching by the wall and unscrewing the scorched white wall socket with the orange-handled indicator screwdriver, black soot marks on the light wallpaper above the socket, tool case and multimeter on the floor. Three-quarter profile, face visible, looking at the socket. Bright soft daylight from a window, light-coloured clean room, fresh lively natural colours, well exposed, not dark, not gloomy. The man, his hands and the scorched socket fill the middle of the tall frame and stay horizontally centred; plain light wallpaper at the very top, floor at the bottom. Ordinary Russian man, Slavic appearance, everyday look, calm natural concentrated expression, candid documentary photo, not a stock photo, no smile for the camera, no perfect white teeth, no glamour, not a model. Ordinary Russian city apartment. No text, no signs, no logos.",
+      "outputs": [
         {
-          "file": "assets/card-480.webp",
-          "width": 480,
+          "file": "assets/hero-svet-m.webp",
+          "width": 640,
           "quality": 76
         }
       ]
@@ -127,36 +136,6 @@
           "file": "assets/done-900.webp",
           "width": 900,
           "quality": 76
-        }
-      ]
-    },
-    {
-      "id": "hero-b",
-      "variant": "Б",
-      "raw": "raw/hero-b.png",
-      "ar": "16:9",
-      "ref": "raw/hero.png",
-      "scene": "Same apartment kitchen and the same camera position as the reference image, but after the repair: the cabinet under the sink open and completely dry, a new white siphon and new braided hoses inside, no basin, no rag, the floor clean and the kitchen items back in place. Soft daylight from the window on the right. The open cabinet sits in the right half of the frame; the left third is a plain wall and plain floor, large empty space for text. No people, no text, no signs, no logos.",
-      "outputs": [
-        {
-          "file": "assets/hero-b.webp",
-          "width": 1920,
-          "quality": 78
-        }
-      ]
-    },
-    {
-      "id": "hero-b-m",
-      "variant": "Б",
-      "raw": "raw/hero-b-m.png",
-      "ar": "9:16",
-      "ref": "raw/hero-m.png",
-      "scene": "Same portrait framing and camera position as the reference image, but after the repair: the cabinet under the sink open and completely dry, a new white siphon and new braided hoses inside, no basin, no rag, the floor clean. Soft daylight from the window. The cabinet in the middle third; upper third plain wall and lower third plain floor tiles, both empty space for text. No people, no text, no signs, no logos.",
-      "outputs": [
-        {
-          "file": "assets/hero-b-m.webp",
-          "width": 1080,
-          "quality": 78
         }
       ]
     }

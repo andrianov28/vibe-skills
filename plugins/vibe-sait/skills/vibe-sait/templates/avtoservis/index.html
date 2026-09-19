@@ -74,26 +74,36 @@
     .nope li span, .reviews__meta, .reviews__rating, .reviews__fact, .close__hint, .close__meta { font-size: .95rem; }
   }
 
-  /* ---- hero: машина под жёстким светом, один кадр на весь экран ---------- */
+  /* ---- hero: бокс автосервиса, мастер под капотом, один кадр на весь экран ---------- */
   /* img внутри <picture>: селектор движка .v-layer > img не достаёт, позиционируем сами */
   .hero__back img { position: absolute; max-width: none; width: 116%; height: 116%; left: -8%; top: -8%; object-fit: cover; }
   .hero__floor { position: absolute; inset: auto 0 0 0; height: 34%; z-index: 2; pointer-events: none;
     background: linear-gradient(to top, var(--v-canvas) 0%, var(--v-canvas-60) 45%, transparent 100%); }
-  .hero__copy { bottom: clamp(5.5rem, 15vh, 10rem); max-width: min(46rem, 86vw); }
+  /* компьютер: кадр прижат к левому краю – тёмная стена бокса целиком уходит под текст, мастер и капот справа */
+  @media (min-width: 861px) {
+    .hero__back img { width: 100%; left: 0; object-position: 0% 50%; }
+    #top .v-scrim--lead { background: linear-gradient(to right, var(--v-canvas-60) 0%, var(--v-canvas-60) 30%, transparent 56%),
+      radial-gradient(120% 90% at 0% 100%, rgb(0 0 0 / .6) 0%, rgb(0 0 0 / .3) 38%, transparent 70%); }
+  }
+  /* ширина текста привязана к высоте экрана: стена занимает левые ~80svh кадра, текст не выходит на светлую часть */
+  .hero__copy { bottom: clamp(5.5rem, 15vh, 10rem); max-width: min(44rem, 86vw, 80svh - var(--v-gutter)); }
   .hero__label { display: block; margin-bottom: var(--v-4); color: var(--v-ink); opacity: .85; }
     /* H1 по формуле «что + для кого + УТП» длиннее прежнего: кегль между 2xl и 3xl, чтобы на 1440 было 3–4 строки, не 5 */
-  .hero__copy .v-display { font-size: clamp(2.4rem, 1.2rem + 3vw, 4.2rem); line-height: .98; }
+  .hero__copy .v-display { font-size: clamp(2.4rem, min(1.2rem + 3vw, 7.2svh), 4.2rem); line-height: .98; }
   .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); opacity: .92; max-width: 40ch; }
   .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
   .hero__tel { text-decoration: none; color: var(--v-ink); font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
   .hero__tel b { font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
-  .hero__note { position: absolute; z-index: 3; right: var(--v-gutter); top: clamp(5rem, 14vh, 9rem); text-align: right; display: grid; gap: .3em; font-size: var(--v-t-sm); color: var(--v-ink); }
+  .hero__note { position: absolute; z-index: 3; right: var(--v-gutter); bottom: clamp(5.5rem, 15vh, 10rem); text-align: right; display: grid; gap: .3em; font-size: var(--v-t-sm); color: var(--v-ink); }
   .hero__note .v-nums { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-lg); letter-spacing: -.01em; }
   .hero__top { display: none; }
   @media (max-width: 860px) {
-    /* телефон: машина в нижней половине кадра, текст сверху на пустом фоне */
-    .hero__top { display: block; position: absolute; inset: 0 0 auto 0; height: 62%; z-index: 2; pointer-events: none;
-      background: linear-gradient(to bottom, var(--v-canvas-85) 0%, var(--v-canvas-60) 55%, transparent 100%); }
+    /* телефон: бокс с машиной в нижней половине кадра, текст сверху на тёмной стене; нижний скрим движка не нужен – текст не внизу */
+    .hero__back img { top: 0; height: 112%; }
+    #top .v-scrim--lead { display: none; }
+    .hero__top { display: block; position: absolute; inset: 0 0 auto 0; height: 66%; z-index: 2; pointer-events: none;
+      background: linear-gradient(to bottom, var(--v-canvas-85) 0%, var(--v-canvas-85) 50%, var(--v-canvas-60) 80%, transparent 100%); }
+    .hero__tel { text-shadow: 0 1px 10px rgb(0 0 0 / .6); }
     .hero__floor { height: 22%; }
     .v-page .hero__copy { top: 5.2rem; bottom: auto; }
     .hero__copy .v-display { font-size: var(--v-t-2xl); }
@@ -549,6 +559,8 @@
   // На телефоне пины короче: data-v-span из CSS не поменять, правим атрибут до монтирования.
   if (window.matchMedia('(max-width: 860px)').matches) {
     document.getElementById('top').setAttribute('data-v-span', '1.7');
+    // на телефоне верх кадра – глухая тёмная стена под текст: оффер держим до конца акта, иначе верх экрана пустой
+    document.querySelector('#top .hero__copy').setAttribute('data-v-cue', '0 1 0 0');
     document.getElementById('prosvet').setAttribute('data-v-span', '2.2');
   }
   Vibe.mount(document.querySelector('.v-page'));

@@ -60,14 +60,14 @@
       ]
     },
     {
-      "id": "stairs",
-      "raw": "raw/stairs.png",
+      "id": "cargo",
+      "raw": "raw/cargo.png",
       "ar": "16:9",
       "ref": null,
-      "scene": "Landing of an apartment building staircase during a move: a sofa wrapped in stretch film and grey moving blankets waiting on the landing, a few plain cardboard boxes beside it, closed elevator doors, morning daylight from a stairwell window. Wide shot from a few steps below. The sofa and boxes occupy the lower right of the frame; the upper left is a plain painted wall, empty space for text. No people, no text, no signs, no graffiti, no numbers on the wall, no logos.",
+      "scene": "Sunny courtyard of an ordinary Russian apartment block in summer, a clean white cargo van (GAZelle-type box van, no markings) parked at the entrance with its rear doors wide open, empty clean cargo bay visible. On the asphalt beside the van, neatly staged for loading: a sofa wrapped in stretch film, a stack of plain cardboard moving boxes, a white refrigerator, a washing machine, several grey woven bags of construction debris, a bicycle and a large houseplant in a pot. Two movers, ordinary Russian men in plain dark work clothes and gloves, seen from the side carrying a wrapped wardrobe towards the van, calm concentrated faces, candid documentary photo, not a stock photo, no posing, no wide smiles. The cargo and the van occupy the right two thirds of the frame; the left third is calm: sunlit wall of the building and green trees, space for a caption at the lower left. Bright juicy daylight, warm colors, realistic. No text, no signs, no logos, no license plate numbers readable.",
       "outputs": [
         {
-          "file": "assets/stairs.webp",
+          "file": "assets/cargo.webp",
           "width": 1600,
           "quality": 74
         }

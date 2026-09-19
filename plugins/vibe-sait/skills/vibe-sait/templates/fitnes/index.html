@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Первый подход · персональные тренировки по записи</title>
-<meta name="description" content="Персональные тренировки в {{город}}: план под вашу цель, первая тренировка – знакомство без нагрузки на убой, тренер рядом всю тренировку, формат и цена заранее. Пробная по записи.">
+<title>Первый подход · групповые и персональные тренировки по записи</title>
+<meta name="description" content="Групповые и персональные тренировки в {{город}}: план под цель, первая тренировка – знакомство без нагрузки на убой, тренер рядом, формат и цена заранее. Пробная по записи.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Первый подход">
-<meta property="og:title" content="Персональные тренировки в {{город}} – план под вашу цель">
-<meta property="og:description" content="Первая тренировка – знакомство без нагрузки на убой. Тренер рядом всю тренировку, формат и цена известны заранее.">
+<meta property="og:title" content="Групповые и персональные тренировки в {{город}} – план под цель">
+<meta property="og:description" content="В группе или один на один. Первая тренировка – знакомство без нагрузки на убой. Тренер рядом, формат и цена известны заранее.">
 <meta property="og:url" content="{{адрес сайта}}">
 <meta property="og:image" content="{{адрес сайта}}/assets/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2716%27 fill=%27%23c8f03c%27/%3E%3Crect x=%277%27 y=%2711%27 width=%274%27 height=%2710%27 rx=%271%27 fill=%27%23161c17%27/%3E%3Crect x=%2721%27 y=%2711%27 width=%274%27 height=%2710%27 rx=%271%27 fill=%27%23161c17%27/%3E%3Crect x=%2711%27 y=%2714.7%27 width=%2710%27 height=%272.6%27 fill=%27%23161c17%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="vibe.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HealthClub","name":"Первый подход","description":"Персональные тренировки: план под вашу цель, первая тренировка – знакомство без нагрузки на убой, тренер рядом всю тренировку, формат и цена заранее.","url":"{{адрес сайта}}","image":"{{адрес сайта}}/assets/og.jpg","telephone":"{{телефон}}","openingHours":"{{часы}}","address":{"@type":"PostalAddress","streetAddress":"{{адрес}}","addressLocality":"{{город}}","addressCountry":"RU"},"priceRange":"от {{цена}} ₽"}
+{"@context":"https://schema.org","@type":"HealthClub","name":"Первый подход","description":"Групповые и персональные тренировки: план под цель, первая тренировка – знакомство без нагрузки на убой, тренер рядом, формат и цена заранее.","url":"{{адрес сайта}}","image":"{{адрес сайта}}/assets/og.jpg","telephone":"{{телефон}}","openingHours":"{{часы}}","address":{"@type":"PostalAddress","streetAddress":"{{адрес}}","addressLocality":"{{город}}","addressCountry":"RU"},"priceRange":"от {{цена}} ₽"}
 </script>
 <style>
   /* ---- тема: шесть цветов, два шрифта (палитра А «Мел + лайм») ---------- */
@@ -73,12 +73,16 @@
     .bar__right { gap: var(--v-2); }
     .bar__mark { font-size: .95rem; }
   }
+  /* узкий телефон: кнопка шапки целиком в экране (знак без кружка, на самых узких поля шапки 16 px) */
+  @media (max-width: 430px) { .bar { gap: var(--v-2); } .bar__mark { font-size: .8rem; } .bar__mark i { display: none; } .bar .v-btn { padding: 0 .7em; } }
+  @media (max-width: 380px) { .bar { padding-inline: 16px; } }
+  @media (max-width: 370px) { .bar__mark { font-size: .72rem; } }
   @media (max-width: 860px) { .bar.is-scrolled { background: color-mix(in oklab, var(--v-canvas) 96%, transparent); } }
 
-  /* ---- hero: тренер лицом к вам в светлом зале ------------------------------ */
-  .hero__back img { position: absolute; max-width: none; width: 108%; height: 108%; left: -4%; top: 3%; object-fit: cover; object-position: center top; }
+  /* ---- hero: групповая тренировка в светлом зале с зеркальной стеной ---------- */
+  .hero__back img { position: absolute; max-width: none; width: 108%; height: 108%; left: -4%; top: 3%; object-fit: cover; object-position: left top; }
   .hero__col { position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    background: linear-gradient(to right, rgb(246 247 241 / .94) 0%, rgb(246 247 241 / .55) 40%, transparent 64%); }
+    background: linear-gradient(to right, rgb(246 247 241 / .94) 0%, rgb(246 247 241 / .6) 34%, transparent 54%); }
   .hero__copy { bottom: clamp(4.5rem, 13vh, 9rem); max-width: min(48rem, 62vw); }
   .hero__label { display: block; margin-bottom: var(--v-4); }
   .hero__copy .v-display { font-size: clamp(2.2rem, 1.2rem + 3.2vw, 4rem); }
@@ -92,7 +96,7 @@
   @media (max-width: 860px) {
     /* телефон: верх сцены – холст с текстом, фото занимает нижние 72 % и сшивается с холстом по белой стене */
     .hero__back { inset: auto 0 0 0; height: 72%; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%); mask-image: linear-gradient(to bottom, transparent, #000 14%); }
-    .hero__back img { width: 100%; height: 100%; left: 0; top: 0; object-position: center 30%; }
+    .hero__back img { width: 100%; height: 100%; left: 0; top: 0; object-position: center bottom; }
     .hero__col { background: linear-gradient(to bottom, var(--v-canvas) 0%, var(--v-canvas) 28%, transparent 46%); }
     .v-page .hero__copy { top: 4.6rem; bottom: auto; max-width: none; }
     .hero__copy .v-display { font-size: clamp(1.7rem, 1rem + 4.2vw, 2.4rem); }
@@ -146,8 +150,8 @@
   .first__note b { color: var(--v-ink); font-weight: 600; }
   @media (max-width: 860px) {
     .first { grid-template-columns: 1fr; gap: var(--v-6); }
-    .first__fig { position: static; aspect-ratio: 4 / 3; }
-    .first__fig img { object-position: center 30%; }
+    .first__fig { position: relative; top: auto; aspect-ratio: 4 / 3; }
+    .first__fig img { object-position: center 88%; }
     .steps li { grid-template-columns: 2.2rem 1fr; gap: var(--v-3); padding: var(--v-4) 0; }
     .steps__n { width: 2.2rem; height: 2.2rem; }
   }
@@ -173,13 +177,8 @@
   .face { position: absolute; inset: 0; border-radius: var(--v-radius); overflow: hidden; -webkit-backface-visibility: hidden; backface-visibility: hidden;
     background: var(--v-surface); box-shadow: var(--v-e2), var(--v-edge); display: grid; place-items: center; }
   .face img { width: 100%; height: 100%; object-fit: cover; }
-  .face--post { transform: rotateY(180deg); background: var(--v-surface-tint); box-shadow: var(--v-e2), inset 0 0 0 2px var(--v-accent); }
-  .face__ph { display: grid; justify-items: center; gap: var(--v-3); text-align: center; padding: var(--v-4); font-size: var(--v-t-sm); color: var(--v-ink-soft); }
-  .face__ph i { width: 2.6rem; height: 2rem; border: 2px solid currentColor; border-radius: 6px; position: relative; opacity: .55; }
-  .face__ph i::before { content: ""; position: absolute; left: 50%; top: 50%; width: .9rem; height: .9rem; border: 2px solid currentColor; border-radius: 50%; transform: translate(-50%, -50%); }
-  .face__ph i::after { content: ""; position: absolute; left: .35rem; top: -.55rem; width: .8rem; height: .5rem; border: 2px solid currentColor; border-bottom: 0; border-radius: 4px 4px 0 0; background: var(--v-surface); }
-  .face--post .face__ph { color: var(--v-ink); }
-  .face__ph b { font-weight: 600; color: var(--v-ink); }
+  .face--post { transform: rotateY(180deg); background: var(--v-surface-tint); }
+  .face--post::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 3px var(--v-accent); pointer-events: none; }
   .card__cap { display: grid; gap: .15em; font-size: var(--v-t-sm); color: var(--v-ink-soft); }
   .card__cap b { color: var(--v-ink); font-weight: 600; }
   .card__state { position: relative; height: 1.4em; font-family: var(--v-font-display); font-weight: 500; font-size: var(--v-t-xs); letter-spacing: .06em; text-transform: uppercase; }
@@ -194,10 +193,7 @@
     .ba__cards { gap: var(--v-3); }
     .card { gap: var(--v-2); }
     .face { border-radius: 12px; }
-    .face__ph { gap: var(--v-2); padding: var(--v-2); font-size: .95rem; line-height: 1.2; }
-    .face__ph i { width: 1.8rem; height: 1.4rem; }
-    .face__ph i::before { width: .6rem; height: .6rem; }
-    .face__ph i::after { left: .2rem; top: -.45rem; width: .6rem; height: .4rem; }
+    .face--post::after { box-shadow: inset 0 0 0 2px var(--v-accent); }
     .card__cap { font-size: .95rem; }
     .card__state { font-size: .95rem; }
     .ba__note { font-size: .95rem; }
@@ -277,7 +273,7 @@
   .reviews__fact { flex-basis: 100%; font-size: var(--v-t-sm); color: var(--v-ink-soft); }
   @media (max-width: 860px) { .reviews__list { grid-template-columns: 1fr; } .reviews__head { margin-bottom: var(--v-5); } }
 
-  /* ---- финал: запись на пробную, довольные после тренировки ----------------- */
+  /* ---- финал: запись на пробную, двое отдыхают после тренировки -------------- */
   .close { height: 100%; display: grid; grid-template-rows: 1fr auto; padding: clamp(5.5rem, 13vh, 8.5rem) var(--v-gutter) var(--v-6);
     background: radial-gradient(60rem 40rem at calc(var(--v-mx, .5) * 100%) calc(var(--v-my, .5) * 100%), var(--v-accent-14), transparent 60%); }
   .close__inner { align-self: center; display: grid; grid-template-columns: 1.2fr .8fr; gap: var(--v-9); align-items: center; padding-bottom: var(--v-7); }
@@ -324,8 +320,8 @@
 
   <main>
 
-    <!-- 1 · УЗНАВАНИЕ: тренер лицом к вам в светлом зале -->
-    <section id="top" data-v-act="pin" data-v-span="1.5" data-v-drift="#f6f7f1" aria-label="Персональные тренировки по записи">
+    <!-- 1 · УЗНАВАНИЕ: групповая тренировка в светлом зале, тренер ведёт группу -->
+    <section id="top" data-v-act="pin" data-v-span="1.5" data-v-drift="#f6f7f1" aria-label="Групповые и персональные тренировки по записи">
       <div data-v-stage>
         <div class="v-layer hero__back" data-v-parallax="-0.45">
           <picture>
@@ -342,9 +338,9 @@
         </div>
 
         <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.9 0 0.1">
-          <span class="v-label hero__label">Первый подход · студия персональных тренировок</span>
-          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Персональные тренировки в {{город}} – план под вашу цель</h1>
-          <p class="v-lede">Первая тренировка – знакомство без нагрузки на убой. Тренер рядом всю тренировку, формат и цена известны заранее.</p>
+          <span class="v-label hero__label">Первый подход · фитнес-студия</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Групповые и персональные тренировки в {{город}} – план под цель</h1>
+          <p class="v-lede">В группе или один на один. Первая тренировка – знакомство без нагрузки на убой. Тренер рядом, формат и цена известны заранее.</p>
           <div class="hero__cta">
             <a class="v-btn" href="{{ссылка-записи}}" rel="noopener">Записаться на пробную</a>
             <a class="hero__tel" href="tel:{{телефон}}">или позвоните <b>{{телефон}}</b></a>
@@ -372,7 +368,7 @@
           </div>
         </div>
         <figure class="poka__fig" data-v-reveal="left" data-v-reveal-at="0.4 0.68">
-          <img src="assets/duo.webp" srcset="assets/duo-900.webp 900w, assets/duo.webp 1600w" sizes="(max-width: 860px) 100vw, 76rem" alt="Тренер поправляет технику ученицы с гирей в светлом зале, обе улыбаются" width="1600" height="900" loading="lazy" decoding="async">
+          <img src="assets/duo.webp" srcset="assets/duo-900.webp 900w, assets/duo.webp 1600w" sizes="(max-width: 860px) 100vw, 76rem" alt="Тренер поправляет технику ученицы с гирей в светлом зале" width="1600" height="900" loading="lazy" decoding="async">
           <figcaption>Так проходит первая: лёгкая гиря, техника и тренер рядом – не у стойки</figcaption>
         </figure>
       </div>
@@ -402,35 +398,37 @@
       </div>
     </section>
 
-    <!-- 4 · ДОКАЗАТЕЛЬСТВО: ученики до и после, фирменный ход «карточки переворачиваются» -->
+    <!-- 4 · ДОКАЗАТЕЛЬСТВО: ученики до и после, фирменный ход «карточки переворачиваются».
+         Фото в карточках – сгенерированные заглушки. Перед публикацией заменить на фото настоящих учеников
+         (с их согласия): шесть файлов uchenik-1-do … uchenik-3-posle в папке assets. Нет фото – удалить секцию. -->
     <section id="ucheniki" data-v-act="pin" data-v-span="1.6" data-v-drift="#eef1e6" aria-label="Ученики: фото до и после">
       <div data-v-stage>
         <div class="ba">
           <div class="ba__copy">
             <span class="v-label v-label--accent">Ученики</span>
-            <h2 class="v-display v-display--md">До и после – фото учеников, а не картинки из интернета</h2>
+            <h2 class="v-display v-display--md">До и после – результаты учеников студии</h2>
             <p class="v-body v-soft">Три истории с разрешения самих учеников: с чего начинали и к чему пришли. Срок и результат у каждого свои – зависят от цели, графика и режима.</p>
             <p class="ba__legend"><i aria-hidden="true"></i>Карточки переворачиваются по мере прокрутки: сначала «до», потом «после»</p>
           </div>
           <ul class="ba__cards">
             <li class="card">
               <div class="card__in">
-                <div class="face face--pre" data-photo="{{фото до 1}}"><div class="face__ph"><i aria-hidden="true"></i><span><b>Фото ученика</b><br>до</span></div></div>
-                <div class="face face--post" data-photo="{{фото после 1}}"><div class="face__ph"><i aria-hidden="true"></i><span><b>Фото ученика</b><br>после</span></div></div>
+                <div class="face face--pre"><img src="assets/uchenik-1-do.webp" alt="Ученица до занятий: стоит прямо у серой стены зала" width="600" height="800" loading="lazy" decoding="async"></div>
+                <div class="face face--post"><img src="assets/uchenik-1-posle.webp" alt="Та же ученица после занятий: у той же стены, заметно подтянулась" width="600" height="800" loading="lazy" decoding="async"></div>
               </div>
               <p class="card__cap"><span class="card__state" aria-hidden="true"><span>До</span><span>После</span></span><b>{{имя ученика 1}}</b><span>{{срок 1}}</span></p>
             </li>
             <li class="card">
               <div class="card__in">
-                <div class="face face--pre" data-photo="{{фото до 2}}"><div class="face__ph"><i aria-hidden="true"></i><span><b>Фото ученика</b><br>до</span></div></div>
-                <div class="face face--post" data-photo="{{фото после 2}}"><div class="face__ph"><i aria-hidden="true"></i><span><b>Фото ученика</b><br>после</span></div></div>
+                <div class="face face--pre"><img src="assets/uchenik-2-do.webp" alt="Ученик до занятий: стоит прямо у стены дома" width="600" height="800" loading="lazy" decoding="async"></div>
+                <div class="face face--post"><img src="assets/uchenik-2-posle.webp" alt="Тот же ученик после занятий: у той же стены, живот заметно меньше" width="600" height="800" loading="lazy" decoding="async"></div>
               </div>
               <p class="card__cap"><span class="card__state" aria-hidden="true"><span>До</span><span>После</span></span><b>{{имя ученика 2}}</b><span>{{срок 2}}</span></p>
             </li>
             <li class="card">
               <div class="card__in">
-                <div class="face face--pre" data-photo="{{фото до 3}}"><div class="face__ph"><i aria-hidden="true"></i><span><b>Фото ученика</b><br>до</span></div></div>
-                <div class="face face--post" data-photo="{{фото после 3}}"><div class="face__ph"><i aria-hidden="true"></i><span><b>Фото ученика</b><br>после</span></div></div>
+                <div class="face face--pre"><img src="assets/uchenik-3-do.webp" alt="Ученица до занятий: стоит у белой кирпичной стены зала" width="600" height="800" loading="lazy" decoding="async"></div>
+                <div class="face face--post"><img src="assets/uchenik-3-posle.webp" alt="Та же ученица после занятий: у той же стены, заметно стройнее" width="600" height="800" loading="lazy" decoding="async"></div>
               </div>
               <p class="card__cap"><span class="card__state" aria-hidden="true"><span>До</span><span>После</span></span><b>{{имя ученика 3}}</b><span>{{срок 3}}</span></p>
             </li>
@@ -449,10 +447,10 @@
           <p class="v-body v-soft">Цена за одну тренировку. Пакетом дешевле – сумму и срок действия назовём при записи. Пробная – отдельной строкой.</p>
           <ul class="plist">
             <li class="is-trial"><span class="name">Пробная тренировка</span><span class="note">{{длительность-пробной}}, знакомство: разговор про цель, техника, план</span><span class="price v-nums">{{цена}} ₽</span></li>
+            <li><span class="name">Групповая</span><span class="note">{{длительность}}, группа до {{мест-в-группе}} человек, тренер подходит к каждому</span><span class="price v-nums">{{цена}} ₽</span></li>
             <li><span class="name">Персональная</span><span class="note">{{длительность}}, один на один, тренер рядом всю тренировку</span><span class="price v-nums">{{цена}} ₽</span></li>
             <li><span class="name">Сплит – вдвоём</span><span class="note">{{длительность}}, с другом или партнёром, цена за каждого</span><span class="price v-nums">{{цена}} ₽</span></li>
             <li><span class="name">Онлайн</span><span class="note">{{длительность}} по видеосвязи: техника, разбор, план под домашний инвентарь</span><span class="price v-nums">{{цена}} ₽</span></li>
-            <li><span class="name">План и сопровождение</span><span class="note">План под цель и график, правки и ответы в мессенджере, без тренировок в зале</span><span class="price v-nums">{{цена}} ₽ / месяц</span></li>
           </ul>
           <p class="prices__incl"><b>Условия переноса и срок действия пакета говорим при записи</b> – до оплаты, а не после. Онлайн и в зале один и тот же тренер.</p>
         </div>
@@ -480,7 +478,7 @@
     <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#eef1e6" id="trener" aria-label="Тренер">
       <div class="v-wrap tr">
         <figure class="tr__fig" data-v-reveal="up" data-v-reveal-at="0.12 0.45">
-          <img src="assets/trainer.webp" srcset="assets/trainer-600.webp 600w, assets/trainer.webp 1200w" sizes="(max-width: 860px) 100vw, 30rem" alt="Тренер стоит в светлом зале и улыбается" width="1200" height="1600" loading="lazy" decoding="async">
+          <img src="assets/trainer.webp" srcset="assets/trainer-600.webp 600w, assets/trainer.webp 1200w" sizes="(max-width: 860px) 100vw, 30rem" alt="Тренер стоит в светлом зале, руки скрещены" width="1200" height="1600" loading="lazy" decoding="async">
         </figure>
         <div class="tr__copy" data-v-in data-v-stagger="70">
           <span class="v-label v-label--accent">Тренер</span>
@@ -490,7 +488,7 @@
             <li><b>Образование</b><span>{{образование}}</span></li>
             <li><b>Опыт</b><span>{{опыт}}</span></li>
             <li><b>Специализация</b><span>{{специализация}}</span></li>
-            <li><b>Формат</b><span>В зале и онлайн, персонально и сплит</span></li>
+            <li><b>Формат</b><span>В группе, персонально и онлайн</span></li>
           </ul>
           <ul class="tr__for">
             <li class="v-label v-label--accent">С кем работает</li>
@@ -553,13 +551,13 @@
               </div>
             </div>
             <figure class="close__fig" data-v-cue="0.08" data-v-rise="10">
-              <img src="assets/water.webp" srcset="assets/water-480.webp 480w, assets/water.webp 900w" sizes="(max-width: 860px) 0px, 24rem" alt="Двое учеников смеются и дают друг другу пять после тренировки" width="900" height="1200" loading="lazy" decoding="async">
+              <img src="assets/water.webp" srcset="assets/water-480.webp 480w, assets/water.webp 900w" sizes="(max-width: 860px) 0px, 24rem" alt="Двое учеников отдыхают на скамье с водой после тренировки" width="900" height="1200" loading="lazy" decoding="async">
             </figure>
           </div>
           <footer class="foot">
             <span>Первый подход · {{город}}</span>
             <span data-slot-optional>{{юрлицо}} · ИНН {{ИНН}}</span>
-            <span class="foot__more">Персональные тренировки, сплит и онлайн – по записи, первая тренировка без нагрузки на убой</span>
+            <span class="foot__more">Групповые и персональные тренировки, онлайн – по записи, первая тренировка без нагрузки на убой</span>
           </footer>
         </div>
       </div>

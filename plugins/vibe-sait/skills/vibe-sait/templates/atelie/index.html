@@ -312,7 +312,9 @@
     .master__fig { aspect-ratio: 4 / 3; }
     .master__copy .v-display--md { max-width: none; }
     .works { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(8rem, 40vw, 12rem); }
-    .work--tall { grid-row: auto; }
+    .work--tall { grid-row: span 2; grid-column: span 2; }
+    .work__img { object-position: 50% 22%; }
+    .work figcaption { font-size: .8rem; line-height: 1.3; }
   }
 
   /* ---- акт 7 · отзывы с Яндекс.Карт (честные слоты) -------------------------- */
@@ -605,7 +607,7 @@
       </div>
     </section>
 
-    <!-- 6 · КТО ШЬЁТ и ЧТО СШИТО: только настоящие имя и фото слотами -->
+    <!-- 6 · КТО ШЬЁТ и ЧТО СШИТО: имя и фото мастера слотами; пять фото работ – заглушки work-1..5 (правка Евгения 19.09.2026), на боевом сайте заменить фотографиями настоящих работ ателье -->
     <section class="v-section" data-v-act="flow" data-v-drift="#f1ece2" id="master" aria-label="Мастер и работы">
       <div class="v-wrap master">
         <figure class="master__fig" data-v-reveal="up" data-v-reveal-at="0.2 0.55" data-slot-host>
@@ -617,13 +619,13 @@
           <span class="v-label">Кто шьёт</span>
           <h2 class="v-display v-display--md">Одна вещь – один мастер</h2>
           <p>Тот, кто снимал мерки на примерке, сам и шьёт, сам и выдаёт. <b>Имя мастера стоит в квитанции</b>, поэтому «а кто мне это делал» спрашивать не придётся, а правки на выдаче делает тот же человек.</p>
-          <p>Ниже – фото сшитых и переделанных вещей. Только настоящие, из этого ателье; пока фото нет, место отмечено.</p>
+          <p>Ниже – вещи, которые прошли через мастерскую: сшитые с нуля, подогнанные по фигуре и спасённые ремонтом.</p>
           <div class="works">
-            <figure class="work work--tall" data-slot-host><img class="work__img" data-src="{{работа 1}}" alt="{{работа 1 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 1</span></div><figcaption>{{работа 1 подпись}}</figcaption></figure>
-            <figure class="work" data-slot-host><img class="work__img" data-src="{{работа 2}}" alt="{{работа 2 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 2</span></div><figcaption>{{работа 2 подпись}}</figcaption></figure>
-            <figure class="work" data-slot-host><img class="work__img" data-src="{{работа 3}}" alt="{{работа 3 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 3</span></div><figcaption>{{работа 3 подпись}}</figcaption></figure>
-            <figure class="work" data-slot-host><img class="work__img" data-src="{{работа 4}}" alt="{{работа 4 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 4</span></div><figcaption>{{работа 4 подпись}}</figcaption></figure>
-            <figure class="work" data-slot-host><img class="work__img" data-src="{{работа 5}}" alt="{{работа 5 подпись}}" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 5</span></div><figcaption>{{работа 5 подпись}}</figcaption></figure>
+            <figure class="work work--tall" data-slot-host><img class="work__img" data-src="assets/work-1.webp" alt="Вечернее платье: посадили по фигуре" width="800" height="1067" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 1</span></div><figcaption>Вечернее платье: посадили по фигуре</figcaption></figure>
+            <figure class="work" data-slot-host><img class="work__img" data-src="assets/work-2.webp" alt="Брюки: укоротили по длине" width="600" height="600" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 2</span></div><figcaption>Брюки: укоротили по длине</figcaption></figure>
+            <figure class="work" data-slot-host><img class="work__img" data-src="assets/work-3.webp" alt="Пальто: заменили подкладку" width="600" height="600" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 3</span></div><figcaption>Пальто: заменили подкладку</figcaption></figure>
+            <figure class="work" data-slot-host><img class="work__img" data-src="assets/work-4.webp" alt="Джинсы: ушили в поясе, новая молния" width="600" height="600" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 4</span></div><figcaption>Джинсы: ушили в поясе, новая молния</figcaption></figure>
+            <figure class="work" data-slot-host><img class="work__img" data-src="assets/work-5.webp" alt="Шторы на заказ: ровный низ" width="600" height="600" loading="lazy" decoding="async"><div class="work__empty"><span class="v-label">Фото работы 5</span></div><figcaption>Шторы на заказ: ровный низ</figcaption></figure>
           </div>
         </div>
       </div>

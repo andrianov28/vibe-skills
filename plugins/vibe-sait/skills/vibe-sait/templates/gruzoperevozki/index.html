@@ -110,17 +110,27 @@
   .poka__rows li:last-child { border-bottom: 1px solid var(--v-hair); }
   .poka__rows h3 { font-family: var(--v-font-display); font-weight: 700; font-size: var(--v-t-xl); letter-spacing: var(--v-track-normal); line-height: 1.1; text-wrap: balance; }
   .poka__rows p { color: var(--v-ink-soft); max-width: 58ch; text-wrap: pretty; }
+  /* что перевозим: нумерованная «накладная» в две колонки */
+  .cargo { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--v-8); counter-reset: cargo; border-bottom: 1px solid var(--v-hair); }
+  .cargo li { counter-increment: cargo; display: grid; grid-template-columns: 2.6rem 1fr; column-gap: var(--v-4); row-gap: var(--v-2); padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); align-content: start; }
+  .cargo li::before { content: counter(cargo, decimal-leading-zero); grid-row: 1 / span 2; font-family: var(--v-font-display); font-weight: 700; font-size: var(--v-t-sm); color: var(--v-accent); padding-top: .45em; font-variant-numeric: tabular-nums; }
+  .cargo h3 { font-family: var(--v-font-display); font-weight: 700; font-size: var(--v-t-xl); letter-spacing: var(--v-track-normal); line-height: 1.1; text-wrap: balance; }
+  .cargo p { color: var(--v-ink-soft); max-width: 46ch; text-wrap: pretty; }
   .turn { margin-top: var(--v-7); display: grid; grid-template-columns: minmax(14rem, .8fr) 1.6fr; gap: var(--v-2) var(--v-8); align-items: start;
     padding: var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: var(--v-e1), var(--v-edge); }
   .turn .v-label { color: var(--v-accent); padding-top: .4em; }
   .turn__text { font-family: var(--v-font-display); font-weight: 700; font-size: var(--v-t-xl); line-height: 1.2; letter-spacing: var(--v-track-normal); text-wrap: pretty; max-width: 30ch; }
-  .poka__fig { position: relative; margin-top: var(--v-7); aspect-ratio: 3 / 1; overflow: hidden; }
-  .poka__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .poka__fig { position: relative; margin-top: var(--v-7); aspect-ratio: 2.3 / 1; overflow: hidden; }
+  .poka__fig img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 82%; }
   .poka__fig figcaption, .prices__fig figcaption, .promise__fig figcaption { position: absolute; left: var(--v-gutter); right: var(--v-gutter); bottom: var(--v-5); z-index: 1; font-size: var(--v-t-sm); color: #f2ecdf; max-width: 60ch; }
   .poka__fig::after, .prices__fig::after, .promise__fig::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(to top, rgb(27 36 50 / .8), rgb(27 36 50 / .3) 50%, transparent); pointer-events: none; }
   @media (max-width: 860px) {
     .poka__rows li, .turn { grid-template-columns: 1fr; gap: var(--v-2); }
     .poka__rows h3 { font-size: var(--v-t-lg); }
+    .cargo { grid-template-columns: 1fr; }
+    .cargo li { grid-template-columns: 2.1rem 1fr; padding: var(--v-4) 0; }
+    .cargo h3 { font-size: var(--v-t-lg); }
+    .cargo p { font-size: .95rem; }
     .turn { padding: var(--v-5); }
     .turn__text { font-size: var(--v-t-lg); }
     .poka__fig { aspect-ratio: 4 / 3; margin-top: var(--v-7); }
@@ -358,26 +368,31 @@
       </div>
     </section>
 
-    <!-- 2 · ЦЕНА БЕЗДЕЙСТВИЯ и ПОВОРОТ: где переезд ломается -->
-    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#e8e0cd" id="poka" aria-label="Где переезд ломается">
+    <!-- 2 · УЗНАВАНИЕ и ВЫБОР: что перевозим (правка Евгения 19.09.2026: вместо «Переезд ломается в одном из трёх мест») -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#e8e0cd" id="gruzy" aria-label="Что перевозим">
       <div class="v-wrap">
         <div class="poka__head" data-v-in data-v-stagger="70">
-          <h2 class="v-display v-display--lg">Переезд ломается в одном из трёх мест</h2>
-          <p class="v-body v-soft">Коробки собраны, лифт забронирован, отгул взят. Дальше всё зависит от того, что вам пообещали по телефону и что из этого приедет.</p>
+          <h2 class="v-display v-display--lg">Что перевозим в {{город}} и области</h2>
+          <p class="v-body v-soft">От одного холодильника до офиса на три этажа. Найдите свой случай – под него есть машина, грузчики и упаковка.</p>
         </div>
-        <ul class="poka__rows" data-v-in data-v-stagger="90">
-          <li><h3>Приехала не та машина</h3><p>Вместо четырёхметрового фургона у подъезда каблук. Половина вещей остаётся на площадке, второй рейс – вторая подача и вечер, которого не было в плане.</p></li>
-          <li><h3>Грузчики опоздали на час</h3><p>Лифт, который вы бронировали у управляющей компании, и место у подъезда ушли. Диван несут по лестнице, а вы держите двери и извиняетесь перед соседями.</p></li>
-          <li><h3>Цена по часам «набежала»</h3><p>По телефону назвали одну ставку. К вечеру сумма другая: «пробки», «ждали вас», «этаж без лифта». Спорить у разгруженной машины поздно.</p></li>
-        </ul>
+        <ol class="cargo" data-v-in data-v-stagger="60">
+          <li><h3>Квартирный переезд</h3><p>Мебель, техника, коробки. Разберём шкаф и кровать, упакуем хрупкое, соберём на новом месте.</p></li>
+          <li><h3>Офисный переезд</h3><p>Рабочие места, сейф, архив и серверная стойка. Вечером или в выходной, чтобы утром все работали.</p></li>
+          <li><h3>Вывоз строительного мусора</h3><p>Мешки после ремонта, старые двери, плитка, ванна. Спустим с этажа, погрузим и увезём на полигон.</p></li>
+          <li><h3>Доставка мебели и техники</h3><p>Из магазина, со склада, от продавца с Авито. С подъёмом на этаж и заносом в квартиру.</p></li>
+          <li><h3>Одна крупная вещь</h3><p>Диван, холодильник, стиральная машина, пианино. Ремни, плёнка и люди, которые это уже носили.</p></li>
+          <li><h3>Стройматериалы</h3><p>Гипсокартон, смеси, доска, утеплитель. С базы на объект, с разгрузкой к месту работ.</p></li>
+          <li><h3>Дача и гараж</h3><p>Сезонный переезд на дачу и обратно, вещи на хранение, разбор гаража или балкона.</p></li>
+          <li><h3>Межгород</h3><p>В другой город и обратно. Цена за рейс названа до выезда, попутный груз – дешевле.</p></li>
+        </ol>
         <div class="turn" data-v-in data-v-in-self>
-          <span class="v-label">Поэтому</span>
+          <span class="v-label">Как считаем</span>
           <p class="turn__text">Машину по объёму, цену за час с минимумом и время подачи называем до выезда. Письменно, в заявке, а не у подъезда.</p>
         </div>
       </div>
       <figure class="poka__fig" data-v-reveal="left" data-v-reveal-at="0.3 0.62">
-        <img src="assets/stairs.webp" alt="Диван в плёнке и коробки ждут на лестничной площадке у закрытого лифта" width="1600" height="900" loading="lazy" decoding="async">
-        <figcaption>Площадка, на которой вещи ждут вторую машину. Так быть не должно</figcaption>
+        <img src="assets/cargo.webp" alt="Фургон с открытыми дверями у подъезда: диван в плёнке, коробки, холодильник и мешки со строительным мусором готовы к погрузке" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption>Диван, коробки, холодильник, мешки после ремонта – всё это одна заявка и одна машина</figcaption>
       </figure>
     </section>
 

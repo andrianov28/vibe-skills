@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "vibe-skills",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Скиллы курса «Вайб-сайты» Академии Интернет Маркетинга: подбор заказов на Kwork, разбор ТЗ, сборка сайтов, публикация на GitHub Pages и в Тильду, мокапы для портфолио, охота на клиентов с Яндекс.Карт через Claude Code",
   "owner": {
     "name": "Евгений Андрианов, Академия Интернет Маркетинга",
@@ -24,7 +24,7 @@
     {
       "name": "razbor-tz",
       "description": "Разбор ТЗ с Kwork: пять частей и brief.md со слотами – бриф, с которого стартует сборка сайта",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "source": "./plugins/razbor-tz",
       "category": "productivity",
       "keywords": [
@@ -37,7 +37,7 @@
     {
       "name": "vibe-sait",
       "description": "Сборка сайта по каркасу ниши (16 ниш): бриф → каркас и вариант → картинки kie.ai (или заглушки) → проверка скриншотами → правки словами",
-      "version": "3.1.1",
+      "version": "3.2.0",
       "source": "./plugins/vibe-sait",
       "category": "productivity",
       "keywords": [
