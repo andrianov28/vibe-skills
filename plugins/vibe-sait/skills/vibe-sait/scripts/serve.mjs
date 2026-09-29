@@ -12,7 +12,8 @@ const root = path.resolve(arg("--root", ".")); const port = +arg("--port", 4600)
 const engine = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "engine");
 const types = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".mjs": "text/javascript", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".svg": "image/svg+xml", ".json": "application/json", ".woff2": "font/woff2", ".ico": "image/x-icon" };
 http.createServer((req, res) => {
-  let p = decodeURIComponent(req.url.split("?")[0]); if (p.endsWith("/")) p += "index.html";
+  let p; try { p = decodeURIComponent(req.url.split("?")[0]); } catch { res.writeHead(400); return res.end("bad url"); } // кривой адрес не должен ронять сервер (26.09.2026)
+  if (p.endsWith("/")) p += "index.html";
   let f = path.join(root, p);
   if (!fs.existsSync(f) && /vibe\.(css|js)$/.test(p)) f = path.join(engine, path.basename(p));
   if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); res.end("404 " + p); return; }
