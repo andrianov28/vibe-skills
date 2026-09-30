@@ -13,8 +13,9 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
-const here = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"));
+const here = path.dirname(fileURLToPath(import.meta.url)); // работает и с кириллицей в имени пользователя
 const home = os.homedir();
 const cacheRoot = path.join(home, ".claude", "plugins", "cache", "vibe-skills");
 
