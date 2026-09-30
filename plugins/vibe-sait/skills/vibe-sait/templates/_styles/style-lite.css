@@ -80,7 +80,8 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gut); }
 .s-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 24px; }
 .s-steps__item { border-top: 2px solid var(--c-accent); padding-top: 16px; }
 .s-steps__n { font: 600 .82rem var(--f-text); color: var(--c-ink-soft); letter-spacing: .08em; }
-.s-steps h3 { font-size: 1.12rem; margin-top: 10px; }
+.s-steps h3 { font-size: 1.12rem; margin-top: 10px; overflow-wrap: anywhere; hyphens: auto; }
+.s-steps__item { min-width: 0; }
 .s-steps p { margin-top: 8px; color: var(--c-ink-soft); font-size: .95rem; }
 
 /* фото */
