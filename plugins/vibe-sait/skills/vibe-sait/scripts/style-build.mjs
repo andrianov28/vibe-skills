@@ -37,14 +37,14 @@ const gallery = argv.includes("--gallery");
 const VARS = ["canvas", "surface", "ink", "ink-soft", "accent", "accent-ink"];
 const OPT = ["accent-deep"]; // необязательный: тёмный оттенок акцента для мелкого текста на светлом фоне
 const palettes = { "А": {}, "Б": {}, "В": {} };
-for (const line of md.split("\n")) {
+for (const line of md.split(/\r?\n/)) {
   const m = line.match(/^\|\s*`--v-([a-z-]+)`\s*\|(.*)$/);
   if (!m || !(VARS.includes(m[1]) || OPT.includes(m[1]))) continue;
   const hexes = [...m[2].matchAll(/#[0-9a-fA-F]{6}\b/g)].map((x) => x[0]);
   ["А", "Б", "В"].forEach((k, i) => { if (hexes[i]) palettes[k][m[1]] = hexes[i]; });
 }
 const names = {};
-const head = md.split("\n").find((l) => /^\|\s*Переменная/.test(l)) || "";
+const head = md.split(/\r?\n/).find((l) => /^\|\s*Переменная/.test(l)) || "";
 head.split("|").slice(2).map((s) => s.trim()).filter(Boolean).forEach((cell) => {
   const k = (cell.match(/^([АБВ])/) || [])[1]; if (!k) return;
   names[k] = (cell.match(/«([^»]+)»/) || [])[1] || cell.replace(/\([^)]*\)/g, "").replace(/`/g, "").replace(/^[АБВ]\s*[·:]?\s*/, "").replace(/^[:·\s]+/, "").trim();

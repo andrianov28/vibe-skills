@@ -1,0 +1,15 @@
+# Окончания строк всегда LF – и в репозитории, и в рабочей папке на Windows (autocrlf не превращает их в CRLF)
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.pdf binary
+*.zip binary

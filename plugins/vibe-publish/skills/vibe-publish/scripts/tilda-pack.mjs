@@ -30,13 +30,13 @@ const clip = process.argv.includes("--clip");
 const outFile = arg("--out", path.join(dir, "tilda.html"));
 const LIMIT = 100000;
 
-const read = (f) => fs.readFileSync(f, "utf8");
+const read = (f) => fs.readFileSync(f, "utf8").replace(/\r\n/g, "\n"); // файлы с Windows могут прийти с CRLF
 const html = read(path.join(dir, "index.html"));
 const findFile = (name) => { const p = [path.join(dir, name), path.join(dir, "engine", name)].find((p) => fs.existsSync(p)); if (!p) { console.error(`в папке сайта нет ${name} (движок кладёт скилл «Вайб-сайт» рядом с index.html)`); process.exit(1); } return p; };
 let css = read(findFile("vibe.css")), js = read(findFile("vibe.js"));
 
 const minCss = (s) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s+/g, " ").replace(/\s*([{}:;,>])\s*/g, "$1").replace(/;}/g, "}").trim();
-const minJs = (s) => s.replace(/\/\*[\s\S]*?\*\//g, "").split("\n").map((l) => l.replace(/^\s+/, "").replace(/\s+\/\/.*$/, "")).filter((l) => l && !l.startsWith("//")).join("\n");
+const minJs = (s) => s.replace(/\/\*[\s\S]*?\*\//g, "").split(/\r?\n/).map((l) => l.replace(/^\s+/, "").replace(/\s+\/\/.*$/, "")).filter((l) => l && !l.startsWith("//")).join("\n");
 
 const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
 let body = bodyMatch ? bodyMatch[1] : html;

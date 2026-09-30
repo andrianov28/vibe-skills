@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url)); // работает и с кириллицей в имени пользователя
 const home = os.homedir();
+const TEXT = /\.(md|mjs|js|cjs|json|css|html|htm|txt|svg|sh|csv|yml|yaml)$/i;
 const cacheRoot = path.join(home, ".claude", "plugins", "cache", "vibe-skills");
 
 try {
@@ -50,6 +51,7 @@ function copyDir(src, dst) {
   for (const e of fs.readdirSync(src, { withFileTypes: true })) {
     const s = path.join(src, e.name), d = path.join(dst, e.name);
     if (e.isDirectory()) { fs.mkdirSync(d, { recursive: true }); copyDir(s, d); }
+    else if (TEXT.test(e.name)) fs.writeFileSync(d, fs.readFileSync(s, "utf8").replace(/\r\n/g, "\n")); // git на Windows мог выдать CRLF – в кэш кладём LF
     else fs.copyFileSync(s, d);
   }
 }
