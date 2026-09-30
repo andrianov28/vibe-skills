@@ -150,6 +150,7 @@ const reviewsHead = () => {
   if (ratingNum) parts.push(`<span class="s-reviews__num">${esc(ratingNum)}</span><span class="s-reviews__stars" style="--r: ${isNaN(ratingVal) ? 5 : ratingVal}" aria-label="рейтинг ${esc(ratingNum)} из 5"></span>`);
   if (C.reviewsCount !== false) parts.push(`<span class="s-reviews__count">${esc(C.reviewsCount || "{{отзывов}}")} отзывов</span>`);
   if (C.mapsUrl) parts.push(`<a class="s-reviews__all" href="${attr(C.mapsUrl)}" target="_blank" rel="noopener">Читать все отзывы на Яндекс.Картах</a>`);
+  else if (gallery) parts.push(`<a class="s-reviews__all" href="#" onclick="return false">Читать все отзывы на Яндекс.Картах</a> <span class="s-reviews__count">← {{ссылка-карты}}</span>`); // в галерее показываем кнопку и слот под ссылку
   return parts.length ? `<p class="s-reviews__rating">${parts.join("")}</p>` : "";
 };
 const reviewsSection = (cls) => C.reviews === false ? "" : `<section class="s-section${cls}">
