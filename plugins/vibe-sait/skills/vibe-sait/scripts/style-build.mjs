@@ -142,8 +142,18 @@ const reviews = () => `<ul class="s-reviews">${[0, 1, 2].map((i) => `
       <li><blockquote>«${rv ? esc(rv[i].text) : `{{отзыв ${i + 1}}}`}»</blockquote><p class="s-reviews__who">${rv ? esc(rv[i].name) + (rv[i].date ? " · " + esc(rv[i].date) : "") : `{{имя ${i + 1}}} · {{дата ${i + 1}}}`}</p></li>`).join("")}
     </ul>
     <p class="s-note">${rv ? "Отзывы с карточки на Яндекс.Картах, без правок." : "Отзывы – дословно с карточки на Яндекс.Картах. Меньше трёх – блок убираем."}</p>`;
+// шапка отзывов: рейтинг, число отзывов, звёзды и ссылка на карточку (mapsUrl из брифа) – как в каркасах «Кино»
+const ratingNum = C.rating === false ? null : (C.rating || "{{рейтинг}}");
+const ratingVal = ratingNum ? parseFloat(String(ratingNum).replace(",", ".")) : NaN;
+const reviewsHead = () => {
+  const parts = [];
+  if (ratingNum) parts.push(`<span class="s-reviews__num">${esc(ratingNum)}</span><span class="s-reviews__stars" style="--r: ${isNaN(ratingVal) ? 5 : ratingVal}" aria-label="рейтинг ${esc(ratingNum)} из 5"></span>`);
+  if (C.reviewsCount !== false) parts.push(`<span class="s-reviews__count">${esc(C.reviewsCount || "{{отзывов}}")} отзывов</span>`);
+  if (C.mapsUrl) parts.push(`<a class="s-reviews__all" href="${attr(C.mapsUrl)}" target="_blank" rel="noopener">Читать все отзывы на Яндекс.Картах</a>`);
+  return parts.length ? `<p class="s-reviews__rating">${parts.join("")}</p>` : "";
+};
 const reviewsSection = (cls) => C.reviews === false ? "" : `<section class="s-section${cls}">
-    <header class="s-section__head"><h2>Отзывы с Яндекс.Карт</h2></header>
+    <header class="s-section__head s-section__head--reviews"><h2>Отзывы с Яндекс.Карт</h2>${reviewsHead()}</header>
     ${reviews()}
   </section>`;
 const ratingLine = C.rating === false ? "" : `<p class="s-rating"><b>${esc(C.rating || "{{рейтинг}}")}</b> на Яндекс.Картах · ${esc(C.reviewsCount || "{{отзывов}}")} отзывов</p>`;

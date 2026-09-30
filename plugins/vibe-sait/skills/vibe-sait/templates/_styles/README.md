@@ -28,6 +28,7 @@ node style-build.mjs <ниша> <lite|prod> <папка-сайта> [--content <
 | `photos[3] {img, alt, caption, pos}` | три фото под прайсом |
 | `contacts {address, hours, phone}`, `messenger {whatsapp, telegram, max}` | whatsapp – номер цифрами (`79001234567`), telegram – ник без @ |
 | `reviews[{text,name,date}]`, `rating`, `reviewsCount` | три отзыва дословно с Карт и рейтинг; нет – слоты; `reviews: false` / `rating: false` – блок не показывать |
+| `mapsUrl` | ссылка на карточку в Яндекс.Картах – в шапке блока отзывов появится кнопка «Читать все отзывы на Яндекс.Картах» рядом с рейтингом, звёздами и числом отзывов |
 | `finalTitle`, `footer` | заголовок последнего блока и подпись в подвале |
 
 ### booking (онлайн-запись)
