@@ -12,7 +12,8 @@
  *                                                 открыть/закрыть сайт для поисковиков (по умолчанию закрыт: демо)
  *
  * Как устроено: в папке сайта появляется служебная папка `.publish/` – это git-репозиторий
- * с копией только того, что нужно странице (index.html, vibe.css, vibe.js, assets/).
+ * с копией только того, что нужно странице (index.html, подключённые ею стили и скрипты – движок
+ * vibe.css/vibe.js или style-*.css/style.js сайтов «по номеру» – и assets/).
  * Исходники генераций (raw/), кадры проверки (lab/), бриф и шаблон на GitHub не попадают.
  * Репозиторий публичный (GitHub Pages бесплатно работает только так), поэтому секретов
  * в папке сайта быть не должно – скрипт их и не копирует.
@@ -168,15 +169,27 @@ function copyTree(src, dst) {
   fs.mkdirSync(dst, { recursive: true });
   for (const e of fs.readdirSync(src, { withFileTypes: true })) { const a = path.join(src, e.name), b = path.join(dst, e.name); e.isDirectory() ? copyTree(a, b) : fs.copyFileSync(a, b); }
 }
+// Стили и скрипты, которые подключает страница (кроме assets/ – она едет целиком): у каркасов это движок vibe.css + vibe.js,
+// у сайтов «по номеру» из Галереи 45 – style-*.css + style.js (без них на GitHub Pages страница без оформления, найдено 01.10.2026)
+const ENGINE = ["vibe.css", "vibe.js"];
+function localFiles(html) {
+  const refs = [...html.matchAll(/<(?:link|script)\b[^>]*?\b(?:href|src)="([^"?#]+\.(?:css|js))(?:[?#][^"]*)?"/gi)]
+    .map((m) => m[1].replace(/^\.\//, ""))
+    .filter((u) => !/^(?:[a-z]+:|\/)/i.test(u) && !u.startsWith("assets/") && !u.includes(".."));
+  return refs.length ? [...new Set(refs)] : ENGINE;
+}
 function stage() {
   fs.mkdirSync(pub, { recursive: true });
   let html = fs.readFileSync(indexFile, "utf8").replace(/\r\n/g, "\n");
   html = html.replace(/\n?<meta name="robots"[^>]*data-publish>/g, "");
   if (cfg.search !== "on" && !/name="robots"/.test(html)) html = html.replace(/(<meta charset[^>]*>)/i, `$1\n${NOINDEX}`);
   fs.writeFileSync(path.join(pub, "index.html"), html);
-  for (const f of ["vibe.css", "vibe.js"]) {
-    const src = [path.join(siteDir, f), path.join(siteDir, "engine", f), path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")), "..", "engine", f)].find((p) => fs.existsSync(p));
-    if (!src) fail(`не найден ${f} (должен лежать рядом с index.html)`);
+  for (const f of localFiles(html)) {
+    const src = ENGINE.includes(f)
+      ? [path.join(siteDir, f), path.join(siteDir, "engine", f), path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")), "..", "engine", f)].find((p) => fs.existsSync(p))
+      : [path.join(siteDir, f)].find((p) => fs.existsSync(p));
+    if (!src) fail(`не найден ${f} (страница его подключает, он должен лежать рядом с index.html)`);
+    fs.mkdirSync(path.dirname(path.join(pub, f)), { recursive: true });
     fs.copyFileSync(src, path.join(pub, f));
   }
   const assets = path.join(siteDir, "assets");
@@ -188,7 +201,7 @@ function unstageBack() {
   // вернуть файлы из .publish в папку сайта (после отката)
   let html = fs.readFileSync(path.join(pub, "index.html"), "utf8").replace(/\n?<meta name="robots"[^>]*data-publish>/g, "");
   fs.writeFileSync(indexFile, html);
-  for (const f of ["vibe.css", "vibe.js"]) if (fs.existsSync(path.join(pub, f)) && fs.existsSync(path.join(siteDir, f))) fs.copyFileSync(path.join(pub, f), path.join(siteDir, f));
+  for (const f of localFiles(html)) if (fs.existsSync(path.join(pub, f)) && fs.existsSync(path.join(siteDir, f))) fs.copyFileSync(path.join(pub, f), path.join(siteDir, f));
   if (fs.existsSync(path.join(pub, "assets"))) copyTree(path.join(pub, "assets"), path.join(siteDir, "assets"));
 }
 function saveCfg() { fs.mkdirSync(pub, { recursive: true }); fs.writeFileSync(cfgFile, JSON.stringify(cfg, null, 2)); }

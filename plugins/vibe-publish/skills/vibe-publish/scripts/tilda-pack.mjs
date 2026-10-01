@@ -32,8 +32,34 @@ const LIMIT = 100000;
 
 const read = (f) => fs.readFileSync(f, "utf8").replace(/\r\n/g, "\n"); // файлы с Windows могут прийти с CRLF
 const html = read(path.join(dir, "index.html"));
-const findFile = (name) => { const p = [path.join(dir, name), path.join(dir, "engine", name)].find((p) => fs.existsSync(p)); if (!p) { console.error(`в папке сайта нет ${name} (движок кладёт скилл «Вайб-сайт» рядом с index.html)`); process.exit(1); } return p; };
-let css = read(findFile("vibe.css")), js = read(findFile("vibe.js"));
+const findFile = (name) => { const p = [path.join(dir, name), path.join(dir, "engine", name)].find((p) => fs.existsSync(p)); if (!p) { console.error(`в папке сайта нет ${name} (его кладёт скилл «Вайб-сайт» рядом с index.html)`); process.exit(1); } return p; };
+const isLocal = (u) => !/^(?:[a-z]+:|\/\/)/i.test(u);
+const toAssets = (s) => s.replace(/(["'(])\.?\/?assets\//g, "$1" + assets);
+// url(...) в подключённом css считаются от папки самого css: assets/fonts/fonts.css → assets/fonts/x.woff2
+const cssUrls = (s, base) => s.replace(/url\(\s*(["']?)([^"')]+)\1\s*\)/g, (m, q, u) => {
+  if (!isLocal(u) || u.startsWith("#")) return m;
+  const rel = path.posix.normalize(path.posix.join(base, u));
+  return rel.startsWith("assets/") ? `url(${q}${assets}${rel.slice(7)}${q})` : m;
+});
+// Что подключает страница. Каркасы: движок vibe.css + vibe.js. Сайты «по номеру» из Галереи 45:
+// assets/fonts/fonts.css + style-*.css + style.js (до 01.10.2026 они в блок не попадали – страница без оформления)
+// Стили – в порядке страницы (свои <style> и подключённые файлы вперемешку: палитра в <style> стоит между fonts.css и style-*.css), движок vibe.css – первым, как раньше.
+const sheetHref = (t) => /\brel="?stylesheet/i.test(t) && ((t.match(/\bhref="([^"]+)"/i) || [])[1] || "");
+const styleSeq = [...html.matchAll(/<link\b[^>]*>|<style[^>]*>([\s\S]*?)<\/style>/gi)]
+  .map((m) => /^<style/i.test(m[0]) ? { style: m[1] } : { file: sheetHref(m[0]) })
+  .filter((x) => x.style !== undefined || (x.file && isLocal(x.file)))
+  .map((x) => x.file ? { file: x.file.replace(/^\.\//, "") } : x);
+const localJs = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"[^>]*><\/script>/gi)].map((m) => m[1]).filter(isLocal).map((u) => u.replace(/^\.\//, ""));
+if (!styleSeq.some((x) => x.file) && !localJs.length) styleSeq.unshift({ file: "vibe.css" }), localJs.push("vibe.js");
+let css = "", js = "";
+const extraCss = [], afterJs = [];
+for (const x of styleSeq) {
+  if (x.style !== undefined) { extraCss.push(toAssets(x.style)); continue; }
+  const s = cssUrls(read(findFile(x.file)), path.posix.dirname(x.file));
+  if (x.file === "vibe.css") css = s; else extraCss.push(s);
+}
+// движок – до разметки (как раньше), остальные скрипты (style.js ищет разметку сразу) – после неё
+for (const f of localJs) { const s = read(findFile(f)); if (f === "vibe.js") js = s; else afterJs.push(s); }
 
 const minCss = (s) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s+/g, " ").replace(/\s*([{}:;,>])\s*/g, "$1").replace(/;}/g, "}").trim();
 const minJs = (s) => s.replace(/\/\*[\s\S]*?\*\//g, "").split(/\r?\n/).map((l) => l.replace(/^\s+/, "").replace(/\s+\/\/.*$/, "")).filter((l) => l && !l.startsWith("//")).join("\n");
@@ -46,8 +72,11 @@ const fonts = [...html.matchAll(/family=([A-Za-z+]+?)[:&"]/g)].map((m) => m[1].s
 const fontLinks = [...html.matchAll(/<link[^>]+href="(https:\/\/fonts\.googleapis\.com\/css2?[^"]+)"/gi)].map((m) => m[1].replace(/&amp;/g, "&"));
 const fontImport = fontLinks.map((u) => `@import url("${u}");`).join("");
 // свои шрифты каркаса (@font-face url(assets/fonts/…)) тоже едут с GitHub Pages, иначе в Тильде 404 (найдено 16.09.2026 на каркасе mebel)
-const headStyles = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1]).join("\n").replace(/(["'(])\.?\/?assets\//g, "$1" + assets);
-body = body.replace(/<link[^>]+vibe\.css[^>]*>/gi, "").replace(/<script[^>]+vibe\.js[^>]*><\/script>/gi, "");
+const headStyles = extraCss.join("\n");
+// свои шрифты стилей «по номеру» (fonts.css с @font-face) – для подсказки в конце
+if (/@font-face/.test(headStyles)) for (const m of headStyles.matchAll(/@font-face\s*{[^}]*?font-family:\s*['"]?([^'";]+)/g)) if (!fonts.includes(m[1])) fonts.push(m[1]);
+// подключения локальных стилей и скриптов из разметки убираем: их содержимое уже в блоке
+body = body.replace(/<link\b[^>]*>/gi, (t) => (sheetHref(t) && isLocal(sheetHref(t)) ? "" : t)).replace(/<script\b[^>]*\bsrc="([^"]+)"[^>]*><\/script>/gi, (t, u) => (isLocal(u) ? "" : t));
 body = body.replace(/<!--[\s\S]*?-->/g, "");
 // плашка «Демо для заказчика» живёт только в демо, в Тильду не едет
 body = body.replace(/<(div|p|a)\b[^>]*class="[^"]*\bdemo-for\b[^"]*"[^>]*>[\s\S]*?<\/\1>/g, "");
@@ -66,9 +95,8 @@ body = body.replace(/\n\s*\n/g, "\n").replace(/^\s+/gm, "");
 
 const pack = `<!-- Вайб-сайт: HTML-блок T123. Картинки грузятся с ${assets} -->
 <style>${fontImport}${minCss(css)}\n${minCss(headStyles)}</style>
-<script>${minJs(js)}</script>
-${body}`;
-// движок стоит ДО разметки: вызов Vibe.mount внутри разметки выполняется сразу, как Тильда вставит блок (проверено в живой Тильде 11.09.2026)
+${js ? `<script>${minJs(js)}</script>\n` : ""}${body}${afterJs.length ? `\n<script>${minJs(afterJs.join("\n"))}</script>` : ""}`;
+// движок стоит ДО разметки, style.js – ПОСЛЕ (он сразу ищет элементы): вызов Vibe.mount внутри разметки выполняется сразу, как Тильда вставит блок (проверено в живой Тильде 11.09.2026)
 
 fs.writeFileSync(outFile, pack);
 const bytes = Buffer.byteLength(pack, "utf8");
