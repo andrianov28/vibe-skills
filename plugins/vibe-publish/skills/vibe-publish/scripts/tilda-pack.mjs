@@ -33,6 +33,7 @@ const published = fs.existsSync(pubCfg) ? JSON.parse(fs.readFileSync(pubCfg, "ut
 let assets = arg("--assets", published?.url ? published.url + "assets/" : "{{ASSETS}}/");
 if (!assets.endsWith("/")) assets += "/";
 const clip = process.argv.includes("--clip");
+const auto = process.argv.includes("--auto"); // автоперенос через Claude в Chrome: ручную инструкцию не печатать
 const tildaPage = arg("--tilda", null);
 // ссылки на картинки из Тильды: имя файла (маленькими) → адрес на static.tildacdn.*
 const links = new Map();
@@ -163,7 +164,7 @@ if (clip) {
     : process.platform === "darwin" ? spawnSync("sh", ["-c", `pbcopy < "${outFile}"`]) : { status: 1 };
   console.log(r.status === 0 ? "Код скопирован в буфер обмена." : `Не смог скопировать в буфер: открой файл ${outFile}, выдели всё (Ctrl+A) и скопируй (Ctrl+C).`);
 }
-console.log(`
+if (!auto) console.log(`
 В Тильде (4 действия):
 1. Мои сайты → «Редактировать сайт» → «Создать новую страницу» → «Пустая страница» → «Выбрать».
 2. Внизу «Все блоки» → раздел «Другое» → T123 «HTML-код» (клик – блок встанет на страницу). Навести на блок → «Контент».
