@@ -40,7 +40,11 @@ if (zapas) {
   if (!fs.existsSync(src)) { console.error(`нет запасного трека ${zapas} (есть: energy, soft)`); process.exit(1); }
   for (const f of fs.readdirSync(out)) if (/^track-/.test(f)) fs.rmSync(path.join(out, f));
   fs.copyFileSync(src, path.join(out, "track-a.mp3"));
-  console.log(`✓ запасной трек «${zapas}» скопирован`);
+  // второй запасной трек – как track-b: «поменяй музыку» без ключа работает так же, как с ключом (build --track b)
+  const other = zapas === "energy" ? "soft" : "energy";
+  const srcB = path.join(skillDir, "music", `zapas-${other}.mp3`);
+  if (fs.existsSync(srcB)) fs.copyFileSync(srcB, path.join(out, "track-b.mp3"));
+  console.log(`✓ запасной трек «${zapas}» скопирован (второй вариант – «${other}», для «поменяй музыку»)`);
   report();
   process.exit(0);
 }

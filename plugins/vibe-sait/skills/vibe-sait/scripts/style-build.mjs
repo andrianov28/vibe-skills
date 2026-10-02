@@ -81,7 +81,23 @@ for (const f of ["style-lite.css", "style-prod.css", "style.js"]) fs.copyFileSyn
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/ – /g, " – ");
 const attr = (s) => esc(s).replace(/"/g, "&quot;");
 const rub = (v) => typeof v === "number" ? v.toLocaleString("ru-RU").replace(/[   ]/g, " ") + " ₽" : esc(v);
-const priceCell = (it) => (it.from ? "от " : "") + rub(it.price) + (it.unit ? `<small> ${esc(it.unit)}</small>` : "");
+// пустая цена ({{цена}}) в боевом сайте – «уточнить», а не метка в скобках (решение Евгения 02.10.2026); в галерее – слот
+const isSlot = (v) => typeof v === "string" && /\{\{/.test(v);
+const priceCell = (it) => !gallery && (isSlot(it.price) || it.price == null || it.price === "") ? "уточнить"
+  : (it.from ? "от " : "") + rub(it.price) + (it.unit ? `<small> ${esc(it.unit)}</small>` : "");
+// «51 отзыв», «23 отзыва», «226 отзывов»; слот или текст – как есть со словом «отзывов»
+const reviewsWord = (v) => {
+  const n = parseInt(String(v ?? "").replace(/\D/g, ""), 10);
+  if (isNaN(n)) return "отзывов";
+  const d = n % 10, dd = n % 100;
+  return d === 1 && dd !== 11 ? "отзыв" : d >= 2 && d <= 4 && (dd < 12 || dd > 14) ? "отзыва" : "отзывов";
+};
+const reviewsCountText = () => { const v = C.reviewsCount || "{{отзывов}}"; return `${esc(v)} ${reviewsWord(v)}`; };
+// кнопки мессенджеров – только те, что есть у бизнеса (в галерее – все, как образец)
+const hasWa = gallery || (!!C.messenger?.whatsapp && !isSlot(C.messenger.whatsapp));
+const hasTg = gallery || (!!C.messenger?.telegram && !isSlot(C.messenger.telegram));
+const tgBtn = hasTg ? `<a class="s-btn s-btn--ghost" data-s-msg="telegram" href="#">Telegram</a>` : "";
+const waBtn = hasWa || !hasTg ? `<a class="s-btn s-btn--ghost" data-s-msg="whatsapp" href="#">WhatsApp</a>` : "";
 // p.pos – точка кадрирования (object-position), например "30% 50%": главное в широком кадре сбоку
 const img = (p, cls = "", sizes = "") => p && p.img ? `<img class="${cls}" src="assets/${attr(p.img)}" alt="${attr(p.alt || "")}" loading="lazy" decoding="async"${p.pos ? ` style="object-position:${attr(p.pos)}"` : ""}${sizes}>` : "";
 const heroImg = C.hero || (C.photos || [])[0] || null;
@@ -148,7 +164,7 @@ const ratingVal = ratingNum ? parseFloat(String(ratingNum).replace(",", ".")) : 
 const reviewsHead = () => {
   const parts = [];
   if (ratingNum) parts.push(`<span class="s-reviews__num">${esc(ratingNum)}</span><span class="s-reviews__stars" style="--r: ${isNaN(ratingVal) ? 5 : ratingVal}" aria-label="рейтинг ${esc(ratingNum)} из 5"></span>`);
-  if (C.reviewsCount !== false) parts.push(`<span class="s-reviews__count">${esc(C.reviewsCount || "{{отзывов}}")} отзывов</span>`);
+  if (C.reviewsCount !== false) parts.push(`<span class="s-reviews__count">${reviewsCountText()}</span>`);
   if (C.mapsUrl) parts.push(`<a class="s-reviews__all" href="${attr(C.mapsUrl)}" target="_blank" rel="noopener">Читать все отзывы на Яндекс.Картах</a>`);
   else if (gallery) parts.push(`<a class="s-reviews__all" href="#" onclick="return false">Читать все отзывы на Яндекс.Картах</a> <span class="s-reviews__count">← {{ссылка-карты}}</span>`); // в галерее показываем кнопку и слот под ссылку
   return parts.length ? `<p class="s-reviews__rating">${parts.join("")}</p>` : "";
@@ -157,7 +173,7 @@ const reviewsSection = (cls) => C.reviews === false ? "" : `<section class="s-se
     <header class="s-section__head s-section__head--reviews"><h2>Отзывы с Яндекс.Карт</h2>${reviewsHead()}</header>
     ${reviews()}
   </section>`;
-const ratingLine = C.rating === false ? "" : `<p class="s-rating"><b>${esc(C.rating || "{{рейтинг}}")}</b> на Яндекс.Картах · ${esc(C.reviewsCount || "{{отзывов}}")} отзывов</p>`;
+const ratingLine = C.rating === false ? "" : `<p class="s-rating"><b>${esc(C.rating || "{{рейтинг}}")}</b> на Яндекс.Картах · ${reviewsCountText()}</p>`;
 
 const contacts = (btnText, btnHref) => `<div class="s-contacts">
       <dl>
@@ -167,12 +183,12 @@ const contacts = (btnText, btnHref) => `<div class="s-contacts">
       </dl>
       <div class="s-contacts__actions">
         <a class="s-btn" href="${attr(btnHref)}">${esc(btnText)}</a>
-        <a class="s-btn s-btn--ghost" data-s-msg="whatsapp" href="#">WhatsApp</a>
-        <a class="s-btn s-btn--ghost" data-s-msg="telegram" href="#">Telegram</a>
+        ${waBtn}
+        ${tgBtn}
       </div>
     </div>`;
 
-const messengerData = `data-wa="${attr(C.messenger?.whatsapp || "{{whatsapp}}")}" data-tg="${attr(C.messenger?.telegram || "{{telegram}}")}" data-max="${attr(C.messenger?.max || "")}"`;
+const messengerData = `data-wa="${attr(C.messenger?.whatsapp || (gallery || !hasTg ? "{{whatsapp}}" : ""))}" data-tg="${attr(C.messenger?.telegram || (gallery ? "{{telegram}}" : ""))}" data-max="${attr(C.messenger?.max || "")}"`;
 const galleryData = gallery ? ` data-s-palettes='${paletteJson.replace(/'/g, "&#39;")}'` : "";
 
 // ================= ЛАЙТ =================
@@ -256,8 +272,8 @@ function widget() {
 function bubbleAndSend(sendText) {
   return `<div class="s-bubble" aria-live="polite"><span class="s-bubble__label">Ваше сообщение</span><p data-s-bubble></p></div>
       <div class="s-send">
-        <a class="s-btn s-btn--wide" data-s-msg="whatsapp" href="#">${esc(sendText)} в WhatsApp</a>
-        <a class="s-btn s-btn--ghost" data-s-msg="telegram" href="#">Telegram</a>
+        ${hasWa || !hasTg ? `<a class="s-btn s-btn--wide" data-s-msg="whatsapp" href="#">${esc(sendText)} в WhatsApp</a>
+        ${tgBtn}` : `<a class="s-btn s-btn--wide" data-s-msg="telegram" href="#">${esc(sendText)} в Telegram</a>`}
       </div>
       <p class="s-send__note" data-s-copied hidden>Текст скопирован – вставьте его в чат.</p>
       ${demoNote}`;
@@ -334,4 +350,4 @@ fs.writeFileSync(path.join(out, "index.html"), html);
 const slots = [...new Set(html.match(/\{\{[^}]+\}\}/g) || [])];
 console.log(`✓ ${slug} · ${style === "lite" ? "Лайт" : "Продающий"} → ${path.join(out, "index.html")}`);
 console.log(`  палитры: ${Object.keys(palettes).map((k) => k + " «" + (names[k] || "") + "»").join(", ")} · сейчас ${flag("--palette") || "А"}`);
-console.log(`  шрифты: ${fDisplay.split(",")[0]} / ${fText.split(",")[0]} · слотов на странице: ${slots.length}`);
+console.log(`  шрифты: ${fDisplay.split(",")[0]} / ${fText.split(",")[0]} · слотов на странице: ${(html.match(/\{\{[^}]+\}\}/g) || []).length}${slots.length ? ` (${slots.join(", ")})` : ""}${gallery ? "" : " · пустые цены показаны как «уточнить»"}`);

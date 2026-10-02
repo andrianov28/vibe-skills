@@ -14,6 +14,13 @@
  */
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+// «51 отзыв», «23 отзыва», «226 отзывов» – подпись под счётчиком согласуется с числом
+const reviewsWord = (v) => {
+  const n = parseInt(String(v ?? "").replace(/\D/g, ""), 10);
+  if (isNaN(n)) return "отзывов";
+  const d = n % 10, dd = n % 100;
+  return d === 1 && dd !== 11 ? "отзыв" : d >= 2 && d <= 4 && (dd < 12 || dd > 14) ? "отзыва" : "отзывов";
+};
 // *слово* → акцентный цвет
 const rich = (s) => esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>");
 
@@ -191,7 +198,7 @@ export function html(ctx) {
           <div id="rateNum">0</div>
           <div id="stars"></div>
           <div id="rateCap">${esc(R.caption || "на Яндекс.Картах")}</div>
-          ${R.count ? `<div id="reviewsNum">0</div><div id="reviewsCap">${esc(R.countCaption || "отзывов от клиентов")}</div>` : ""}
+          ${R.count ? `<div id="reviewsNum">0</div><div id="reviewsCap">${esc(R.countCaption || reviewsWord(R.count) + " от клиентов")}</div>` : ""}
         </div>` : ""}
       </section>
 

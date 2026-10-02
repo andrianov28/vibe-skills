@@ -5,7 +5,7 @@
  *   node reel.mjs build    "<папка сайта>" [--track a|b] [--drop 32]   план по долям, запись прокрутки, проект HyperFrames, lint
  *   node reel.mjs snapshot "<папка сайта>"                              кадры середины каждой сцены → листы для проверки глазами
  *   node reel.mjs render   "<папка сайта>"                              MP4 1080×1920 в <сайт>/video/<Название>-ролик.mp4
- *   node reel.mjs light    "<папка сайта>"                              облегчённая копия (~8–10 МБ) для мессенджеров: <Название>-ролик-лёгкий.mp4
+ *   node reel.mjs light    "<папка сайта>"                              облегчённая копия (~4 МБ) для мессенджеров: <Название>-ролик-лёгкий.mp4
  *
  * Берёт: <сайт>/video/video.json (сценарий), video/snimki/site.json (съёмка), video/music/track-*.mp3 (музыка).
  * Проект ролика: <сайт>/video/reel/ (index.html можно поправить руками и запустить snapshot/render снова).
@@ -122,7 +122,9 @@ if (cmd === "build") {
   fs.writeFileSync(path.join(reel, "index.html"), page);
   fs.writeFileSync(path.join(reel, "hyperframes.json"), JSON.stringify({ $schema: "https://hyperframes.heygen.com/schema/hyperframes.json", paths: { blocks: "compositions", components: "compositions/components", assets: "assets" } }, null, 2));
   fs.writeFileSync(path.join(reel, "meta.json"), JSON.stringify({ id: "vibe-video", name: `${v.brand} – видео-демо` }, null, 2));
-  const snapAt = scenes.map((s) => +Bt(s.start + s.len * 0.62).toFixed(2));
+  // сцены со счётчиками (рейтинг и число отзывов в хуке, цены) снимаем в конце, когда цифры доехали:
+  // в середине кадр ловит «1 587 ₽» вместо 6 260 и «135» вместо 226 – и проверка зря чинит то, что не сломано (02.10.2026)
+  const snapAt = scenes.map((s) => +Bt(s.start + (s.id === "hook" || s.id === "prices" ? s.len - 0.5 : s.len * 0.62)).toFixed(2));
   snapAt.push(+(duration - 1.4).toFixed(2));
   fs.writeFileSync(path.join(reel, "plan.json"), JSON.stringify({ ...plan, snapshotAt: snapAt, track: path.basename(track), trimSeconds: trim }, null, 2));
 
