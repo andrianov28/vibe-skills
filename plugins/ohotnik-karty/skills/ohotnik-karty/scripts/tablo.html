@@ -142,9 +142,9 @@ select{font:inherit;font-size:13px;padding:5px 8px;border-radius:8px;border:1px 
     $('count').textContent=tasks.length;
     $('today').innerHTML = tasks.length ? tasks.map(function(x,i){
       var r=x.r,t=x.t, late=t.late?days(t.due,today):0;
-      var due = late ? 'просрочено на '+late+' '+(late===1?'день':late<5?'дня':'дней') : 'сегодня';
-      var phrase = t.kind==='off' ? 'сними демо для №'+r.n+' в охоте '+huntLabel(r) : 'напиши '+(t.kind==='t2'?'второе':'третье')+' сообщение для №'+r.n+' из охоты '+huntLabel(r);
-      var act = t.kind==='off' ? '<button class="main" data-act="off" data-i="'+rows.indexOf(r)+'">Демо снято</button>' : '<button class="main" data-act="'+t.kind+'" data-i="'+rows.indexOf(r)+'">Отправил</button>';
+      var due = t.kind==='nodemo' ? 'без ссылки' : late ? 'просрочено на '+late+' '+(late===1?'день':late<5?'дня':'дней') : 'сегодня';
+      var phrase = t.kind==='nodemo' ? 'собери сайт для №'+r.n+' в охоте '+huntLabel(r) : t.kind==='off' ? 'сними демо для №'+r.n+' в охоте '+huntLabel(r) : 'напиши '+(t.kind==='t2'?'второе':'третье')+' сообщение для №'+r.n+' из охоты '+huntLabel(r);
+      var act = t.kind==='nodemo' ? '<span class="where">«Написал» стоит, а демо нет – первое сообщение ушло без ссылки? Соберите и опубликуйте демо, потом отправьте ссылку.</span>' : t.kind==='off' ? '<button class="main" data-act="off" data-i="'+rows.indexOf(r)+'">Демо снято</button>' : '<button class="main" data-act="'+t.kind+'" data-i="'+rows.indexOf(r)+'">Отправил</button>';
       return '<article class="task'+(t.late?' late':'')+(t.kind==='off'?' off':'')+'" style="animation-delay:'+(i*40)+'ms">'
         +'<div class="what"><span>'+esc(t.label)+'</span><span class="due">'+due+'</span></div>'
         +'<div><div class="who">№'+r.n+' '+esc(r.name)+'</div><div class="where">'+esc(huntLabel(r))+' · первое сообщение '+d2(r.t1)+'</div></div>'

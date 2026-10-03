@@ -15,7 +15,7 @@ export const STATUSES = ['новый', 'написал', 'ответил', 'оп
 export const CHANNELS = ['WhatsApp', 'Telegram', 'MAX', 'ВКонтакте', 'почта', 'другое'];
 export const STOP = ['ответил', 'оплатил', 'отказ'];
 export const DAYS = { t2: 1, t3: 3, off: 10 };
-export const VERSION = '1.2.0'; // версия сервера карты: устаревший сервер (после «обнови скиллы») перезапускается сам
+export const VERSION = '1.2.1'; // версия сервера карты: устаревший сервер (после «обнови скиллы») перезапускается сам
 
 const log = (b, entry) => (b.statusLog = b.statusLog || []).push({ at: stamp(), ...entry });
 
@@ -46,6 +46,8 @@ export function plan(b, on = today()) {
   const due2 = addDays(t1, DAYS.t2), due3 = addDays(t1, DAYS.t3), demoUntil = addDays(t1, DAYS.off);
   const live = !STOP.includes(b.status);
   const tasks = [];
+  // «написал» без опубликованного демо: серию не ведём – первое сообщение ушло без ссылки (найдено на репетиции 03.10)
+  if (live && !b.demoUrl) { tasks.push({ kind: 'nodemo', label: 'Сначала демо', due: t1, late: false }); return { t1, t2: t.t2 || null, t3: t.t3 || null, due2, due3, demoUntil, live, tasks }; }
   if (live && !t.t2 && due2 <= on) tasks.push({ kind: 't2', label: 'Касание 2 – ролик', due: due2, late: due2 < on });
   if (live && t.t2 && !t.t3 && due3 <= on) // третье – только после второго: два сообщения подряд = давление
     tasks.push({ kind: 't3', label: 'Касание 3 – прощание', due: due3, late: due3 < on });
@@ -64,7 +66,8 @@ export function scan(root, on = today()) {
     for (const b of base.бизнесы || []) {
       const p = plan(b, on);
       if (!p) continue;
-      rows.push({ hunt: e.name, city: base.город || '', niche: base.ниша || '', n: b['№'], name: b.name, status: b.status || 'новый', channel: b.channel || null,
+      const demoDir = [path.join(root, `${base.слаг || ''}-${b.id}-demo`)].find((p) => b.id && fs.existsSync(p)) || null;
+      rows.push({ hunt: e.name, city: base.город || '', niche: base.ниша || '', n: b['№'], name: b.name, demoDir, status: b.status || 'новый', channel: b.channel || null,
         socials: (b.socials || []).map((s) => ({ kind: s.kind, url: s.url })), demoUrl: b.demoUrl || null, demoOff: b.demoOff || null, ...p });
     }
   }
