@@ -2,7 +2,9 @@
 // Охотник: сборка отчёта «Карта охоты» из база.json → отчёт.html + база.csv (в той же папке).
 // node otchet.mjs "<папка охоты>"                      – пересобрать отчёт
 // node otchet.mjs "<папка охоты>" --demo <№> <ссылка>  – записать ссылку на демо-сайт бизнесу №N и пересобрать
-// node otchet.mjs "<папка охоты>" --status <№> <статус> – поставить статус (новый|написал|ответил|оплатил)
+// node otchet.mjs "<папка охоты>" --status <№> <статус> – поставить статус (новый|написал|ответил|оплатил|отказ)
+// node otchet.mjs "<папка охоты>" --open               – открыть «Карту охоты» через локальный сервер (karta-server.mjs):
+//   клик по статусу в карте сразу пишется в база.json. Сервер общий для всех охот (папка выше), порт 4790.
 // Без зависимостей. Индекс горячести считается здесь, чтобы у всех учеников он был одинаковым.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,6 +30,7 @@ if (iSt > -1) {
   const n = +args[iSt + 1], st = args[iSt + 2];
   const b = base.бизнесы[n - 1];
   if (!b) { console.error('Нет бизнеса №' + n); process.exit(1); }
+  if (b.status !== st) (b.statusLog = b.statusLog || []).push({ status: st, at: ((d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'))(new Date()), from: 'Клод' });
   b.status = st; b.statusAt = today();
 }
 
@@ -68,7 +71,7 @@ function score(b) {
   const total = Math.min(100, parts.reduce((s, p) => s + p[1], 0));
   return { total, parts, level: total >= 70 ? 'горячо' : total >= 45 ? 'тепло' : 'холодно' };
 }
-function today() { return new Date().toISOString().slice(0, 10); }
+function today() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 base.бизнесы.forEach((b, i) => { b['№'] = i + 1; const s = score(b); b.score = s.total; b.level = s.level; b.scoreParts = s.parts; });
@@ -125,7 +128,7 @@ function card(b) {
   const meta = [rating, b.ratingCount != null ? `${b.ratingCount} оценок` : null, b.reviewsCount != null ? `${b.reviewsCount} отзывов` : null, b.photosCount != null ? `${b.photosCount} фото` : null].filter(Boolean).join(' · ');
   const st = b.status || 'новый';
   return `
-<article class="card lvl-${b.level}" data-id="${esc(b.id || b['№'])}" data-level="${b.level}" data-nosite="${!b.site || ['заглушка', 'мёртвый'].includes(b.siteVerdict) ? 1 : 0}" data-writable="${primary.length ? 1 : 0}" data-score="${b.score}" data-rating="${num(b.rating) || 0}" data-reviews="${b.reviewsCount ?? b.ratingCount ?? 0}">
+<article class="card lvl-${b.level}" data-id="${esc(b.id || b['№'])}" data-n="${b['№']}" data-status="${esc(st)}" data-level="${b.level}" data-nosite="${!b.site || ['заглушка', 'мёртвый'].includes(b.siteVerdict) ? 1 : 0}" data-writable="${primary.length ? 1 : 0}" data-score="${b.score}" data-rating="${num(b.rating) || 0}" data-reviews="${b.reviewsCount ?? b.ratingCount ?? 0}">
   <div class="card-head">
     <div class="score" title="${esc(parts)}"><span class="score-n">${b.score}</span><span class="score-l">${b.level}</span></div>
     <div class="who">
@@ -141,6 +144,7 @@ function card(b) {
           ${['новый', 'написал', 'ответил', 'оплатил', 'отказ'].map(s => `<option ${s === st ? 'selected' : ''}>${s}</option>`).join('')}
         </select>
       </label>
+      <span class="small muted st-at">${b.statusAt && st !== 'новый' ? 'с ' + esc(b.statusAt) : ''}</span>
       <a class="muted small" href="${esc(b.url)}" target="_blank" rel="noopener">карточка на Картах</a>
     </div>
   </div>
@@ -200,6 +204,7 @@ h2{margin:0;font-size:22px;line-height:1.2}
 .meta{margin-top:4px;font-size:14px}
 .why{margin-top:6px;font-size:12px;color:var(--mute)}
 .status{text-align:right;font-size:13px;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.save-note{margin:0 auto 14px;max-width:1100px;padding:10px 14px;border-radius:10px;background:#fff4d6;color:#5a4300;font-size:14px}.save-note.ok{background:#e8f6ee;color:#14532d}
 .status select{display:block;margin-top:4px;font:inherit;padding:6px 10px;border-radius:8px;border:1px solid var(--gray);background:var(--card);color:var(--ink)}
 .card-body{display:grid;grid-template-columns:1fr 1.2fr;gap:0}
 .card-body section{padding:16px 20px}
@@ -225,7 +230,7 @@ footer.page{margin-top:32px;font-size:13px;color:var(--mute)}
 @media (max-width:760px){.card-head{grid-template-columns:auto 1fr}.status{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}.card-body{grid-template-columns:1fr}.card-body section+section{border-left:0;border-top:1px solid #e8e8ec}}
 </style>
 </head>
-<body>
+<body data-hunt="${esc(path.basename(dir))}">
 <header>
   <h1>${esc(title)}<small>Собрано ${esc(base.создано || base.обновлено)} · обновлено ${esc(base.обновлено)} · запрос «${esc(base.запрос || '')}» · только открытые данные Яндекс.Карт</small></h1>
 </header>
@@ -248,22 +253,51 @@ footer.page{margin-top:32px;font-size:13px;color:var(--mute)}
   <button data-sort="reviews">по отзывам</button>
   <button data-sort="rating">по рейтингу</button>
 </div>
+<div id="save-note" class="save-note" hidden></div>
 <main id="list">
 ${sorted.map(card).join('\n')}
 </main>
-<footer class="page">Индекс горячести: нет сайта +45 (заглушка или мёртвый +35, устарел +15) · отзывов больше 50 +25 (11–50 +15, до 10 +5) · рейтинг от 4,7 +15 (4,3–4,6 +10, ниже +5) · есть куда написать +10 · прайса нет или устарел +5. От 70 – горячо, 45–69 – тепло. Статусы хранятся в этом браузере; для учёта в таблице рядом лежит база.csv. Скилл «Охотник: клиенты с Карт», курс «Вайб-сайты».</footer>
+<footer class="page">Индекс горячести: нет сайта +45 (заглушка или мёртвый +35, устарел +15) · отзывов больше 50 +25 (11–50 +15, до 10 +5) · рейтинг от 4,7 +15 (4,3–4,6 +10, ниже +5) · есть куда написать +10 · прайса нет или устарел +5. От 70 – горячо, 45–69 – тепло. Статусы сохраняются в базу охоты (база.json), если карта открыта фразой «открой карту охоты»; для учёта в таблице рядом лежит база.csv. Скилл «Охотник: клиенты с Карт», курс «Вайб-сайты».</footer>
 <script>
 (function(){
-  var key=function(id){return 'ohota:'+location.pathname+':'+id};
-  document.querySelectorAll('.card').forEach(function(c){
-    var id=c.dataset.id, sel=c.querySelector('.status-select');
-    try{var saved=localStorage.getItem(key(id)); if(saved) sel.value=saved;}catch(e){}
-    sel.addEventListener('change',function(){try{localStorage.setItem(key(id),sel.value)}catch(e){}});
+  // Статусы: правда – база.json. Клик отправляется на локальный сервер карты (karta-server.mjs) и пишется в базу.
+  // Нет сервера – отметка ждёт в браузере (pending) и досылается, как только карта откроется через сервер.
+  var API='http://localhost:4790', HUNT=document.body.dataset.hunt, note=document.getElementById('save-note');
+  var key=function(n){return 'ohota-pending:'+HUNT+':'+n};
+  var show=function(t,ok){note.hidden=false;note.textContent=t;note.className='save-note'+(ok?' ok':'')};
+  var post=function(n,st){return fetch(API+'/__status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hunt:HUNT,n:n,status:st})}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.error);return j})};
+  var online=false;
+  try{var m=location.hash.match(/pending=([^&]+)/); if(m){var got=JSON.parse(decodeURIComponent(m[1])); Object.keys(got).forEach(function(n){localStorage.setItem(key(n),got[n])}); history.replaceState(null,'',location.pathname);}}catch(e){}
+  var cards=[].slice.call(document.querySelectorAll('.card'));
+  cards.forEach(function(c){
+    var n=c.dataset.n, sel=c.querySelector('.status-select'), at=c.querySelector('.st-at');
+    try{var p=localStorage.getItem(key(n)); if(p) sel.value=p;}catch(e){}
+    sel.addEventListener('change',function(){
+      var st=sel.value; try{localStorage.setItem(key(n),st)}catch(e){}
+      post(n,st).then(function(j){try{localStorage.removeItem(key(n))}catch(e){} c.dataset.status=st; if(at)at.textContent=st==='новый'?'':'с '+j.statusAt; show('№'+n+': «'+st+'» сохранено в базу охоты',true)})
+        .catch(function(){show('№'+n+': «'+st+'» пока сохранено только в этом браузере. Скажите Клоду «открой карту охоты» – отметка сама попадёт в базу.')});
+    });
     var btn=c.querySelector('.copy'), ta=c.querySelector('.msg');
     btn.addEventListener('click',function(){
       var done=function(){btn.textContent='Скопировано';btn.classList.add('done');setTimeout(function(){btn.textContent='Скопировать';btn.classList.remove('done')},1500)};
       if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(done,function(){ta.select();document.execCommand('copy');done()})}
       else{ta.select();document.execCommand('copy');done()}
+    });
+  });
+  fetch(API+'/__ping').then(function(r){return r.json()}).then(function(){
+    online=true; var sent=0, jobs=[];
+    cards.forEach(function(c){var n=c.dataset.n,p=null;try{p=localStorage.getItem(key(n))}catch(e){}
+      if(p&&p!==c.dataset.status) jobs.push(post(n,p).then(function(){sent++;try{localStorage.removeItem(key(n))}catch(e){}}));
+      else if(p){try{localStorage.removeItem(key(n))}catch(e){}}});
+    Promise.all(jobs).then(function(){if(sent)show('Досохранил в базу отметок: '+sent,true)});
+  }).catch(function(){
+    if(location.protocol!=='file:'){show('Сервер карты выключен: отметки пока сохраняются только в этом браузере. Скажите Клоду «открой карту охоты» – они сами попадут в базу.');return;}
+    note.hidden=false;note.className='save-note';
+    note.innerHTML='Карта открыта как файл – отметки статусов отсюда в базу охоты не попадут. <a id="go-live" href="#">Открыть живую карту</a> (если не открылась – скажите Клоду «открой карту охоты»).';
+    document.getElementById('go-live').addEventListener('click',function(e){
+      e.preventDefault(); var p={};
+      cards.forEach(function(c){var n=c.dataset.n;try{var v=localStorage.getItem(key(n));if(v)p[n]=v}catch(x){}});
+      location.href=API+'/'+encodeURIComponent(HUNT)+'/'+encodeURIComponent('отчёт.html')+(Object.keys(p).length?'#pending='+encodeURIComponent(JSON.stringify(p)):'');
     });
   });
   var list=document.getElementById('list');
@@ -293,8 +327,19 @@ console.log(`Отчёт: ${out}\nБаза: ${basePath} (${base.бизнесы.le
 // панель браузера Claude показывает локальный файл снимком без скриптов)
 if (args.includes('--open')) {
   const { spawn } = await import('node:child_process');
+  const { fileURLToPath } = await import('node:url');
+  const ping = () => fetch('http://localhost:4790/__ping', { signal: AbortSignal.timeout(800) }).then((r) => r.json()).catch(() => null);
+  const huntsRoot = path.dirname(dir);
+  let up = await ping();
+  const real = (p) => { try { return fs.realpathSync.native(p).toLowerCase(); } catch { return path.resolve(p).toLowerCase(); } };
+  if (up && real(up.root) !== real(huntsRoot)) up = null; // сервер чужой папки охот – откроем как файл
+  if (!up && !(await ping())) {
+    spawn(process.execPath, [path.join(path.dirname(fileURLToPath(import.meta.url)), 'karta-server.mjs'), '--root', huntsRoot, '--port', '4790'], { detached: true, stdio: 'ignore' }).unref();
+    for (let i = 0; i < 20 && !up; i++) { await new Promise((r) => setTimeout(r, 250)); up = await ping(); }
+  }
+  const target = up ? 'http://localhost:4790/' + encodeURIComponent(path.basename(dir)) + '/' + encodeURIComponent('отчёт.html') : out;
   const p = process.platform;
-  const cmd = p === 'win32' ? ['cmd', ['/c', 'start', '', out]] : p === 'darwin' ? ['open', [out]] : ['xdg-open', [out]];
+  const cmd = p === 'win32' ? ['cmd', ['/c', 'start', '', target]] : p === 'darwin' ? ['open', [target]] : ['xdg-open', [target]];
   spawn(cmd[0], cmd[1], { detached: true, stdio: 'ignore' }).unref();
-  console.log('Открыл отчёт в браузере.');
+  console.log(up ? `Открыл «Карту охоты»: ${target} – статусы, отмеченные в карте, сохраняются в базу.` : 'Открыл отчёт как файл (сервер карты не запустился): статусы ставь фразой «поставь статус …».');
 }
