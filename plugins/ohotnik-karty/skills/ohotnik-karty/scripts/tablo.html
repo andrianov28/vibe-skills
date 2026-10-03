@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Табло отправок</title>
+<style>
+:root{--bg:#fff;--page:#F5F6FA;--card:#fff;--ink:#2B292E;--mute:#6b6970;--line:#e8e8ec;--blue:#567FE8;--blue-soft:#EEF2FD;--amber:#E9A23B;--amber-soft:#FFF6E5;--red:#E3554F;--red-soft:#FDEDEC;--green:#3FA36B;--green-soft:#E8F6EE;--rail:#E3E4EA}
+@media (prefers-color-scheme:dark){:root{--bg:#1C1B1F;--page:#151418;--card:#242327;--ink:#ECEAF0;--mute:#A6A3AD;--line:#3A393F;--blue:#7C9CF0;--blue-soft:#283150;--amber-soft:#3A3220;--red-soft:#3D2423;--green-soft:#1F3428;--rail:#3A393F}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:22px}
+.top h1{margin:0;font-size:30px;line-height:1.1;letter-spacing:-.02em}
+.top .date{color:var(--mute);font-size:15px;margin-top:4px}
+.top .links{font-size:14px;display:flex;gap:14px;flex-wrap:wrap}
+.rule{font-size:13px;color:var(--mute);display:flex;gap:6px 14px;flex-wrap:wrap;margin:-8px 0 22px}
+.rule b{color:var(--ink);font-weight:600}
+.note{padding:10px 14px;border-radius:10px;margin-bottom:16px;font-size:14px;background:var(--amber-soft)}
+.note.ok{background:var(--green-soft)}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:30px 0 12px;font-weight:700}
+h2 .count{display:inline-block;min-width:22px;padding:0 7px;border-radius:999px;background:var(--ink);color:var(--bg);text-align:center;margin-left:6px;letter-spacing:0}
+/* сегодня */
+.today{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px}
+.task{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;display:grid;gap:10px;border-left:5px solid var(--amber)}
+.task.late{border-left-color:var(--red)}
+.task.off{border-left-color:var(--ink)}
+.task .what{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:13px;font-weight:700}
+.task .what .due{font-weight:600;color:var(--amber)}
+.task.late .what .due{color:var(--red)}
+.task .who{font-size:17px;font-weight:700;line-height:1.25}
+.task .where{font-size:13px;color:var(--mute)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--blue-soft);color:var(--blue);text-decoration:none}
+.chip.none{background:var(--amber-soft);color:var(--ink)}
+.say{display:flex;gap:8px;align-items:stretch}
+.say{align-items:center}.say code{flex:1;font:13px/1.4 ui-monospace,Consolas,monospace;background:var(--page);border-radius:8px;padding:8px 10px;overflow-wrap:anywhere}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:7px 14px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+button.main{background:var(--blue);border-color:var(--blue);color:#fff}
+button.small{font-size:12px;padding:5px 10px;flex:none}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:22px;color:var(--mute)}
+/* фильтр охот */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+/* все отправки */
+.list{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.row{display:grid;grid-template-columns:minmax(0,1.3fr) 130px minmax(0,1.6fr) 120px;gap:14px;align-items:center;padding:12px 16px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row.head{font-size:12px;color:var(--mute);font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding-top:10px;padding-bottom:10px}
+.row .name{font-weight:700;line-height:1.25}
+.row .name small{display:block;font-weight:400;color:var(--mute);font-size:12px}
+select{font:inherit;font-size:13px;padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:100%}
+/* дорожка серии: дни 0…10 */
+.rail{position:relative;display:grid;grid-template-columns:repeat(11,1fr);align-items:center;height:30px}
+.rail::before{content:"";position:absolute;left:4%;right:4%;top:50%;height:2px;background:var(--rail);transform:translateY(-50%)}
+.rail .d{position:relative;display:grid;place-items:center;height:30px}
+.rail .dot{width:12px;height:12px;border-radius:50%;background:var(--card);border:2px solid var(--blue);z-index:1}
+.rail .dot.done{background:var(--green);border-color:var(--green)}
+.rail .dot.due{background:var(--amber);border-color:var(--amber)}
+.rail .dot.late{background:var(--red);border-color:var(--red)}
+.rail .dot.skip{border-color:var(--rail)}
+.rail .flag{width:12px;height:14px;z-index:1;background:var(--ink);clip-path:polygon(0 0,100% 30%,0 60%)}
+.rail .flag.done{background:var(--green)}
+.rail .flag.skip{background:var(--rail)}.rail .flag.due{background:var(--amber)}.rail .flag.late{background:var(--red)}
+.rail .now{position:absolute;top:2px;bottom:2px;width:2px;background:var(--ink);opacity:.55;border-radius:2px}
+.rail-legend{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums;margin-top:2px}
+.rail-wrap{min-width:0}
+@media (max-width:820px){.row{grid-template-columns:1fr 1fr}.row.head{display:none}.row .rail-wrap{grid-column:1/-1}}
+@media (prefers-reduced-motion:no-preference){.task{animation:in .35s ease both}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div><h1>Табло отправок</h1><div class="date" id="date"></div></div>
+    <nav class="links" id="hunts"></nav>
+  </header>
+  <div class="rule"><span><b>День 0</b> – сообщение со ссылкой</span><span><b>День 1</b> – ролик</span><span><b>День 3</b> – прощание</span><span><b>День 10</b> – демо снимаем</span><span>Ответил – серия стоп, дальше разговор</span></div>
+  <div id="note" class="note" hidden></div>
+
+  <h2>Сегодня <span class="count" id="count">0</span></h2>
+  <div class="say" style="margin-bottom:12px"><code id="ask">кому сегодня писать?</code><button class="small" data-copy="ask">Скопировать</button></div>
+  <div class="today" id="today"></div>
+
+  <h2>Все, кому писали</h2>
+  <div class="filters" id="filters"></div>
+  <div class="list" id="list"></div>
+</div>
+<script>
+(function(){
+  var API = location.protocol === 'file:' ? 'http://localhost:4790' : '';
+  var CHANNELS = ['WhatsApp','Telegram','MAX','ВКонтакте','почта','другое'];
+  var STATUSES = ['написал','ответил','оплатил','отказ','новый'];
+  var rows = [], today = '', filter = 'all';
+  var $ = function(id){return document.getElementById(id)};
+  var esc = function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var mon = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  var wd = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+  var d2 = function(s){var d=new Date(s+'T12:00:00');return d.getDate()+' '+mon[d.getMonth()]};
+  var dd = function(s){var d=new Date(s+'T12:00:00');return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')};
+  var days = function(a,b){return Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5)};
+  var note = function(t,ok){var n=$('note');n.hidden=!t;n.textContent=t||'';n.className='note'+(ok?' ok':'')};
+  var post = function(p,body){return fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.error);return j})};
+  var huntLabel = function(r){return [r.city,r.niche].filter(Boolean).join(' · ')||r.hunt};
+
+  function load(){
+    return fetch(API+'/__tablo').then(function(r){return r.json()}).then(function(j){rows=j.rows;today=j.today;render()})
+      .catch(function(){note('Табло открыто без сервера – данные не видны. Скажите Клоду «открой табло отправок».')});
+  }
+
+  function rail(r){
+    var cells='', now=days(r.t1,today);
+    for(var i=0;i<=10;i++){
+      var inner='';
+      if(i===0) inner='<span class="dot done" title="Касание 1 – '+dd(r.t1)+'"></span>';
+      if(i===1||i===3){var k=i===1?'t2':'t3', sent=r[k], due=r[i===1?'due2':'due3'];
+        var cls=sent?'done':!r.live?'skip':due<today?'late':due===today?'due':'';
+        inner='<span class="dot '+cls+'" title="'+(i===1?'Касание 2 – ролик':'Касание 3 – прощание')+': '+(sent?'отправлено '+dd(sent):!r.live?'серия остановлена':'по плану '+dd(due))+'"></span>';}
+      if(i===10){var cl=!r.demoUrl?'skip':r.demoOff?'done':r.demoUntil<today?'late':r.demoUntil===today?'due':'';
+        inner='<span class="flag '+cl+'" title="'+(r.demoUrl?'Демо до '+dd(r.demoUntil)+(r.demoOff?' – снято '+dd(r.demoOff):''):'Демо не публиковалось')+'"></span>';}
+      cells+='<span class="d">'+inner+'</span>';
+    }
+    var pos = now>=0&&now<=10 ? '<span class="now" style="left:calc('+(now+0.5)/11*100+'% - 1px)" title="Сегодня"></span>' : '';
+    return '<div class="rail-wrap"><div class="rail">'+cells+pos+'</div><div class="rail-legend"><span>'+dd(r.t1)+'</span><span>демо до '+dd(r.demoUntil)+'</span></div></div>';
+  }
+
+  function channelChip(r){
+    if(r.channel) return '<span class="chip">'+esc(r.channel)+'</span>';
+    return '<span class="chip none">мессенджер не отмечен</span>';
+  }
+
+  function render(){
+    var dt=new Date(today+'T12:00:00');
+    $('date').textContent=wd[dt.getDay()]+', '+d2(today);
+    var hunts={}; rows.forEach(function(r){hunts[r.hunt]=huntLabel(r)});
+    $('hunts').innerHTML=Object.keys(hunts).map(function(h){return '<a href="'+API+'/'+encodeURIComponent(h)+'/'+encodeURIComponent('отчёт.html')+'">Карта: '+esc(hunts[h])+'</a>'}).join('');
+    // сегодня
+    var tasks=[]; rows.forEach(function(r){r.tasks.forEach(function(t){tasks.push({r:r,t:t})})});
+    tasks.sort(function(a,b){return a.t.due<b.t.due?-1:a.t.due>b.t.due?1:0});
+    $('count').textContent=tasks.length;
+    $('today').innerHTML = tasks.length ? tasks.map(function(x,i){
+      var r=x.r,t=x.t, late=t.late?days(t.due,today):0;
+      var due = late ? 'просрочено на '+late+' '+(late===1?'день':late<5?'дня':'дней') : 'сегодня';
+      var phrase = t.kind==='off' ? 'сними демо для №'+r.n+' в охоте '+huntLabel(r) : 'напиши '+(t.kind==='t2'?'второе':'третье')+' сообщение для №'+r.n+' из охоты '+huntLabel(r);
+      var act = t.kind==='off' ? '<button class="main" data-act="off" data-i="'+rows.indexOf(r)+'">Демо снято</button>' : '<button class="main" data-act="'+t.kind+'" data-i="'+rows.indexOf(r)+'">Отправил</button>';
+      return '<article class="task'+(t.late?' late':'')+(t.kind==='off'?' off':'')+'" style="animation-delay:'+(i*40)+'ms">'
+        +'<div class="what"><span>'+esc(t.label)+'</span><span class="due">'+due+'</span></div>'
+        +'<div><div class="who">№'+r.n+' '+esc(r.name)+'</div><div class="where">'+esc(huntLabel(r))+' · первое сообщение '+d2(r.t1)+'</div></div>'
+        +'<div>'+channelChip(r)+(r.demoUrl?' <a class="chip" href="'+esc(r.demoUrl)+'" target="_blank" rel="noopener">демо</a>':'')+'</div>'
+        +'<div class="say"><code id="p'+i+'">'+esc(phrase)+'</code><button class="small" data-copy="p'+i+'">Скопировать</button></div>'
+        +'<div class="acts">'+act+'</div></article>';
+    }).join('') : '<div class="empty">На сегодня всё отправлено. Новые демо и первые сообщения – в карте охоты.</div>';
+    // фильтры
+    $('filters').innerHTML = ['all'].concat(Object.keys(hunts)).map(function(h){return '<button data-f="'+esc(h)+'" class="'+(filter===h?'on':'')+'">'+(h==='all'?'все охоты':esc(hunts[h]))+'</button>'}).join('');
+    // все
+    var list=rows.filter(function(r){return filter==='all'||r.hunt===filter});
+    $('list').innerHTML = '<div class="row head"><span>Бизнес</span><span>Куда писали</span><span>Серия: день 0 → 10</span><span>Статус</span></div>'
+      + (list.length ? list.map(function(r){var i=rows.indexOf(r);
+        return '<div class="row"><div class="name">№'+r.n+' '+esc(r.name)+'<small>'+esc(huntLabel(r))+'</small></div>'
+          +'<div><select data-ch="'+i+'" aria-label="Куда писали"><option value="">не отмечено</option>'+CHANNELS.map(function(c){return '<option'+(c===r.channel?' selected':'')+'>'+c+'</option>'}).join('')+'</select></div>'
+          +rail(r)
+          +'<div><select data-st="'+i+'" aria-label="Статус">'+STATUSES.map(function(s){return '<option'+(s===r.status?' selected':'')+'>'+s+'</option>'}).join('')+'</select></div></div>';
+      }).join('') : '<div class="row"><span class="empty" style="grid-column:1/-1;border:0">Пока никому не писали. Отправьте первое сообщение из карты охоты и поставьте статус «написал».</span></div>');
+  }
+
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('[data-copy]');
+    if(c){var txt=$(c.dataset.copy).textContent;(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).catch(function(){}).then(function(){c.textContent='Скопировано';setTimeout(function(){c.textContent='Скопировать'},1400)});return}
+    var f=e.target.closest('[data-f]'); if(f){filter=f.dataset.f;render();return}
+    var a=e.target.closest('[data-act]'); if(!a) return;
+    var r=rows[+a.dataset.i]; a.disabled=true;
+    var p = a.dataset.act==='off' ? post('/__demo',{hunt:r.hunt,n:r.n,off:true}) : post('/__touch',{hunt:r.hunt,n:r.n,touch:a.dataset.act==='t2'?2:3});
+    p.then(function(){note('№'+r.n+' '+r.name+': отмечено',true);return load()}).catch(function(err){a.disabled=false;note('Не сохранилось: '+err.message)});
+  });
+  document.addEventListener('change',function(e){
+    var s=e.target, r;
+    if(s.dataset.ch!=null){r=rows[+s.dataset.ch];post('/__channel',{hunt:r.hunt,n:r.n,channel:s.value}).then(function(){note('№'+r.n+': мессенджер – '+(s.value||'не отмечен'),true);return load()}).catch(function(err){note('Не сохранилось: '+err.message)})}
+    if(s.dataset.st!=null){r=rows[+s.dataset.st];post('/__status',{hunt:r.hunt,n:r.n,status:s.value}).then(function(){note('№'+r.n+': статус «'+s.value+'»'+(['ответил','оплатил','отказ'].indexOf(s.value)>-1?' – серия остановлена':''),true);return load()}).catch(function(err){note('Не сохранилось: '+err.message)})}
+  });
+  load();
+})();
+</script>
+</body>
+</html>

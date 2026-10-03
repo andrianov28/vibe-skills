@@ -3,11 +3,15 @@
 // node otchet.mjs "<папка охоты>"                      – пересобрать отчёт
 // node otchet.mjs "<папка охоты>" --demo <№> <ссылка>  – записать ссылку на демо-сайт бизнесу №N и пересобрать
 // node otchet.mjs "<папка охоты>" --status <№> <статус> – поставить статус (новый|написал|ответил|оплатил|отказ)
+// node otchet.mjs "<папка охоты>" --touch <№> <2|3>     – касание 2 (ролик) или 3 (прощание) отправлено сегодня
+// node otchet.mjs "<папка охоты>" --channel <№> <WhatsApp|Telegram|MAX|ВКонтакте|почта|другое> – куда писали
+// node otchet.mjs "<папка охоты>" --demo-off <№> | --demo-on <№> – отметить, что демо снято / возвращено
 // node otchet.mjs "<папка охоты>" --open               – открыть «Карту охоты» через локальный сервер (karta-server.mjs):
 //   клик по статусу в карте сразу пишется в база.json. Сервер общий для всех охот (папка выше), порт 4790.
 // Без зависимостей. Индекс горячести считается здесь, чтобы у всех учеников он был одинаковым.
 import fs from 'node:fs';
 import path from 'node:path';
+import { setStatus, setTouch, setChannel, setDemo, plan, CHANNELS } from './kasaniya.mjs';
 
 const args = process.argv.slice(2);
 const dir = path.resolve(args[0] || '.');
@@ -25,14 +29,13 @@ if (iDemo > -1) {
   b.demoUrl = url; b.demoAt = today();
   if (b.message) b.message = b.message.replace(/\{\{ссылка на демо\}\}/g, url);
 }
-const iSt = args.indexOf('--status');
-if (iSt > -1) {
-  const n = +args[iSt + 1], st = args[iSt + 2];
-  const b = base.бизнесы[n - 1];
-  if (!b) { console.error('Нет бизнеса №' + n); process.exit(1); }
-  if (b.status !== st) (b.statusLog = b.statusLog || []).push({ status: st, at: ((d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'))(new Date()), from: 'Клод' });
-  b.status = st; b.statusAt = today();
-}
+const pick = (flag) => { const i = args.indexOf(flag); if (i < 0) return null; const n = +args[i + 1]; const b = base.бизнесы.find((x) => +x['№'] === n) || base.бизнесы[n - 1]; if (!b) { console.error('Нет бизнеса №' + n); process.exit(1); } return { b, v: args[i + 2] }; };
+let p;
+if ((p = pick('--status'))) setStatus(p.b, p.v, 'Клод');
+if ((p = pick('--touch'))) setTouch(p.b, p.v, 'Клод');
+if ((p = pick('--channel'))) { const c = CHANNELS.find((x) => x.toLowerCase() === String(p.v || '').toLowerCase()) || p.v; setChannel(p.b, c, 'Клод'); }
+if ((p = pick('--demo-off'))) setDemo(p.b, true, 'Клод');
+if ((p = pick('--demo-on'))) setDemo(p.b, false, 'Клод');
 
 // ---- индекс горячести
 function num(x) { if (x == null) return null; const s = String(x).replace(',', '.').replace(/[^\d.]/g, ''); return s ? parseFloat(s) : null; }
@@ -103,6 +106,13 @@ function siteBadge(b) {
   const note = b.siteNote ? `<div class="muted small">${esc(b.siteNote)}</div>` : '';
   return `<span class="badge ${cls}">${label}</span>${link}${note}`;
 }
+function seriesLine(b) {
+  const p = plan(b);
+  if (!p) return '';
+  const d = (x) => x.slice(8, 10) + '.' + x.slice(5, 7);
+  const t = (sent, due, name) => sent ? name + ' ✓ ' + d(sent) : p.live ? name + ' – ' + d(due) : name + ' –';
+  return 'Серия: 1 ✓ ' + d(p.t1) + ' · ' + t(p.t2, p.due2, '2') + ' · ' + t(p.t3, p.due3, '3') + ' · демо ' + (b.demoOff ? 'снято ' + d(b.demoOff) : 'до ' + d(p.demoUntil));
+}
 function card(b) {
   const ch = writeChannels(b);
   const primary = ch.filter(c => c.primary);
@@ -144,6 +154,12 @@ function card(b) {
           ${['новый', 'написал', 'ответил', 'оплатил', 'отказ'].map(s => `<option ${s === st ? 'selected' : ''}>${s}</option>`).join('')}
         </select>
       </label>
+      <label class="small">Куда писали
+        <select class="channel-select">
+          <option value="">не отмечено</option>${CHANNELS.map(c => `<option ${c === b.channel ? 'selected' : ''}>${c}</option>`).join('')}
+        </select>
+      </label>
+      <span class="small muted series">${seriesLine(b)}</span>
       <span class="small muted st-at">${b.statusAt && st !== 'новый' ? 'с ' + esc(b.statusAt) : ''}</span>
       <a class="muted small" href="${esc(b.url)}" target="_blank" rel="noopener">карточка на Картах</a>
     </div>
@@ -254,6 +270,7 @@ footer.page{margin-top:32px;font-size:13px;color:var(--mute)}
   <button data-sort="rating">по рейтингу</button>
 </div>
 <div id="save-note" class="save-note" hidden></div>
+<p class="small" style="max-width:1100px;margin:0 auto 12px"><a href="/табло.html" id="tablo-link">Табло отправок: кому сегодня писать →</a></p>
 <main id="list">
 ${sorted.map(card).join('\n')}
 </main>
@@ -272,6 +289,8 @@ ${sorted.map(card).join('\n')}
   cards.forEach(function(c){
     var n=c.dataset.n, sel=c.querySelector('.status-select'), at=c.querySelector('.st-at');
     try{var p=localStorage.getItem(key(n)); if(p) sel.value=p;}catch(e){}
+    var ch=c.querySelector('.channel-select');
+    if(ch) ch.addEventListener('change',function(){fetch(API+'/__channel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hunt:HUNT,n:n,channel:ch.value})}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw 0;show('№'+n+': мессенджер – '+(ch.value||'не отмечен'),true)}).catch(function(){show('Мессенджер не сохранился: карта открыта без сервера. Скажите Клоду «открой карту охоты».')})});
     sel.addEventListener('change',function(){
       var st=sel.value; try{localStorage.setItem(key(n),st)}catch(e){}
       post(n,st).then(function(j){try{localStorage.removeItem(key(n))}catch(e){} c.dataset.status=st; if(at)at.textContent=st==='новый'?'':'с '+j.statusAt; show('№'+n+': «'+st+'» сохранено в базу охоты',true)})
@@ -326,20 +345,9 @@ console.log(`Отчёт: ${out}\nБаза: ${basePath} (${base.бизнесы.le
 // --open: открыть отчёт в браузере ученика по умолчанию (там работают кнопки «Скопировать» и статусы;
 // панель браузера Claude показывает локальный файл снимком без скриптов)
 if (args.includes('--open')) {
-  const { spawn } = await import('node:child_process');
-  const { fileURLToPath } = await import('node:url');
-  const ping = () => fetch('http://localhost:4790/__ping', { signal: AbortSignal.timeout(800) }).then((r) => r.json()).catch(() => null);
-  const huntsRoot = path.dirname(dir);
-  let up = await ping();
-  const real = (p) => { try { return fs.realpathSync.native(p).toLowerCase(); } catch { return path.resolve(p).toLowerCase(); } };
-  if (up && real(up.root) !== real(huntsRoot)) up = null; // сервер чужой папки охот – откроем как файл
-  if (!up && !(await ping())) {
-    spawn(process.execPath, [path.join(path.dirname(fileURLToPath(import.meta.url)), 'karta-server.mjs'), '--root', huntsRoot, '--port', '4790'], { detached: true, stdio: 'ignore' }).unref();
-    for (let i = 0; i < 20 && !up; i++) { await new Promise((r) => setTimeout(r, 250)); up = await ping(); }
-  }
-  const target = up ? 'http://localhost:4790/' + encodeURIComponent(path.basename(dir)) + '/' + encodeURIComponent('отчёт.html') : out;
-  const p = process.platform;
-  const cmd = p === 'win32' ? ['cmd', ['/c', 'start', '', target]] : p === 'darwin' ? ['open', [target]] : ['xdg-open', [target]];
-  spawn(cmd[0], cmd[1], { detached: true, stdio: 'ignore' }).unref();
+  const { ensureServer, openInBrowser } = await import('./server-start.mjs');
+  const up = await ensureServer(path.dirname(dir));
+  const target = up ? up + '/' + encodeURIComponent(path.basename(dir)) + '/' + encodeURIComponent('отчёт.html') : out;
+  openInBrowser(target);
   console.log(up ? `Открыл «Карту охоты»: ${target} – статусы, отмеченные в карте, сохраняются в базу.` : 'Открыл отчёт как файл (сервер карты не запустился): статусы ставь фразой «поставь статус …».');
 }

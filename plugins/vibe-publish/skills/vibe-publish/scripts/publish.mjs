@@ -8,6 +8,7 @@
  *                                                 опубликовать или обновить сайт (та же ссылка)
  *   node publish.mjs "<папка сайта>" --rollback   откатить последнюю публикацию (и вернуть файлы в папке сайта)
  *   node publish.mjs "<папка сайта>" --history    список публикаций
+ *   node publish.mjs "<папка сайта>" --off | --on   снять демо (ссылка перестаёт открываться, всё сохранено) / вернуть
  *   node publish.mjs "<папка сайта>" --search on|off
  *                                                 открыть/закрыть сайт для поисковиков (по умолчанию закрыт: демо)
  *
@@ -232,6 +233,24 @@ if (flag("--search")) {
   saveCfg();
   ok(cfg.search === "on" ? "сайт будет открыт для поисковиков при следующей публикации" : "сайт закрыт для поисковиков (noindex)");
   if (!has("--rollback")) info("теперь «опубликуй», чтобы применить");
+  process.exit(0);
+}
+
+// ---------- --off / --on: снять демо и вернуть (10-й день серии касаний, урок про учёт, 03.10.2026) ----------
+// Снимаем только GitHub Pages: ссылка перестаёт открываться, репозиторий и история целы. Вернуть – та же ссылка.
+if (has("--off") || has("--on")) {
+  if (!cfg.owner || !cfg.repo) fail("сайт ещё не публиковался");
+  if (has("--off")) {
+    const r = gh(["api", "-X", "DELETE", `repos/${cfg.owner}/${cfg.repo}/pages`]);
+    if (r.code !== 0 && !/404|Not Found/i.test(r.err + r.out)) fail(`не смог снять демо: ${r.err || r.out}`);
+    cfg.off = new Date().toISOString().slice(0, 10); saveCfg();
+    ok(`демо снято: ${cfg.url} перестанет открываться в течение минуты. Всё сохранено, вернуть – «верни демо»`);
+  } else {
+    const r = gh(["api", "-X", "POST", `repos/${cfg.owner}/${cfg.repo}/pages`, "-f", "build_type=legacy", "-f", "source[branch]=main", "-f", "source[path]=/"]);
+    if (r.code !== 0 && !/already|409/i.test(r.err + r.out)) fail(`не смог вернуть демо: ${r.err || r.out}`);
+    delete cfg.off; saveCfg();
+    ok(`демо возвращено: ${cfg.url} снова откроется через 1–2 минуты`);
+  }
   process.exit(0);
 }
 

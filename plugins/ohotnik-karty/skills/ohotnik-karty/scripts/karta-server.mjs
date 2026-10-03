@@ -1,24 +1,28 @@
 #!/usr/bin/env node
-// Охотник: живая «Карта охоты». Маленький локальный сервер, чтобы статусы из отчёта сохранялись в база.json.
+// Охотник: живая «Карта охоты» и «Табло отправок». Локальный сервер, чтобы отметки из браузера сохранялись в база.json.
 // node karta-server.mjs --root "<папка, где лежат охоты (ohota)>" [--port 4790]
-// GET  /<охота>/отчёт.html            – файлы охот (отчёт, база, csv)
-// GET  /__ping                         – жив ли сервер
-// POST /__status {hunt, n, status}     – статус бизнеса №n в охоте hunt → база.json (+ statusAt, statusLog) и пересборка отчёта
+// GET  /<охота>/отчёт.html                – файлы охот (отчёт, база, csv)
+// GET  /табло.html                        – табло отправок по всем охотам (страница – scripts/tablo.html)
+// GET  /__ping                            – жив ли сервер
+// GET  /__tablo                           – строки табло (кому писали) с расписанием и задачами на сегодня
+// POST /__status  {hunt, n, status}       – статус (первое «написал» = касание 1, день 0)
+// POST /__touch   {hunt, n, touch}        – касание 2 или 3 отправлено сегодня
+// POST /__channel {hunt, n, channel}      – куда писали (WhatsApp, Telegram, MAX…)
+// POST /__demo    {hunt, n, off}          – отметить, что демо снято / возвращено (само снятие – скилл публикации)
 // Без зависимостей. Сам выключается через 12 часов без запросов. Слушает только 127.0.0.1.
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { setStatus, setTouch, setChannel, setDemo, scan, today, VERSION } from './kasaniya.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => { const i = args.indexOf(n); return i > -1 && args[i + 1] ? args[i + 1] : d; };
 const root = path.resolve(arg('--root', '.'));
 const port = +arg('--port', 4790);
 const here = path.dirname(fileURLToPath(import.meta.url));
-const STATUSES = ['новый', 'написал', 'ответил', 'оплатил', 'отказ'];
 const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json; charset=utf-8', '.csv': 'text/csv; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.mp4': 'video/mp4' };
-const today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 
 let idle;
 const touch = () => { clearTimeout(idle); idle = setTimeout(() => process.exit(0), 12 * 3600 * 1000); };
@@ -29,39 +33,49 @@ const send = (res, code, body, type = 'application/json; charset=utf-8') => {
   res.end(typeof body === 'string' || Buffer.isBuffer(body) ? body : JSON.stringify(body));
 };
 
+// изменить одного бизнеса в базе охоты, сохранить и пересобрать отчёт
+function edit(hunt, n, fn) {
+  const dir = path.resolve(root, String(hunt || ''));
+  if (!dir.startsWith(root + path.sep)) throw Object.assign(new Error('нет такой охоты'), { http: 400 });
+  const basePath = path.join(dir, 'база.json');
+  if (!fs.existsSync(basePath)) throw Object.assign(new Error('нет база.json'), { http: 404 });
+  const base = JSON.parse(fs.readFileSync(basePath, 'utf8'));
+  const b = (base.бизнесы || []).find((x) => +x['№'] === +n);
+  if (!b) throw Object.assign(new Error('нет бизнеса №' + n), { http: 404 });
+  if (fn(b) !== false) {
+    fs.writeFileSync(basePath, JSON.stringify(base, null, 2), 'utf8');
+    execFileSync(process.execPath, [path.join(here, 'otchet.mjs'), dir], { stdio: 'ignore' }); // отчёт и csv – в тон базе
+  }
+  return b;
+}
+
+const ROUTES = {
+  '/__status': (q) => { const b = edit(q.hunt, q.n, (b) => setStatus(b, q.status, 'карта')); return { n: +q.n, status: b.status, statusAt: b.statusAt, touches: b.touches || {} }; },
+  '/__touch': (q) => { const b = edit(q.hunt, q.n, (b) => setTouch(b, q.touch, 'табло')); return { touches: b.touches, status: b.status }; },
+  '/__channel': (q) => { const b = edit(q.hunt, q.n, (b) => setChannel(b, q.channel, 'карта')); return { channel: b.channel }; },
+  '/__demo': (q) => { const b = edit(q.hunt, q.n, (b) => setDemo(b, !!q.off, 'табло')); return { demoOff: b.demoOff }; },
+};
+
 http.createServer((req, res) => {
   touch();
   if (req.method === 'OPTIONS') return send(res, 204, '');
   const url = new URL(req.url, 'http://x');
-  if (url.pathname === '/__ping') return send(res, 200, { ok: true, root });
-  if (url.pathname === '/__status' && req.method === 'POST') {
+  if (url.pathname === '/__ping') return send(res, 200, { ok: true, root, version: VERSION });
+  if (url.pathname === '/__quit' && req.method === 'POST') { send(res, 200, { ok: true }); return setTimeout(() => process.exit(0), 100); }
+  if (url.pathname === '/__tablo') { try { return send(res, 200, { ok: true, today: today(), rows: scan(root) }); } catch (e) { return send(res, 500, { ok: false, error: e.message }); } }
+  if (ROUTES[url.pathname] && req.method === 'POST') {
     let raw = '';
     req.on('data', (c) => (raw += c));
     req.on('end', () => {
-      try {
-        const { hunt, n, status } = JSON.parse(raw || '{}');
-        if (!STATUSES.includes(status)) return send(res, 400, { ok: false, error: 'неизвестный статус' });
-        const dir = path.resolve(root, String(hunt || ''));
-        if (!dir.startsWith(root + path.sep)) return send(res, 400, { ok: false, error: 'нет такой охоты' });
-        const basePath = path.join(dir, 'база.json');
-        if (!fs.existsSync(basePath)) return send(res, 404, { ok: false, error: 'нет база.json' });
-        const base = JSON.parse(fs.readFileSync(basePath, 'utf8'));
-        const b = (base.бизнесы || []).find((x) => +x['№'] === +n);
-        if (!b) return send(res, 404, { ok: false, error: 'нет бизнеса №' + n });
-        if (b.status !== status) {
-          b.status = status; b.statusAt = today();
-          (b.statusLog = b.statusLog || []).push({ status, at: ((d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'))(new Date()), from: 'карта' });
-          fs.writeFileSync(basePath, JSON.stringify(base, null, 2), 'utf8');
-          execFileSync(process.execPath, [path.join(here, 'otchet.mjs'), dir], { stdio: 'ignore' }); // отчёт и csv – в тон базе
-        }
-        send(res, 200, { ok: true, n: +n, status: b.status, statusAt: b.statusAt });
-      } catch (e) { send(res, 500, { ok: false, error: e.message }); }
+      try { send(res, 200, { ok: true, ...ROUTES[url.pathname](JSON.parse(raw || '{}')) }); }
+      catch (e) { send(res, e.http || 400, { ok: false, error: e.message }); }
     });
     return;
   }
-  // статика: только файлы внутри root
   let rel;
   try { rel = decodeURIComponent(url.pathname); } catch { return send(res, 400, 'bad path', 'text/plain'); }
+  if (rel === '/табло.html' || rel === '/') return send(res, 200, fs.readFileSync(path.join(here, 'tablo.html')), TYPES['.html']);
+  // статика: только файлы внутри root
   const file = path.resolve(root, '.' + rel);
   if (!file.startsWith(root) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return send(res, 404, 'нет файла', 'text/plain; charset=utf-8');
   send(res, 200, fs.readFileSync(file), TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream');
