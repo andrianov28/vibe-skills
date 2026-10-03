@@ -15,7 +15,7 @@ export const STATUSES = ['новый', 'написал', 'ответил', 'оп
 export const CHANNELS = ['WhatsApp', 'Telegram', 'MAX', 'ВКонтакте', 'почта', 'другое'];
 export const STOP = ['ответил', 'оплатил', 'отказ'];
 export const DAYS = { t2: 1, t3: 3, off: 10 };
-export const VERSION = '1.2.1'; // версия сервера карты: устаревший сервер (после «обнови скиллы») перезапускается сам
+export const VERSION = '1.3.0'; // версия сервера карты: устаревший сервер (после «обнови скиллы») перезапускается сам
 
 const log = (b, entry) => (b.statusLog = b.statusLog || []).push({ at: stamp(), ...entry });
 
@@ -72,4 +72,38 @@ export function scan(root, on = today()) {
     }
   }
   return rows;
+}
+
+// итоги недели (понедельник – сегодня) по всем охотам: «итоги недели», блок «Неделя» в табло
+export const PLAN_PER_DAY = 7; // демо в день – ориентир из урока про математику массовости (100 за две недели)
+export function week(root, on = today()) {
+  const d = new Date(on + 'T12:00:00');
+  const mon = addDays(on, -((d.getDay() + 6) % 7));
+  const inWeek = (x) => !!x && x.slice(0, 10) >= mon && x.slice(0, 10) <= on;
+  const w = { from: mon, to: on, days: Math.round((new Date(on + 'T12:00:00') - new Date(mon + 'T12:00:00')) / 864e5) + 1,
+    demos: 0, first: 0, t2: 0, t3: 0, replied: 0, paid: 0, refused: 0, demosOff: 0, talking: 0, hunts: 0, hot: 0, hotLeft: 0 };
+  for (const e of fs.readdirSync(root, { withFileTypes: true })) {
+    if (!e.isDirectory()) continue;
+    const basePath = path.join(root, e.name, 'база.json');
+    if (!fs.existsSync(basePath)) continue;
+    let base; try { base = JSON.parse(fs.readFileSync(basePath, 'utf8')); } catch { continue; }
+    w.hunts++;
+    for (const b of base.бизнесы || []) {
+      const t = b.touches || {};
+      if (b.level === 'горячо') { w.hot++; if (!b.demoUrl && (!b.status || b.status === 'новый')) w.hotLeft++; }
+      if (inWeek(b.demoAt)) w.demos++;
+      if (inWeek(t.t1)) w.first++;
+      if (inWeek(t.t2)) w.t2++;
+      if (inWeek(t.t3)) w.t3++;
+      if (inWeek(b.demoOff)) w.demosOff++;
+      const log = b.statusLog || [];
+      const hit = (st) => log.some((l) => l.status === st && inWeek(l.at)) || (b.status === st && inWeek(b.statusAt) && !log.length);
+      if (hit('ответил')) w.replied++;
+      if (hit('оплатил')) w.paid++;
+      if (hit('отказ')) w.refused++;
+      if (b.status === 'ответил') w.talking++;
+    }
+  }
+  w.plan = PLAN_PER_DAY * w.days;
+  return w;
 }

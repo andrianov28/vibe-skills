@@ -15,7 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { setStatus, setTouch, setChannel, setDemo, scan, today, VERSION } from './kasaniya.mjs';
+import { setStatus, setTouch, setChannel, setDemo, scan, today, week, VERSION } from './kasaniya.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => { const i = args.indexOf(n); return i > -1 && args[i + 1] ? args[i + 1] : d; };
@@ -62,7 +62,7 @@ http.createServer((req, res) => {
   const url = new URL(req.url, 'http://x');
   if (url.pathname === '/__ping') return send(res, 200, { ok: true, root, version: VERSION });
   if (url.pathname === '/__quit' && req.method === 'POST') { send(res, 200, { ok: true }); return setTimeout(() => process.exit(0), 100); }
-  if (url.pathname === '/__tablo') { try { return send(res, 200, { ok: true, today: today(), rows: scan(root) }); } catch (e) { return send(res, 500, { ok: false, error: e.message }); } }
+  if (url.pathname === '/__tablo') { try { return send(res, 200, { ok: true, today: today(), rows: scan(root), week: week(root) }); } catch (e) { return send(res, 500, { ok: false, error: e.message }); } }
   if (ROUTES[url.pathname] && req.method === 'POST') {
     let raw = '';
     req.on('data', (c) => (raw += c));

@@ -2,10 +2,11 @@
 // Охотник: «Табло отправок» – кому сегодня писать по всем охотам.
 // node tablo.mjs "<папка охот (ohota)>"            – задачи на сегодня текстом (для Клода: «кому сегодня писать?»)
 // node tablo.mjs "<папка охот>" --json             – то же в JSON (все строки табло с расписанием)
+// node tablo.mjs "<папка охот>" --week             – итоги недели (понедельник – сегодня) по всем охотам
 // node tablo.mjs "<папка охот>" --open             – открыть табло в браузере через сервер карты
 // Серия: день 0 – ссылка, день 1 – ролик, день 3 – прощание, день 10 – снять демо (правило в kasaniya.mjs).
 import path from 'node:path';
-import { scan, today } from './kasaniya.mjs';
+import { scan, today, week, PLAN_PER_DAY } from './kasaniya.mjs';
 
 const args = process.argv.slice(2);
 const root = path.resolve(args.find((a) => !a.startsWith('--')) || '.');
@@ -18,6 +19,16 @@ if (args.includes('--open')) {
   const up = await ensureServer(root);
   if (!up) { console.log('Сервер карты не запустился – табло не открыть. Задачи на сегодня – ниже.'); }
   else { openInBrowser(up + '/' + encodeURIComponent('табло.html')); console.log(`Открыл «Табло отправок»: ${up}/табло.html – отметки «Отправил», мессенджер и статус сохраняются в базу охоты.`); }
+}
+
+if (args.includes('--week')) {
+  const w = week(root), dm = (x) => x.slice(8, 10) + '.' + x.slice(5, 7);
+  console.log(`Итоги недели ${dm(w.from)}–${dm(w.to)} (${w.days} дн.), охот: ${w.hunts}:`);
+  console.log(`- демо опубликовано: ${w.demos} из плана ${w.plan} (${PLAN_PER_DAY} в день)`);
+  console.log(`- первых сообщений: ${w.first}; вторых (ролик): ${w.t2}; прощаний: ${w.t3}`);
+  console.log(`- ответили: ${w.replied}; оплатили: ${w.paid}; отказ: ${w.refused}; сейчас в разговоре: ${w.talking}`);
+  console.log(`- демо снято: ${w.demosOff}; горячих без демо в базах осталось: ${w.hotLeft} из ${w.hot}`);
+  process.exit(0);
 }
 
 const tasks = rows.flatMap((r) => r.tasks.map((t) => ({ r, t }))).sort((a, b) => (a.t.due < b.t.due ? -1 : 1));
