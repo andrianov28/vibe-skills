@@ -56,7 +56,9 @@ function find(roots) {
       if (it.name === ".publish") {
         try {
           const c = readJson(path.join(p, "publish.json"));
-          if (c.url && !c.off && !seen.has(c.url)) { seen.add(c.url); found.push({ folder: d, url: c.url, title: titleOf(d), ...briefOf(d) }); }
+          // сама витрина (главный адрес или папка с vitrina.json) – не работа
+          const self = /^https://[^/]+.github.io/$/.test(c.url) || fs.existsSync(path.join(d, "vitrina.json"));
+          if (c.url && !c.off && !self && !seen.has(c.url)) { seen.add(c.url); found.push({ folder: d, url: c.url, title: titleOf(d), ...briefOf(d) }); }
         } catch {}
         continue;
       }
