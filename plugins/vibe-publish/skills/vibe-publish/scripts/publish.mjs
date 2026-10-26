@@ -178,7 +178,8 @@ function localFiles(html) {
   const refs = [...html.matchAll(/<(?:link|script)\b[^>]*?\b(?:href|src)="([^"?#]+\.(?:css|js))(?:[?#][^"]*)?"/gi)]
     .map((m) => m[1].replace(/^\.\//, ""))
     .filter((u) => !/^(?:[a-z]+:|\/)/i.test(u) && !u.startsWith("assets/") && !u.includes(".."));
-  return refs.length ? [...new Set(refs)] : ENGINE;
+  // страница без своих css/js (витрина – всё внутри index.html) ничего не тянет
+  return refs.length ? [...new Set(refs)] : /vibe\.(?:css|js)/.test(html) ? ENGINE : [];
 }
 function stage() {
   fs.mkdirSync(pub, { recursive: true });
