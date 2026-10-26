@@ -10,6 +10,8 @@
  *   node publish.mjs "<папка сайта>" --rollback   откатить последнюю публикацию (и вернуть файлы в папке сайта)
  *   node publish.mjs "<папка сайта>" --history    список публикаций
  *   node publish.mjs "<папка сайта>" --off | --on   снять демо (ссылка перестаёт открываться, всё сохранено) / вернуть
+ *   node publish.mjs "<папка сайта>" --domain <адрес> | --domain-check | --domain-off
+ *                                                 свой домен: прописать в GitHub Pages и показать записи для регистратора / проверить и включить https / отключить
  *   node publish.mjs "<папка сайта>" --search on|off
  *                                                 открыть/закрыть сайт для поисковиков (по умолчанию закрыт: демо)
  *
@@ -143,7 +145,7 @@ if (has("--setup") || has("--check")) {
 }
 
 // ---------- сайт ----------
-const site = argv.find((a) => !a.startsWith("--") && a !== flag("--name") && a !== flag("--message") && a !== flag("--search"));
+const site = argv.find((a) => !a.startsWith("--") && a !== flag("--name") && a !== flag("--message") && a !== flag("--search") && a !== flag("--domain"));
 if (!site) fail("укажи папку сайта");
 const siteDir = path.resolve(site);
 const indexFile = path.join(siteDir, "index.html");
@@ -198,6 +200,7 @@ function stage() {
   const assets = path.join(siteDir, "assets");
   if (fs.existsSync(assets)) copyTree(assets, path.join(pub, "assets"));
   fs.writeFileSync(path.join(pub, ".nojekyll"), "");
+  if (cfg.domain) fs.writeFileSync(path.join(pub, "CNAME"), cfg.domain + "\n"); // свой домен не теряется при следующих публикациях
   fs.writeFileSync(path.join(pub, ".gitignore"), "publish.json\n");
 }
 function unstageBack() {
@@ -253,6 +256,68 @@ if (has("--off") || has("--on")) {
     delete cfg.off; saveCfg();
     ok(`демо возвращено: ${cfg.url} снова откроется через 1–2 минуты`);
   }
+  process.exit(0);
+}
+
+// ---------- --domain <адрес> | --domain-check | --domain-off: свой домен (урок про домен и заявки, 26.10.2026) ----------
+// Порядок по справке GitHub: сначала домен прописываем в GitHub Pages, потом ученик делает записи у регистратора.
+const GH_IPS = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"];
+if (flag("--domain") || has("--domain-check") || has("--domain-off")) {
+  if (!cfg.owner || !cfg.repo || !fs.existsSync(path.join(pub, ".git"))) fail("сначала опубликуй сайт («опубликуй»), потом подключим домен");
+  const { domainToASCII } = await import("node:url");
+  const ghHost = `${cfg.owner.toLowerCase()}.github.io`;
+  const commitPush = (msg) => { git(["add", "-A"]); if (git(["status", "--porcelain"]).out) { git(["commit", "-q", "-m", msg]); const p = git(["push", "-q", "origin", "main"]); if (p.code !== 0) fail(`git push: ${p.err}`); } };
+  if (has("--domain-off")) {
+    gh(["api", "-X", "PUT", `repos/${cfg.owner}/${cfg.repo}/pages`, "-f", "cname="]);
+    fs.rmSync(path.join(pub, "CNAME"), { force: true }); commitPush("Свой домен отключён");
+    if (cfg.ghUrl) cfg.url = cfg.ghUrl; delete cfg.domain; saveCfg();
+    ok(`домен отключён, сайт снова на ${cfg.url}`); process.exit(0);
+  }
+  if (flag("--domain")) {
+    const raw = flag("--domain").trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "").replace(/^www\./, "");
+    const dom = domainToASCII(raw);
+    if (!dom || !/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(dom)) fail(`не похоже на домен: ${raw}`);
+    cfg.ghUrl = cfg.ghUrl || cfg.url; cfg.domain = dom;
+    fs.writeFileSync(path.join(pub, "CNAME"), dom + "\n");
+    commitPush(`Свой домен ${raw}`);
+    const r = gh(["api", "-X", "PUT", `repos/${cfg.owner}/${cfg.repo}/pages`, "-f", `cname=${dom}`]);
+    if (r.code !== 0) fail(`GitHub не принял домен: ${r.err || r.out}`);
+    git(["pull", "-q", "--rebase", "origin", "main"]);
+    saveCfg();
+    ok(`домен ${raw} прописан в GitHub Pages`);
+    const apex = dom.split(".").length === 2;
+    console.log(`\nЗАПИСИ У РЕГИСТРАТОРА (reg.ru: «Домены» → домен → «DNS-серверы и управление зоной»):`);
+    if (apex) {
+      GH_IPS.forEach((ip) => console.log(`  A      @     ${ip}`));
+      console.log(`  CNAME  www   ${ghHost}.`);
+      console.log(`Старые A-записи для @ (заглушка регистратора) – удалить. Записи * (звёздочка) не создавать.`);
+    } else {
+      console.log(`  CNAME  ${dom.split(".")[0]}   ${ghHost}.`);
+    }
+    console.log(`\nОбычно домен оживает за 15–60 минут, иногда до суток. Потом скажи «проверь домен» – включу https.`);
+    process.exit(0);
+  }
+  // --domain-check
+  if (!cfg.domain) fail("домен ещё не подключали: «подключи домен <адрес>»");
+  const dns = await import("node:dns/promises");
+  const a = await dns.resolve4(cfg.domain).catch(() => []);
+  const cn = await dns.resolveCname(cfg.domain).catch(() => []);
+  const dnsOk = cfg.domain.split(".").length === 2 ? GH_IPS.every((ip) => a.includes(ip)) && a.every((ip) => GH_IPS.includes(ip)) : cn.some((c) => c.replace(/\.$/, "") === ghHost);
+  if (!dnsOk) {
+    console.log(`✗ записи у регистратора ещё не видны: сейчас ${cfg.domain} → ${[...a, ...cn].join(", ") || "ничего"}`);
+    console.log("  Проверь записи (A на четыре адреса GitHub, без лишних A) и подожди 15–60 минут.");
+    process.exit(0);
+  }
+  ok(`записи у регистратора на месте: ${cfg.domain} смотрит на GitHub`);
+  const st = gh(["api", `repos/${cfg.owner}/${cfg.repo}/pages`, "--jq", "[.https_certificate.state // \"none\", .https_enforced] | @tsv"]).out.split("\t");
+  if (st[1] === "true") { ok("https включён"); }
+  else {
+    const e = gh(["api", "-X", "PUT", `repos/${cfg.owner}/${cfg.repo}/pages`, "-F", "https_enforced=true"]);
+    if (e.code === 0) ok("https включён");
+    else { console.log(`○ сертификат ещё выпускается (${st[0]}) – сайт уже открывается по http, https будет через 15–60 минут. Скажи «проверь домен» позже.`); }
+  }
+  cfg.url = `https://${cfg.domain}/`; saveCfg();
+  console.log(`Адрес сайта: https://${domainToASCII(cfg.domain) === cfg.domain ? cfg.domain : cfg.domain}/`);
   process.exit(0);
 }
 
