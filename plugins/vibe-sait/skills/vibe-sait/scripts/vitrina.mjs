@@ -81,6 +81,8 @@ async function shots(dir) {
   const only = flag("--only"), force = rest.includes("--force");
   for (const [i, c] of cfg.cases.entries()) {
     const n = i + 1;
+    // имя снимка – по адресу сайта, а не по номеру: порядок работ меняется
+    const slug = (c.url || c.title || String(n)).replace(/^https?:\/\//, "").replace(/[^a-z0-9а-яё]+/gi, "-").replace(/^-|-$/g, "").toLowerCase().slice(0, 60) || String(n);
     if (only && String(n) !== only) continue;
     if (!c.url) { info(`№${n} «${c.title}»: нет ссылки – пропускаю`); continue; }
     if (c.desktop && c.mobile && !force) { info(`№${n} «${c.title}»: снимки уже есть`); continue; }
@@ -89,7 +91,7 @@ async function shots(dir) {
     try {
       await d.goto(c.url, { waitUntil: "networkidle", timeout: 45000 }); await d.waitForTimeout(1800);
       const buf = await d.screenshot();
-      c.desktop = `assets/case-${n}-desktop.webp`;
+      c.desktop = `assets/case-${slug}-desktop.webp`;
       await sharp(buf).resize({ width: 1200 }).webp({ quality: 78 }).toFile(path.join(dir, c.desktop));
     } catch (e) { info(`№${n}: компьютер не снялся – ${e.message.split("\n")[0]}`); }
     await d.close();
@@ -106,7 +108,7 @@ async function shots(dir) {
         parts.push(await m.screenshot());
       }
       const W = Math.round(390 * 1.4), H = Math.round(844 * 1.4);
-      c.mobile = `assets/case-${n}-mobile.webp`;
+      c.mobile = `assets/case-${slug}-mobile.webp`;
       await sharp({ create: { width: W, height: H * parts.length, channels: 3, background: "#ffffff" } })
         .composite(parts.map((input, k) => ({ input, left: 0, top: k * H }))).webp({ quality: 70 }).toFile(path.join(dir, c.mobile));
     } catch (e) { info(`№${n}: телефон не снялся – ${e.message.split("\n")[0]}`); }
