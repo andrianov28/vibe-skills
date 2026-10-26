@@ -7,6 +7,7 @@
  *   node vitrina.mjs shots "<папка витрины>" [--only <номер>] [--force]
  *                                                   снять работы: первый экран компьютера + «лента» телефона
  *   node vitrina.mjs build "<папка витрины>"         собрать index.html из vitrina.json
+ *   node vitrina.mjs share "<папка витрины>"         картинка «вот моя витрина» для чата потока (витрина-для-чата.png)
  *
  * vitrina.json: name, city, cityIn (предложный падеж: «Таганроге»), photo (путь к фото), palette (А|Б|В),
  * messengers { telegram: "ник", whatsapp: "79…", max: "ссылка на профиль" }, message (готовый текст сообщения),
@@ -162,7 +163,51 @@ function init(dir) {
   ok(`создал ${cfgPath(dir)}`);
 }
 
-if (cmd === "find") {
+// ---------- share: картинка «вот моя витрина» для чата (1080×1350) ----------
+async function share(dir) {
+  const cfg = readJson(cfgPath(dir));
+  const pw = requireFromBuild("playwright-core"), sharp = requireFromBuild("sharp");
+  if (!pw || !sharp) fail("нет playwright-core или sharp: скажи «настрой сборку сайтов»");
+  const browser = await pw.chromium.launch({ executablePath: findChrome(), headless: true });
+  const url = "file:///" + path.join(dir, "index.html").replace(/\\/g, "/");
+  const d = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+  await d.goto(url); await d.waitForTimeout(2500);
+  const desk = await d.screenshot();
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+  const m = await ctx.newPage(); await m.goto(url); await m.waitForTimeout(2500);
+  const mob = await m.screenshot();
+  await browser.close();
+  const pal = PALETTES[cfg.palette] || PALETTES["А"];
+  const accent = pal.vars.match(/--accent:(#[0-9A-Fa-f]{6})/)[1], soft = pal.vars.match(/--soft:(#[0-9A-Fa-f]{6})/)[1], ink = pal.vars.match(/--ink:(#[0-9A-Fa-f]{6})/)[1];
+  let pub = ""; try { pub = readJson(path.join(dir, ".publish", "publish.json")).url || ""; } catch {}
+  const addr = (pub || "").replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  // ноутбук: экран 900×563 в рамке; телефон: 300×649 в рамке
+  const lw = 900, lh = Math.round(lw * 900 / 1440);
+  const laptop = await sharp(desk).resize(lw, lh).toBuffer();
+  const pwid = 300, ph = Math.round(pwid * 844 / 390);
+  const phone = await sharp(mob).resize(pwid, ph).toBuffer();
+  const round = (w, h, r) => Buffer.from(`<svg width="${w}" height="${h}"><rect width="${w}" height="${h}" rx="${r}" fill="#fff"/></svg>`);
+  const phoneR = await sharp(phone).composite([{ input: round(pwid, ph, 34), blend: "dest-in" }]).png().toBuffer();
+  const W = 1080, H = 1350, lx = 90, ly = 330, px = 690, py = 560;
+  const bg = Buffer.from(`<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
+    <defs><radialGradient id="g" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="${soft}"/></radialGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#g)"/>
+    <text x="90" y="150" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="${accent}" letter-spacing="4">МОЯ ВИТРИНА</text>
+    <text x="90" y="232" font-family="Arial, sans-serif" font-size="68" font-weight="700" fill="${ink}">${esc(cfg.name)}</text>
+    <rect x="${lx - 18}" y="${ly - 46}" width="${lw + 36}" height="${lh + 64}" rx="26" fill="#0E0F13"/>
+    <circle cx="${lx + 8}" cy="${ly - 22}" r="7" fill="#3A3C44"/><circle cx="${lx + 30}" cy="${ly - 22}" r="7" fill="#3A3C44"/><circle cx="${lx + 52}" cy="${ly - 22}" r="7" fill="#3A3C44"/>
+    <rect x="${lx - 70}" y="${ly + lh + 18}" width="${lw + 140}" height="26" rx="13" fill="#C9CCD4"/>
+    <rect x="${px - 14}" y="${py - 14}" width="${pwid + 28}" height="${ph + 28}" rx="46" fill="#0E0F13"/>
+    <text x="90" y="${H - 70}" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="${accent}">${esc(addr || "собрана с Claude Code")}</text>
+  </svg>`);
+  const out = path.join(dir, "витрина-для-чата.png");
+  await sharp(bg).composite([{ input: laptop, left: lx, top: ly }, { input: phoneR, left: px, top: py }]).png().toFile(out);
+  ok(`картинка для чата: ${out}`);
+}
+
+if (cmd === "share") { if (!dirArg) fail("нужна папка витрины"); await share(path.resolve(dirArg)); }
+else if (cmd === "find") {
   const roots = flag("--root") ? [flag("--root")] : [process.cwd(), path.join(home, "Documents"), path.join(home, "Desktop")].filter((r, i, a) => fs.existsSync(r) && a.indexOf(r) === i);
   const list = find(roots);
   console.log(JSON.stringify(list, null, 2));
