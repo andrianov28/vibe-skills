@@ -247,6 +247,8 @@ footer{padding:26px 0 40px;color:var(--ink-3);font-size:14px;display:flex;flex-w
   if (M.telegram) links.push({ k: 'telegram', label: 'Telegram', href: `https://t.me/${String(M.telegram).replace(/^@|https?:\/\/t\.me\//g, '')}?text=${enc}` });
   if (M.whatsapp) links.push({ k: 'whatsapp', label: 'WhatsApp', href: `https://wa.me/${String(M.whatsapp).replace(/\D/g, '')}?text=${enc}` });
   if (M.max) links.push({ k: 'max', label: 'MAX', href: M.max, copy: true });
+  // бот-продавец: работы, цены и бриф круглые сутки (скилл «Бот-продавец»)
+  if (M.bot) links.push({ k: 'telegram', label: 'Бот: работы и заявка', href: M.bot.startsWith('http') ? M.bot : `https://t.me/${M.bot.replace(/^@/, '')}` });
   const ctaHtml = links.map((l, i) => `<a class="btn ${i === 0 ? 'btn-main' : 'btn-ghost'}" href="${esc(l.href)}" target="_blank" rel="noopener" ${l.copy ? 'data-copy' : ''}>${ico[l.k]}${l.label}</a>`).join('') || '<span>Добавьте мессенджер: «добавь в витрину Telegram …»</span>';
   document.querySelectorAll('[data-cta]').forEach((el) => { el.innerHTML = ctaHtml; });
   const toast = (t) => { const el = $('toast'); el.textContent = t; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 3200); };

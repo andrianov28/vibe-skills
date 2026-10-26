@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "vibe-skills",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "description": "Скиллы курса «Вайб-сайты» Академии Интернет Маркетинга: подбор заказов на Kwork, разбор ТЗ, сборка сайтов, публикация на GitHub Pages и в Тильду, мокапы для портфолио, охота на клиентов с Яндекс.Карт и видео-демо сайта через Claude Code",
   "owner": {
     "name": "Евгений Андрианов, Академия Интернет Маркетинга",
@@ -37,7 +37,7 @@
     {
       "name": "vibe-sait",
       "description": "Сборка сайта по каркасу ниши (16 ниш): бриф → каркас и вариант → картинки kie.ai (или заглушки) → проверка скриншотами → правки словами",
-      "version": "3.5.0",
+      "version": "3.6.0",
       "source": "./plugins/vibe-sait",
       "category": "productivity",
       "keywords": [
@@ -97,6 +97,19 @@
         "видео",
         "ролик",
         "hyperframes",
+        "вайб-сайты"
+      ]
+    },
+    {
+      "name": "vibe-bot",
+      "description": "Бот-продавец веб-мастера в Telegram: собирается из витрины одной фразой, живёт в Cloudflare бесплатно – работы, цены, бриф и тёплая заявка ученику",
+      "version": "1.0.0",
+      "source": "./plugins/vibe-bot",
+      "category": "productivity",
+      "keywords": [
+        "бот",
+        "telegram",
+        "заявки",
         "вайб-сайты"
       ]
     }

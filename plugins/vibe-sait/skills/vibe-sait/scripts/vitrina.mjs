@@ -146,6 +146,13 @@ async function build(dir) {
     .replace("{{PALETTE}}", PALETTES[pal].vars)
     .replace("{{DATA}}", JSON.stringify(cfg).replace(/</g, "\\u003c"));
   fs.writeFileSync(path.join(dir, "index.html"), html);
+  // копии снимков в jpg – для бота-продавца (Telegram по ссылке webp не показывает)
+  const sharpJ = requireFromBuild("sharp");
+  if (sharpJ) for (const c of cfg.cases || []) {
+    if (!c.desktop) continue;
+    const src = path.join(dir, c.desktop), jpg = src.replace(/\.webp$/, ".jpg");
+    if (fs.existsSync(src) && !fs.existsSync(jpg)) await sharpJ(src).jpeg({ quality: 80 }).toFile(jpg);
+  }
   fs.writeFileSync(cfgPath(dir), JSON.stringify(cfg, null, 2));
   const real = (cfg.cases || []).filter((c) => c.kind === "real").length;
   ok(`витрина собрана: работ – ${cfg.cases?.length || 0}, из них реальных заказов – ${real}, палитра ${pal} – ${PALETTES[pal].name}`);
