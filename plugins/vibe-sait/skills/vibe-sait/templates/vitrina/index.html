@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESC}}">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESC}}">
+<meta property="og:type" content="website">
+{{OG_IMAGE}}
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Витрина веб-мастера. Палитра задаётся тремя переменными в :root – их меняет сборка (vitrina.mjs). */
+:root{
+  {{PALETTE}}
+  --paper:#FFFFFF; --line:#E7E8EE; --ink-2:#5B5D68; --ink-3:#8E909A;
+  --display:"Unbounded",system-ui,sans-serif; --body:"Golos Text",system-ui,sans-serif;
+  --r:22px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--body);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+@media (min-width:760px){.wrap{padding:0 32px}}
+.eyebrow{font:600 12px/1.3 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.02em;margin:0}
+
+/* шапка */
+.top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+.top.scrolled{border-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font:600 15px/1 var(--display);text-decoration:none}
+.brand i{width:30px;height:30px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;font:700 13px/1 var(--display);font-style:normal}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;text-decoration:none;font:600 15px/1 var(--body);border-radius:999px;padding:15px 22px;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-main{background:var(--accent);color:#fff;box-shadow:0 12px 26px -14px var(--accent)}
+.btn-main:hover{transform:translateY(-2px)}
+.btn-ghost{background:var(--soft);color:var(--ink)}
+.btn-ghost:hover{background:var(--line)}
+.btn svg{width:18px;height:18px;flex:none}
+.top .btn{padding:11px 18px;font-size:14px}
+
+/* первый экран */
+.hero{display:grid;gap:40px;padding:44px 0 64px;align-items:center}
+@media (min-width:960px){.hero{grid-template-columns:1.05fr .95fr;padding:72px 0 96px}}
+.hello{display:inline-flex;align-items:center;gap:12px;background:var(--soft);border-radius:999px;padding:6px 18px 6px 6px;font-weight:500}
+.hello img,.hello b{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none}
+.hello b{background:var(--accent);color:#fff;display:grid;place-items:center;font:700 16px/1 var(--display)}
+h1{font-size:clamp(34px,5.4vw,64px);line-height:1.04;margin:22px 0 0}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{font-size:clamp(17px,1.8vw,20px);color:var(--ink-2);max-width:36ch;margin:20px 0 0}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:30px;color:var(--ink-2);font-size:15px}
+.facts b{font:600 22px/1 var(--display);color:var(--ink);display:block;margin-bottom:4px}
+
+/* живые телефоны: скриншот сайта прокручивается внутри рамки */
+.phone{position:relative;width:var(--pw,250px);aspect-ratio:9/19.2;border-radius:calc(var(--pw,250px) * .14);background:#0E0F13;padding:calc(var(--pw,250px) * .035);box-shadow:0 40px 60px -30px rgba(20,21,26,.45),inset 0 0 0 2px #2A2C33}
+.phone .screen{position:relative;width:100%;height:100%;border-radius:calc(var(--pw,250px) * .11);overflow:hidden;background:var(--soft)}
+.phone .screen img{position:absolute;left:0;top:0;width:100%;height:auto;will-change:transform;animation:scrollshot var(--dur,22s) ease-in-out infinite alternate;animation-play-state:paused}
+.phone.live .screen img{animation-play-state:running}
+.phone .notch{position:absolute;top:calc(var(--pw,250px) * .055);left:50%;transform:translateX(-50%);width:28%;height:calc(var(--pw,250px) * .06);background:#0E0F13;border-radius:999px;z-index:2}
+@keyframes scrollshot{0%,8%{transform:translateY(0)}92%,100%{transform:translateY(var(--shift,-70%))}}
+@media (prefers-reduced-motion:reduce){.phone .screen img{animation:none}}
+.fan{position:relative;height:clamp(440px,52vw,600px)}
+.fan .phone{position:absolute;top:50%;left:50%}
+.fan .phone:nth-child(1){--pw:clamp(190px,21vw,262px);transform:translate(-50%,-50%);z-index:3}
+.fan .phone:nth-child(2){--pw:clamp(150px,16vw,206px);transform:translate(-118%,-42%) rotate(-7deg);z-index:2;opacity:.96}
+.fan .phone:nth-child(3){--pw:clamp(150px,16vw,206px);transform:translate(18%,-40%) rotate(7deg);z-index:1;opacity:.96}
+.fan::before{content:"";position:absolute;inset:8% 6%;border-radius:50%;background:radial-gradient(closest-side,var(--soft),transparent 72%)}
+.fan.empty{display:grid;place-items:center;background:var(--soft);border-radius:var(--r);color:var(--ink-3);text-align:center;padding:24px}
+
+/* разделы */
+section.block{padding:72px 0;border-top:1px solid var(--line)}
+.block-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 30px;margin-bottom:40px}
+.block-head h2{font-size:clamp(28px,3.6vw,44px);line-height:1.05;margin-top:10px}
+.block-head p{color:var(--ink-2);max-width:42ch;margin:0}
+
+/* работы */
+.case{display:grid;gap:28px;align-items:center;padding:36px 0}
+.case + .case{border-top:1px dashed var(--line)}
+@media (min-width:900px){.case{grid-template-columns:auto 1fr;gap:56px}.case:nth-child(even){grid-template-columns:1fr auto}.case:nth-child(even) .devices{order:2}}
+.devices{position:relative;display:flex;align-items:end;justify-content:center;gap:0;padding:10px 0}
+.browser{width:min(520px,72vw);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 30px 50px -30px rgba(20,21,26,.4),0 0 0 1px var(--line)}
+.browser .bar{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;background:var(--soft)}
+.browser .bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.browser .bar span{margin-left:8px;font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browser img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.devices .phone{--pw:clamp(118px,13vw,150px);margin-left:-60px;margin-bottom:-16px;z-index:2}
+.devices.solo .phone{--pw:clamp(180px,22vw,230px);margin:0}
+.case-text .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;color:var(--ink-3);font-size:14px}
+.badge{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--body);letter-spacing:.04em;padding:7px 11px;border-radius:999px}
+.badge.real{background:var(--accent);color:#fff}
+.badge.demo{background:var(--soft);color:var(--ink-2)}
+.case-text h3{font-size:clamp(22px,2.6vw,30px);line-height:1.1;margin:14px 0 0}
+.story{display:grid;gap:12px;margin:20px 0 0;padding:0;list-style:none}
+.story li{display:grid;grid-template-columns:118px 1fr;gap:12px;font-size:16px}
+.story li b{font-weight:600;color:var(--ink-3);font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+@media (max-width:520px){.story li{grid-template-columns:1fr;gap:2px}}
+.quote{margin:22px 0 0;padding:18px 20px;border-radius:16px;background:var(--soft);font-size:16px}
+.quote cite{display:block;margin-top:8px;font-style:normal;color:var(--ink-3);font-size:14px}
+.case-text .open{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-weight:600;color:var(--accent);text-decoration:none}
+.case-text .open:hover{text-decoration:underline}
+
+/* услуги */
+.price{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.price li{display:grid;gap:6px 30px;padding:24px 0;border-bottom:1px solid var(--line)}
+@media (min-width:760px){.price li{grid-template-columns:1fr 1.3fr auto;align-items:baseline}}
+.price h3{font-size:20px;line-height:1.2}
+.price p{margin:0;color:var(--ink-2)}
+.price .sum{font:600 20px/1 var(--display);white-space:nowrap;color:var(--accent)}
+
+/* как работаю – настоящая последовательность, поэтому номера */
+.steps{display:grid;gap:14px;counter-reset:s;list-style:none;margin:0;padding:0}
+@media (min-width:760px){.steps{grid-template-columns:repeat(4,1fr)}}
+.steps li{position:relative;background:var(--soft);border-radius:var(--r);padding:24px 22px 26px;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;font:700 15px/1 var(--display);margin-bottom:16px}
+.steps h3{font-size:18px;line-height:1.2}
+.steps p{margin:8px 0 0;color:var(--ink-2);font-size:15px}
+
+/* финал: превью сообщения, которое уйдёт владельцу витрины */
+.final{margin:24px 0 72px;border-radius:32px;background:var(--ink);color:#fff;padding:40px 22px;display:grid;gap:30px;align-items:center;overflow:hidden;position:relative}
+@media (min-width:860px){.final{grid-template-columns:1.1fr .9fr;padding:64px}}
+.final h2{font-size:clamp(28px,4vw,48px);line-height:1.04}
+.final p{color:rgba(255,255,255,.72);margin:16px 0 0;max-width:38ch}
+.final .cta{margin-top:28px}
+.final .btn-ghost{background:rgba(255,255,255,.1);color:#fff}
+.final .btn-ghost:hover{background:rgba(255,255,255,.18)}
+.chat{background:#fff;color:var(--ink);border-radius:24px;padding:18px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6);max-width:380px;justify-self:center;width:100%}
+.chat .who{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.chat .who img,.chat .who b{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.chat .who b{background:var(--accent);color:#fff;display:grid;place-items:center;font:700 14px/1 var(--display)}
+.chat .who small{display:block;font-weight:400;color:#2FA35A;font-size:12px}
+.bubble{margin:16px 0 4px auto;max-width:88%;background:var(--accent);color:#fff;border-radius:18px 18px 4px 18px;padding:12px 14px;font-size:15px;line-height:1.45}
+.bubble-time{text-align:right;font-size:11px;color:var(--ink-3)}
+.typing{display:flex;gap:4px;margin-top:14px;padding:10px 14px;background:var(--soft);border-radius:18px 18px 18px 4px;width:fit-content}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:dot 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+
+footer{padding:26px 0 40px;color:var(--ink-3);font-size:14px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--ink);color:#fff;padding:14px 20px;border-radius:14px;font-size:15px;z-index:50;transition:transform .35s cubic-bezier(.2,.8,.2,1),visibility .35s;max-width:calc(100% - 32px);visibility:hidden}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#"><i id="brandInit"></i><span id="brandName"></span></a>
+  <a class="btn btn-main" href="#write">Написать</a>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <span class="hello" id="hello"></span>
+      <h1 id="h1"></h1>
+      <p class="lead" id="lead"></p>
+      <div class="cta" data-cta></div>
+      <div class="facts" id="facts"></div>
+    </div>
+    <div class="fan" id="fan" aria-label="Мои работы"></div>
+  </section>
+
+  <section class="block" id="works">
+    <div class="block-head reveal"><div><div class="eyebrow">Работы</div><h2>Сайты, которые я сделал</h2></div><p id="worksNote"></p></div>
+    <div id="cases"></div>
+  </section>
+
+  <section class="block" id="services">
+    <div class="block-head reveal"><div><div class="eyebrow">Услуги и цены</div><h2>Что могу сделать для вас</h2></div><p>Точную цену назову, когда увижу задачу. Демо – бесплатно.</p></div>
+    <ul class="price reveal" id="price"></ul>
+  </section>
+
+  <section class="block" id="how">
+    <div class="block-head reveal"><div><div class="eyebrow">Как работаю</div><h2>От демо до сайта на вашем адресе</h2></div></div>
+    <ol class="steps reveal" id="steps"></ol>
+  </section>
+
+  <section class="final reveal" id="write">
+    <div>
+      <div class="eyebrow" style="color:rgba(255,255,255,.6)">Написать</div>
+      <h2 id="finalTitle">Покажу демо вашего сайта</h2>
+      <p>Нажмите на мессенджер – сообщение уже набрано, останется отправить. Отвечаю в течение дня.</p>
+      <div class="cta" data-cta></div>
+    </div>
+    <div class="chat" aria-hidden="true">
+      <div class="who"><span id="chatAva"></span><div><span id="chatName"></span><small>в сети</small></div></div>
+      <div class="bubble" id="bubble"></div>
+      <div class="bubble-time">сейчас</div>
+      <div class="typing"><i></i><i></i><i></i></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap"><span id="foot"></span><span>Сайт собран с Claude Code</span></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script id="data" type="application/json">{{DATA}}</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('data').textContent);
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const first = (D.name || '').split(' ')[0];
+  const init = (D.name || '?').split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+  const ava = D.photo ? `<img src="${esc(D.photo)}" alt="">` : `<b>${esc(init)}</b>`;
+
+  $('brandInit').textContent = init; $('brandName').textContent = D.name;
+  $('hello').innerHTML = `${ava}<span>Привет, я ${esc(first)}</span>`;
+  $('h1').innerHTML = D.h1 || `Сайты для малого бизнеса${D.city ? ` в <em>${esc(D.cityIn || D.city)}</em>` : ''}`;
+  $('lead').textContent = D.lead || 'Соберу готовое демо вашего сайта до разговора – вы смотрите результат, а потом решаете.';
+  $('chatAva').innerHTML = ava; $('chatName').textContent = D.name;
+  $('bubble').textContent = D.message;
+  $('foot').textContent = `© ${new Date().getFullYear()} ${D.name}${D.city ? ', ' + D.city : ''}`;
+
+  const cases = D.cases || [];
+  const real = cases.filter((c) => c.kind === 'real').length;
+  const niches = [...new Set(cases.map((c) => c.niche).filter(Boolean))];
+  const word = (n, a, b, c) => { const m = n % 10, h = n % 100; return m === 1 && h !== 11 ? a : m >= 2 && m <= 4 && (h < 12 || h > 14) ? b : c; };
+  $('facts').innerHTML = [
+    cases.length ? `<span><b>${cases.length}</b>${word(cases.length, 'сайт', 'сайта', 'сайтов')} в работах</span>` : '',
+    real ? `<span><b>${real}</b>${word(real, 'реальный заказ', 'реальных заказа', 'реальных заказов')}</span>` : '',
+    niches.length ? `<span><b>${niches.length}</b>${word(niches.length, 'ниша', 'ниши', 'ниш')}</span>` : ''
+  ].join('');
+  $('worksNote').textContent = real && real < cases.length ? '«Реальный заказ» – сайт, за который заплатил владелец. «Демо-проект» – сайт, собранный на пробу.' : real ? 'Все работы – реальные заказы.' : 'Демо-проекты: так выглядят сайты, которые я собираю для бизнесов.';
+
+  // мессенджеры: ссылка с готовым текстом; для MAX текст копируется в буфер
+  const msg = D.message || 'Здравствуйте! Хочу заказать сайт.';
+  const enc = encodeURIComponent(msg);
+  const M = D.messengers || {};
+  const ico = {
+    telegram: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.2-8.3c.4-.4-.1-.6-.6-.2L6 13.6l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.7.2 1.4 1.3z"/></svg>',
+    whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.1c-.2.7-1.4 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-3.2-1.1-5.3-4.3-5.4-4.5-.2-.2-1.3-1.7-1.3-3.3s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.4z"/></svg>',
+    max: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5A9.5 9.5 0 0 0 2.5 12c0 1.9.6 3.7 1.5 5.2L3 21l3.9-1a9.5 9.5 0 1 0 5.1-17.5zm-4 6.2h2l2 3.4 2-3.4h2v6.6h-1.8v-3.9l-1.8 3h-.8l-1.8-3v3.9H8z"/></svg>'
+  };
+  const links = [];
+  if (M.telegram) links.push({ k: 'telegram', label: 'Telegram', href: `https://t.me/${String(M.telegram).replace(/^@|https?:\/\/t\.me\//g, '')}?text=${enc}` });
+  if (M.whatsapp) links.push({ k: 'whatsapp', label: 'WhatsApp', href: `https://wa.me/${String(M.whatsapp).replace(/\D/g, '')}?text=${enc}` });
+  if (M.max) links.push({ k: 'max', label: 'MAX', href: M.max, copy: true });
+  const ctaHtml = links.map((l, i) => `<a class="btn ${i === 0 ? 'btn-main' : 'btn-ghost'}" href="${esc(l.href)}" target="_blank" rel="noopener" ${l.copy ? 'data-copy' : ''}>${ico[l.k]}${l.label}</a>`).join('') || '<span>Добавьте мессенджер: «добавь в витрину Telegram …»</span>';
+  document.querySelectorAll('[data-cta]').forEach((el) => { el.innerHTML = ctaHtml; });
+  const toast = (t) => { const el = $('toast'); el.textContent = t; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 3200); };
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-copy]'); if (!a) return;
+    try { navigator.clipboard.writeText(msg); toast('Текст сообщения скопирован – вставьте его в чат MAX'); } catch (_) {}
+  });
+
+  // живой телефон
+  const phone = (c, dur) => `<div class="phone" style="--dur:${dur}s"><div class="notch"></div><div class="screen">${c.mobile ? `<img src="${esc(c.mobile)}" alt="Сайт ${esc(c.title)} на телефоне" loading="lazy" data-shift>` : ''}</div></div>`;
+  const fan = $('fan');
+  const withShots = cases.filter((c) => c.mobile);
+  if (withShots.length) fan.innerHTML = withShots.slice(0, 3).map((c, i) => phone(c, 20 + i * 4)).join('');
+  else { fan.classList.add('empty'); fan.textContent = 'Здесь появятся ваши работы: скажите Клоду «добавь в витрину сайт …»'; }
+
+  const story = (c) => [['Задача', c.task], ['Что сделал', c.did], ['Результат', c.result]].filter(([, v]) => v).map(([k, v]) => `<li><b>${k}</b><span>${esc(v)}</span></li>`).join('');
+  $('cases').innerHTML = cases.map((c, i) => `
+    <article class="case reveal">
+      <div class="devices${c.desktop ? '' : ' solo'}">
+        ${c.desktop ? `<div class="browser"><div class="bar"><i></i><i></i><i></i><span>${esc((c.url || '').replace(/^https?:\/\//, ''))}</span></div><img src="${esc(c.desktop)}" alt="Сайт ${esc(c.title)}" loading="lazy"></div>` : ''}
+        ${c.mobile ? phone(c, 18 + (i % 3) * 3) : ''}
+      </div>
+      <div class="case-text">
+        <div class="meta"><span class="badge ${c.kind === 'real' ? 'real' : 'demo'}">${c.kind === 'real' ? 'Реальный заказ' : 'Демо-проект'}</span>${esc([c.niche, c.city].filter(Boolean).join(' · '))}</div>
+        <h3>${esc(c.title)}</h3>
+        ${story(c) ? `<ul class="story">${story(c)}</ul>` : c.about ? `<p style="color:var(--ink-2);margin:14px 0 0">${esc(c.about)}</p>` : ''}
+        ${c.quote ? `<blockquote class="quote">«${esc(c.quote)}»<cite>${esc(c.quoteAuthor || 'владелец')}</cite></blockquote>` : ''}
+        ${c.url ? `<a class="open" href="${esc(c.url)}" target="_blank" rel="noopener">Открыть сайт →</a>` : ''}
+      </div>
+    </article>`).join('') || '<p style="color:var(--ink-3)">Работы появятся здесь.</p>';
+
+  $('price').innerHTML = (D.services || []).map((s) => `<li><h3>${esc(s.title)}</h3><p>${esc(s.desc || '')}</p><span class="sum">${esc(s.price || 'по запросу')}</span></li>`).join('');
+  $('steps').innerHTML = (D.steps || [
+    ['Демо до оплаты', 'Собираю демо вашего сайта по карточке на Картах или вашему описанию.'],
+    ['Правки словами', 'Говорите, что поменять, – меняю в тот же день.'],
+    ['Ваш адрес', 'Переношу сайт на ваш домен или в вашу Тильду.'],
+    ['Готово', 'Сайт работает и приводит заявки. Остаюсь на связи.']
+  ]).map(([t, p]) => `<li><h3>${esc(t)}</h3><p>${esc(p)}</p></li>`).join('');
+
+  // сдвиг прокрутки внутри телефона = высота скриншота минус экран
+  const fit = (img) => { const s = img.parentElement; const h = img.getBoundingClientRect().height, sh = s.getBoundingClientRect().height; if (h > sh) img.style.setProperty('--shift', `${-((h - sh) / h) * 100}%`); };
+  document.querySelectorAll('[data-shift]').forEach((img) => { if (img.complete) fit(img); else img.addEventListener('load', () => fit(img)); });
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.target.classList.contains('phone')) e.target.classList.toggle('live', e.isIntersecting);
+    else if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .15 });
+  document.querySelectorAll('.phone,.reveal').forEach((el) => io.observe(el));
+  addEventListener('scroll', () => document.querySelector('.top').classList.toggle('scrolled', scrollY > 8), { passive: true });
+})();
+</script>
+</body>
+</html>

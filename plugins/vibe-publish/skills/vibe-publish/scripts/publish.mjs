@@ -6,6 +6,7 @@
  *   node publish.mjs --check                      проверить: gh есть, вход есть, кто вошёл
  *   node publish.mjs "<папка сайта>" [--name имя] [--message "что изменилось"]
  *                                                 опубликовать или обновить сайт (та же ссылка)
+ *   node publish.mjs "<папка витрины>" --root     витрина: главный адрес https://<логин>.github.io/, открыта для поисковиков
  *   node publish.mjs "<папка сайта>" --rollback   откатить последнюю публикацию (и вернуть файлы в папке сайта)
  *   node publish.mjs "<папка сайта>" --history    список публикаций
  *   node publish.mjs "<папка сайта>" --off | --on   снять демо (ссылка перестаёт открываться, всё сохранено) / вернуть
@@ -273,9 +274,16 @@ if (has("--rollback")) {
 // ---------- публикация ----------
 if (!cfg.repo) {
   cfg.owner = user.login;
-  cfg.repo = flag("--name") ? translit(flag("--name")) : translit(path.basename(siteDir));
-  cfg.url = `https://${user.login}.github.io/${cfg.repo}/`;
-  cfg.search = cfg.search || "off";
+  if (argv.includes("--root")) {
+    // витрина: главный адрес аккаунта https://<логин>.github.io/ и открыта для поисковиков
+    cfg.repo = `${user.login.toLowerCase()}.github.io`;
+    cfg.url = `https://${cfg.repo}/`;
+    cfg.search = "on";
+  } else {
+    cfg.repo = flag("--name") ? translit(flag("--name")) : translit(path.basename(siteDir));
+    cfg.url = `https://${user.login}.github.io/${cfg.repo}/`;
+    cfg.search = cfg.search || "off";
+  }
 }
 stage();
 saveCfg();
