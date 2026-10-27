@@ -139,13 +139,31 @@ async function build(dir) {
   const title = `${cfg.name} – сайты для малого бизнеса${cfg.city ? ", " + cfg.city : ""}`;
   const desc = cfg.lead || "Соберу готовое демо вашего сайта до разговора – вы смотрите результат, а потом решаете.";
   const og = cfg.cases?.find((c) => c.desktop)?.desktop;
+  // политика обработки персональных данных – если ученик дал реквизиты (legal)
+  const L = cfg.legal || {};
+  let policy = false;
+  if (L.fio && L.inn && L.email) {
+    const st = String(L.status || "самозанятый").toLowerCase();
+    const operator = /ооо|юр/.test(st) ? `${L.fio}, ИНН ${L.inn}${L.ogrn ? ", ОГРН " + L.ogrn : ""}`
+      : /ип|предприним/.test(st) ? `индивидуальный предприниматель ${L.fio}, ИНН ${L.inn}${L.ogrnip ? ", ОГРНИП " + L.ogrnip : ""}`
+      : `${L.fio}, плательщик налога на профессиональный доход (самозанятый), ИНН ${L.inn}`;
+    let site = ""; try { site = readJson(path.join(dir, ".publish", "publish.json")).url || ""; } catch {}
+    const bot = cfg.messengers?.bot ? ` (${String(cfg.messengers.bot).replace(/^https?:\/\/t\.me\//, "@").replace(/^@?/, "@")})` : "";
+    const d = new Date(); const p2 = (n) => String(n).padStart(2, "0");
+    const ptpl = fs.readFileSync(path.join(path.dirname(TPL), "politika.html"), "utf8");
+    const escP = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    fs.writeFileSync(path.join(dir, "politika.html"), ptpl.replaceAll("{{NAME}}", escP(cfg.name)).replace("{{PALETTE}}", PALETTES[pal].vars)
+      .replaceAll("{{OPERATOR}}", escP(operator)).replaceAll("{{EMAIL}}", `<a href="mailto:${escP(L.email)}">${escP(L.email)}</a>`)
+      .replaceAll("{{SITE}}", escP(site || "сайт-витрина")).replaceAll("{{BOT}}", escP(bot)).replaceAll("{{DATE}}", `${p2(d.getDate())}.${p2(d.getMonth() + 1)}.${d.getFullYear()}`));
+    policy = true; cfg.policyFile = "politika.html";
+  } else { delete cfg.policyFile; }
   const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
   const html = fs.readFileSync(TPL, "utf8")
     .replaceAll("{{TITLE}}", esc(title)).replaceAll("{{DESC}}", esc(desc))
     .replace("{{OG_IMAGE}}", og ? `<meta property="og:image" content="${esc(og)}">` : "")
     .replace("{{PALETTE}}", PALETTES[pal].vars)
     .replace("{{DATA}}", JSON.stringify(cfg).replace(/</g, "\\u003c"));
-  fs.writeFileSync(path.join(dir, "index.html"), html);
+  fs.writeFileSync(path.join(dir, "index.html"), html.replace("{{POLICY_LINK}}", policy ? '<a href="politika.html">Политика обработки персональных данных</a>' : ""));
   // копии снимков в jpg – для бота-продавца (Telegram по ссылке webp не показывает)
   const sharpJ = requireFromBuild("sharp");
   if (sharpJ) for (const c of cfg.cases || []) {
@@ -160,6 +178,7 @@ async function build(dir) {
   if (!cfg.messengers || !Object.values(cfg.messengers).some(Boolean)) miss.push("мессенджер для кнопки «Написать»");
   if (!cfg.photo) miss.push("фото (сейчас кружок с инициалами)");
   if (!(cfg.services || []).length) miss.push("услуги и цены");
+  if (!policy) miss.push("реквизиты для политики обработки данных: статус (самозанятый / ИП), ФИО, ИНН, почта – поле legal");
   (cfg.cases || []).forEach((c, i) => { if (!c.mobile) miss.push(`снимки работы №${i + 1} (скажи «сними работы»)`); });
   if (miss.length) info("не хватает: " + miss.join("; "));
 }
@@ -168,7 +187,7 @@ async function build(dir) {
 function init(dir) {
   fs.mkdirSync(dir, { recursive: true });
   if (fs.existsSync(cfgPath(dir))) { ok(`vitrina.json уже есть в ${dir}`); return; }
-  fs.writeFileSync(cfgPath(dir), JSON.stringify({ name: "", city: "", cityIn: "", photo: "", palette: "", messengers: { telegram: "", whatsapp: "", max: "" }, message: "", services: [], cases: [] }, null, 2));
+  fs.writeFileSync(cfgPath(dir), JSON.stringify({ name: "", city: "", cityIn: "", photo: "", palette: "", messengers: { telegram: "", whatsapp: "", max: "" }, message: "", services: [], cases: [], legal: { status: "самозанятый", fio: "", inn: "", ogrnip: "", email: "" } }, null, 2));
   ok(`создал ${cfgPath(dir)}`);
 }
 

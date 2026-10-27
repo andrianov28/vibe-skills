@@ -197,6 +197,8 @@ function stage() {
     fs.mkdirSync(path.dirname(path.join(pub, f)), { recursive: true });
     fs.copyFileSync(src, path.join(pub, f));
   }
+  // страницы, на которые ссылается index.html (политика обработки данных на витрине и т. п.)
+  for (const m of html.matchAll(/href="([a-z0-9_-]+\.html)"/gi)) { const f = path.join(siteDir, m[1]); if (fs.existsSync(f)) fs.copyFileSync(f, path.join(pub, m[1])); }
   const assets = path.join(siteDir, "assets");
   if (fs.existsSync(assets)) copyTree(assets, path.join(pub, "assets"));
   fs.writeFileSync(path.join(pub, ".nojekyll"), "");

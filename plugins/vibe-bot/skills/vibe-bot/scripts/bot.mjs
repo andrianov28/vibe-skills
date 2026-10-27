@@ -52,6 +52,8 @@ function fromVitrina(vdir, prev = {}) {
   return {
     name: v.name,
     vitrinaUrl: url,
+    policyUrl: url && v.policyFile ? new URL(v.policyFile, url).href : "",
+    ai: prev.ai || false,
     greeting: prev.greeting || `Здравствуйте! Это бот-помощник: ${v.name || "веб-мастер"} делает сайты для малого бизнеса.\n\nЗдесь можно посмотреть работы, цены и оставить заявку – ${first || "мастер"} ответит лично.`,
     cases: (v.cases || []).map((c) => ({ title: c.title, niche: c.niche, city: c.city, kind: c.kind || "demo", url: c.url, about: c.about, task: c.task, result: c.result, quote: c.quote,
       // jpg-копию снимка кладёт сборка витрины; Telegram по ссылке webp не показывает
@@ -151,6 +153,22 @@ if (cmd === "init" || cmd === "refresh") {
   await tg(t, "setMyShortDescription", { short_description: `Сайты для бизнеса – работы, цены, заявка. ${cfg.name || ""}`.slice(0, 120) });
   await tg(t, "setMyCommands", { commands: [{ command: "start", description: "Меню" }] });
   ok(`бот работает: t.me/${cfg.botUsername} (живёт в Cloudflare, компьютер можно выключать)`);
+} else if (cmd === "ai-on" || cmd === "ai-off") {
+  // «подключи мозги» / «отключи мозги»: ChatGPT через kie.ai отвечает на свободные вопросы клиентов как продавец
+  const dir = path.resolve(dirArg || "."); const cfg = readJson(cfgPath(dir));
+  if (!cfg.workerUrl) fail("бот ещё не выложен: сначала «выложи бота»");
+  if (cmd === "ai-on") {
+    const home = process.env.USERPROFILE || process.env.HOME || "";
+    const files = [path.join(home, ".vibe", ".env"), path.join(dir, ".env")];
+    let key = process.env.KIE_AI_API_KEY || "";
+    for (const f of files) { if (key) break; try { const m = fs.readFileSync(f, "utf8").match(/^\s*KIE_AI_API_KEY\s*=\s*(.+?)\s*$/m); if (m && m[1]) key = m[1].replace(/^["']|["']$/g, ""); } catch {} }
+    if (!key) fail("нет ключа kie.ai: скажи «открой файл ключа» (скилл «Вайб-сайт»), вставь ключ kie.ai и повтори «подключи мозги»");
+    const s = wrangler(["secret", "put", "KIE_KEY"], { cwd: dir, input: key + "\n" });
+    if (s.code !== 0) fail(`не смог сохранить ключ kie.ai в Cloudflare:\n${s.out.slice(-600)}`);
+    cfg.ai = true;
+  } else cfg.ai = false;
+  fs.writeFileSync(cfgPath(dir), JSON.stringify(cfg, null, 2));
+  ok(cmd === "ai-on" ? "мозги включены: на свободные вопросы клиентов отвечает ChatGPT как продавец (около 0,1 кредита kie.ai за ответ, не больше 20 ответов одному клиенту в сутки). Теперь «выложи бота»" : "мозги выключены: бот снова только на кнопках. Теперь «выложи бота»");
 } else if (cmd === "check") {
   const dir = path.resolve(dirArg || "."); const t = token(dir); const cfg = readJson(cfgPath(dir));
   const info2 = await tg(t, "getWebhookInfo");
