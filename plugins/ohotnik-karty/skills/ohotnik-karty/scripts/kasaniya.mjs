@@ -15,7 +15,7 @@ export const STATUSES = ['новый', 'написал', 'ответил', 'оп
 export const CHANNELS = ['WhatsApp', 'Telegram', 'MAX', 'ВКонтакте', 'почта', 'другое'];
 export const STOP = ['ответил', 'оплатил', 'отказ'];
 export const DAYS = { t2: 1, t3: 3, off: 10 };
-export const VERSION = '1.3.0'; // версия сервера карты: устаревший сервер (после «обнови скиллы») перезапускается сам
+export const VERSION = '1.4.0'; // версия сервера карты: устаревший сервер (после «обнови скиллы») перезапускается сам
 
 const log = (b, entry) => (b.statusLog = b.statusLog || []).push({ at: stamp(), ...entry });
 
@@ -72,6 +72,24 @@ export function scan(root, on = today()) {
     }
   }
   return rows;
+}
+
+
+// демо готово, первое сообщение ещё не ушло (ночная смена кладёт такие к утру): задачи «Первое сообщение» на табло
+export function ready(root) {
+  const out = [];
+  for (const e of fs.readdirSync(root, { withFileTypes: true })) {
+    if (!e.isDirectory()) continue;
+    const basePath = path.join(root, e.name, 'база.json');
+    if (!fs.existsSync(basePath)) continue;
+    let base; try { base = JSON.parse(fs.readFileSync(basePath, 'utf8')); } catch { continue; }
+    for (const b of base.бизнесы || []) {
+      if (!b.demoUrl || b.demoOff || (b.touches && b.touches.t1) || (b.status && b.status !== 'новый') || !b.message) continue;
+      out.push({ hunt: e.name, city: base.город || '', niche: base.ниша || '', n: b['№'], name: b.name, demoUrl: b.demoUrl, message: b.message,
+        variant: b.variant || null, socials: (b.socials || []).map((s) => ({ kind: s.kind, url: s.url })), readyAt: b.demoAt || b.capturedAt || null });
+    }
+  }
+  return out;
 }
 
 // итоги недели (понедельник – сегодня) по всем охотам: «итоги недели», блок «Неделя» в табло

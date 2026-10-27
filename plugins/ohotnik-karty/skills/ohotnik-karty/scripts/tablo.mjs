@@ -6,13 +6,14 @@
 // node tablo.mjs "<папка охот>" --open             – открыть табло в браузере через сервер карты
 // Серия: день 0 – ссылка, день 1 – ролик, день 3 – прощание, день 10 – снять демо (правило в kasaniya.mjs).
 import path from 'node:path';
-import { scan, today, week, PLAN_PER_DAY } from './kasaniya.mjs';
+import { scan, ready, today, week, PLAN_PER_DAY } from './kasaniya.mjs';
 
 const args = process.argv.slice(2);
 const root = path.resolve(args.find((a) => !a.startsWith('--')) || '.');
 const rows = scan(root);
 
-if (args.includes('--json')) { console.log(JSON.stringify({ today: today(), rows }, null, 2)); process.exit(0); }
+const firsts = ready(root);
+if (args.includes('--json')) { console.log(JSON.stringify({ today: today(), rows, ready: firsts }, null, 2)); process.exit(0); }
 
 if (args.includes('--open')) {
   const { ensureServer, openInBrowser } = await import('./server-start.mjs');
@@ -35,6 +36,10 @@ const tasks = rows.flatMap((r) => r.tasks.map((t) => ({ r, t }))).sort((a, b) =>
 const label = (r) => [r.city, r.niche].filter(Boolean).join(' · ') || r.hunt;
 const d = (x) => x.slice(8, 10) + '.' + x.slice(5, 7);
 console.log(`Сегодня ${d(today())}: в табло ${rows.length} владельцев, задач на сегодня – ${tasks.length}.`);
+if (firsts.length) {
+  console.log(`Готовы первые сообщения (демо опубликовано, ещё не писали): ${firsts.length}.`);
+  for (const r of firsts) console.log(`- Первое сообщение${r.variant ? ' (заход ' + r.variant + ')' : ''}: №${r.n} ${r.name} – охота ${r.hunt}, демо ${r.demoUrl}, куда писать: ${r.socials.map((x) => x.kind).join(', ') || 'только телефон'}. Текст – в базе (message).`);
+}
 for (const { r, t } of tasks) {
   console.log(`- ${t.label}${t.late ? ' (просрочено, по плану ' + d(t.due) + ')' : ''}: №${r.n} ${r.name} – охота ${r.hunt} (${label(r)}), ` +
     `мессенджер: ${r.channel || 'не отмечен – спроси ученика'}, первое сообщение ${d(r.t1)}, демо ${r.demoUrl ? r.demoUrl + ' до ' + d(r.demoUntil) : 'не публиковалось'}${r.demoOff ? ' (снято)' : ''}, папка демо: ${r.demoDir || 'не найдена'}.`);

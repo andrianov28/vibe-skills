@@ -104,7 +104,7 @@ select{font:inherit;font-size:13px;padding:5px 8px;border-radius:8px;border:1px 
   var API = location.protocol === 'file:' ? 'http://localhost:4790' : '';
   var CHANNELS = ['WhatsApp','Telegram','MAX','ВКонтакте','почта','другое'];
   var STATUSES = ['написал','ответил','оплатил','отказ','новый'];
-  var rows = [], today = '', filter = 'all', weekData = null;
+  var rows = [], ready = [], today = '', filter = 'all', weekData = null;
   var $ = function(id){return document.getElementById(id)};
   var esc = function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
   var mon = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
@@ -117,7 +117,7 @@ select{font:inherit;font-size:13px;padding:5px 8px;border-radius:8px;border:1px 
   var huntLabel = function(r){return [r.city,r.niche].filter(Boolean).join(' · ')||r.hunt};
 
   function load(){
-    return fetch(API+'/__tablo').then(function(r){return r.json()}).then(function(j){rows=j.rows;today=j.today;weekData=j.week;render()})
+    return fetch(API+'/__tablo').then(function(r){return r.json()}).then(function(j){rows=j.rows;ready=j.ready||[];today=j.today;weekData=j.week;render()})
       .catch(function(){note('Табло открыто без сервера – данные не видны. Скажите Клоду «открой табло отправок».')});
   }
 
@@ -154,8 +154,18 @@ select{font:inherit;font-size:13px;padding:5px 8px;border-radius:8px;border:1px 
     // сегодня
     var tasks=[]; rows.forEach(function(r){r.tasks.forEach(function(t){tasks.push({r:r,t:t})})});
     tasks.sort(function(a,b){return a.t.due<b.t.due?-1:a.t.due>b.t.due?1:0});
-    $('count').textContent=tasks.length;
-    $('today').innerHTML = tasks.length ? tasks.map(function(x,i){
+    $('count').textContent=tasks.length+ready.length;
+    // первые сообщения: демо готово (ночная смена или руками), осталось отправить
+    var first = ready.map(function(r,i){
+      var where = (r.socials||[]).map(function(s){return '<a class="chip" href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.kind)+'</a>'}).join(' ') || '<span class="chip none">мессенджера нет – найдите по номеру</span>';
+      return '<article class="task first" style="animation-delay:'+(i*40)+'ms">'
+        +'<div class="what"><span>Первое сообщение'+(r.variant?' · заход '+esc(r.variant):'')+'</span><span class="due">демо готово</span></div>'
+        +'<div><div class="who">№'+r.n+' '+esc(r.name)+'</div><div class="where">'+esc(huntLabel(r))+'</div></div>'
+        +'<div>'+where+' <a class="chip" href="'+esc(r.demoUrl)+'" target="_blank" rel="noopener">демо</a></div>'
+        +'<div class="say"><code id="f'+i+'" style="white-space:pre-wrap">'+esc(r.message)+'</code><button class="small" data-copy="f'+i+'">Скопировать</button></div>'
+        +'<div class="acts"><button class="main" data-first="'+i+'">Отправил</button></div></article>';
+    }).join('');
+    $('today').innerHTML = first + (tasks.length ? tasks.map(function(x,i){
       var r=x.r,t=x.t, late=t.late?days(t.due,today):0;
       var due = t.kind==='nodemo' ? 'без ссылки' : late ? 'просрочено на '+late+' '+(late===1?'день':late<5?'дня':'дней') : 'сегодня';
       var phrase = t.kind==='nodemo' ? 'собери сайт для №'+r.n+' в охоте '+huntLabel(r) : t.kind==='off' ? 'сними демо для №'+r.n+' в охоте '+huntLabel(r) : 'напиши '+(t.kind==='t2'?'второе':'третье')+' сообщение для №'+r.n+' из охоты '+huntLabel(r);
@@ -166,7 +176,7 @@ select{font:inherit;font-size:13px;padding:5px 8px;border-radius:8px;border:1px 
         +'<div>'+channelChip(r)+(r.demoUrl?' <a class="chip" href="'+esc(r.demoUrl)+'" target="_blank" rel="noopener">демо</a>':'')+'</div>'
         +'<div class="say"><code id="p'+i+'">'+esc(phrase)+'</code><button class="small" data-copy="p'+i+'">Скопировать</button></div>'
         +'<div class="acts">'+act+'</div></article>';
-    }).join('') : '<div class="empty">На сегодня всё отправлено. Новые демо и первые сообщения – в карте охоты.</div>';
+    }).join('') : (first ? '' : '<div class="empty">На сегодня всё отправлено. Новые демо и первые сообщения – в карте охоты.</div>'));
     // фильтры
     $('filters').innerHTML = ['all'].concat(Object.keys(hunts)).map(function(h){return '<button data-f="'+esc(h)+'" class="'+(filter===h?'on':'')+'">'+(h==='all'?'все охоты':esc(hunts[h]))+'</button>'}).join('');
     // все
@@ -184,6 +194,7 @@ select{font:inherit;font-size:13px;padding:5px 8px;border-radius:8px;border:1px 
     var c=e.target.closest('[data-copy]');
     if(c){var txt=$(c.dataset.copy).textContent;(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).catch(function(){}).then(function(){c.textContent='Скопировано';setTimeout(function(){c.textContent='Скопировать'},1400)});return}
     var f=e.target.closest('[data-f]'); if(f){filter=f.dataset.f;render();return}
+    var fs1=e.target.closest('[data-first]'); if(fs1){var rr=ready[+fs1.dataset.first];fs1.disabled=true;post('/__status',{hunt:rr.hunt,n:rr.n,status:'написал'}).then(function(){note('№'+rr.n+' '+rr.name+': первое сообщение отправлено – серия пошла. Отметьте мессенджер в списке ниже',true);return load()}).catch(function(err){fs1.disabled=false;note('Не сохранилось: '+err.message)});return}
     var a=e.target.closest('[data-act]'); if(!a) return;
     var r=rows[+a.dataset.i]; a.disabled=true;
     var p = a.dataset.act==='off' ? post('/__demo',{hunt:r.hunt,n:r.n,off:true}) : post('/__touch',{hunt:r.hunt,n:r.n,touch:a.dataset.act==='t2'?2:3});
