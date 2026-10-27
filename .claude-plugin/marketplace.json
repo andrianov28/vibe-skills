@@ -103,7 +103,7 @@
     {
       "name": "vibe-bot",
       "description": "Бот-продавец веб-мастера в Telegram: собирается из витрины одной фразой, живёт в Cloudflare бесплатно – работы, цены, бриф и тёплая заявка ученику",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "source": "./plugins/vibe-bot",
       "category": "productivity",
       "keywords": [
