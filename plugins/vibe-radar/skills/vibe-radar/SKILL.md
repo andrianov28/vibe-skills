@@ -36,7 +36,7 @@ description: Радар заказов – каждое утро сам нахо
    ```
    и забирай `window._prog`, пока `window._read` не готов. Готовый `JSON.stringify(window._read)` сохрани в файл `~/.vibe/radar/kandidaty.json` (если ответ большой – забирай частями `.slice(…)`).
 7. `node radar.mjs ocenka --file "~/.vibe/radar/kandidaty.json"` – вердикт по каждому: годен / зеркало биржи / мёртвый / нет заказов на сайты, и примеры прямых заказов.
-8. Годные – в список: `node radar.mjs kanaly add @a @b …` (группы – с `--group`). Держи 5–15 каналов. Покажи ученику таблицу: канал, сколько прямых заказов на сайты за последние посты, пример заказа.
+8. Годные – в список: `node radar.mjs kanaly add a b …`, группы – отдельной командой `kanaly add c d --group`. Имена пиши **без @**: в PowerShell `@имя` пропадает (это его синтаксис). Перед добавлением глазами проверь примеры «годных»: если один и тот же заказ за пару минут вышел в нескольких каналах или в посте «Можно заработать: $…» / «Бюджет: от … до …» – это зеркало Kwork, не добавляй. Держи 5–15 каналов. Покажи ученику таблицу: канал, сколько прямых заказов на сайты за последние посты, пример заказа.
 9. Честно одной строкой: «Прямых заказов в Telegram немного – обычно несколько в неделю на весь список. Радар ценен тем, что видит их в первые часы и сразу даёт отклик».
 
 ## «Включи радар»
@@ -86,9 +86,9 @@ https://kwork.ru/projects/…
 node radar.mjs init --vitrina <адрес> --bot "<папка бота>"
 node radar.mjs check
 node radar.mjs frazy --n 3
-node radar.mjs ocenka @канал1 @канал2          (публичные каналы с t.me, без браузера)
+node radar.mjs ocenka канал1 канал2            (публичные каналы с t.me, без браузера; имена без @)
 node radar.mjs ocenka --file kandidaty.json    (каналы и группы, прочитанные в Telegram Web)
-node radar.mjs kanaly | kanaly add @a --group | kanaly remove @a
+node radar.mjs kanaly | kanaly add a b | kanaly add группа --group | kanaly remove a
 node radar.mjs sbor --hours 24 --import prochitano.json
 node radar.mjs kwork
 node radar.mjs svodka "<файл сводки .md>"

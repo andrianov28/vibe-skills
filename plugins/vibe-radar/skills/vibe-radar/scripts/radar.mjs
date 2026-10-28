@@ -140,8 +140,11 @@ if (cmd === 'init') {
       console.log(`@${r.c} «${r.title || ''}»${r.group ? ' (группа)' : ''}: ${r.v}${r.n != null ? ` – постов ${r.n}, зеркальных ${r.mirror}, прямых заказов на сайты ${r.direct}, последний ${r.last || '–'}` : ''}`);
       for (const p of r.ex || []) console.log(`    · ${p.d?.slice(5, 16).replace('T', ' ')} ${p.t.replace(/\s+/g, ' ').slice(0, 140)}`);
     }
-    const good = res.filter((r) => r.v === 'годен').map((r) => '@' + r.c);
-    if (good.length) console.log(`\nгодных: ${good.length} → kanaly add ${good.join(' ')}${res.some((r) => r.v === 'годен' && r.group) ? ' (группы – с флагом --group)' : ''}`);
+    // подсказка без @: в PowerShell «@имя» – это splatting, имя пропадает
+    const good = res.filter((r) => r.v === 'годен' && !r.group).map((r) => r.c);
+    const goodG = res.filter((r) => r.v === 'годен' && r.group).map((r) => r.c);
+    if (good.length) console.log(`\nгодных каналов: ${good.length} → kanaly add ${good.join(' ')}`);
+    if (goodG.length) console.log(`годных групп: ${goodG.length} → kanaly add ${goodG.join(' ')} --group`);
   } else {
     const list = rest.filter((x) => !x.startsWith('--')).map(norm).filter(Boolean);
     if (!list.length) fail('укажи каналы: ocenka @канал1 @канал2');
@@ -157,9 +160,12 @@ if (cmd === 'init') {
     }
   }
 } else if (cmd === 'kanaly') {
-  const k = readJ('kanaly.json', []); const [sub, ...xs] = rest;
-  if (sub === 'add') { for (const x of xs.map(norm).filter(Boolean)) if (!k.find((y) => y.c === x)) k.push({ c: x, added: new Date().toISOString().slice(0, 10), group: process.argv.includes('--group') }); writeJ('kanaly.json', k); ok(`в моих каналах ${k.length}`); }
-  else if (sub === 'remove') { const rm = xs.map(norm); const k2 = k.filter((y) => !rm.includes(y.c)); writeJ('kanaly.json', k2); ok(`в моих каналах ${k2.length}`); }
+  // флаги (--group) – не каналы; записи вида «--group» от версии 1.0.0 убираем сами
+  const k = readJ('kanaly.json', []).filter((y) => y.c && !y.c.startsWith('-')); const [sub, ...args] = rest;
+  const xs = args.filter((x) => !String(x).startsWith('-')).map(norm).filter(Boolean);
+  if ((sub === 'add' || sub === 'remove') && !xs.length) fail(`укажи каналы: kanaly ${sub} канал1 канал2 (в PowerShell без @ или в кавычках: '@канал' – иначе PowerShell съест имя)`);
+  if (sub === 'add') { const isGroup = process.argv.includes('--group'); const added = []; for (const x of xs) if (!k.find((y) => y.c.toLowerCase() === x.toLowerCase())) { k.push({ c: x, added: new Date().toISOString().slice(0, 10), group: isGroup }); added.push('@' + x); } writeJ('kanaly.json', k); ok(`добавлено: ${added.join(' ') || 'ничего нового'}${isGroup && added.length ? ' (группы)' : ''} · в моих каналах ${k.length}`); }
+  else if (sub === 'remove') { const rm = xs.map((x) => x.toLowerCase()); const k2 = k.filter((y) => !rm.includes(y.c.toLowerCase())); writeJ('kanaly.json', k2); ok(`убрано: ${k.length - k2.length} · в моих каналах ${k2.length}`); }
   else { if (!k.length) info('моих каналов пока нет: «найди мне каналы с заказами»'); k.forEach((y, i) => console.log(`${i + 1}. @${y.c}${y.group ? ' (группа – читать в Telegram Web)' : ''} · с ${y.added}`)); }
 } else if (cmd === 'sbor') {
   const k = readJ('kanaly.json', []); const seen = readJ('seen.json', {});
