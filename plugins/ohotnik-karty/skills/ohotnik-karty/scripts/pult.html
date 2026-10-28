@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пульт</title>
+<style>
+:root{--page:#F5F6FA;--card:#fff;--ink:#2B292E;--mute:#6b6970;--line:#e8e8ec;--blue:#567FE8;--blue-soft:#EEF2FD;--amber:#E9A23B;--amber-soft:#FFF6E5;--red:#E3554F;--green:#3FA36B;--green-soft:#E8F6EE;--rail:#E3E4EA}
+@media (prefers-color-scheme:dark){:root{--page:#151418;--card:#242327;--ink:#ECEAF0;--mute:#A6A3AD;--line:#3A393F;--blue:#7C9CF0;--blue-soft:#283150;--amber-soft:#3A3220;--green-soft:#1F3428;--rail:#3A393F}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:20px}
+.top h1{margin:0;font-size:30px;line-height:1.1;letter-spacing:-.02em}
+.top .date{color:var(--mute);font-size:15px;margin-top:4px}
+.top .links{font-size:14px;display:flex;gap:14px;flex-wrap:wrap}
+.note{padding:10px 14px;border-radius:10px;margin:0 0 10px;font-size:14px;background:var(--amber-soft)}
+/* лампы источников */
+.lamps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.lamp{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;position:relative}
+.lamp b{display:block;font-size:30px;line-height:1.05;font-variant-numeric:tabular-nums}
+.lamp span{font-size:13px;color:var(--mute)}
+.lamp i{position:absolute;top:14px;right:14px;width:10px;height:10px;border-radius:50%;background:var(--rail)}
+.lamp.hot i{background:var(--amber);box-shadow:0 0 0 4px var(--amber-soft)}
+.lamp.hot{border-color:var(--amber)}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:32px 0 12px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+h2 .count{display:inline-block;min-width:22px;padding:0 7px;border-radius:999px;background:var(--ink);color:var(--page);text-align:center;letter-spacing:0}
+h2 .src{font-weight:600;letter-spacing:0;text-transform:none;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px;border-left:5px solid var(--line)}
+.card.new{border-left-color:var(--amber)}
+.card.done{border-left-color:var(--green)}
+.card .head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:13px;color:var(--mute)}
+.card .who{font-size:17px;font-weight:700;line-height:1.25;color:var(--ink)}
+.qa{display:grid;gap:4px;font-size:14px}
+.qa div span{color:var(--mute)}
+.txt{font-size:14px;white-space:pre-line;max-height:7.5em;overflow:hidden;position:relative}
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:7px 14px;border:1px solid var(--blue);background:var(--blue);color:#fff;text-decoration:none}
+select{font:inherit;font-size:13px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.btn:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:18px 20px;color:var(--mute)}
+.empty code,.say{font:13px ui-monospace,Consolas,monospace;background:var(--blue-soft);color:var(--ink);border-radius:6px;padding:2px 7px}
+.list{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:center;padding:12px 16px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row b{line-height:1.3}.row small{display:block;color:var(--mute);font-size:12.5px}
+.tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--amber-soft);white-space:nowrap}
+.tag.late{background:var(--red);color:#fff}
+.week{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.wk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.wk b{display:block;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.wk span{font-size:12px;color:var(--mute)}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-top:12px}
+summary{cursor:pointer;font-weight:600}
+details pre{white-space:pre-wrap;font:13px/1.5 ui-monospace,Consolas,monospace;margin:10px 0 0;max-height:420px;overflow:auto}
+@media (prefers-reduced-motion:no-preference){.card,.lamp{animation:in .35s ease both}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div><h1>Пульт</h1><div class="date" id="date">Загружаю…</div></div>
+    <nav class="links"><a href="табло.html">Табло отправок</a></nav>
+  </header>
+  <div id="notes"></div>
+  <div class="lamps" id="lamps"></div>
+
+  <h2 id="s-leads">Заявки из бота <span class="count" id="c-leads">0</span><span class="src">люди сами прошли бриф – ответьте в течение часа</span></h2>
+  <div id="leads"></div>
+
+  <h2 id="s-talk">В разговоре <span class="count" id="c-talk">0</span><span class="src">владельцы, которые ответили на демо</span></h2>
+  <div id="talk"></div>
+
+  <h2 id="s-today">Касания на сегодня <span class="count" id="c-today">0</span><span class="src">охоты с Карт – подробно на <a href="табло.html">табло</a></span></h2>
+  <div id="today"></div>
+
+  <h2 id="s-radar">Заказы радара <span class="count" id="c-radar">0</span><span class="src">прямые заказчики из Telegram</span></h2>
+  <div id="radar"></div>
+  <div id="kwork"></div>
+
+  <h2 id="s-gz">Госзакупки <span class="count" id="c-gz">0</span><span class="src">последний поиск</span></h2>
+  <div id="gz"></div>
+
+  <h2>Неделя <span class="src" id="wk-range"></span></h2>
+  <div class="week" id="week"></div>
+</div>
+<script>
+(function(){
+  var API = location.protocol === 'file:' ? 'http://localhost:4790' : '';
+  var LEAD_ST = ['новая','написал','в работе','оплатил','мимо'], ORDER_ST = ['новый','откликнулся','ответил','взял','мимо'];
+  var $ = function(id){return document.getElementById(id)};
+  var esc = function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var mon = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  var wd = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+  var dd = function(s){if(!s)return '–';var d=new Date(String(s).slice(0,10)+'T12:00:00');return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')};
+  var tm = function(s){var d=new Date(s);return dd(s)+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+  var rub = function(n){return n?Number(n).toLocaleString('ru-RU')+' ₽':'–'};
+  var post = function(p,body){return fetch(API+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.error);return j})};
+  var sel = function(list,cur,attr){return '<select '+attr+' aria-label="Статус">'+list.map(function(s){return '<option'+(s===cur?' selected':'')+'>'+s+'</option>'}).join('')+'</select>'};
+  var empty = function(html){return '<div class="empty">'+html+'</div>'};
+  var where = function(r){return [r.city,r.niche].filter(Boolean).join(' · ')||r.hunt};
+  var P;
+
+  function load(){
+    fetch(API+'/__pult').then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.error);P=j;render()})
+      .catch(function(){$('date').textContent='';$('notes').innerHTML='<div class="note">Пульт открыт без сервера – данные не видны. Скажите Клоду «открой пульт».</div>'});
+  }
+
+  function render(){
+    var t=new Date(P.today+'T12:00:00');
+    $('date').textContent=wd[t.getDay()]+', '+t.getDate()+' '+mon[t.getMonth()];
+    var notes=[]; if(P.bot.note) notes.push('Бот: '+P.bot.note+'.');
+    $('notes').innerHTML=notes.map(function(n){return '<div class="note">'+esc(n)+'</div>'}).join('');
+
+    var newLeads=P.bot.leads.filter(function(l){return l.status==='новая'});
+    var newOrders=P.radar.orders.filter(function(o){return o.status==='новый'});
+    var lamps=[['s-leads',newLeads.length,'новых заявок из бота',newLeads.length],['s-talk',P.talking.length,'в разговоре',P.talking.length],
+      ['s-today',P.tasks.length+P.ready.length,'касаний на сегодня',0],['s-radar',newOrders.length,'новых заказов радара',newOrders.length],['s-gz',P.tenders.list.length,'госзакупок в поиске',0]];
+    $('lamps').innerHTML=lamps.map(function(l){return '<a class="lamp'+(l[3]?' hot':'')+'" href="#'+l[0]+'"><i></i><b>'+l[1]+'</b><span>'+l[2]+'</span></a>'}).join('');
+
+    // заявки
+    $('c-leads').textContent=newLeads.length;
+    $('leads').innerHTML=!P.bot.bot?empty('Бота пока нет – его собирают в уроке про бота: <code>собери бота из витрины</code>'):
+      !P.bot.leads.length?empty('Заявок пока нет. Они появятся здесь сами, когда человек пройдёт бриф в вашем боте.'):
+      '<div class="grid">'+P.bot.leads.map(function(l){
+        var done=l.status!=='новая';
+        var link=l.username?'https://t.me/'+encodeURIComponent(l.username):'tg://user?id='+l.userId;
+        return '<div class="card '+(done?'done':'new')+'"><div class="head"><span>'+tm(l.at)+'</span><span>'+esc(l.status)+'</span></div>'+
+          '<div class="who">'+esc(l.who||'Без имени')+'</div><div class="qa">'+l.answers.map(function(a){return '<div><span>'+esc(a.q)+':</span> '+esc(a.a||'–')+'</div>'}).join('')+'</div>'+
+          '<div class="acts"><a class="btn" href="'+link+'" target="_blank" rel="noopener">Написать в Telegram</a>'+sel(LEAD_ST,l.status,'data-lead="'+esc(l.key)+'"')+'</div></div>';
+      }).join('')+'</div>';
+
+    // в разговоре
+    $('c-talk').textContent=P.talking.length;
+    $('talk').innerHTML=!P.talking.length?empty('Пока никто не ответил на демо. Ответил владелец – отметьте «ответил» на табло, и он появится здесь.'):
+      '<div class="list">'+P.talking.map(function(r){return '<div class="row"><div><b>№'+r.n+' '+esc(r.name)+'</b><small>'+esc(where(r))+(r.channel?' · '+esc(r.channel):'')+'</small></div><span class="tag">ответил</span></div>'}).join('')+'</div>';
+
+    // касания
+    var items=P.ready.map(function(r){return {lbl:'Первое сообщение',r:r,late:false}}).concat(P.tasks.map(function(t){return {lbl:t.label,r:t,late:t.late}}));
+    $('c-today').textContent=items.length;
+    $('today').innerHTML=!items.length?empty('На сегодня касаний нет. Новые первые сообщения – из карты охоты.'):
+      '<div class="list">'+items.map(function(x){return '<div class="row"><div><b>№'+x.r.n+' '+esc(x.r.name)+'</b><small>'+esc(where(x.r))+'</small></div><span class="tag'+(x.late?' late':'')+'">'+esc(x.lbl)+'</span></div>'}).join('')+'</div>';
+
+    // радар
+    $('c-radar').textContent=newOrders.length;
+    $('radar').innerHTML=!P.radar.radar?empty('Радар не настроен: <code>найди мне каналы с заказами</code>, потом <code>включи радар</code>'):
+      !P.radar.orders.length?empty('Прямых заказов пока нет. Радар добавит их после утреннего запуска.'):
+      '<div class="grid">'+P.radar.orders.slice(0,30).map(function(o){
+        var c=o.contact&&o.contact.charAt(0)==='@'?'https://t.me/'+o.contact.slice(1):o.url;
+        return '<div class="card '+(o.status==='новый'?'new':'done')+'"><div class="head"><span>'+esc(o.kanal||'')+' · '+dd(o.d)+'</span><a href="'+esc(o.url)+'" target="_blank" rel="noopener">пост</a></div>'+
+          '<div class="txt">'+esc(o.t)+'</div><div class="acts"><a class="btn" href="'+esc(c)+'" target="_blank" rel="noopener">'+(o.contact?'Написать '+esc(o.contact):'Открыть пост')+'</a>'+sel(ORDER_ST,o.status,'data-order="'+esc(o.url)+'"')+'</div></div>';
+      }).join('')+'</div>';
+    $('kwork').innerHTML=P.radar.svodka?'<details><summary>Утренняя сводка радара от '+dd(P.radar.svodka.date)+' – Telegram и Kwork с откликами</summary><pre>'+esc(P.radar.svodka.text)+'</pre></details>':'';
+
+    // госзакупки
+    $('c-gz').textContent=P.tenders.list.length;
+    $('gz').innerHTML=!P.tenders.have?empty('Поиска ещё не было: <code>найди госзакупки на сайты</code>'):
+      !P.tenders.list.length?empty('В поиске от '+dd(P.tenders.date)+' открытых закупок на сайты нет – это нормально, их немного. Следующий поиск – по напоминанию.'):
+      '<div class="list">'+P.tenders.list.map(function(z){return '<div class="row"><div><b><a href="'+esc(z.url)+'" target="_blank" rel="noopener">'+esc(z.obj)+'</a></b><small>'+esc(z.cust||'')+(z.smp?' · только малый бизнес':'')+'</small></div><span class="tag">'+rub(z.price)+(z.end?' · до '+esc(z.end):'')+'</span></div>'}).join('')+'</div>';
+
+    // неделя
+    var w=P.week; $('wk-range').textContent=dd(w.from)+'–'+dd(w.to);
+    $('week').innerHTML=[[w.demos+' / '+w.plan,'демо опубликовано'],[w.first,'первых сообщений'],[w.replied,'ответили'],[w.paid,'оплатили'],[P.bot.leads.filter(function(l){return l.at.slice(0,10)>=w.from}).length,'заявок из бота']]
+      .map(function(x){return '<div class="wk"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join('');
+  }
+
+  document.addEventListener('change',function(e){
+    var s=e.target; if(s.tagName!=='SELECT')return;
+    var p=s.dataset.lead?post('/__lead',{key:s.dataset.lead,status:s.value}):s.dataset.order?post('/__order',{url:s.dataset.order,status:s.value}):null;
+    if(p) p.then(load).catch(function(err){$('notes').innerHTML='<div class="note">Не сохранилось: '+esc(err.message)+'</div>'});
+  });
+  load();
+})();
+</script>
+</body>
+</html>

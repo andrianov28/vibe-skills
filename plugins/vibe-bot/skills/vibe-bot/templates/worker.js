@@ -1,6 +1,7 @@
 // Бот-продавец веб-мастера: Cloudflare Worker, Telegram webhook, без ИИ – только кнопки и бриф.
 // Конфиг (CONFIG) вписывает скрипт сборки bot.mjs из bot.json. Секреты: BOT_TOKEN, WEBHOOK_SECRET.
-// Хранилище STATE (KV): шаг брифа (без телефона) – 2 часа, память разговора с нейросетью – 30 минут, счётчик ответов – сутки.
+// Хранилище STATE (KV): шаг брифа (без телефона) – 2 часа, память разговора с нейросетью – 30 минут, счётчик ответов – сутки,
+// готовая заявка – ждёт, пока пульт ученика её заберёт (GET /leads, потом POST /leads/done), но не дольше 7 дней.
 // Секрет KIE_KEY – ключ kie.ai, если включены «мозги» (CONFIG.ai).
 const CONFIG = /*CONFIG*/{};
 
@@ -181,8 +182,28 @@ async function handle(update, env) {
   }
 }
 
+// пульт ученика забирает заявки: ключ – тот же WEBHOOK_SECRET (лежит только у ученика в .env и в Cloudflare)
+async function leads(request, env, url) {
+  const json = (b, status = 200) => new Response(JSON.stringify(b), { status, headers: { "content-type": "application/json; charset=utf-8" } });
+  if (!env.WEBHOOK_SECRET || request.headers.get("X-Owner-Key") !== env.WEBHOOK_SECRET) return json({ ok: false }, 403);
+  if (url.pathname === "/leads" && request.method === "GET") {
+    const list = await env.STATE.list({ prefix: "lead:" });
+    const out = [];
+    for (const k of list.keys) { const v = await env.STATE.get(k.name); if (v) out.push({ key: k.name, ...JSON.parse(v) }); }
+    return json({ ok: true, leads: out });
+  }
+  if (url.pathname === "/leads/done" && request.method === "POST") {
+    const { keys = [] } = await request.json().catch(() => ({}));
+    for (const k of keys) if (String(k).startsWith("lead:")) await env.STATE.delete(String(k));
+    return json({ ok: true, deleted: keys.length });
+  }
+  return json({ ok: false }, 404);
+}
+
 export default {
   async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    if (url.pathname.startsWith("/leads")) return leads(request, env, url);
     if (request.method !== "POST") return new Response("Бот работает", { status: 200 });
     if (request.headers.get("X-Telegram-Bot-Api-Secret-Token") !== env.WEBHOOK_SECRET) return new Response("forbidden", { status: 403 });
     const update = await request.json().catch(() => null);

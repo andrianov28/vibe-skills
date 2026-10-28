@@ -10,6 +10,7 @@
  *   node bot.mjs deploy "<папка бота>"                               выложить бота в Cloudflare и подключить к Telegram
  *   node bot.mjs check "<папка бота>"                                проверить связь: вебхук + тестовое сообщение владельцу
  *   node bot.mjs refresh "<папка бота>" [--vitrina "<папка витрины>"] обновить работы и цены из витрины (потом deploy)
+ *   node bot.mjs zayavki "<папка бота>"                              забрать заявки из Cloudflare в заявки.json (их показывает пульт)
  *
  * Токен бота – только в файле .env папки бота (BOT_TOKEN=…), в чат его не вставлять.
  */
@@ -180,6 +181,21 @@ if (cmd === "init" || cmd === "refresh") {
   const s = await tg(t, "sendMessage", { chat_id: cfg.ownerChatId, text: "Проверка: бот на связи, заявки придут сюда." });
   if (!s.ok) fail(`не смог написать тебе: ${s.description}. Открой бота и нажми «Старт», потом «запомни мой чат»`);
   ok(`связь есть: в очереди ${w.pending_update_count || 0}, тебе в Telegram ушло проверочное сообщение`);
+} else if (cmd === "zayavki") {
+  // забрать заявки из Cloudflare в файл заявки.json папки бота (их же показывает пульт Охотника)
+  const dir = path.resolve(dirArg || "."); const cfg = readJson(cfgPath(dir)); const key = readEnv(dir).WEBHOOK_SECRET;
+  if (!cfg.workerUrl || !key) fail("бот ещё не выложен: «выложи бота»");
+  const r = await fetch(cfg.workerUrl + "/leads", { headers: { "X-Owner-Key": key } }).then((x) => x.json()).catch(() => null);
+  if (!r) fail("Cloudflare не ответил – из России адрес бота иногда не открывается, попробуй позже");
+  if (!r.ok) fail("бот не отдал заявки: его нужно обновить – «выложи бота» (новая версия умеет хранить заявки для пульта)");
+  const f = path.join(dir, "заявки.json");
+  const base = fs.existsSync(f) ? readJson(f) : { leads: [] };
+  const have = new Set(base.leads.map((l) => l.key));
+  const fresh = r.leads.filter((l) => !have.has(l.key)).map((l) => ({ ...l, status: "новая", statusAt: l.at.slice(0, 10) }));
+  base.leads.push(...fresh); fs.writeFileSync(f, JSON.stringify(base, null, 2));
+  if (r.leads.length) await fetch(cfg.workerUrl + "/leads/done", { method: "POST", headers: { "X-Owner-Key": key, "content-type": "application/json" }, body: JSON.stringify({ keys: r.leads.map((l) => l.key) }) }).catch(() => {});
+  ok(`новых заявок: ${fresh.length}, всего в заявки.json: ${base.leads.length}`);
+  for (const l of base.leads.filter((x) => x.status === "новая")) info(`${l.at.slice(0, 16).replace("T", " ")} · ${l.who} · ${l.answers.map((a) => a.a).filter(Boolean).join(" · ").slice(0, 140)}`);
 } else {
-  console.log("команды: init | open-env | token | owner | login | deploy | check | refresh");
+  console.log("команды: init | open-env | token | owner | login | deploy | check | refresh | zayavki");
 }

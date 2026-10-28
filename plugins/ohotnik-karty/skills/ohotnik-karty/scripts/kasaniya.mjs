@@ -15,7 +15,7 @@ export const STATUSES = ['новый', 'написал', 'ответил', 'оп
 export const CHANNELS = ['WhatsApp', 'Telegram', 'MAX', 'ВКонтакте', 'почта', 'другое'];
 export const STOP = ['ответил', 'оплатил', 'отказ'];
 export const DAYS = { t2: 1, t3: 3, off: 10 };
-export const VERSION = '1.4.0'; // версия сервера карты: устаревший сервер (после «обнови скиллы») перезапускается сам
+export const VERSION = '1.5.0'; // версия сервера карты: устаревший сервер (после «обнови скиллы») перезапускается сам
 
 const log = (b, entry) => (b.statusLog = b.statusLog || []).push({ at: stamp(), ...entry });
 

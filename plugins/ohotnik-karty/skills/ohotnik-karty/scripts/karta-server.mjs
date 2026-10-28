@@ -3,6 +3,10 @@
 // node karta-server.mjs --root "<папка, где лежат охоты (ohota)>" [--port 4790]
 // GET  /<охота>/отчёт.html                – файлы охот (отчёт, база, csv)
 // GET  /табло.html                        – табло отправок по всем охотам (страница – scripts/tablo.html)
+// GET  /пульт.html                        – пульт: охоты + заявки бота + радар + госзакупки (страница – scripts/pult.html)
+// GET  /__pult                            – данные пульта (заодно забирает новые заявки из бота)
+// POST /__lead  {key, status}             – статус заявки из бота
+// POST /__order {url, status}             – статус заказа радара
 // GET  /__ping                            – жив ли сервер
 // GET  /__tablo                           – строки табло (кому писали) с расписанием и задачами на сегодня
 // POST /__status  {hunt, n, status}       – статус (первое «написал» = касание 1, день 0)
@@ -16,6 +20,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { setStatus, setTouch, setChannel, setDemo, scan, ready, today, week, VERSION } from './kasaniya.mjs';
+import { pultData, setLead, setOrder } from './pult.mjs';
 
 const args = process.argv.slice(2);
 const arg = (n, d) => { const i = args.indexOf(n); return i > -1 && args[i + 1] ? args[i + 1] : d; };
@@ -54,6 +59,8 @@ const ROUTES = {
   '/__touch': (q) => { const b = edit(q.hunt, q.n, (b) => setTouch(b, q.touch, 'табло')); return { touches: b.touches, status: b.status }; },
   '/__channel': (q) => { const b = edit(q.hunt, q.n, (b) => setChannel(b, q.channel, 'карта')); return { channel: b.channel }; },
   '/__demo': (q) => { const b = edit(q.hunt, q.n, (b) => setDemo(b, !!q.off, 'табло')); return { demoOff: b.demoOff }; },
+  '/__lead': (q) => ({ lead: setLead(root, q.key, q.status) }),
+  '/__order': (q) => ({ order: setOrder(q.url, q.status) }),
 };
 
 http.createServer((req, res) => {
@@ -63,6 +70,7 @@ http.createServer((req, res) => {
   if (url.pathname === '/__ping') return send(res, 200, { ok: true, root, version: VERSION });
   if (url.pathname === '/__quit' && req.method === 'POST') { send(res, 200, { ok: true }); return setTimeout(() => process.exit(0), 100); }
   if (url.pathname === '/__tablo') { try { return send(res, 200, { ok: true, today: today(), rows: scan(root), ready: ready(root), week: week(root) }); } catch (e) { return send(res, 500, { ok: false, error: e.message }); } }
+  if (url.pathname === '/__pult') { pultData(root).then((p) => send(res, 200, p)).catch((e) => send(res, 500, { ok: false, error: e.message })); return; }
   if (ROUTES[url.pathname] && req.method === 'POST') {
     let raw = '';
     req.on('data', (c) => (raw += c));
@@ -75,6 +83,7 @@ http.createServer((req, res) => {
   let rel;
   try { rel = decodeURIComponent(url.pathname); } catch { return send(res, 400, 'bad path', 'text/plain'); }
   if (rel === '/табло.html' || rel === '/') return send(res, 200, fs.readFileSync(path.join(here, 'tablo.html')), TYPES['.html']);
+  if (rel === '/пульт.html') return send(res, 200, fs.readFileSync(path.join(here, 'pult.html')), TYPES['.html']);
   // статика: только файлы внутри root
   const file = path.resolve(root, '.' + rel);
   if (!file.startsWith(root) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return send(res, 404, 'нет файла', 'text/plain; charset=utf-8');
