@@ -126,7 +126,7 @@ function studiya() {
   const t = readJson(path.join(out, "текст.json"));
   if (!t || !t.phrases?.length) fail("нет текста отзыва – сначала анкета и текст (отзыв/текст.json)");
   const an = readJson(path.join(out, "анкета.json"), {});
-  const data = { name: t.name || "", face: !!an.face && an.record !== "phone", phone: an.record === "phone" || argv.includes("--telefon"), phrases: t.phrases.map((p) => ({ t: p.t })) };
+  const data = { name: t.name || "", face: !!an.face && an.record !== "phone", phone: an.record === "phone" || argv.includes("--telefon"), voice: an.face === false, phrases: t.phrases.map((p) => ({ t: p.t })) };
   const page = fs.readFileSync(path.join(here, "studiya.html"), "utf8").replace("/*DATA*/{}", JSON.stringify(data));
   let saved = 0, phoneTimer = null;
   const server = http.createServer((req, res) => {
@@ -166,7 +166,9 @@ function studiya() {
 // ---------- повторы фраз: расшифровка голоса и последний дубль ----------
 const norm = (w) => String(w).toLowerCase().replace(/ё/g, "е").replace(/[^\p{L}\p{N}]+/gu, "");
 const toks = (s) => String(s).replace(/\*/g, "").split(/[\s\-–—]+/).map(norm).filter(Boolean);
-const same = (a, b) => a === b || /^\d+$/.test(a) || /^\d+$/.test(b) || (a.length >= 4 && b.length >= 4 && a.slice(0, 4) === b.slice(0, 4));
+// расшифровка пишет числа цифрами («80»), в тексте они словами («восемьдесят»): цифра совпадает только со словом-числом
+const NUMWORD = /^(\d|од|дв|тр|чет|пят|шест|сем|вос|дев|дес|сто|сот|тыс|сорок|милл|полтор)/;
+const same = (a, b) => a === b || (/^\d+$/.test(a) && NUMWORD.test(b)) || (/^\d+$/.test(b) && NUMWORD.test(a)) || (a.length >= 4 && b.length >= 4 && a.slice(0, 4) === b.slice(0, 4));
 function asrWords(rec) {
   const dir = path.join(out, "_asr");
   const cache = path.join(dir, "transcript.json"), stamp = path.join(dir, "zapis.txt");
@@ -239,14 +241,26 @@ async function sobrat() {
   const words = asrWords(rec);
   const tk = words ? takes(words, t.phrases.map((p) => p.t)) : null;
   if (tk) {
-    // начало куска речи, где стоит слово: конец паузы, которая началась до слова (расшифровка часто ставит слово чуть раньше конца паузы)
-    const chunkStart = (x) => Math.max(keeps[0][0], ...inner.filter((s) => s.s < x - 0.05).map((s) => s.e));
-    const ranges = tk.map((r) => [chunkStart(words[r.a].s) - PAD, words[r.b].e + PAD]);
-    for (let i = 0; i + 1 < ranges.length; i++) ranges[i][1] = Math.min(ranges[i][1], ranges[i + 1][0]);
+    // начало фразы – первое слово после конца предыдущей фразы, если между ними до 3 слов и меньше 1,5 с:
+    // поиск часто цепляется за второе слово («я пришёл» вместо «Когда я пришёл») или не узнаёт первое («Вот продавец» = «Бот-продавец»)
+    const startWord = (i) => {
+      const a = tk[i].a, j = i > 0 ? tk[i - 1].b + 1 : 0;
+      return a - j >= 0 && a - j <= 3 && words[a].s - words[j].s < 1.5 ? j : a;
+    };
+    const ranges = tk.map((r, i) => [words[startWord(i)].s - PAD, words[r.b].e + PAD]);
+    ranges[0][0] = Math.max(0, ranges[0][0]);
+    for (let i = 0; i + 1 < ranges.length; i++) {
+      // стык фраз: посередине между последним словом и первым словом следующей
+      const m = (words[tk[i].b].e + words[startWord(i + 1)].s) / 2;
+      if (ranges[i][1] > ranges[i + 1][0]) { ranges[i][1] = Math.max(m, words[tk[i].b].e); ranges[i + 1][0] = Math.min(m, words[startWord(i + 1)].s); }
+    }
     ranges[ranges.length - 1][1] = Math.max(ranges[ranges.length - 1][1], keeps[keeps.length - 1][1]);
+    // пауза кончается не позже начала следующего слова по расшифровке: тихое начало слова (шумодав Telegram) детектор тишины считает паузой.
+    // Конец слова расшифровка часто растягивает в тишину – там верим детектору.
+    const pauses = inner.map((x) => { const ns = Math.min(x.e, ...words.filter((w) => w.s > x.s + 0.05).map((w) => w.s)); return [x.s, ns]; })
+      .filter(([a, b]) => b - a > MAXP).map(([a, b]) => [a + PAD, b - PAD]);
     const next = [];
-    for (const [a, b] of keeps) for (const [p, q] of ranges) { const x = Math.max(a, p), y = Math.min(b, q); if (y - x > 0.05) next.push([x, y]); }
-    // выброшенные куски речи (дубли и фальстарты): почти не пересекаются с последними дублями
+    for (const [p, q] of ranges) { let cur = p; for (const [x, y] of pauses) if (x > cur && y < q) { next.push([cur, x]); cur = y; } if (q - cur > 0.05) next.push([cur, q]); }
     dubli = keeps.filter(([a, b]) => b - a > 0.5 && ranges.reduce((acc, [p, q]) => acc + Math.max(0, Math.min(b, q) - Math.max(a, p)), 0) < 0.3 * (b - a)).length;
     keeps = next;
     bounds = ranges.slice(1).map((r) => r[0]);
@@ -255,7 +269,7 @@ async function sobrat() {
   const map = (x) => { let acc = 0; for (const [p, q] of keeps) { if (x <= p) return acc; if (x <= q) return acc + x - p; acc += q - p; } return acc; };
   const E = +map(Infinity).toFixed(3);
   const D = +(E + 2.6).toFixed(3);
-  const cutAway = +(full - E).toFixed(1);
+  const cutAway = Math.max(0, +(full - E).toFixed(1));
 
   // границы между фразами (во времени записи): по расшифровке, иначе – по Пробелу, притянутому к паузам
   const mids = inner.map((s) => (s.s + s.e) / 2);
