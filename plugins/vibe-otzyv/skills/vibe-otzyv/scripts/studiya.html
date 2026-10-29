@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Студия отзыва</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #14161c; --panel: #1d2029; --line: #2c303b; --ink: #f4f5f8; --soft: #9aa1b2; --blue: #567FE8; --blue2: #8fb0ff; --rec: #ff4d4f; --ok: #3ccf8e; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: Manrope, Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+  header { display: flex; align-items: center; gap: 14px; padding: 18px 28px; border-bottom: 1px solid var(--line); }
+  header b { font-size: 18px; } header span { color: var(--soft); font-size: 15px; }
+  #state { margin-left: auto; font-size: 15px; color: var(--soft); display: flex; align-items: center; gap: 8px; }
+  #dot { width: 12px; height: 12px; border-radius: 50%; background: var(--line); }
+  #dot.rec { background: var(--rec); animation: blink 1s infinite; }
+  @keyframes blink { 50% { opacity: .3; } }
+  main { flex: 1; display: grid; grid-template-columns: 1fr 340px; gap: 0; }
+  #prompter { padding: 48px 56px; display: flex; flex-direction: column; justify-content: center; gap: 28px; border-right: 1px solid var(--line); }
+  #prev { font-size: 22px; color: #555c6c; min-height: 30px; }
+  #cur { font-size: clamp(34px, 4.2vw, 58px); font-weight: 800; line-height: 1.22; letter-spacing: -.01em; }
+  #cur em, #next em { font-style: normal; color: var(--blue2); }
+  #next { font-size: 24px; color: var(--soft); line-height: 1.35; min-height: 34px; }
+  #count { font-size: 15px; color: var(--soft); }
+  #big { font-size: 160px; font-weight: 800; color: var(--blue2); text-align: center; }
+  aside { padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+  #cam { width: 284px; height: 284px; border-radius: 50%; overflow: hidden; background: #000; border: 6px solid var(--blue); align-self: center; display: none; }
+  #cam video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+  .meter { height: 10px; border-radius: 6px; background: var(--line); overflow: hidden; }
+  .meter i { display: block; height: 100%; width: 0; background: var(--ok); transition: width .08s; }
+  .hint { font-size: 14px; color: var(--soft); line-height: 1.5; }
+  button { font: 700 17px Manrope, Arial, sans-serif; border: 0; border-radius: 14px; padding: 16px 18px; cursor: pointer; color: #fff; background: var(--blue); }
+  button.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+  button.stop { background: var(--rec); }
+  button:disabled { opacity: .35; cursor: default; }
+  button:focus-visible { outline: 3px solid var(--blue2); outline-offset: 2px; }
+  #review { display: none; flex-direction: column; gap: 12px; }
+  #review audio, #review video { width: 100%; border-radius: 12px; }
+  #done { display: none; font-size: 17px; line-height: 1.5; color: var(--ok); }
+  kbd { background: var(--line); border-radius: 6px; padding: 1px 7px; font-family: inherit; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } #prompter { border-right: 0; border-bottom: 1px solid var(--line); padding: 28px 20px; } }
+</style>
+</head>
+<body>
+<header><b>Студия отзыва</b><span id="who"></span><div id="state"><i id="dot"></i><span id="stTxt">готово к записи</span></div></header>
+<main>
+  <section id="prompter">
+    <div id="count"></div>
+    <div id="prev"></div>
+    <div id="cur"></div>
+    <div id="next"></div>
+  </section>
+  <aside>
+    <div id="cam"><video id="camv" autoplay muted playsinline></video></div>
+    <div><div class="hint" style="margin-bottom:8px">Микрофон – скажите пару слов, полоска должна прыгать</div><div class="meter"><i id="lvl"></i></div></div>
+    <button id="start">Начать запись</button>
+    <button id="nextBtn" class="ghost" disabled>Дальше <kbd>Пробел</kbd></button>
+    <button id="stopBtn" class="stop" disabled>Закончить</button>
+    <div id="review">
+      <div class="hint">Послушайте. Нравится – сохраните. Нет – запишите заново, это нормально.</div>
+      <div id="player"></div>
+      <button id="save">Сохранить отзыв</button>
+      <button id="again" class="ghost">Записать заново</button>
+    </div>
+    <div id="done"></div>
+    <div class="hint">Читайте спокойно, как будто рассказываете другу. Закончили фразу – нажмите <kbd>Пробел</kbd>: появится следующая. Оговорились – ничего страшного, скажите фразу ещё раз и идите дальше.</div>
+  </aside>
+</main>
+<script>
+const DATA = /*DATA*/{};
+const $ = (id) => document.getElementById(id);
+const rich = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\*([^*]+)\*/g, '<em>$1</em>');
+const P = DATA.phrases.map((p) => p.t);
+let stream, rec, chunks = [], t0 = 0, marks = [], i = -1, blob = null, stopAt = 0, recording = false;
+$('who').textContent = DATA.name ? '· ' + DATA.name : '';
+
+function show() {
+  $('count').textContent = i < 0 ? `${P.length} фраз · примерно ${Math.round(P.join(' ').split(/\s+/).length / 2.1)} секунд` : `Фраза ${i + 1} из ${P.length}`;
+  $('prev').innerHTML = i > 0 ? rich(P[i - 1]) : '';
+  $('cur').innerHTML = rich(P[Math.max(i, 0)]);
+  $('next').innerHTML = i + 1 < P.length ? rich(P[i + 1]) : (i >= 0 ? 'Последняя фраза – потом «Закончить»' : '');
+}
+show();
+
+async function init() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+      video: DATA.face ? { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' } : false });
+  } catch (e) {
+    $('stTxt').textContent = 'нет доступа к микрофону' + (DATA.face ? ' или камере' : '');
+    $('start').disabled = true;
+    $('done').style.display = 'block'; $('done').style.color = '#ff8a8a';
+    $('done').textContent = 'Браузер не дал доступ. Нажмите на значок замка слева от адреса, разрешите микрофон' + (DATA.face ? ' и камеру' : '') + ' и обновите страницу.';
+    return;
+  }
+  if (DATA.face) { $('cam').style.display = 'block'; $('camv').srcObject = stream; }
+  const ctx = new AudioContext(), an = ctx.createAnalyser(); an.fftSize = 512;
+  ctx.createMediaStreamSource(stream).connect(an);
+  const buf = new Uint8Array(an.fftSize);
+  (function loop() { an.getByteTimeDomainData(buf); let m = 0; for (const v of buf) m = Math.max(m, Math.abs(v - 128)); $('lvl').style.width = Math.min(100, m * 1.6) + '%'; requestAnimationFrame(loop); })();
+}
+init();
+
+function mime() {
+  const list = DATA.face ? ['video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4'] : ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'];
+  return list.find((m) => MediaRecorder.isTypeSupported(m)) || '';
+}
+
+$('start').onclick = async () => {
+  $('start').disabled = true; $('review').style.display = 'none'; $('done').style.display = 'none';
+  for (const n of [3, 2, 1]) { $('cur').innerHTML = `<div id="big">${n}</div>`; $('prev').textContent = ''; $('next').textContent = 'Приготовьтесь – первая фраза сейчас появится'; await new Promise((r) => setTimeout(r, 800)); }
+  chunks = []; marks = [];
+  rec = new MediaRecorder(stream, { mimeType: mime(), audioBitsPerSecond: 128000, videoBitsPerSecond: 3500000 });
+  rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+  rec.onstop = finish;
+  rec.start(500); t0 = performance.now(); recording = true;
+  i = 0; marks.push(0); show();
+  $('dot').classList.add('rec'); $('stTxt').textContent = 'идёт запись';
+  $('nextBtn').disabled = false; $('stopBtn').disabled = false;
+};
+function next() {
+  if (!recording) return;
+  if (i + 1 >= P.length) return stop();
+  i++; marks.push((performance.now() - t0) / 1000); show();
+}
+function stop() {
+  if (!recording) return;
+  recording = false; stopAt = (performance.now() - t0) / 1000; rec.stop();
+  $('dot').classList.remove('rec'); $('stTxt').textContent = 'запись остановлена';
+  $('nextBtn').disabled = true; $('stopBtn').disabled = true;
+}
+$('nextBtn').onclick = next; $('stopBtn').onclick = stop;
+document.addEventListener('keydown', (e) => { if ((e.code === 'Space' || e.code === 'ArrowRight') && recording) { e.preventDefault(); next(); } });
+
+function finish() {
+  blob = new Blob(chunks, { type: rec.mimeType });
+  const url = URL.createObjectURL(blob);
+  $('player').innerHTML = DATA.face ? `<video src="${url}" controls playsinline></video>` : `<audio src="${url}" controls></audio>`;
+  $('review').style.display = 'flex'; $('start').disabled = false; $('start').textContent = 'Записать заново';
+  i = -1; show();
+  if (marks.length < P.length) { $('done').style.display = 'block'; $('done').style.color = '#ffcf6b'; $('done').textContent = `Прочитано ${marks.length} фраз из ${P.length}. Можно сохранить так или записать заново.`; }
+}
+$('again').onclick = () => $('start').click();
+$('save').onclick = async () => {
+  $('save').disabled = true; $('save').textContent = 'Сохраняю…';
+  const ext = blob.type.includes('mp4') ? 'mp4' : 'webm';
+  try {
+    const r1 = await fetch('/save?ext=' + ext, { method: 'POST', body: blob });
+    const r2 = await fetch('/marks', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ marks, stop: stopAt, phrases: P.length, face: !!DATA.face, ext }) });
+    if (!r1.ok || !r2.ok) throw new Error();
+    $('review').style.display = 'none'; $('start').style.display = 'none';
+    $('done').style.display = 'block'; $('done').style.color = 'var(--ok)';
+    $('done').innerHTML = 'Сохранено. Вернитесь в Claude Code и скажите: <b>собери отзыв</b>';
+    $('stTxt').textContent = 'сохранено';
+  } catch { $('save').disabled = false; $('save').textContent = 'Сохранить отзыв'; alert('Не сохранилось: Claude Code закрыл студию? Скажите ему «открой студию отзыва» и запишите ещё раз.'); }
+};
+</script>
+</body>
+</html>
