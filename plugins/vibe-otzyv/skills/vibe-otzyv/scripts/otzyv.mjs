@@ -4,6 +4,8 @@
  *
  *   node otzyv.mjs fakty    "<рабочая папка>"                       что ученик сделал: витрина, работы, охота, бот, радар → отзыв/fakty.json
  *   node otzyv.mjs studiya  "<рабочая папка>"                       «Студия отзыва» в Chrome: суфлёр по фразам и запись голоса (и лица) → отзыв/запись.*
+ *   node otzyv.mjs studiya  "<рабочая папка>" --telefon             суфлёр без записи: ученик снимает себя телефоном у экрана
+ *   node otzyv.mjs import   "<рабочая папка>" ["<файл>"]            забрать видео/голос с телефона (без файла – самое свежее из Загрузок) → отзыв/запись.*
  *   node otzyv.mjs sobrat   "<рабочая папка>" [--format X] [--novyi] собрать проект ролика (формат случайный, --novyi – другой)
  *   node otzyv.mjs snapshot "<рабочая папка>"                       кадры для проверки глазами
  *   node otzyv.mjs render   "<рабочая папка>"                       MP4 → отзыв/Отзыв-<имя>.mp4 (+ лёгкая копия для мессенджеров)
@@ -112,7 +114,7 @@ function studiya() {
   const t = readJson(path.join(out, "текст.json"));
   if (!t || !t.phrases?.length) fail("нет текста отзыва – сначала анкета и текст (отзыв/текст.json)");
   const an = readJson(path.join(out, "анкета.json"), {});
-  const data = { name: t.name || "", face: !!an.face, phrases: t.phrases.map((p) => ({ t: p.t })) };
+  const data = { name: t.name || "", face: !!an.face && an.record !== "phone", phone: an.record === "phone" || argv.includes("--telefon"), phrases: t.phrases.map((p) => ({ t: p.t })) };
   const page = fs.readFileSync(path.join(here, "studiya.html"), "utf8").replace("/*DATA*/{}", JSON.stringify(data));
   let saved = 0;
   const server = http.createServer((req, res) => {
@@ -127,6 +129,7 @@ function studiya() {
       });
       return;
     }
+    if (req.method === "POST" && u.pathname === "/phone-done") { res.writeHead(200); res.end("ok"); ok("текст прочитан под запись на телефон"); console.log("  дальше: ученик пересылает видео на компьютер и говорит «видео отзыва скачал» → otzyv.mjs import"); return; }
     if (req.method === "POST" && u.pathname === "/marks") {
       let b = ""; req.on("data", (c) => (b += c));
       req.on("end", () => { fs.writeFileSync(path.join(out, "отметки.json"), b); saved |= 2; res.writeHead(200); res.end("ok"); done(); });
@@ -219,7 +222,7 @@ async function sobrat() {
     `[1:a]atrim=0:${D},asetpts=PTS-STARTPTS,volume='if(gt(t,${E}),0.32,0.09)':eval=frame,afade=t=in:d=0.8,afade=t=out:st=${(D - 1.4).toFixed(2)}:d=1.4[m];[v][m]amix=inputs=2:duration=first:normalize=0[a]`;
   execFileSync(ffmpegBin(), ["-y", "-v", "error", "-i", rec, "-stream_loop", "-1", "-i", music, "-filter_complex", fx, "-map", "[a]", "-t", String(D), "-ar", "48000", "-b:a", "192k", path.join(reel, "assets", "audio.mp3")]);
   if (format === "krug") {
-    execFileSync(ffmpegBin(), ["-y", "-v", "error", "-i", rec, "-an", "-vf", `trim=start=${t0.toFixed(3)}:end=${(t0 + E).toFixed(3)},setpts=PTS-STARTPTS,crop='min(iw,ih)':'min(iw,ih)',scale=720:720,fps=30`,
+    execFileSync(ffmpegBin(), ["-y", "-v", "error", "-i", rec, "-an", "-vf", `trim=start=${t0.toFixed(3)}:end=${(t0 + E).toFixed(3)},setpts=PTS-STARTPTS,crop='min(iw,ih)':'min(iw,ih)':'(iw-min(iw,ih))/2':'(ih-min(iw,ih))*0.3',scale=720:720,fps=30`,
       "-c:v", "libx264", "-g", "15", "-pix_fmt", "yuv420p", "-crf", "20", "-movflags", "+faststart", path.join(reel, "assets", "face.mp4")]);
   }
   if (format === "vitrina") {
@@ -291,7 +294,29 @@ function render() {
   console.log(`  для мессенджеров: ${light} (${(fs.statSync(light).size / 1048576).toFixed(1)} МБ)`);
 }
 
-if (cmd === "fakty") { const f = fakty(); fs.mkdirSync(out, { recursive: true }); fs.writeFileSync(path.join(out, "fakty.json"), JSON.stringify(f, null, 2)); console.log(JSON.stringify(f, null, 2)); }
+function importFile() {
+  let src = argv.slice(2).find((a) => !a.startsWith("--") && path.resolve(a) !== work);
+  const VID = /.(mp4|mov|m4v|webm|3gp|m4a|mp3|wav|ogg|oga|opus|aac|amr)$/i;
+  if (!src) { // самое свежее видео или аудио в Загрузках и Telegram Desktop за последние 3 часа
+    const dirs = [path.join(HOME, "Downloads"), path.join(HOME, "Downloads", "Telegram Desktop"), path.join(HOME, "Загрузки")];
+    const files = dirs.filter((d) => fs.existsSync(d)).flatMap((d) => fs.readdirSync(d).filter((x) => VID.test(x)).map((x) => path.join(d, x)));
+    const fresh = files.map((f) => ({ f, t: fs.statSync(f).mtimeMs })).filter((x) => Date.now() - x.t < 3 * 3600e3).sort((a, b) => b.t - a.t);
+    if (!fresh.length) fail("не нашёл свежего видео в Загрузках – скажите, где лежит файл");
+    src = fresh[0].f;
+  }
+  if (!fs.existsSync(src)) fail("нет файла: " + src);
+  fs.mkdirSync(out, { recursive: true });
+  for (const x of fs.readdirSync(out)) if (/^запись./.test(x)) fs.rmSync(path.join(out, x));
+  fs.rmSync(path.join(out, "отметки.json"), { force: true });
+  const dst = path.join(out, "запись" + path.extname(src).toLowerCase());
+  fs.copyFileSync(src, dst);
+  const p = probe(dst);
+  ok(`запись взята: ${src} → ${dst} (${p.duration.toFixed(1)} с, ${p.video ? "видео" : "только звук"})`);
+  console.log("  дальше: «собери отзыв» (субтитры расставятся по паузам)");
+}
+
+if (cmd === "import") importFile();
+else if (cmd === "fakty") { const f = fakty(); fs.mkdirSync(out, { recursive: true }); fs.writeFileSync(path.join(out, "fakty.json"), JSON.stringify(f, null, 2)); console.log(JSON.stringify(f, null, 2)); }
 else if (cmd === "studiya") studiya();
 else if (cmd === "sobrat") await sobrat();
 else if (cmd === "snapshot") snapshot();

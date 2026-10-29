@@ -79,7 +79,7 @@ function show() {
   $('count').textContent = i < 0 ? `${P.length} фраз · примерно ${Math.round(P.join(' ').split(/\s+/).length / 2.1)} секунд` : `Фраза ${i + 1} из ${P.length}`;
   $('prev').innerHTML = i > 0 ? rich(P[i - 1]) : '';
   $('cur').innerHTML = rich(P[Math.max(i, 0)]);
-  $('next').innerHTML = i + 1 < P.length ? rich(P[i + 1]) : (i >= 0 ? 'Последняя фраза – потом «Закончить»' : '');
+  $('next').innerHTML = i < 0 ? 'Первая фраза. Прочитайте весь текст глазами, потом – «Начать».' : i + 1 < P.length ? rich(P[i + 1]) : 'Последняя фраза – потом «Закончить»';
 }
 show();
 
@@ -100,7 +100,12 @@ async function init() {
   const buf = new Uint8Array(an.fftSize);
   (function loop() { an.getByteTimeDomainData(buf); let m = 0; for (const v of buf) m = Math.max(m, Math.abs(v - 128)); $('lvl').style.width = Math.min(100, m * 1.6) + '%'; requestAnimationFrame(loop); })();
 }
-init();
+if (DATA.phone) {
+  document.querySelector(".meter").parentElement.style.display = "none";
+  $("start").textContent = "Телефон снимает – начать";
+  $("done").style.display = "block"; $("done").style.color = "var(--blue2)";
+  $("done").innerHTML = "<b>Как снимать:</b> поставьте телефон вертикально прямо у экрана, камерой на уровне глаз (на стопку книг или подставку). Включите видео на фронтальную камеру, нажмите запись на телефоне, потом – «Телефон снимает – начать» здесь. Между фразами – пауза в секунду.";
+} else init();
 
 function mime() {
   const list = DATA.face ? ['video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4'] : ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'];
@@ -108,6 +113,7 @@ function mime() {
 }
 
 $('start').onclick = async () => {
+  if (DATA.phone) return phoneRun();
   $('start').disabled = true; $('review').style.display = 'none'; $('done').style.display = 'none';
   for (const n of [3, 2, 1]) { $('cur').innerHTML = `<div id="big">${n}</div>`; $('prev').textContent = ''; $('next').textContent = 'Приготовьтесь – первая фраза сейчас появится'; await new Promise((r) => setTimeout(r, 800)); }
   chunks = []; marks = [];
@@ -119,6 +125,13 @@ $('start').onclick = async () => {
   $('dot').classList.add('rec'); $('stTxt').textContent = 'идёт запись';
   $('nextBtn').disabled = false; $('stopBtn').disabled = false;
 };
+async function phoneRun() {
+  $('start').disabled = true; $('done').style.display = 'none';
+  for (const n of [3, 2, 1]) { $('cur').innerHTML = `<div id="big">${n}</div>`; $('prev').textContent = ''; $('next').textContent = 'Смотрите в камеру телефона – первая фраза сейчас появится'; await new Promise((r) => setTimeout(r, 800)); }
+  recording = true; marks = [0]; t0 = performance.now(); i = 0; show();
+  $('dot').classList.add('rec'); $('stTxt').textContent = 'читаем – телефон снимает';
+  $('nextBtn').disabled = false; $('stopBtn').disabled = false;
+}
 function next() {
   if (!recording) return;
   if (i + 1 >= P.length) return stop();
@@ -126,7 +139,16 @@ function next() {
 }
 function stop() {
   if (!recording) return;
-  recording = false; stopAt = (performance.now() - t0) / 1000; rec.stop();
+  recording = false; stopAt = (performance.now() - t0) / 1000;
+  if (DATA.phone) {
+    $('dot').classList.remove('rec'); $('stTxt').textContent = 'готово'; $('nextBtn').disabled = true; $('stopBtn').disabled = true;
+    $('start').disabled = false; $('start').textContent = 'Прочитать ещё раз'; i = -1; show();
+    $('done').style.display = 'block'; $('done').style.color = 'var(--ok)';
+    $('done').innerHTML = 'Остановите запись на телефоне. Перешлите видео на компьютер – например, себе в Telegram «Избранное» – и скачайте. Потом скажите Клоду: <b>видео отзыва скачал</b>';
+    fetch('/phone-done', { method: 'POST' }).catch(() => {});
+    return;
+  }
+  rec.stop();
   $('dot').classList.remove('rec'); $('stTxt').textContent = 'запись остановлена';
   $('nextBtn').disabled = true; $('stopBtn').disabled = true;
 }
