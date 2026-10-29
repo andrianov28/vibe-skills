@@ -64,7 +64,7 @@
       <button id="again" class="ghost">Записать заново</button>
     </div>
     <div id="done"></div>
-    <div class="hint">Читайте спокойно, как будто рассказываете другу. Закончили фразу – нажмите <kbd>Пробел</kbd>: появится следующая. Оговорились – ничего страшного, скажите фразу ещё раз и идите дальше.</div>
+    <div class="hint">Читайте спокойно, как будто рассказываете другу. Закончили фразу – нажмите <kbd>Пробел</kbd>: появится следующая. Оговорились – ничего страшного, скажите фразу ещё раз и идите дальше. Паузы между фразами – сколько нужно: в ролике их уберём.</div>
   </aside>
 </main>
 <script>
@@ -104,7 +104,7 @@ if (DATA.phone) {
   document.querySelector(".meter").parentElement.style.display = "none";
   $("start").textContent = "Телефон снимает – начать";
   $("done").style.display = "block"; $("done").style.color = "var(--blue2)";
-  $("done").innerHTML = "<b>Как снимать:</b> поставьте телефон вертикально прямо у экрана, камерой на уровне глаз (на стопку книг или подставку). Включите видео на фронтальную камеру, нажмите запись на телефоне, потом – «Телефон снимает – начать» здесь. Между фразами – пауза в секунду.";
+  $("done").innerHTML = "<b>Как снимать:</b> поставьте телефон вертикально вплотную к экрану, у верхнего края текста – камерой на уровне глаз (на стопку книг или подставку). Так взгляд на текст почти совпадёт с взглядом в камеру. Лицом к окну или лампе, не спиной к свету. Включите видео на фронтальную камеру, нажмите запись на телефоне, потом – «Телефон снимает – начать» здесь. <kbd>Пробел</kbd> – следующая фраза, паузы и повторы потом вырежем.";
 } else init();
 
 function mime() {
@@ -127,7 +127,7 @@ $('start').onclick = async () => {
 };
 async function phoneRun() {
   $('start').disabled = true; $('done').style.display = 'none';
-  for (const n of [3, 2, 1]) { $('cur').innerHTML = `<div id="big">${n}</div>`; $('prev').textContent = ''; $('next').textContent = 'Смотрите в камеру телефона – первая фраза сейчас появится'; await new Promise((r) => setTimeout(r, 800)); }
+  for (const n of [3, 2, 1]) { $('cur').innerHTML = `<div id="big">${n}</div>`; $('prev').textContent = ''; $('next').textContent = 'Читайте с экрана – телефон снимает. Первая фраза сейчас появится'; await new Promise((r) => setTimeout(r, 800)); }
   recording = true; marks = [0]; t0 = performance.now(); i = 0; show();
   $('dot').classList.add('rec'); $('stTxt').textContent = 'читаем – телефон снимает';
   $('nextBtn').disabled = false; $('stopBtn').disabled = false;
@@ -148,8 +148,9 @@ function stop() {
     fetch('/phone-done', { method: 'POST' }).catch(() => {});
     return;
   }
-  rec.stop();
-  $('dot').classList.remove('rec'); $('stTxt').textContent = 'запись остановлена';
+  // ещё секунда записи: последнее слово часто договаривают уже после нажатия
+  $('stTxt').textContent = 'дописываю последнее слово…';
+  setTimeout(() => { rec.stop(); $('dot').classList.remove('rec'); $('stTxt').textContent = 'запись остановлена'; }, 1200);
   $('nextBtn').disabled = true; $('stopBtn').disabled = true;
 }
 $('nextBtn').onclick = next; $('stopBtn').onclick = stop;

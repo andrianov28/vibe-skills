@@ -7,6 +7,8 @@
  * Форматы: vitrina (прокрутка витрины в телефоне), cifry (цифры ученика), bylo (было – стало),
  *          galereya (работы по очереди), krug (лицо в кружке поверх работ).
  */
+import { popLayer } from "./vsplyvashki.mjs";
+
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const rich = (s) => esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>");
 const r3 = (x) => +(+x).toFixed(3);
@@ -19,8 +21,15 @@ export const PALETTES = {
 export const TRANSITIONS = ["slide", "zoom", "rise"];
 export const FORMATS = { vitrina: "Экскурсия по витрине", cifry: "Цифры", bylo: "Было – стало", galereya: "Галерея работ", krug: "Кружок" };
 
+/** Интервалы занятости зоны всплывашек (склеены, если между ними меньше 0,6 с). */
+const busy = (pops) => {
+  const l = pops.map((p) => [p.s, p.e]).sort((a, b) => a[0] - b[0]), res = [];
+  for (const [a, b] of l) if (res.length && a - res[res.length - 1][1] < 0.6) res[res.length - 1][1] = Math.max(res[res.length - 1][1], b); else res.push([a, b]);
+  return res;
+};
+
 export function html(ctx) {
-  const { name, segs, dur, speechEnd, format, palette, transition, cases, stats, bylo, stalo, assets } = ctx;
+  const { name, segs, dur, speechEnd, format, palette, transition, cases, stats, bylo, stalo, pops = [] } = ctx;
   const c = PALETTES[palette];
   const D = r3(dur), E = r3(speechEnd);
   const clip = (id, s, d, track, extra = "") => `id="${id}" class="clip" data-start="${r3(s)}" data-duration="${r3(d)}" data-track-index="${track}"${extra}`;
@@ -97,18 +106,29 @@ export function html(ctx) {
   if (format === "krug") {
     const strip = cases.slice(0, 8);
     const row = [...strip, ...strip, ...strip];
-    mid = `<div id="ring"><video id="face" src="assets/face.mp4" data-start="0" data-duration="${E}" data-track-index="3" muted playsinline></video></div>
+    mid = `<div id="ring">${ctx.photo ? `<img id="face" src="assets/face.jpg" />` : `<video id="face" src="assets/face.mp4" data-start="0" data-duration="${E}" data-track-index="3" muted playsinline></video>`}</div>
         <div id="strip"><div id="rail">${row.map((s) => `<div class="sc"><img src="${esc(s.desktop || s.mobile)}" /></div>`).join("")}</div></div>`;
     midCss = `#ring { position: absolute; left: 50%; top: 300px; width: 660px; height: 660px; margin-left: -330px; border-radius: 50%; overflow: hidden; border: 12px solid var(--accentBg); box-shadow: 0 40px 120px rgba(0,0,0,0.45); background: #000; }
-      #ring video { width: 100%; height: 100%; object-fit: cover; }
+      #ring video, #ring img { width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 40%; }
       #strip { position: absolute; left: 0; right: 0; top: 1030px; height: 340px; overflow: hidden; }
       #rail { position: absolute; left: 0; top: 0; height: 340px; display: flex; gap: 24px; }
       .sc { flex: none; width: 540px; height: 340px; border-radius: 26px; overflow: hidden; background: var(--card); }
       .sc img { width: 100%; height: 100%; object-fit: cover; object-position: top; }`;
+    // лента работ выезжает, когда на экране нет всплывашки
+    let stripAt = 0.6; for (const [a, b] of busy(pops)) if (stripAt >= a - 0.1 && stripAt < b) stripAt = b;
     midJs = `tl.fromTo("#ring", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.5)" }, 0.15);
-        tl.fromTo("#strip", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6 }, 0.6);
-        tl.fromTo("#rail", { x: 0 }, { x: -${strip.length * 564}, duration: ${E}, ease: "none" }, 0);`;
+        tl.fromTo("#strip", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6 }, ${r3(stripAt)});
+        tl.fromTo("#rail", { x: 0 }, { x: -${strip.length * 564}, duration: ${E}, ease: "none" }, 0);
+        ${segs.map((sg, i) => `tl.fromTo("#face", { scale: ${i % 2 ? 1.08 : 1} }, { scale: ${i % 2 ? 1 : 1.08}, duration: ${r3(Math.max(0.3, sg.e - sg.s))}, ease: "sine.inOut" }, ${r3(sg.s)});`).join("\n        ")}
+        ${pops.filter((p) => p.type !== "work").map((p) => `tl.to("#ring", { scale: 1.05, duration: 0.12, ease: "power2.out", yoyo: true, repeat: 1 }, ${r3(p.s + (p.type === "stamp" ? 0.22 : 0))});`).join("\n        ")}
+        ${busy(pops).map(([a, b]) => `tl.to("#strip", { opacity: 0, y: 40, duration: 0.2 }, ${r3(a)}); tl.to("#strip", { opacity: 1, y: 0, duration: 0.3 }, ${r3(b)});`).join("\n        ")}`;
   }
+
+  // ---------- всплывашки ----------
+  const shownPops = format === "cifry" ? pops.filter((p) => p.type !== "num" && p.type !== "money") : pops;
+  const pl = popLayer({ pops: shownPops });
+  // без лица: на время всплывашки картинка формата приглушается, чтобы подписи не налезали друг на друга
+  if (format !== "krug") pl.js += "\n        " + busy(shownPops).map(([a, b]) => `tl.to("#mid", { opacity: 0.12, duration: 0.2 }, ${r3(a)}); tl.to("#mid", { opacity: 1, duration: 0.3 }, ${r3(b)});`).join("\n        ");
 
   // ---------- субтитры и плашки ----------
   const subs = segs.map((s, i) => `<div class="sub" id="sb${i}">${rich(s.t)}</div>`).join("\n        ");
@@ -131,7 +151,7 @@ export function html(ctx) {
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      :root { --canvas: ${c.canvas}; --canvas2: ${c.canvas2}; --ink: ${c.ink}; --soft: ${c.soft}; --accent: ${c.accent}; --accentBg: ${c.accentBg}; --accentInk: ${c.accentInk}; --card: ${c.card}; }
+      :root { --canvas: ${c.canvas}; --canvas2: ${c.canvas2}; --ink: ${c.ink}; --soft: ${c.soft}; --accent: ${c.accent}; --accentBg: ${c.accentBg}; --accentInk: ${c.accentInk}; --card: ${c.card}; --popBg: ${c.dark ? "rgba(16,18,28,0.88)" : "rgba(255,255,255,0.95)"}; --popLine: ${c.dark ? "rgba(143,176,255,0.45)" : "rgba(86,127,232,0.35)"}; --popItem: ${c.dark ? "rgba(86,127,232,0.2)" : "rgba(86,127,232,0.1)"}; }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--canvas); }
       #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); font-family: Manrope, Arial, sans-serif; }
@@ -144,6 +164,7 @@ export function html(ctx) {
       .phone { position: absolute; border-radius: 64px; overflow: hidden; border: 14px solid #0b0b0d; background: #fff; box-shadow: 0 50px 130px rgba(0,0,0,${c.dark ? 0.55 : 0.25}); }
       .phone video { width: 100%; height: 100%; object-fit: cover; }
       ${midCss}
+      ${pl.css}
       #subs { position: absolute; left: 60px; right: 60px; top: 1440px; height: 330px; }
       .sub { position: absolute; left: 0; right: 0; top: 0; text-align: center; font-size: 62px; font-weight: 800; line-height: 1.2; opacity: 0;
         padding: 26px 34px; border-radius: 34px; background: ${c.dark ? "rgba(0,0,0,0.42)" : "rgba(255,255,255,0.86)"}; }
@@ -171,6 +192,9 @@ export function html(ctx) {
         ${subs}
       </div>
       <div ${clip("plates", 0, E + 0.3, 6)}>${plates}</div>
+      <div ${clip("pops", 0, E + 0.3, 8)}><div id="pz">
+          ${pl.html}
+        </div></div>
       <div ${clip("outro", E, D - E, 7)}><div id="lg"><img src="assets/logo.png" /></div><div id="ot1">Вайб-сайты</div><div id="ot2">Академия Интернет Маркетинга</div></div>
     </div>
     <script>
@@ -185,6 +209,7 @@ export function html(ctx) {
         tl.fromTo("#glow", { x: 0, y: 0 }, { x: 500, y: -300, duration: ${D}, ease: "sine.inOut" }, 0);
         ${midJs}
         ${subJs}
+        ${pl.js}
         tl.fromTo("#outro", { opacity: 0 }, { opacity: 1, duration: 0.5 }, ${E});
         tl.fromTo("#lg", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.8)" }, ${r3(E + 0.2)});
         tl.fromTo("#ot1", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, ${r3(E + 0.5)});

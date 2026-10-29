@@ -6,6 +6,7 @@
  *   node otzyv.mjs studiya  "<рабочая папка>"                       «Студия отзыва» в Chrome: суфлёр по фразам и запись голоса (и лица) → отзыв/запись.*
  *   node otzyv.mjs studiya  "<рабочая папка>" --telefon             суфлёр без записи: ученик снимает себя телефоном у экрана
  *   node otzyv.mjs import   "<рабочая папка>" ["<файл>"]            забрать видео/голос с телефона (без файла – самое свежее из Загрузок) → отзыв/запись.*
+ *   node otzyv.mjs import   "<рабочая папка>" --foto ["<файл>"]     фото ученика для кружка (если видео нет) → отзыв/фото.jpg
  *   node otzyv.mjs sobrat   "<рабочая папка>" [--format X] [--novyi] собрать проект ролика (формат случайный, --novyi – другой)
  *   node otzyv.mjs snapshot "<рабочая папка>"                       кадры для проверки глазами
  *   node otzyv.mjs render   "<рабочая папка>"                       MP4 → отзыв/Отзыв-<имя>.mp4 (+ лёгкая копия для мессенджеров)
@@ -23,6 +24,7 @@ import { fileURLToPath } from "node:url";
 import { readJson, requireFromVideo, ffmpegBin, hyperframes, findChrome } from "./env.mjs";
 import { recordScroll } from "./zapis.mjs";
 import { html, PALETTES, TRANSITIONS, FORMATS } from "./kompoziciya.mjs";
+import { popSounds } from "./vsplyvashki.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -109,6 +111,16 @@ function recording() {
   return f ? path.join(out, f) : null;
 }
 
+// квадрат по ширине кадра; faceY – где по высоте центр лица (0 – верх, 1 – низ), из анкеты
+const faceCrop = (F) => `crop='min(iw,ih)':'min(iw,ih)':'(iw-min(iw,ih))/2':'max(0,min(ih-min(iw,ih),ih*${F}-min(iw,ih)/2))'`;
+// кадр с сеткой через каждые 10% высоты – Клод смотрит, где лицо, и пишет faceY в анкету
+function faceFrame(src, at) {
+  const dst = path.join(out, "кадр-лица.jpg");
+  spawnSync(ffmpegBin(), ["-y", "-v", "error", ...(at ? ["-ss", String(at)] : []), "-i", src, "-frames:v", "1", "-vf", "scale=-2:640,drawgrid=w=iw:h=ih/10:t=1:c=red@0.8", dst]);
+  return fs.existsSync(dst) ? dst : null;
+}
+function photoFile() { const p = path.join(out, "фото.jpg"); return fs.existsSync(p) ? p : null; }
+
 // ---------- студия ----------
 function studiya() {
   const t = readJson(path.join(out, "текст.json"));
@@ -116,7 +128,7 @@ function studiya() {
   const an = readJson(path.join(out, "анкета.json"), {});
   const data = { name: t.name || "", face: !!an.face && an.record !== "phone", phone: an.record === "phone" || argv.includes("--telefon"), phrases: t.phrases.map((p) => ({ t: p.t })) };
   const page = fs.readFileSync(path.join(here, "studiya.html"), "utf8").replace("/*DATA*/{}", JSON.stringify(data));
-  let saved = 0;
+  let saved = 0, phoneTimer = null;
   const server = http.createServer((req, res) => {
     const u = new URL(req.url, "http://x");
     if (req.method === "GET" && (u.pathname === "/" || u.pathname === "/index.html")) { res.writeHead(200, { "content-type": "text/html; charset=utf-8" }); return res.end(page); }
@@ -129,7 +141,7 @@ function studiya() {
       });
       return;
     }
-    if (req.method === "POST" && u.pathname === "/phone-done") { res.writeHead(200); res.end("ok"); ok("текст прочитан под запись на телефон"); console.log("  дальше: ученик пересылает видео на компьютер и говорит «видео отзыва скачал» → otzyv.mjs import"); return; }
+    if (req.method === "POST" && u.pathname === "/phone-done") { res.writeHead(200); res.end("ok"); ok("текст прочитан под запись на телефон"); console.log("  дальше: ученик пересылает видео на компьютер и говорит «видео отзыва скачал» → otzyv.mjs import"); clearTimeout(phoneTimer); phoneTimer = setTimeout(() => process.exit(0), 10 * 60 * 1000); return; }
     if (req.method === "POST" && u.pathname === "/marks") {
       let b = ""; req.on("data", (c) => (b += c));
       req.on("end", () => { fs.writeFileSync(path.join(out, "отметки.json"), b); saved |= 2; res.writeHead(200); res.end("ok"); done(); });
@@ -151,6 +163,50 @@ function studiya() {
   setTimeout(() => { console.log("– студия закрыта по таймауту: скажите «открой студию отзыва», чтобы записать"); process.exit(0); }, 60 * 60 * 1000);
 }
 
+// ---------- повторы фраз: расшифровка голоса и последний дубль ----------
+const norm = (w) => String(w).toLowerCase().replace(/ё/g, "е").replace(/[^\p{L}\p{N}]+/gu, "");
+const toks = (s) => String(s).replace(/\*/g, "").split(/[\s\-–—]+/).map(norm).filter(Boolean);
+const same = (a, b) => a === b || /^\d+$/.test(a) || /^\d+$/.test(b) || (a.length >= 4 && b.length >= 4 && a.slice(0, 4) === b.slice(0, 4));
+function asrWords(rec) {
+  const dir = path.join(out, "_asr");
+  const cache = path.join(dir, "transcript.json"), stamp = path.join(dir, "zapis.txt");
+  const st = fs.statSync(rec), key = path.basename(rec) + ":" + st.size + ":" + Math.round(st.mtimeMs);
+  if (!(fs.existsSync(cache) && fs.existsSync(stamp) && fs.readFileSync(stamp, "utf8") === key)) {
+    console.log("… расшифровка голоса – ищу повторы фраз (первый раз движок может докачать модель)");
+    fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
+    const r = hyperframes(["transcribe", rec, "-d", dir, "-m", "small", "-l", "ru", "--json"], dir, { echo: false });
+    if (r.status !== 0 || !fs.existsSync(cache)) return null;
+    fs.writeFileSync(stamp, key);
+  }
+  const j = readJson(cache, []);
+  return (Array.isArray(j) ? j : j.words || []).flatMap((x) => toks(x.text ?? x.word ?? "").map((w) => ({ w, s: +x.start, e: +x.end })));
+}
+// начало фразы: слово совпадает с одним из двух первых слов текста, и рядом ещё хотя бы одно из первых четырёх
+function headAt(words, j, P) {
+  if (!words[j] || !P.slice(0, 2).some((h) => same(words[j].w, h))) return false;
+  const win = words.slice(j, j + 5).map((x) => x.w);
+  return P.slice(0, 4).filter((h) => win.some((w) => same(w, h))).length >= Math.min(2, P.length);
+}
+/** Для каждой фразы – индексы слов её последнего дубля {a, b}. null – если какую-то фразу не нашли. */
+function takes(words, phrases) {
+  const P = phrases.map(toks), n = P.length, res = Array(n);
+  let lim = words.length;
+  for (let i = n - 1; i >= 0; i--) {
+    let a = -1;
+    for (let j = lim - 1; j >= 0; j--) if (headAt(words, j, P[i])) { a = j; break; }
+    if (a < 0) return null;
+    res[i] = { a, lim }; lim = a;
+  }
+  for (let i = 0; i < n; i++) {
+    // конец дубля: не дальше ожидаемой длины фразы и до фальстарта следующей фразы
+    const r = res[i], stop = Math.min(r.lim, r.a + P[i].length + 3);
+    let b = stop - 1;
+    for (let k = r.a + Math.max(1, P[i].length - 2); k < stop; k++) if (i + 1 < n && headAt(words, k, P[i + 1])) { b = k - 1; break; }
+    r.b = Math.max(r.a, b);
+  }
+  return res;
+}
+
 // ---------- сборка ----------
 function pickRandom(list, not) { const l = list.filter((x) => x !== not); return (l.length ? l : list)[Math.floor(Math.random() * (l.length ? l.length : list.length))]; }
 
@@ -164,45 +220,77 @@ async function sobrat() {
   const pr = probe(rec);
   if (pr.duration < 5) fail(`запись слишком короткая (${pr.duration.toFixed(1)} с)`);
 
-  // тайминги фраз
+  // речь и паузы. Конец – по голосу, а не по кнопке «Закончить»: последнее слово не режем.
   const sil = silences(rec);
   const speechStart = sil.length && sil[0].s < 0.05 ? sil[0].e : 0;
   const lastSil = sil.length ? sil[sil.length - 1] : null;
   const speechEnd = lastSil && lastSil.e >= pr.duration - 0.05 ? lastSil.s : pr.duration;
-  const marks = readJson(path.join(out, "отметки.json"));
+  const inner = sil.filter((s) => s.s > speechStart + 0.05 && s.e < speechEnd - 0.05);
+  // длинные паузы ужимаем до 2×PAD – ролик не теряет темп; звук и лицо режутся одинаково
+  const PAD = 0.2, MAXP = 0.45;
+  let keeps = []; let k0 = Math.max(0, speechStart - 0.25);
+  for (const s of inner) if (s.e - s.s > MAXP) { keeps.push([k0, s.s + PAD]); k0 = s.e - PAD; }
+  keeps.push([k0, Math.min(pr.duration, speechEnd + 0.4)]);
+  const full = keeps[keeps.length - 1][1] - keeps[0][0];
+
+  // повторы: ученик оговорился и прочитал фразу заново – в ролик идёт только последний дубль каждой фразы
   const n = t.phrases.length;
-  let cuts; // начало каждой фразы во времени записи + конец
-  if (marks && marks.marks?.length) {
-    const m = marks.marks.slice(0, n);
-    cuts = [Math.max(m[0], speechStart - 0.05), ...m.slice(1), Math.min(marks.stop || pr.duration, speechEnd + 0.5)];
-    if (m.length < n) console.log(`! прочитано ${m.length} фраз из ${n} – в ролик пойдут только они`);
+  let used = n, bounds = null, dubli = 0;
+  const words = asrWords(rec);
+  const tk = words ? takes(words, t.phrases.map((p) => p.t)) : null;
+  if (tk) {
+    // начало куска речи, где стоит слово: конец паузы, которая началась до слова (расшифровка часто ставит слово чуть раньше конца паузы)
+    const chunkStart = (x) => Math.max(keeps[0][0], ...inner.filter((s) => s.s < x - 0.05).map((s) => s.e));
+    const ranges = tk.map((r) => [chunkStart(words[r.a].s) - PAD, words[r.b].e + PAD]);
+    for (let i = 0; i + 1 < ranges.length; i++) ranges[i][1] = Math.min(ranges[i][1], ranges[i + 1][0]);
+    ranges[ranges.length - 1][1] = Math.max(ranges[ranges.length - 1][1], keeps[keeps.length - 1][1]);
+    const next = [];
+    for (const [a, b] of keeps) for (const [p, q] of ranges) { const x = Math.max(a, p), y = Math.min(b, q); if (y - x > 0.05) next.push([x, y]); }
+    // выброшенные куски речи (дубли и фальстарты): почти не пересекаются с последними дублями
+    dubli = keeps.filter(([a, b]) => b - a > 0.5 && ranges.reduce((acc, [p, q]) => acc + Math.max(0, Math.min(b, q) - Math.max(a, p)), 0) < 0.3 * (b - a)).length;
+    keeps = next;
+    bounds = ranges.slice(1).map((r) => r[0]);
+  } else if (words === null) console.log("! расшифровка голоса не удалась – повторы фраз (если были) останутся в ролике");
+  else console.log("! не все фразы узнал в записи – повторы фраз (если были) останутся в ролике");
+  const map = (x) => { let acc = 0; for (const [p, q] of keeps) { if (x <= p) return acc; if (x <= q) return acc + x - p; acc += q - p; } return acc; };
+  const E = +map(Infinity).toFixed(3);
+  const D = +(E + 2.6).toFixed(3);
+  const cutAway = +(full - E).toFixed(1);
+
+  // границы между фразами (во времени записи): по расшифровке, иначе – по Пробелу, притянутому к паузам
+  const mids = inner.map((s) => (s.s + s.e) / 2);
+  const nearest = (x, win) => mids.filter((y) => Math.abs(y - x) < win).sort((a, b) => Math.abs(a - x) - Math.abs(b - x))[0];
+  const marks = readJson(path.join(out, "отметки.json"));
+  if (bounds) { /* границы уже по расшифровке */ }
+  else if (marks && marks.marks?.length) {
+    used = Math.min(n, marks.marks.length);
+    if (used < n) console.log(`! прочитано ${used} фраз из ${n} – в ролик пойдут только они`);
+    // часы студии и звук расходятся на доли секунды, Пробел жмут с запозданием – находим общий сдвиг и притягиваем к паузам
+    const m = marks.marks.slice(1, used);
+    const diffs = m.map((x) => { const y = nearest(x, 2); return y == null ? null : y - x; }).filter((d) => d != null).sort((a, b) => a - b);
+    const off = diffs.length ? diffs[Math.floor(diffs.length / 2)] : 0;
+    bounds = m.map((x) => nearest(x + off, 1.2) ?? x + off);
   } else {
     // голос с телефона: делим по длине фраз и притягиваем границы к паузам
     const lens = t.phrases.map((p) => p.t.replace(/\*/g, "").length), sum = lens.reduce((a, b) => a + b, 0);
     const span = speechEnd - speechStart; let acc = 0;
-    const mids = sil.filter((s) => s.s > speechStart && s.e < speechEnd).map((s) => (s.s + s.e) / 2);
-    cuts = [speechStart];
-    for (let i = 0; i < n - 1; i++) {
-      acc += lens[i]; let x = speechStart + (span * acc) / sum;
-      const near = mids.filter((y) => Math.abs(y - x) < 1.2).sort((a, b) => Math.abs(a - x) - Math.abs(b - x))[0];
-      if (near && near > cuts[cuts.length - 1] + 0.6) x = near;
-      cuts.push(x);
-    }
-    cuts.push(speechEnd + 0.4);
+    bounds = [];
+    for (let i = 0; i < n - 1; i++) { acc += lens[i]; const x = speechStart + (span * acc) / sum; bounds.push(nearest(x, 1.2) ?? x); }
   }
-  const t0 = Math.max(0, cuts[0] - 0.35);
-  const E = +(cuts[cuts.length - 1] - t0).toFixed(3);
-  const D = +(E + 2.6).toFixed(3);
-  const used = cuts.length - 1;
-  const segs = t.phrases.slice(0, used).map((p, i) => ({ t: p.t, plashka: p.plashka || null, plashkaLabel: p.plashkaLabel || null, s: cuts[i] - t0, e: cuts[i + 1] - t0 }));
+  const cuts = [0, ...bounds.map(map), E];
+  for (let i = 1; i < cuts.length - 1; i++) cuts[i] = Math.max(cuts[i], cuts[i - 1] + 0.6);
+  const segs = t.phrases.slice(0, used).map((p, i) => ({ t: p.t, plashka: p.plashka || null, plashkaLabel: p.plashkaLabel || null, s: +cuts[i].toFixed(3), e: +cuts[i + 1].toFixed(3) }));
 
-  // формат, палитра, переходы – случайно, запоминаем
+  // формат, палитра, переходы – случайно, запоминаем. Записано лицо – оно всегда в ролике: формат «Кружок».
   const cases = f.cases.map((c) => ({ ...c }));
-  const allowed = ["cifry"];
-  if (f.vitrina) allowed.push("vitrina");
-  if (cases.length >= 2) allowed.push("galereya", "bylo");
-  if (an.face && pr.video) allowed.push("krug");
+  const face = pr.video && an.face !== false;
+  // видео нет, но ученик прислал фото – оно встаёт в кружок
+  const photo = !face && an.photo !== false ? photoFile() : null;
+  const allowed = face || photo ? ["krug"] : ["cifry"];
+  if (!face && f.vitrina) allowed.push("vitrina");
+  if (!face && cases.length >= 2) allowed.push("galereya", "bylo");
   const prev = readJson(path.join(out, "otzyv.json"), {});
+  if ((face || photo) && opt("--format") && opt("--format") !== "krug") console.log(`! лицо ${photo ? "на фото" : "записано"} – оно всегда в ролике, формат «Кружок» (меняются палитра и переходы)`);
   let format = opt("--format") || (argv.includes("--novyi") ? pickRandom(allowed, prev.format) : prev.format);
   if (!format || !allowed.includes(format)) format = pickRandom(allowed);
   const palette = argv.includes("--novyi") || !prev.palette ? pickRandom(Object.keys(PALETTES), prev.palette) : prev.palette;
@@ -210,19 +298,68 @@ async function sobrat() {
   fs.writeFileSync(path.join(out, "otzyv.json"), JSON.stringify({ format, palette, transition, allowed, at: new Date().toISOString() }, null, 2));
 
   // ассеты
-  fs.rmSync(reel, { recursive: true, force: true });
+  fs.rmSync(reel, { recursive: true, force: true, maxRetries: 8, retryDelay: 500 }); // браузер проверки может ещё держать файлы
   fs.mkdirSync(path.join(reel, "assets", "works"), { recursive: true });
   fs.copyFileSync(path.join(here, "..", "assets", "logo.png"), path.join(reel, "assets", "logo.png"));
   cases.forEach((c, i) => {
     for (const k of ["mobile", "desktop"]) if (c[k] && fs.existsSync(c[k])) { const dst = `assets/works/${i}-${k}${path.extname(c[k])}`; fs.copyFileSync(c[k], path.join(reel, dst)); c[k] = dst; } else c[k] = null;
     if (!c.mobile) c.mobile = c.desktop;
   });
-  const music = path.join(here, "..", "music", an.music === "energy" ? "zapas-energy.mp3" : pickRandom(["zapas-soft.mp3", "zapas-energy.mp3"]));
-  const fx = `[0:a]atrim=start=${t0.toFixed(3)}:end=${(t0 + E).toFixed(3)},asetpts=PTS-STARTPTS,highpass=f=70,acompressor=threshold=-20dB:ratio=3:attack=5:release=150,loudnorm=I=-16:TP=-1.5:LRA=11,apad=whole_dur=${D}[v];` +
-    `[1:a]atrim=0:${D},asetpts=PTS-STARTPTS,volume='if(gt(t,${E}),0.32,0.09)':eval=frame,afade=t=in:d=0.8,afade=t=out:st=${(D - 1.4).toFixed(2)}:d=1.4[m];[v][m]amix=inputs=2:duration=first:normalize=0[a]`;
-  execFileSync(ffmpegBin(), ["-y", "-v", "error", "-i", rec, "-stream_loop", "-1", "-i", music, "-filter_complex", fx, "-map", "[a]", "-t", String(D), "-ar", "48000", "-b:a", "192k", path.join(reel, "assets", "audio.mp3")]);
-  if (format === "krug") {
-    execFileSync(ffmpegBin(), ["-y", "-v", "error", "-i", rec, "-an", "-vf", `trim=start=${t0.toFixed(3)}:end=${(t0 + E).toFixed(3)},setpts=PTS-STARTPTS,crop='min(iw,ih)':'min(iw,ih)':'(iw-min(iw,ih))/2':'(ih-min(iw,ih))*0.3',scale=720:720,fps=30`,
+
+  // всплывашки: время – по слову из расшифровки (без неё – по месту слова во фразе)
+  const NUMW = /^(\d|од|дв|тр|чет|пят|шест|сем|вос|дев|дес|сто|сот|тыс|сорок|милл|полтор)/;
+  const sameAt = (a, b) => a === b || (a.length >= 4 && b.length >= 4 && a.slice(0, 4) === b.slice(0, 4)) || (/^\d+$/.test(a) && NUMW.test(b)) || (/^\d+$/.test(b) && NUMW.test(a));
+  const wordAt = (i, w) => {
+    const seg = segs[i], wt = toks(w || "")[0];
+    if (wt && tk && words) { const r = tk[i]; for (let k = r.a; k <= r.b; k++) if (sameAt(words[k].w, wt)) return Math.min(Math.max(map(words[k].s), seg.s), seg.e - 0.3); }
+    const T = toks(t.phrases[i].t), k = wt ? T.findIndex((x) => sameAt(x, wt)) : -1;
+    return seg.s + (seg.e - seg.s) * (k > 0 ? k / T.length : 0.08);
+  };
+  const toNum = (v) => parseInt(String(v ?? "").replace(/\D/g, ""), 10) || 0;
+  const pops = []; let wi = 0;
+  segs.forEach((sg, i) => {
+    const ph = t.phrases[i];
+    const list = [].concat(ph.pop || ph.pops || []);
+    // плашка с суммой (старая разметка) – теперь всплывашка «деньги»
+    if (ph.plashka && !list.some((p) => p.type === "money")) list.push({ type: "money", to: toNum(ph.plashka), label: ph.plashkaLabel, at: toks(ph.t).find((x) => NUMW.test(x)) });
+    for (const p of list) {
+      const q = { ...p, id: `pop${pops.length}`, s: +Math.max(0.3, wordAt(i, p.at) - 0.05).toFixed(3) };
+      if (q.type === "num" || q.type === "money") q.to = toNum(p.to ?? p.value);
+      if (q.type === "check") q.items = (p.items || []).map((it) => ({ t: it.t ?? it, atT: Math.max(q.s + 0.2, wordAt(i, it.at ?? it.t ?? it)) }));
+      if (q.type === "work") {
+        const c = (typeof p.case === "number" ? cases[p.case] : cases.find((x) => p.case && x.title === p.case)) || cases[wi++ % Math.max(1, cases.length)];
+        q.img = c ? c.desktop || c.mobile : null;
+        q.label = p.label || (c ? [c.title, c.niche].filter(Boolean).join(" · ") : "");
+      }
+      if (q.type === "work" && !q.img) continue; // нет скрина работы – пустую карточку не показываем
+      pops.push(q);
+    }
+  });
+  // сколько держать: до конца фразы, не меньше 2,2 с и не залезая на следующую всплывашку
+  pops.sort((a, b) => a.s - b.s).forEach((p, k) => {
+    const seg = segs.find((sg) => p.s >= sg.s - 0.1 && p.s < sg.e) || segs[segs.length - 1];
+    let e = Math.max(seg.e + 0.2, p.s + 2.2);
+    if (p.type === "check" && p.items.length) e = Math.max(e, p.items[p.items.length - 1].atT + 1.2);
+    if (pops[k + 1]) e = Math.min(e, pops[k + 1].s - 0.05);
+    p.e = +Math.min(e, E).toFixed(3);
+  });
+  segs.forEach((sg) => { sg.plashka = null; });
+  const sfx = popSounds(pops, E).filter((x) => x.t < D - 0.3);
+
+  const music =path.join(here, "..", "music", an.music === "energy" ? "zapas-energy.mp3" : pickRandom(["zapas-soft.mp3", "zapas-energy.mp3"]));
+  const sel = keeps.map(([p, q]) => `between(t,${p.toFixed(3)},${q.toFixed(3)})`).join("+");
+  const fx = `[0:a]aselect='${sel}',asetpts=N/SR/TB,highpass=f=70,acompressor=threshold=-20dB:ratio=3:attack=5:release=150,loudnorm=I=-16:TP=-1.5:LRA=11,apad=whole_dur=${D},aformat=sample_rates=48000:channel_layouts=stereo[v];` +
+    `[1:a]atrim=0:${D},asetpts=PTS-STARTPTS,volume='if(gt(t,${E}),0.32,0.08)':eval=frame,afade=t=in:d=0.8,afade=t=out:st=${(D - 1.4).toFixed(2)}:d=1.4,aformat=sample_rates=48000:channel_layouts=stereo[m];` +
+    // звуки всплывашек: поп, тик, динь, удар, вжух, нарастание
+    sfx.map((x, k) => `[${k + 2}:a]aformat=sample_rates=48000:channel_layouts=stereo,adelay=${Math.round(x.t * 1000)}|${Math.round(x.t * 1000)},volume=${x.v}[s${k}];`).join("") +
+    `[v][m]${sfx.map((_, k) => `[s${k}]`).join("")}amix=inputs=${sfx.length + 2}:duration=first:normalize=0[a]`;
+  const sfxIn = sfx.flatMap((x) => ["-i", path.join(here, "..", "sfx", x.f + ".wav")]);
+  execFileSync(ffmpegBin(), ["-y", "-v", "error", "-i", rec, "-stream_loop", "-1", "-i", music, ...sfxIn, "-filter_complex", fx,"-map", "[a]", "-t", String(D), "-ar", "48000", "-b:a", "192k", path.join(reel, "assets", "audio.mp3")]);
+  const faceY = Math.min(0.9, Math.max(0.1, +an.faceY || 0.4));
+  if (format === "krug") { const fr = faceFrame(photo || rec, photo ? 0 : Math.min(5, pr.duration / 3)); if (fr) console.log(`  кадр лица: ${fr} (центр лица по высоте сейчас ${faceY}; лицо не по центру кружка – поправь faceY в анкете и собери снова)`); }
+  if (format === "krug" && photo) execFileSync(ffmpegBin(), ["-y", "-v", "error", "-i", photo, "-frames:v", "1", "-vf", `${faceCrop(faceY)},scale=900:900`, "-q:v", "3", path.join(reel, "assets", "face.jpg")]);
+  if (format === "krug" && !photo) {
+    execFileSync(ffmpegBin(), ["-y", "-v", "error", "-i", rec, "-an", "-vf", `fps=30,select='${sel}',setpts=N/30/TB,${faceCrop(faceY)},scale=720:720,fps=30`,
       "-c:v", "libx264", "-g", "15", "-pix_fmt", "yuv420p", "-crf", "20", "-movflags", "+faststart", path.join(reel, "assets", "face.mp4")]);
   }
   if (format === "vitrina") {
@@ -250,17 +387,18 @@ async function sobrat() {
   if (format === "bylo" && !bylo.length) bylo.push("ни одного сайта", "не знал, с чего начать");
 
   const name = t.name || f.name || "Ученик";
-  fs.writeFileSync(path.join(reel, "index.html"), html({ name, segs, dur: D, speechEnd: E, format, palette, transition, cases, stats, bylo, stalo }));
+  fs.writeFileSync(path.join(reel, "index.html"), html({ name, segs, dur: D, speechEnd: E, format, palette, transition, cases, stats, bylo, stalo, pops, photo: !!photo }));
   fs.writeFileSync(path.join(reel, "hyperframes.json"), JSON.stringify({ $schema: "https://hyperframes.heygen.com/schema/hyperframes.json", paths: { blocks: "compositions", components: "compositions/components", assets: "assets" } }, null, 2));
   fs.writeFileSync(path.join(reel, "meta.json"), JSON.stringify({ id: "vibe-otzyv", name: `${name} – видео-отзыв` }, null, 2));
-  const plate = segs.find((s) => s.plashka);
-  const snapAt = [1.2, E * 0.3, E * 0.55, E * 0.8, ...(plate ? [plate.s + 0.9] : []), E + 1.6].map((x) => +x.toFixed(2)).sort((a, b) => a - b);
-  fs.writeFileSync(path.join(reel, "plan.json"), JSON.stringify({ name, format, palette, transition, t0, speechEnd: E, duration: D, segs, snapshotAt: snapAt }, null, 2));
+  // кадры для проверки: начало, каждая всплывашка в полной красе, конец
+  const popShots = pops.map((p) => Math.min(p.e - 0.3, p.type === "check" && p.items.length ? p.items[p.items.length - 1].atT + 0.5 : p.s + 1.3));
+  const snapAt = [...new Set([1.2, ...(popShots.length ? popShots : [E * 0.3, E * 0.55, E * 0.8]), E + 1.6].map((x) => +x.toFixed(2)))].sort((a, b) => a - b);
+  fs.writeFileSync(path.join(reel, "plan.json"), JSON.stringify({ name, format, palette, transition, keeps, speechEnd: E, duration: D, segs, pops, sfx, snapshotAt: snapAt }, null, 2));
 
   const lint = hyperframes(["lint"], reel, { echo: false });
   const errs = (lint.out.match(/(\d+) error\(s\)/) || [])[1];
   ok(`проект отзыва: ${reel}`);
-  console.log(`  формат: ${FORMATS[format]} · палитра: ${PALETTES[palette].name} · переходы: ${transition} · ${D} с (голос ${E} с, фраз ${used})`);
+  console.log(`  формат: ${FORMATS[format]}${photo ? " (фото)" : ""} · палитра: ${PALETTES[palette].name} · переходы: ${transition} · ${D} с (голос ${E} с, фраз ${used}, вырезано пауз и дублей ${cutAway} с${dubli ? ", повторов фраз убрано: " + dubli : ""})`);
   console.log(`  можно было: ${allowed.map((x) => FORMATS[x]).join(", ")}`);
   console.log(`  lint: ${errs === "0" ? "ошибок нет" : "ЕСТЬ ОШИБКИ"}`);
   if (errs !== "0") { console.log(lint.out.split("\n").filter((l) => /✗|error/i.test(l)).join("\n")); process.exit(1); }
@@ -296,6 +434,7 @@ function render() {
 
 function importFile() {
   let src = argv.slice(2).find((a) => !a.startsWith("--") && path.resolve(a) !== work);
+  if (argv.includes("--foto")) return importFoto(src);
   const VID = /.(mp4|mov|m4v|webm|3gp|m4a|mp3|wav|ogg|oga|opus|aac|amr)$/i;
   if (!src) { // самое свежее видео или аудио в Загрузках и Telegram Desktop за последние 3 часа
     const dirs = [path.join(HOME, "Downloads"), path.join(HOME, "Downloads", "Telegram Desktop"), path.join(HOME, "Загрузки")];
@@ -312,7 +451,29 @@ function importFile() {
   fs.copyFileSync(src, dst);
   const p = probe(dst);
   ok(`запись взята: ${src} → ${dst} (${p.duration.toFixed(1)} с, ${p.video ? "видео" : "только звук"})`);
-  console.log("  дальше: «собери отзыв» (субтитры расставятся по паузам)");
+  if (p.video) { const fr = faceFrame(dst, Math.min(5, p.duration / 3)); if (fr) console.log(`  кадр с сеткой: ${fr} – посмотри, где центр лица по высоте, и запиши faceY в анкету (0.1–0.9)`); }
+  console.log("  дальше: «собери отзыв»");
+}
+
+function importFoto(src) {
+  const IMG = /.(jpe?g|png|webp|heic|heif|bmp)$/i;
+  if (!src) { // самое свежее фото в Загрузках и Telegram Desktop за последние 3 часа
+    const dirs = [path.join(HOME, "Downloads"), path.join(HOME, "Downloads", "Telegram Desktop"), path.join(HOME, "Загрузки"), path.join(HOME, "Pictures")];
+    const files = dirs.filter((d) => fs.existsSync(d)).flatMap((d) => fs.readdirSync(d).filter((x) => IMG.test(x)).map((x) => path.join(d, x)));
+    const fresh = files.map((f) => ({ f, t: fs.statSync(f).mtimeMs })).filter((x) => Date.now() - x.t < 3 * 3600e3).sort((a, b) => b.t - a.t);
+    if (!fresh.length) fail("не нашёл свежего фото в Загрузках – скажите, где лежит файл");
+    src = fresh[0].f;
+  }
+  if (!fs.existsSync(src)) fail("нет файла: " + src);
+  fs.mkdirSync(out, { recursive: true });
+  const dst = path.join(out, "фото.jpg");
+  // целиком, по меньшей стороне до 1200 – кружок вырежется при сборке по faceY
+  const r = spawnSync(ffmpegBin(), ["-y", "-v", "error", "-i", src, "-frames:v", "1", "-vf", "scale='if(lt(iw,ih),min(1200,iw),-2)':'if(lt(iw,ih),-2,min(1200,ih))'", "-q:v", "3", dst], { encoding: "utf8" });
+  if (r.status !== 0 || !fs.existsSync(dst)) fail(/heic|heif/i.test(src) ? "фото в формате HEIC (iPhone) не открылось – перешлите его себе в Telegram как обычное фото (не файлом) и скачайте" : "фото не открылось: " + (r.stderr || "").trim().split("\n").pop());
+  ok(`фото взято: ${src} → ${dst}`);
+  const fr = faceFrame(dst);
+  if (fr) console.log(`  кадр с сеткой: ${fr} – посмотри, где центр лица по высоте, и запиши faceY в анкету (0.1–0.9)`);
+  console.log("  дальше: «собери отзыв» – фото встанет в кружок");
 }
 
 if (cmd === "import") importFile();
