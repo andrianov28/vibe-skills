@@ -82,6 +82,9 @@ async function answer(env, chat, from, text) {
   await api(env, "sendMessage", { chat_id: chat, text: "Пока ждёте – можно посмотреть работы:", reply_markup: menu() });
   const who = from.username ? `@${from.username}` : esc([from.first_name, from.last_name].filter(Boolean).join(" "));
   const body = CONFIG.brief.map((q, i) => `<b>${esc(q.short || q.q)}</b>\n${esc(st.answers[i] || "–")}`).join("\n\n");
+  const lead = { at: new Date().toISOString(), who: from.username ? "@" + from.username : [from.first_name, from.last_name].filter(Boolean).join(" "), username: from.username || "", userId: from.id,
+    answers: CONFIG.brief.map((q, i) => ({ q: q.short || q.q, a: st.answers[i] || "" })) };
+  await env.STATE.put(`lead:${Date.now()}:${chat}`, JSON.stringify(lead), { expirationTtl: 7 * 86400 });
   await api(env, "sendMessage", {
     chat_id: CONFIG.ownerChatId, parse_mode: "HTML",
     text: `🔥 <b>Тёплая заявка из бота</b>\nОт: ${who}\n\n${body}\n\n<i>Человек сам прошёл бриф – напишите ему в ближайший час.</i>`,
